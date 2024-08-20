@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  node:
+    image: node:18
+    working_dir: /app
+    container_name: GrowWorldNode
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    ports:
+      - "${APP_PORT}:3000"  # Port für den Node.js-Server
+    command: bash -c "npm install && node src/index.js"
+    environment:
+      - MONGO_URL=${MONGO_URL}
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4
+    container_name: GrowWorldDatabase
+    volumes:
+      - mongo-data:/data/db
+      - ./app/src/config/mongod.conf:/etc/mongod.conf:ro
+    env_file:
+      - .env
+    ports:
+      - "${MONGO_PORT}:27017"  # Port für MongoDB
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+volumes:
+  mongo-data:

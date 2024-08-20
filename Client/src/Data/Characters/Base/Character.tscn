@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bheousdjxqa14"]
+
+[ext_resource type="Script" path="res://Shared/Data/Characters/Base/Character.gd" id="1_kajrg"]
+[ext_resource type="Script" path="res://Shared/Data/Characters/Base/FSM.gd" id="2_2frev"]
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_kajrg")
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("2_2frev")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://shared/Data/Items/Weapons/Projectile.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://11vumvfkaknm" path="res://src/Assets/Art/Arrow.png" id="2"]
+
+[sub_resource type="CapsuleShape2D" id=1]
+resource_local_to_scene = true
+radius = 1.41421
+height = 15.5564
+
+[node name="Arrow" instance=ExtResource( 1 )]
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource( 2 )

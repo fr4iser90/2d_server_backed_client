@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuxulx66ak3rj"]
+
+[ext_resource type="Texture2D" uid="uid://donwwtfx226cq" path="res://src/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png" id="1_8kew4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jk70d"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8kew4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Mage" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jk70d")
+animation = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3qmvn56wlikb"]
+
+[ext_resource type="Script" path="res://src/UI/Menus/MainMenu/SingleplayerMenu/SingleplayerMenu.gd" id="1_ok22m"]
+
+[node name="SinglePlayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ok22m")
+
+[node name="Singleplayer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LoadLastSave" type="Button" parent="Singleplayer"]
+layout_mode = 2
+text = "LoadLastSave"
+
+[node name="LoadSave" type="Button" parent="Singleplayer"]
+layout_mode = 2
+text = "LoadSave"
+
+[node name="StartNewGame" type="Button" parent="Singleplayer"]
+layout_mode = 2
+text = "StartNewGame"
+
+[node name="Back" type="Button" parent="Singleplayer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="Singleplayer/LoadLastSave" to="." method="_on_load_last_save_pressed"]
+[connection signal="pressed" from="Singleplayer/LoadSave" to="." method="_on_load_save_pressed"]
+[connection signal="pressed" from="Singleplayer/StartNewGame" to="." method="_on_start_new_game_pressed"]
+[connection signal="pressed" from="Singleplayer/Back" to="." method="_on_back_pressed"]

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://8nh2jf6fpbxo"]
+
+[ext_resource type="Texture2D" uid="uid://5s650l0opflc" path="res://Shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="1_emwcy"]
+[ext_resource type="Script" path="res://Client/Characters/Enemies/SpawnExplosion.gd" id="2_xa5w0"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1_emwcy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1_emwcy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1_emwcy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1_emwcy")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SpawnExplosion" type="AnimatedSprite2D"]
+sprite_frames = SubResource("5")
+script = ExtResource("2_xa5w0")
+
+[connection signal="animation_finished" from="." to="." method="_on_SpawnExplosion_animation_finished"]

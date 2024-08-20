@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://77dq6m6t5pub"]
+
+[ext_resource type="Script" path="res://src/UI/Menus/MainMenu/MultiplayerMenu/LoginMenu/LoginMenu.gd" id="1_dy1co"]
+
+[node name="LoginMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_dy1co")
+
+[node name="Login" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Username" type="Label" parent="Login"]
+layout_mode = 2
+text = "Username : "
+
+[node name="UsernameInput" type="LineEdit" parent="Login"]
+layout_mode = 2
+placeholder_text = "Username"
+
+[node name="Password" type="Label" parent="Login"]
+layout_mode = 2
+text = "Password: "
+
+[node name="PasswordInput" type="LineEdit" parent="Login"]
+layout_mode = 2
+placeholder_text = "Password"
+
+[node name="StatusLabel" type="Label" parent="Login"]
+layout_mode = 2
+
+[node name="Login" type="Button" parent="Login"]
+layout_mode = 2
+text = "Login"
+
+[node name="Back" type="Button" parent="Login"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="Login/Login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="Login/Back" to="." method="_on_back_pressed"]

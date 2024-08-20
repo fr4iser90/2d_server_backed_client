@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxm85g4pqh12y"]
+
+[ext_resource type="Script" path="res://src/UI/Menus/MainMenu/MultiplayerMenu/MultiplayerMenu.gd" id="1_5yj0k"]
+
+[node name="MultiPlayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5yj0k")
+
+[node name="MultiPlayer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Status" type="Label" parent="MultiPlayer"]
+layout_mode = 2
+
+[node name="Server IPs" type="Label" parent="MultiPlayer"]
+layout_mode = 2
+text = "IP"
+
+[node name="IPInput" type="LineEdit" parent="MultiPlayer"]
+layout_mode = 2
+placeholder_text = "127.0.0.1"
+
+[node name="Port" type="Label" parent="MultiPlayer"]
+layout_mode = 2
+text = "Port"
+
+[node name="PortInput" type="LineEdit" parent="MultiPlayer"]
+layout_mode = 2
+placeholder_text = "9997"
+
+[node name="Connect" type="Button" parent="MultiPlayer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="Back" type="Button" parent="MultiPlayer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MultiPlayer/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="MultiPlayer/Back" to="." method="_on_back_pressed"]
