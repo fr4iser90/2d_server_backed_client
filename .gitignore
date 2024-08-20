@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+npm-debug.log
+.env
+
+# Godot
+.import/
+export.cfg
+export_presets.cfg
+
+# macOS
+.DS_Store
