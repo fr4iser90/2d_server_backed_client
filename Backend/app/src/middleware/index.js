@@ -1,17 +1,16 @@
-// src/middleware/index.js
 const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
 require('../config/passport'); // Passport-Konfiguration laden
 
-const applyMiddleware = (app) => {
+const apply_middleware = (app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.static('public'));
     app.use(passport.initialize()); // Passport initialisieren
 };
 
-const connectDatabase = async () => {
+const connect_database = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL, {
             useNewUrlParser: true,
@@ -25,6 +24,6 @@ const connectDatabase = async () => {
 };
 
 module.exports = {
-    applyMiddleware,
-    connectDatabase
+    apply_middleware,
+    connect_database
 };

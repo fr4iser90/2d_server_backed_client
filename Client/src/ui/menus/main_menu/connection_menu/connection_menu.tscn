@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxm85g4pqh12y"]
+
+[ext_resource type="Script" path="res://src/ui/menus/main_menu/connection_menu/connection_menu.gd" id="1_cs2eo"]
+
+[node name="ConnectionMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cs2eo")
+
+[node name="ConnectionMenuContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ServerIpLabel" type="Label" parent="ConnectionMenuContainer"]
+layout_mode = 2
+text = "IP"
+
+[node name="ServerIpInput" type="LineEdit" parent="ConnectionMenuContainer"]
+layout_mode = 2
+placeholder_text = "127.0.0.1"
+
+[node name="ServerPortLabel" type="Label" parent="ConnectionMenuContainer"]
+layout_mode = 2
+text = "Port"
+
+[node name="ServerPortInput" type="LineEdit" parent="ConnectionMenuContainer"]
+layout_mode = 2
+placeholder_text = "9997"
+
+[node name="StatusLabel" type="Label" parent="ConnectionMenuContainer"]
+layout_mode = 2
+text = "Enter IP and Port "
+
+[node name="ConnectButton" type="Button" parent="ConnectionMenuContainer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="BackButton" type="Button" parent="ConnectionMenuContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="ConnectionMenuContainer/ConnectButton" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="ConnectionMenuContainer/BackButton" to="." method="_on_back_pressed"]

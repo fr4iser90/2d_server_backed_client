@@ -1,0 +1,106 @@
+[gd_scene load_steps=23 format=3 uid="uid://cmkdj7caiofwx"]
+
+[ext_resource type="Script" path="res://src/core/network/network_meta_manager/network_manager.gd" id="1_2evm3"]
+[ext_resource type="Script" path="res://src/core/network/network_meta_manager/enet_client_manager.gd" id="2_hi63v"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/heartbeat_handler.gd" id="4_ofntt"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/login_response_handler.gd" id="5_dli1y"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/disconnection_handler.gd" id="6_a3j8f"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/movement_data_handler.gd" id="6_xv1jt"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/chat_messages_handler.gd" id="7_sm417"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/player_status_update_handler.gd" id="8_mmuqu"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/event_triggered_handler.gd" id="9_2vfl8"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/special_action_handler.gd" id="10_k6phx"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/player_movement_handler.gd" id="11_q25bf"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/self_test_channels.gd" id="12_lubt7"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_handlers/backend_login_handler.gd" id="13_4t3ev"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_handlers/backend_character_handler.gd" id="14_0dfcu"]
+[ext_resource type="Script" path="res://src/core/network/network_meta_manager/channel_manager.gd" id="15_a7fd3"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_handlers/backend_character_select_handler.gd" id="15_l0sa8"]
+[ext_resource type="Script" path="res://src/core/network/network_meta_manager/packet_manager.gd" id="16_leu3x"]
+[ext_resource type="Script" path="res://src/core/network/network_meta_manager/meta_channel_map.gd" id="16_vn61j"]
+[ext_resource type="Script" path="res://src/core/network/game_manager/player_manager/SpawnManager.gd" id="18_wpaq3"]
+[ext_resource type="Script" path="res://src/core/network/game_manager/player_manager/UserManager.gd" id="18_xmpxe"]
+[ext_resource type="Script" path="res://src/core/network/game_manager/player_manager/CharacterManager.gd" id="20_7v188"]
+[ext_resource type="Script" path="res://src/core/network/game_manager/player_manager/character_manager/CharacterInformationManager.gd" id="21_u6hyp"]
+
+[node name="NetworkManager" type="Node"]
+script = ExtResource("1_2evm3")
+
+[node name="MetaHandler" type="Node" parent="."]
+
+[node name="ClientServerHandler" type="Node" parent="MetaHandler"]
+
+[node name="HeartbeatHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("4_ofntt")
+
+[node name="ConnectionHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("5_dli1y")
+
+[node name="DisconnectionHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("6_a3j8f")
+
+[node name="DataHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("6_xv1jt")
+
+[node name="ChatMessageHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("7_sm417")
+
+[node name="PlayerStatusUpdateHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("8_mmuqu")
+
+[node name="EventTriggeredHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("9_2vfl8")
+
+[node name="SpecialActionHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("10_k6phx")
+
+[node name="SelfTestChannelsHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("12_lubt7")
+
+[node name="PlayerMovementHandler" type="Node" parent="MetaHandler/ClientServerHandler"]
+script = ExtResource("11_q25bf")
+
+[node name="BackendHandler" type="Node" parent="MetaHandler"]
+
+[node name="BackendLoginHandler" type="Node" parent="MetaHandler/BackendHandler"]
+script = ExtResource("13_4t3ev")
+
+[node name="BackendCharactersHandler" type="Node" parent="MetaHandler/BackendHandler"]
+script = ExtResource("14_0dfcu")
+
+[node name="BackendCharactersSelectHandler" type="Node" parent="MetaHandler/BackendHandler"]
+script = ExtResource("15_l0sa8")
+
+[node name="MetaManager" type="Node" parent="."]
+
+[node name="ENetClientManager" type="Node" parent="MetaManager"]
+script = ExtResource("2_hi63v")
+
+[node name="ChannelManager" type="Node" parent="MetaManager"]
+script = ExtResource("15_a7fd3")
+
+[node name="MetaChannelMap" type="Node" parent="MetaManager/ChannelManager"]
+script = ExtResource("16_vn61j")
+
+[node name="PacketManager" type="Node" parent="MetaManager"]
+script = ExtResource("16_leu3x")
+
+[node name="GameManager" type="Node" parent="."]
+
+[node name="PlayerManager" type="Node" parent="GameManager"]
+
+[node name="UserManager" type="Node" parent="GameManager/PlayerManager"]
+script = ExtResource("18_xmpxe")
+
+[node name="UserInformation" type="Node" parent="GameManager/PlayerManager/UserManager"]
+
+[node name="SpawnManager" type="Node" parent="GameManager/PlayerManager"]
+script = ExtResource("18_wpaq3")
+
+[node name="MovementManager" type="Node" parent="GameManager/PlayerManager"]
+
+[node name="CharacterManager" type="Node" parent="GameManager/PlayerManager"]
+script = ExtResource("20_7v188")
+
+[node name="CharacterInformationManager" type="Node" parent="GameManager/PlayerManager/CharacterManager"]
+script = ExtResource("21_u6hyp")

@@ -11,14 +11,13 @@ config_version=5
 [application]
 
 config/name="GrowWorld-Client"
-run/main_scene="res://src/System/StartScene/StartScene.tscn"
+run/main_scene="res://src/system/start_scene/menu_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerMovement="*res://src/Core/PlayerManagement/PlayerMovement/PlayerMovement.gd"
-MenuManager="*res://src/UI/MenuManager.gd"
+GlobalManager="*res://src/core/autoloads/global_manager.gd"
 
 [display]
 

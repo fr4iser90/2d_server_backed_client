@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0acyanaly72t"]
+
+[ext_resource type="Script" path="res://src/ui/menus/main_menu/options_menu/options_menu.gd" id="1_j4rxa"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_j4rxa")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

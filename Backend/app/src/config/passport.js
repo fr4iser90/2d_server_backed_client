@@ -2,7 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../models/UserModel'); // Dein Mongoose User Modell
+const User = require('../models/user_model'); // Dein Mongoose User Modell
 const bcrypt = require('bcryptjs');
 
 // Lokale Strategie für Benutzername und Passwort
@@ -16,8 +16,8 @@ passport.use(new LocalStrategy({
             return done(null, false, { message: 'Incorrect username.' });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
+        const is_match = await bcrypt.compare(password, user.password);
+        if (!is_match) {
             return done(null, false, { message: 'Incorrect password.' });
         }
 
@@ -45,3 +45,6 @@ passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
         return done(err, false);
     }
 }));
+
+
+module.exports = passport;

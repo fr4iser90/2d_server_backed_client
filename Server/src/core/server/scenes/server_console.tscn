@@ -1,0 +1,172 @@
+[gd_scene load_steps=2 format=3 uid="uid://i3foluw8dcmd"]
+
+[ext_resource type="Script" path="res://src/core/server/server_console.gd" id="1_2558d"]
+
+[node name="ServerConsole" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2558d")
+
+[node name="ServerConsoleContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlaceHolderTop" type="HBoxContainer" parent="ServerConsoleContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Top" type="HBoxContainer" parent="ServerConsoleContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="BackendIP" type="Label" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "BackendIP:"
+
+[node name="BackendIPInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "http://localhost"
+
+[node name="BackendPortLabel" type="Label" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "BackendPort:"
+
+[node name="BackendPortInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "3000"
+placeholder_text = "3000"
+
+[node name="ServerValidationToken" type="Label" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "ServerValidationToken:"
+
+[node name="ServerValidationTokenInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "your_server_key_here"
+placeholder_text = "your_server_key_here"
+
+[node name="ConnectToBackend" type="Button" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "Connect"
+
+[node name="DisconnectFromBackend" type="Button" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="ServerPortLabel" type="Label" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "ServerPort:"
+
+[node name="ServerPortInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "9997"
+
+[node name="AutoConnectLabel" type="Label" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+text = "AutoConnectoToBackend"
+
+[node name="AutoConnectCheckButton" type="CheckButton" parent="ServerConsoleContainer/Top"]
+layout_mode = 2
+
+[node name="Mid" type="HBoxContainer" parent="ServerConsoleContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="SideContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerListLabel" type="Label" parent="ServerConsoleContainer/Mid/SideContainer"]
+layout_mode = 2
+text = "Playerlist:"
+
+[node name="PlayerContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid/SideContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerContainerPanel" type="Panel" parent="ServerConsoleContainer/Mid/SideContainer/PlayerContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerList" type="ItemList" parent="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="PlaceHolder" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BackendContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid/PlaceHolder"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ConsoleContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ServerClientPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
+layout_mode = 2
+text = "ServerLogPanelLabel:"
+
+[node name="ServerClientPanel" type="Panel" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ServerClientLog" type="RichTextLabel" parent="ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel"]
+clip_contents = false
+custom_minimum_size = Vector2(350, 3)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ServerBackendPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
+layout_mode = 2
+text = "Backend:"
+
+[node name="ServerBackendPanel" type="Panel" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ServerBackendLog" type="RichTextLabel" parent="ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanel"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Bottom" type="HBoxContainer" parent="ServerConsoleContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0

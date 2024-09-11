@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://j0nfqkwpqam3"]
+
+[ext_resource type="Script" path="res://src/core/network/server_backend/manager/network_server_backend_manager.gd" id="1_hg5ss"]
+[ext_resource type="Script" path="res://src/core/network/server_backend/manager/backend_middleware_manager.gd" id="2_17yjg"]
+[ext_resource type="Script" path="res://src/core/network/server_backend/manager/backend_routes_manager.gd" id="3_qrkkp"]
+[ext_resource type="Script" path="res://src/core/network/server_backend/manager/auth_server_manager.gd" id="4_ttrpq"]
+[ext_resource type="Script" path="res://src/core/network/server_backend/manager/auth_token_manager.gd" id="5_ls7oi"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_handlers/backend_login_handler.gd" id="6_yarnm"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_handlers/backend_character_handler.gd" id="7_bmepg"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_handlers/backend_character_select_handler.gd" id="8_osm7y"]
+
+[node name="NetworkServerBackendManager" type="Node"]
+script = ExtResource("1_hg5ss")
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="BackendMiddlewareManager" type="Node" parent="Manager"]
+script = ExtResource("2_17yjg")
+
+[node name="BackendRoutesManager" type="Node" parent="Manager"]
+script = ExtResource("3_qrkkp")
+
+[node name="BackendWebSocket" type="Node" parent="Manager"]
+
+[node name="AuthServerManager" type="Node" parent="Manager"]
+script = ExtResource("4_ttrpq")
+
+[node name="AuthTokenManager" type="Node" parent="Manager"]
+script = ExtResource("5_ls7oi")
+
+[node name="Handler" type="Node" parent="."]
+
+[node name="BackendHandler" type="Node" parent="Handler"]
+
+[node name="BackendLoginHandler" type="Node" parent="Handler/BackendHandler"]
+script = ExtResource("6_yarnm")
+
+[node name="BackendCharacterHandler" type="Node" parent="Handler/BackendHandler"]
+script = ExtResource("7_bmepg")
+
+[node name="BackendCharacterSelectHandler" type="Node" parent="Handler/BackendHandler"]
+script = ExtResource("8_osm7y")
