@@ -6,6 +6,7 @@ signal character_selection_failed(reason: String)
 
 var backend_routes_manager
 var enet_server_manager
+var user_session_manager
 var handler_name = "backend_character_select_handler"
 var is_initialized = false
 
@@ -15,6 +16,7 @@ func initialize():
 		return
 	backend_routes_manager = GlobalManager.GlobalNodeManager.get_node_from_config("backend_manager", "backend_routes_manager")
 	enet_server_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_manager", "enet_server_manager")
+	user_session_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "user_session_manager")
 	is_initialized = true
 
 
@@ -69,9 +71,16 @@ func _on_backend_characters_response(result: int, response_code: int, headers: A
 			var character_data = json.get_data()
 			print("Characters fetched: ", character_data)
 
-			var user_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "user_manager")
-			if user_manager:
-				user_manager.update_user_data(peer_id, {"selected_character": character_data})
+			var character_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "character_manager")
+			if character_manager:
+				character_manager.add_character_to_manager(peer_id, {"selected_character": character_data})
+				
+			var instance_manager = GlobalManager.GlobalNodeManager.get_node_from_config("world_manager", "instance_manager")
+			if instance_manager:
+				# Dynamischer Aufruf der Charakterauswahl und Spawnen des Spielers
+				instance_manager.handle_player_character_selected(peer_id, character_data["character"])
+			if user_session_manager:
+				user_session_manager.attach_character_to_user(peer_id)
 			# Erstelle das Dictionary für die Antwortdaten
 			var response_data = {
 				"characters": character_data

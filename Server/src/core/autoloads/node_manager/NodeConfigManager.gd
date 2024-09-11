@@ -38,6 +38,7 @@ var network_meta_manager = {
 	"packet_manager": {"path_tree": "/root/Core/NetworkManager/MetaManager/PacketManager", "cache": true},
 	"channel_manager": {"path_tree": "/root/Core/NetworkManager/MetaManager/ChannelManager", "cache": true},
 	"global_channel_map": {"path_tree": "/root/Core/NetworkManager/MetaManager/ChannelManager/GlobalChannelMap", "cache": true, "initialize": true},
+	"user_session_manager": {"path_tree": "/root/Core/NetworkManager/MetaManager/UserSessionManager", "cache": true},
 }
 
 var backend_manager = {
@@ -47,7 +48,6 @@ var backend_manager = {
 }
 var player_manager = {
 	"player_manager": {"path_tree": "/root/Core/GameManager/PlayerManager", "cache": true},
-	"user_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/UserManager", "cache": true},
 	"character_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/CharacterManager", "cache": true},
 	"spawn_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/SpawnManager", "cache": true},
 	"player_movement_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/Movement2DManager", "cache": true},

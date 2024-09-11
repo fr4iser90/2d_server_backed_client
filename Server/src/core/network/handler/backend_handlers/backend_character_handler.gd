@@ -17,7 +17,7 @@ func initialize():
 func handle_packet(client_data: Dictionary, peer_id: int):
 	if client_data.has("token"):
 		var token = client_data["token"]
-		print("Token received for character fetch: ", token)
+		#print("Token received for character fetch: ", token)
 
 		# Rufe Charakterdaten vom Backend ab
 		fetch_characters_from_backend(token, peer_id)
@@ -52,9 +52,6 @@ func _on_backend_characters_response(result: int, response_code: int, headers: A
 
 		if parse_result == OK:
 			var characters = json.get_data()
-			var user_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "user_manager")
-			if user_manager:
-				user_manager.update_user_data(peer_id, {"character_list": characters})
 			# Erstelle das Dictionary für die Antwortdaten
 			var response_data = {
 				"characters": characters

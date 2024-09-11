@@ -49,9 +49,9 @@ func _on_peer_disconnected(peer_id: int):
 	print("Peer disconnected with ID: ", peer_id)
 	connected_peers.erase(peer_id)  # Entferne den Peer aus der lokalen Liste
 	print("Updated connected peers: ", connected_peers)
-	var user_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "user_manager")
-	if user_manager:
-		user_manager.remove_user(peer_id)
+	var user_session_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "user_session_manager")
+	if user_session_manager:
+		user_session_manager.remove_user(peer_id)
 	emit_signal("peer_disconnected", peer_id)
 
 func _process(delta):

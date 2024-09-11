@@ -78,15 +78,15 @@ func _on_server_initialized():
 		_on_connect_pressed()
 	var channel_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	var network_server_backend_manager = GlobalManager.GlobalNodeManager.get_cached_node("backend_manager", "network_server_backend_manager")
-	var user_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "user_manager")
+	var user_session_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "user_session_manager")
 	GlobalManager.GlobalServerConsolePrint.connect("log_server_console_message", Callable(self, "_on_log_message_server_client"))
-	user_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
+	user_session_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
 	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connected"))
 	network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_authentication_complete"))
 	channel_manager.register_global_channel_map()
 	GlobalManager.GlobalNodeManager.scan_node_tree(get_tree().root)
-	if user_manager:
-		user_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
+	if user_session_manager:
+		user_session_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
 		custom_print("Connected to user manager signal.")
 	else:
 		custom_print("User manager not found.")
@@ -123,10 +123,10 @@ func custom_print(message: String):
 	
 # Update player data
 func _on_user_data_changed(changed_peer_id: int, user_data: Dictionary):
-	var user_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "user_manager")
+	var user_session_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "user_session_manager")
 	player_list.clear()  # Clear the list before adding new items
-	for id in user_manager.users_data.keys():
-		var user = user_manager.users_data[id]
+	for id in user_session_manager.users_data.keys():
+		var user = user_session_manager.users_data[id]
 		# Display the main player data in the ItemList (Username, Selected Character, Scene)
 		var username = user.get("username", "Unknown")
 		var current_scene = user.get("current_scene", "No Scene")

@@ -37,8 +37,6 @@ func get_player_character(peer_id: int) -> Node:
 		print("No player character found for peer_id: ", peer_id)
 	return player_character
 
-
-
 # Processes movement data and updates player positions
 func process_received_data(peer_id: int, movement_data: Dictionary):
 	print("Processing movement data for peer_id ", peer_id)  # Zeigt den empfangenen `peer_id`

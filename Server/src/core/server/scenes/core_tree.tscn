@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmu5u3w8dflrx"]
+[gd_scene load_steps=13 format=3 uid="uid://dmu5u3w8dflrx"]
 
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/enet_server_manager.gd" id="1_wj3dc"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/channel_manager.gd" id="2_e2f4v"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/meta_channel_map.gd" id="3_nd5xl"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/packet_manager.gd" id="4_782fd"]
-[ext_resource type="Script" path="res://src/core/game_manager/player_manager/UserManager.gd" id="5_mlx8c"]
+[ext_resource type="Script" path="res://src/core/network/network_meta_manager/UserSessionManager.gd" id="5_0dvlc"]
+[ext_resource type="Script" path="res://src/core/game_manager/player_manager/CharacterManager.gd" id="6_cacws"]
+[ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerManager.gd" id="6_k1c6d"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/SpawnManger.gd" id="6_npyvi"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerMovementManager.gd" id="7_lrib4"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerMonitor.gd" id="8_2nnus"]
@@ -33,14 +35,16 @@ script = ExtResource("3_nd5xl")
 [node name="PacketManager" type="Node" parent="NetworkManager/MetaManager"]
 script = ExtResource("4_782fd")
 
+[node name="UserSessionManager" type="Node" parent="NetworkManager/MetaManager"]
+script = ExtResource("5_0dvlc")
+
 [node name="GameManager" type="Node" parent="."]
 
 [node name="PlayerManager" type="Node" parent="GameManager"]
-
-[node name="UserManager" type="Node" parent="GameManager/PlayerManager"]
-script = ExtResource("5_mlx8c")
+script = ExtResource("6_k1c6d")
 
 [node name="CharacterManager" type="Node" parent="GameManager/PlayerManager"]
+script = ExtResource("6_cacws")
 
 [node name="SpawnManager" type="Node" parent="GameManager/PlayerManager"]
 script = ExtResource("6_npyvi")

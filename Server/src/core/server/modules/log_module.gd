@@ -11,7 +11,7 @@ var is_initialized = false  # To prevent double initialization
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_manager", "enet_server_manager")
+	enet_server_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "enet_server_manager")
 	if enet_server_manager == null:
 		return
 	enet_server_manager.connect("peer_connected", Callable(self, "log_player_connected"))

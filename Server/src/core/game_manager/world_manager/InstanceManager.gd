@@ -85,18 +85,31 @@ func assign_player_to_instance(scene_name: String, player_data: Dictionary) -> S
 	print("Error: No spawn instance available to assign player.")
 	return ""
 
-# Delegiere das Spawnen eines Spielers an den SpawnManager
-func handle_player_character_selected(peer_id: int, scene_name: String, spawn_point: String, character_class: String):
+
+# Delegiere das Spawnen eines Spielers an den PlayerManager, dynamisch mit Character Data
+func handle_player_character_selected(peer_id: int, character_data: Dictionary):
 	print("InstanceManager: Handling character selection for peer_id: ", peer_id)
 
-	# Spieler in eine Instanz zuweisen
-	var instance_key = assign_player_to_instance(scene_name, {"peer_id": peer_id, "character_class": character_class})
-	if instance_key != "":
-		# Verwende den SpawnManager zum Spawnen des Charakters
-		var scene_instance = instances[instance_key]["scene_instance"]
-		var spawn_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "spawn_manager")
+	# Extrahiere die notwendigen Daten aus dem character_data-Dictionary
+	var scene_name = character_data.get("scene_name", "")
+	var spawn_point = character_data.get("spawn_point", "")
+	var character_class = character_data.get("character_class", "")
 
-		# Hier übergeben wir die Szene-Instanz anstelle des Szenennamens
-		spawn_manager.spawn_player(peer_id, character_class, scene_instance, spawn_point)
+	if scene_name != "" and spawn_point != "" and character_class != "":
+		# Spieler in eine Instanz zuweisen
+		var instance_key = assign_player_to_instance(scene_name, {"peer_id": peer_id, "character_class": character_class})
+		if instance_key != "":
+			# Verwende den SpawnManager oder PlayerManager zum Spawnen des Charakters
+			var scene_instance = instances[instance_key]["scene_instance"]
+			var player_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "player_manager")
+			
+			if player_manager:
+				# Dynamische Datenübergabe an den PlayerManager
+				player_manager.handle_player_spawn(peer_id, character_data)
+			else:
+				print("Error: PlayerManager not found.")
+		else:
+			print("Error: Could not assign player to an instance.")
 	else:
-		print("Error: Could not assign player to an instance.")
+		print("Error: Invalid character data.")
+

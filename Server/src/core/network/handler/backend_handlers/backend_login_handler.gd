@@ -5,6 +5,7 @@ var backend_routes_manager = null
 var enet_server_manager = null
 var channel_manager = null
 var packet_manager = null
+var user_manager = null
 var is_initialized = false
 var handler_name = "backend_login_handler"
 
@@ -12,19 +13,19 @@ func initialize():
 	if is_initialized:
 		print("handle_backend_login already initialized. Skipping.")
 		return
-	packet_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "packet_manager")
-	channel_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "channel_manager")
-	backend_routes_manager = GlobalManager.GlobalNodeManager.get_node_from_config("backend_manager", "backend_routes_manager")
-	enet_server_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_manager", "enet_server_manager")
+	packet_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "packet_manager")
+	channel_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "channel_manager")
+	backend_routes_manager = GlobalManager.GlobalNodeManager.get_cached_node("backend_manager", "backend_routes_manager")
+	enet_server_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_manager", "enet_server_manager")
+	user_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "user_manager")
 	is_initialized = true
 
 func handle_packet(client_data: Dictionary, peer_id: int):
 	# Add or update the user with peer_id and username at the login point
-	var user_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "user_manager")
 	if user_manager:
 		# Store the username from the client_data packet (if provided)
 		var initial_user_data = {"username": client_data.get("username", ""), "peer_id": peer_id}
-		user_manager.update_user_data(peer_id, initial_user_data)
+		user_manager.add_user(peer_id, initial_user_data)
 	# Now forward the request to the backend to complete login
 	handle_login_request(client_data, peer_id)
 
@@ -69,7 +70,6 @@ func _get_http_method_constant(method: String) -> int:
 func _on_backend_login_response(result: int, response_code: int, headers: Array, body: PackedByteArray, peer_id: int):
 	if response_code == 200:
 		var response_text = body.get_string_from_utf8()
-		print("Request successful, response: ", response_text)
 		var json = JSON.new()
 		var parse_result = json.parse(response_text)
 		if parse_result == OK:
@@ -78,7 +78,6 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 				"user_id": response_data["user_id"],
 				"token": response_data["token"]
 			}
-			var user_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "user_manager")
 			if user_manager:
 				# Add or update the user with user_id and token
 				var updated_user_data = {
@@ -92,7 +91,7 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 				print("Failed to send packet:", err)
 			else:
 				print("Login packet sent successfully")
-			print("Data sent to client with peer_id: ", peer_id)
+			#print("Data sent to client with peer_id: ", peer_id)
 		else:
 			print("Failed to parse JSON response.")
 	else:
