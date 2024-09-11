@@ -101,7 +101,7 @@ func handle_player_character_selected(peer_id: int, character_data: Dictionary):
 		if instance_key != "":
 			# Verwende den SpawnManager oder PlayerManager zum Spawnen des Charakters
 			var scene_instance = instances[instance_key]["scene_instance"]
-			var player_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "player_manager")
+			var player_manager = GlobalManager.GlobalNodeManager.get_cached_node("game_manager", "player_manager")
 			
 			if player_manager:
 				# Dynamische Datenübergabe an den PlayerManager

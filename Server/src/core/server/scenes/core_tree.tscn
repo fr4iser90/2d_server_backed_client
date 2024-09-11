@@ -43,24 +43,34 @@ script = ExtResource("5_0dvlc")
 [node name="PlayerManager" type="Node" parent="GameManager"]
 script = ExtResource("6_k1c6d")
 
-[node name="CharacterManager" type="Node" parent="GameManager/PlayerManager"]
-script = ExtResource("6_cacws")
-
-[node name="SpawnManager" type="Node" parent="GameManager/PlayerManager"]
-script = ExtResource("6_npyvi")
-
-[node name="Movement2DManager" type="Node" parent="GameManager/PlayerManager"]
-script = ExtResource("7_lrib4")
-
-[node name="PlayerMovementData" type="Node" parent="GameManager/PlayerManager"]
-script = ExtResource("8_2nnus")
-
-[node name="PlayerVisualMonitor" type="Node" parent="GameManager/PlayerManager"]
-script = ExtResource("9_oyhxw")
-
 [node name="Handler" type="Node" parent="GameManager/PlayerManager"]
 
-[node name="ConnectionHandler" type="Node" parent="GameManager/PlayerManager/Handler"]
+[node name="PlayerSpawnHandler" type="Node" parent="GameManager/PlayerManager/Handler"]
+
+[node name="CharacterManager" type="Node" parent="GameManager"]
+script = ExtResource("6_cacws")
+
+[node name="Handler" type="Node" parent="GameManager/CharacterManager"]
+
+[node name="SpawnManager" type="Node" parent="GameManager"]
+script = ExtResource("6_npyvi")
+
+[node name="Handler" type="Node" parent="GameManager/SpawnManager"]
+
+[node name="Movement2DManager" type="Node" parent="GameManager"]
+script = ExtResource("7_lrib4")
+
+[node name="Handler" type="Node" parent="GameManager/Movement2DManager"]
+
+[node name="PlayerMovementData" type="Node" parent="GameManager"]
+script = ExtResource("8_2nnus")
+
+[node name="Handler" type="Node" parent="GameManager/PlayerMovementData"]
+
+[node name="PlayerVisualMonitor" type="Node" parent="GameManager"]
+script = ExtResource("9_oyhxw")
+
+[node name="Handler" type="Node" parent="GameManager/PlayerVisualMonitor"]
 
 [node name="WorldManager" type="Node" parent="."]
 

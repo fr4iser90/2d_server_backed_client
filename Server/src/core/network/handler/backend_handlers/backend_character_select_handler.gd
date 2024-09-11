@@ -71,7 +71,7 @@ func _on_backend_characters_response(result: int, response_code: int, headers: A
 			var character_data = json.get_data()
 			print("Characters fetched: ", character_data)
 
-			var character_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "character_manager")
+			var character_manager = GlobalManager.GlobalNodeManager.get_node_from_config("game_manager", "character_manager")
 			if character_manager:
 				character_manager.add_character_to_manager(peer_id, {"selected_character": character_data})
 				

@@ -7,7 +7,7 @@ var users_data: Dictionary = {}  # Holds all active user data (user-specific inf
 var character_manager = null # Reference to CharacterManager
 
 func initialize():
-	character_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "character_manager")
+	character_manager = GlobalManager.GlobalNodeManager.get_cached_node("game_manager", "character_manager")
 	pass
 
 func add_user_to_manager(peer_id: int, user_data: Dictionary):

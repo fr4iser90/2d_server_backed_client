@@ -46,20 +46,15 @@ var backend_manager = {
 	"backend_routes_manager": {"path_tree": "/root/Core/NetworkManager/NetworkServerBackendManager/Manager/BackendRoutesManager", "cache": true},
 	"network_server_backend_manager": {"path_tree": "/root/Core/NetworkManager/NetworkServerBackendManager", "cache": true},
 }
-var player_manager = {
+var game_manager = {
 	"player_manager": {"path_tree": "/root/Core/GameManager/PlayerManager", "cache": true},
-	"character_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/CharacterManager", "cache": true},
-	"spawn_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/SpawnManager", "cache": true},
-	"player_movement_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/Movement2DManager", "cache": true},
-	"player_visual_monitor": {"path_tree": "/root/Core/GameManager/PlayerManager/PlayerVisualMonitor", "cache": true},
-	"player_movmemnt_data_monitor": {"path_tree": "/root/Core/GameManager/PlayerManager/PlayerMovementData", "cache": true},
+	"character_manager": {"path_tree": "/root/Core/GameManager/CharacterManager", "cache": true},
+	"spawn_manager": {"path_tree": "/root/Core/GameManager/SpawnManager", "cache": true},
+	"player_movement_manager": {"path_tree": "/root/Core/GameManager/Movement2DManager", "cache": true},
+	"player_visual_monitor": {"path_tree": "/root/Core/GameManager/PlayerVisualMonitor", "cache": true},
+	"player_movmemnt_data_monitor": {"path_tree": "/root/Core/GameManager/PlayerMovementData", "cache": true},
 }
 
-# Dictionary with paths and cache flags for frequently used nodes
-var gameplay_manager = {
-	"game_connection_manager": {"path_tree": "/root/Core/NetworkServerClientManager/Manager/GameConnectionManager", "cache": true},
-	"player_movement_manager": {"path_tree": "/root/Core/GameManager/PlayerManager/Movement2DManager", "cache": true}
-}
 
 var basic_handler = {
 	"heartbeat_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/HeartbeatHandler", "cache": true},
@@ -112,12 +107,10 @@ func get_node_info(node_type: String, node_name: String) -> Dictionary:
 			node_dict = network_meta_manager
 		"auth_manager":
 			node_dict = auth_manager
-		"player_manager":
-			node_dict = player_manager
+		"game_manager":
+			node_dict = game_manager
 		"world_manager":
 			node_dict = world_manager
-		"gameplay_manager":
-			node_dict = gameplay_manager
 		"backend_manager":
 			node_dict = backend_manager
 		"basic_handler":

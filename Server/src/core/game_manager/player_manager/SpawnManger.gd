@@ -42,7 +42,7 @@ func spawn_player(peer_id: int, character_class: String, scene_name: String, spa
 			print("Player spawned at position: ", spawn_position)
 			
 			# Hinzufügen zur Movement-Manager-Logik
-			var player_movement_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "player_movement_manager")
+			var player_movement_manager = GlobalManager.GlobalNodeManager.get_cached_node("game_manager", "player_movement_manager")
 			player_movement_manager.add_player(peer_id, player_character)
 		else:
 			print("Error: Failed to load player character for class: ", character_class)

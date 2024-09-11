@@ -5,7 +5,7 @@ var backend_routes_manager = null
 var enet_server_manager = null
 var channel_manager = null
 var packet_manager = null
-var user_manager = null
+var user_session_manager = null
 var is_initialized = false
 var handler_name = "backend_login_handler"
 
@@ -17,15 +17,15 @@ func initialize():
 	channel_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	backend_routes_manager = GlobalManager.GlobalNodeManager.get_cached_node("backend_manager", "backend_routes_manager")
 	enet_server_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_manager", "enet_server_manager")
-	user_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "user_manager")
+	user_session_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "user_session_manager")
 	is_initialized = true
 
 func handle_packet(client_data: Dictionary, peer_id: int):
 	# Add or update the user with peer_id and username at the login point
-	if user_manager:
+	if user_session_manager:
 		# Store the username from the client_data packet (if provided)
 		var initial_user_data = {"username": client_data.get("username", ""), "peer_id": peer_id}
-		user_manager.add_user(peer_id, initial_user_data)
+		user_session_manager.add_user_to_manager(peer_id, initial_user_data)
 	# Now forward the request to the backend to complete login
 	handle_login_request(client_data, peer_id)
 
@@ -78,13 +78,13 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 				"user_id": response_data["user_id"],
 				"token": response_data["token"]
 			}
-			if user_manager:
+			if user_session_manager:
 				# Add or update the user with user_id and token
 				var updated_user_data = {
 					"user_id": response_data["user_id"],
 					"token": response_data["token"]
 				}
-				user_manager.update_user_data(peer_id, updated_user_data)
+				user_session_manager.update_user_data(peer_id, updated_user_data)
 			# send packet to peer id
 			var err = enet_server_manager.send_packet(peer_id, handler_name, client_data)
 			if err != OK:

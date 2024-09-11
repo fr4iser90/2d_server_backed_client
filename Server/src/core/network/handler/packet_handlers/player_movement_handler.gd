@@ -9,7 +9,7 @@ func initialize():
 	if is_initialized:
 		print("PlayerMovementHandler already initialized. Skipping.")
 		return
-	enet_server_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_manager", "enet_server_manager")
+	enet_server_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "enet_server_manager")
 	is_initialized = true
 
 # Handle incoming packets for player movement
@@ -48,7 +48,7 @@ func _convert_to_vector2(data) -> Vector2:
 # Delegiere die Verarbeitung der Bewegungsdaten an den Movement2DManager
 func process_movement_data(peer_id: int, position: Vector2, velocity: Vector2):
 	print("Processing movement data for peer_id ", peer_id, " Position: ", position, " Velocity: ", velocity)
-	var player_movement_manager = GlobalManager.GlobalNodeManager.get_node_from_config("player_manager", "player_movement_manager")
+	var player_movement_manager = GlobalManager.GlobalNodeManager.get_node_from_config("game_manager", "player_movement_manager")
 	if player_movement_manager:
 		player_movement_manager.process_received_data(peer_id, {
 			"position": position,

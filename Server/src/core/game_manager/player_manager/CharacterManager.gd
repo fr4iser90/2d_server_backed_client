@@ -16,9 +16,9 @@ func initialize():
 	if is_initialized:
 		return
 	instance_manager = GlobalManager.GlobalNodeManager.get_cached_node("world_manager", "instance_manager")
-	spawn_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "spawn_manager")
+	spawn_manager = GlobalManager.GlobalNodeManager.get_cached_node("game_manager", "spawn_manager")
 	user_session_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "user_session_manager")
-	player_movement_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "player_movement_manager")
+	player_movement_manager = GlobalManager.GlobalNodeManager.get_cached_node("game_manager", "player_movement_manager")
 	is_initialized = true
 	
 func add_character_to_manager(peer_id: int, character_data: Dictionary):
