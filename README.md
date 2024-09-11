@@ -38,6 +38,35 @@ This should spin up the backend server.
 
 Once the server is running, do the following to run the client:
 
+### My Plans
+Implement Server Features
+-NetworkBackendSystem(started)
+-NetworkClientSysem(started)
+-PlayerMonitor(started)
+-PlayerVisualMonitor(started)
+-Routing/ChannelSystem(started)
+-SecurePackets/Hash?
+-ValidationSystem
+
+Implement Global Features
+-MovementSystem2D
+-MovementSystem3D
+-UserSystem(started)
+-InstanceSystem
+-SceneSystem
+-NodeSysem
+-MapgenSystem( consider using Godot MapCrafter V1,thanks to https://github.com/aimforbigfoot  )
+
+Implement Multiplayer Roguelite Features
+-MovementSystem(started)
+-CombatSystem
+-CharacterSystem
+-InventorySystem
+-CraftSystem
+-SpawnSystem(started)
+-Group/TeamSystem
+-GuildSytem
+-StashSystem
 ### Modular Plans
 
 The idea is to make this project modular and scalable. I'm planning to add:
