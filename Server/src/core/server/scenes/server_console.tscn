@@ -40,8 +40,13 @@ size_flags_vertical = 0
 [node name="StartServerLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "StartServer:"
+text = "Server:"
 horizontal_alignment = 1
+
+[node name="ServerNameInput" type="LineEdit" parent="ServerConsoleContainer/TopStartServer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "RgoueLite"
 
 [node name="StartServerButton2" type="Button" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
@@ -172,6 +177,7 @@ columns = 2
 
 [node name="NetworkContainer" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Network" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer"]
 layout_mode = 2
@@ -185,25 +191,78 @@ text = "Enable ENetPacketPeer"
 layout_mode = 2
 text = "Enable MultiplayerApi"
 
-[node name="NetworkContainer2" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
+[node name="Container2" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 
-[node name="Player" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+[node name="Player" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Player
 "
 
-[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
 layout_mode = 2
 text = "Kick Player"
 
-[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
 layout_mode = 2
 text = "Ban Player"
 
-[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
 layout_mode = 2
 text = "watch Player"
+
+[node name="Container3" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "Container3"
+
+[node name="WebSocketCheckButton" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "Enable Websocket"
+
+[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "ShowDatabases"
+
+[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "ShowUsers"
+
+[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "BanUser"
+
+[node name="Button4" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "ShowRoutes"
+
+[node name="Button5" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "ShowModels
+"
+
+[node name="Button6" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
+layout_mode = 2
+text = "ShowMiddleware"
+
+[node name="Container4" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container4"]
+layout_mode = 2
+text = "FeaturesList"
+
+[node name="FeaturesList" type="ItemList" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
 
 [node name="BackendButtonPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer"]
 layout_mode = 2
@@ -220,35 +279,79 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+columns = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="WebSocketCheckButton" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Container1" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container1"]
+layout_mode = 2
+text = "Container3"
+
+[node name="WebSocketCheckButton" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container1"]
 layout_mode = 2
 text = "Enable Websocket"
 
-[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Container2" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+layout_mode = 2
+text = "Container3"
+
+[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
 layout_mode = 2
 text = "ShowDatabases"
 
-[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
 layout_mode = 2
 text = "ShowUsers"
 
-[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
 layout_mode = 2
 text = "BanUser"
 
-[node name="Button4" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Button4" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
 layout_mode = 2
 text = "ShowRoutes"
 
-[node name="Button5" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Button5" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
 layout_mode = 2
 text = "ShowModels
 "
 
-[node name="Button6" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="Button6" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
 layout_mode = 2
 text = "ShowMiddleware"
+
+[node name="Container3" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container3"]
+layout_mode = 2
+text = "DataBaseList"
+
+[node name="FeaturesList" type="ItemList" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+
+[node name="Container4" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container4"]
+layout_mode = 2
+text = "DunnoList"
+
+[node name="FeaturesList" type="ItemList" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
 
 [node name="ConsoleContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
 layout_mode = 2

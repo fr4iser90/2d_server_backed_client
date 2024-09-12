@@ -42,10 +42,14 @@ Once the server is running, do the following to run the client:
 
 <details>
   <summary>Modularize overall Features</summary>
-- Choose Between: Backend Database usage or not, Websocket, REST API, Modules etc...
-- Refactor Client / Server
-- Client: Refactor to launcher fetch data, cache everything build Client)
-- Server: Refactor to Builder , Save Builds on Modules, show presets
+
+  - Choose Between: Backend Database usage or not, Websocket, REST API, Modules etc...
+
+  - Refactor Client / Server
+
+  - Client: Refactor to launcher fetch data, cache everything, build Client
+
+  - Server: Refactor to Builder, Save Builds on Modules, show presets
 </details>
 
 <details>
