@@ -4,6 +4,7 @@ extends Node
 signal player_position_updated(peer_id: int, new_position: Vector2)
 
 var enet_server_manager
+var instance_manager
 var player_positions = {}
 var is_initialized = false
 var players = {}
@@ -16,6 +17,7 @@ func initialize():
 		print("PlayerMovement already initialized. Skipping.")
 		return
 	enet_server_manager = GlobalManager.GlobalNodeManager.get_node_from_config("network_meta_manager", "enet_server_manager")
+	instance_manager = GlobalManager.GlobalNodeManager.get_node_from_config("game_manager", "instance_manager")
 	is_initialized = true
 
 # Hält die Referenz zu den Spieler-Nodes
@@ -59,35 +61,36 @@ func is_valid_movement(peer_id: int, new_position: Vector2, velocity: Vector2) -
 	# Hier könnte Logik eingefügt werden, um die Bewegung zu validieren (z.B. Kollisionen prüfen)
 	return true
 
-# Synchronize movement with all clients
+# Im PlayerMovementManager.gd hinzufügen
+func sync_positions_with_clients_in_instance(instance_id: String):
+	# Nur Spieler innerhalb dieser Instanz synchronisieren
+	var instance_manager = GlobalManager.GlobalNodeManager.get_node_from_config("game_manager", "instance_manager")
+	var instance_data = instance_manager.instances.get(instance_id, null)
+	if instance_data:
+		var players_in_instance = instance_data["players"]
+		for player_data in players_in_instance:
+			var peer_id = player_data["peer_id"]
+			var player_character = get_player_character(peer_id)
+			if player_character:
+				sync_movement_with_clients(peer_id, player_character.global_position, Vector2.ZERO)
+	else:
+		print("Instance not found: ", instance_id)
+
+# Sendet die gesammelten Positionsdaten an alle Spieler in der Instanz
 func sync_movement_with_clients(peer_id: int, position: Vector2, velocity: Vector2):
 	var movement_data = {
 		"peer_id": peer_id,
 		"position": {"x": position.x, "y": position.y},
 		"velocity": {"x": velocity.x, "y": velocity.y}
 	}
-	
-	var json = JSON.new()
-	var json_string = json.stringify(movement_data)
-	
-	if json_string == "":
-		print("Failed to serialize movement data for peer: ", peer_id)
-		return
-	
-	var packet = json_string.to_utf8_buffer()
-	
-	if enet_server_manager:
-		# Check if there's a method to get connected peers or clients
-		var connected_peers = get_connected_peers()  # Placeholder; ersetze dies mit der tatsächlichen Methode
-		for other_peer_id in connected_peers:
-			if other_peer_id != peer_id:
-				var result = enet_server_manager.send_bytes(packet, other_peer_id)
-				if result:
-					print("Movement data sent successfully to peer: ", other_peer_id)
-				else:
-					print("Failed to send movement data to peer: ", other_peer_id)
+
+	var handler_name = "player_movement_sync_handler"
+	# Sende die Daten an alle Spieler in der Instanz
+	var result = enet_server_manager.send_packet(peer_id, handler_name, movement_data)
+	if result:
+		print("Movement data sent to peer: ", peer_id)
 	else:
-		print("ENetServerManager is not initialized.")
+		print("Failed to send movement data to peer: ", peer_id)
 
 # Placeholder function to retrieve connected peers
 func get_connected_peers() -> Array:

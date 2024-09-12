@@ -8,5 +8,6 @@ npm-debug.log
 export.cfg
 export_presets.cfg
 
-# macOS
+# misc
 .DS_Store
+connectDeploy.sh

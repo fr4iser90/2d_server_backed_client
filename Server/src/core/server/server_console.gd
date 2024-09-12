@@ -19,7 +19,7 @@ var config_file_path = "res://user/config/console.cfg"
 
 enum BackendStatus {
 	DISCONNECTED,
-	CONNECTED,
+	CONNECTING,
 	AUTHENTICATED,
 	AUTHENTICATION_FAILED
 }
@@ -84,6 +84,8 @@ func _on_server_initialized():
 	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connected"))
 	network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_authentication_complete"))
 	channel_manager.register_global_channel_map()
+	
+	GlobalManager.GlobalNodeManager.scan_and_register_all_nodes(get_tree().root)
 	GlobalManager.GlobalNodeManager.scan_node_tree(get_tree().root)
 	if user_session_manager:
 		user_session_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
@@ -97,9 +99,9 @@ func _update_backend_status(status: BackendStatus):
 		BackendStatus.DISCONNECTED:
 			GlobalManager.GlobalServerConsolePrint.print_to_console("Server disconnected from backend.")
 			backend_status_label.text = "Backend: Status Disconnected"
-		BackendStatus.CONNECTED:
-			GlobalManager.GlobalServerConsolePrint.print_to_console("Server connnected to backend.")
-			backend_status_label.text = "Backend: Status Connected"
+		BackendStatus.CONNECTING:
+			GlobalManager.GlobalServerConsolePrint.print_to_console("Server connecting to backend.")
+			backend_status_label.text = "Backend: Status Connecting..."
 		BackendStatus.AUTHENTICATED:
 			GlobalManager.GlobalServerConsolePrint.print_to_console("Server authentication in backend completed successfully.")
 			backend_status_label.text = "Backend: Status Authenticated"
@@ -152,9 +154,8 @@ func _on_user_data_changed(changed_peer_id: int, user_data: Dictionary):
 	custom_print("Player list updated with tooltips.")
 
 # Handle backend connection established signal
-func _on_backend_connected():
-	# Update the backend status label when the connection is established
-	_update_backend_status(BackendStatus.CONNECTED)
+func _on_backend_connecting():
+	_update_backend_status(BackendStatus.CONNECTING)
 	
 # Handle authentication completion
 func _on_authentication_complete(success: bool):

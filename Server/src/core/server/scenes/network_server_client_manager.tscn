@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cudxxv1ij0nt2"]
+[gd_scene load_steps=15 format=3 uid="uid://cudxxv1ij0nt2"]
 
 [ext_resource type="Script" path="res://src/core/network/server_client/manager/network_server_client_manager.gd" id="1_0mitk"]
 [ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/heartbeat_handler.gd" id="4_0eoj5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/event_triggered_handler.gd" id="10_uwg5v"]
 [ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/special_action_handler.gd" id="11_3loqj"]
 [ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/self_test_channels.gd" id="12_x2f41"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/player_movement_sync_handler.gd" id="13_bewvu"]
 [ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/player_movement_handler.gd" id="13_rymdf"]
 [ext_resource type="Script" path="res://src/core/network/server_client/manager/game_connection_manager.gd" id="15_73o3r"]
 
@@ -163,3 +164,6 @@ script = ExtResource("12_x2f41")
 
 [node name="PlayerMovementHandler" type="Node" parent="Handler/ClientServerHandler"]
 script = ExtResource("13_rymdf")
+
+[node name="PlayerMovementSyncHandler" type="Node" parent="Handler/ClientServerHandler"]
+script = ExtResource("13_bewvu")

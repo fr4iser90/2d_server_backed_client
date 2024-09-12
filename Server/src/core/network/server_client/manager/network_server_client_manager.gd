@@ -55,7 +55,7 @@ func _reference_nodes():
 	print("Referencing client-side managers and handlers...")
 	node_config_manager = GlobalManager.GlobalNodeManager.get_node_from_config("global_node_manager", "node_config_manager")
 	_reference_entities("network_meta_manager", GlobalManager.GlobalNodeManager.node_config_manager.network_meta_manager, managers)
-	_reference_entities("basic_handler", GlobalManager.GlobalNodeManager.node_config_manager.basic_handler, handlers)
+	_reference_entities("network_handler", GlobalManager.GlobalNodeManager.node_config_manager.network_handler, handlers)
 	#_reference_entities("gameplay_manager", GlobalManager.GlobalNodeConfig.gameplay_manager, managers)
 	
 	

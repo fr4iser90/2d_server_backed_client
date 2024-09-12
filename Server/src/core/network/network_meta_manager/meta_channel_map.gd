@@ -21,7 +21,7 @@ const GLOBAL_CHANNEL_MAP = {
 	
 	# Movement and Player Control
 	20: "player_movement_handler",    # For player movement updates (e.g., walking, running)
-	21: "input_commands_handler",   # For handling player inputs (attack, interact, etc.)
+	21: "player_movement_sync_in_instance_handler",  # Spielerbewegungen innerhalb der Instanz synchronisieren
 	
 	# Combat and Abilities
 	30: "combat_handler",           # For combat-related actions and updates (e.g., attack damage)

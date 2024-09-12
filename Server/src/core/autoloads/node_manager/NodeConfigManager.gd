@@ -55,6 +55,22 @@ var game_manager = {
 	"player_movmemnt_data_monitor": {"path_tree": "/root/Core/GameManager/PlayerMovementData", "cache": true},
 }
 
+var network_handler = {
+	"heartbeat_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/HeartbeatHandler", "cache": true},
+	"connection_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/ConnectionHandler", "cache": true},
+	"disconnection_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/DisconnectionHandler", "cache": true},
+	"data_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/DataHandler", "cache": true},
+	"chat_messages_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/ChatMessageHandler", "cache": true},
+	"player_status_update_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/PlayerStatusUpdateHandler", "cache": true},
+	"event_triggered_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/EventTriggeredHandler", "cache": true},
+	"special_action_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/SpecialActionHandler", "cache": true},
+	"player_movement_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/PlayerMovementHandler", "cache": true},
+	"player_movement_sync_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/PlayerMovementSyncHandler", "cache": true},
+	# Backend Handler
+	"backend_login_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerBackendManager/Handler/BackendHandler/BackendLoginHandler", "cache": true},
+	"backend_character_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerBackendManager/Handler/BackendHandler/BackendCharacterHandler", "cache": true},
+	"backend_character_select_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerBackendManager/Handler/BackendHandler/BackendCharacterSelectHandler", "cache": true}
+}
 
 var basic_handler = {
 	"heartbeat_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/HeartbeatHandler", "cache": true},
@@ -66,6 +82,7 @@ var basic_handler = {
 	"event_triggered_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/EventTriggeredHandler", "cache": true},
 	"special_action_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/SpecialActionHandler", "cache": true},
 	"player_movement_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/PlayerMovementHandler", "cache": true},
+	"player_movement_sync_handler": {"path_tree": "/root/Core/NetworkManager/NetworkServerClientManager/Handler/ClientServerHandler/PlayerMovementSyncHandler", "cache": true},
 }
 
 var backend_handler = {
@@ -113,6 +130,8 @@ func get_node_info(node_type: String, node_name: String) -> Dictionary:
 			node_dict = world_manager
 		"backend_manager":
 			node_dict = backend_manager
+		"network_handler":
+			node_dict = network_handler
 		"basic_handler":
 			node_dict = basic_handler
 		"backend_handler":

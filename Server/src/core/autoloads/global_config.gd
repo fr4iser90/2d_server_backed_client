@@ -12,7 +12,19 @@ func _ready():
 
 # Function to build the full Backend URL dynamically
 func get_backend_url() -> String:
-	return "%s:%s" % [BACKEND_IP_DNS, BACKEND_PORT]
+	# Check if BACKEND_IP_DNS includes a scheme
+	if BACKEND_IP_DNS.begins_with("http://") or BACKEND_IP_DNS.begins_with("https://"):
+		# If it ends with a '/', no need to add port
+		if BACKEND_IP_DNS.ends_with("/"):
+			return BACKEND_IP_DNS
+		else:
+			# Check if BACKEND_IP_DNS is 'localhost' or an IP address
+			if BACKEND_IP_DNS.begins_with("http://localhost") or BACKEND_IP_DNS.begins_with("http://127.0.0.1") or BACKEND_IP_DNS.begins_with("http://") and BACKEND_IP_DNS.begins_with("http://") and not BACKEND_IP_DNS.begins_with("http://localhost"):
+				return "%s:%s" % [BACKEND_IP_DNS, BACKEND_PORT]
+			else:
+				return BACKEND_IP_DNS
+	else:
+		return "%s:%s" % [BACKEND_IP_DNS, BACKEND_PORT]
 
 # Function to set the Backend IP/DNS
 func set_backend_ip_dns(new_ip_dns: String):

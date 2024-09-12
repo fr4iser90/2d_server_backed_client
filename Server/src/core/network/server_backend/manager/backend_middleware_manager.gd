@@ -29,7 +29,7 @@ func _reference_nodes():
 	print("Referencing backend managers and handlers...")
 	node_config_manager = GlobalManager.GlobalNodeManager.get_cached_node("global_node_manager", "node_config_manager")
 	_reference_entities("backend_manager", GlobalManager.GlobalNodeManager.node_config_manager.backend_manager, managers)
-	_reference_entities("backend_handler", GlobalManager.GlobalNodeManager.node_config_manager.backend_handler, handlers)
+	_reference_entities("network_handler", GlobalManager.GlobalNodeManager.node_config_manager.network_handler, handlers)
 			
 func register_route_handlers():
 	# Verknüpfe die Route mit den entsprechenden Handlers

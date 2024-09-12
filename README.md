@@ -1,6 +1,6 @@
 # Fun Home Project
 
-**Note:** This project is not working at all (yet!), but hey, at least UDP seems pretty fast! Just having fun and experimenting with some modular stuff.
+**Note:** This project is still a work in progress and is not fully functional yet. I’m currently experimenting with modular design and exploring UDP communication. While it may not be fully operational, it’s a great learning experience!
 
 **Core Projects:**
 - Backend: NodeJS
@@ -9,7 +9,7 @@
 
 **Core Systems:**
 - Backend: Saving Data / UserLogin etc / CharacterData (needs to be refactored to be modular and scalable)
-- Server/Client: Communication via UDP (ENet peer protocol or similar), Global Scene Node Manager (considering adding a Signal Manager), Instance Manager
+- Server/Client: Communication via UDP (ENet peer protocol or similar)
 
 ## Getting Started
 
@@ -38,36 +38,49 @@ This should spin up the backend server.
 
 Once the server is running, do the following to run the client:
 
-### My Plans
+### My Plans/ To-dos
+Modularize overall Features
+- Choose Between: Backend Database usage or not, Websocket, REST API, Modules etc...
 
-Implement Server Features
-- NetworkBackendSystem(started)
-- NetworkClientSysem(started)
-- PlayerMonitor(started)
-- PlayerVisualMonitor(started)
-- Routing/ChannelSystem(started)
-- SecurePackets/Hash?
-- ValidationSystem
+NetworkFeatures
+- ChannelSystem: Started
+- PacketSystem: Started
+- RoutingBackendSystem: Started
+- HandlerControllerSystem: To be implemented
+- SecurePackets/Hash: To be implemented
 
 Implement Global Features
-- MovementSystem2D
-- MovementSystem3D
-- UserSystem(started)
-- InstanceSystem
-- SceneSystem
-- NodeSysem
-- MapgenSystem( consider using Godot MapCrafter V1,thanks to https://github.com/aimforbigfoot  )
+- SceneSystem: Started
+- NodeSystem: Started
+- InstanceSystem: Started
+- SignalSystem: To be implemented
 
-Implement Multiplayer Roguelite Features
-- MovementSystem(started)
-- CombatSystem
-- CharacterSystem
-- InventorySystem
-- CraftSystem
-- SpawnSystem(started)
-- Group/TeamSystem
-- GuildSytem
-- StashSystem
+Implement Server Features
+- NetworkBackendSystem REST API: Started
+- NetworkBackendSystem Websocket: To be implemented
+- NetworkClientSystem ENetPacketPeer: Started
+- NetworkClientSystem MultiplayerApi: To be implemented
+- PlayerMonitor: Started
+- PlayerVisualMonitor: Started
+- ValidationSystem: To be implemented
+
+Implement Game Features
+- UserSystem: Started
+- MovementSystem2D: Started
+- MovementSystem3D: To be implemented
+- MovementSystemPlatformer2D: To be implemented (considering using manager, saw one very good source)
+- CombatSystem: To be implemented
+- CharacterSystem: To be implemented
+- InventorySystem: To be implemented
+- CraftSystem: To be implemented
+- SpawnSystem: Started
+- Group/TeamSystem: To be implemented
+- GuildSystem: To be implemented
+- StashSystem: To be implemented
+- MapgenSystem: Considering using Godot MapCrafter V1,thanks to https://github.com/aimforbigfoot  )
+
+
+Goal  Multiplayer Roguelite ???
 
 ### Modular Plans
 
@@ -82,6 +95,6 @@ These modules will be collected and hopefully, you can use them in a modular way
 
 ## Disclaimer
 
-The code is **totally BS**. It’s a mess, and most of it doesn’t work yet. I’m just playing around, so don’t expect anything functional, but feel free to explore!
+The code is currently a work in progress and is not fully functional. I’m in the experimental phase, so things might be messy and incomplete. I’m learning and exploring, and I appreciate any feedback or suggestions you might have.
 
 Enjoy messing around with this chaotic project! :)
