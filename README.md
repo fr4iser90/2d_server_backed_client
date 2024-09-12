@@ -54,56 +54,89 @@ Once the server is running, do the following to run the client:
 
 <details>
   <summary>Network Features</summary>
+
    - ChannelSystem: Started
+
    - PacketSystem: Started
+
    - RoutingBackendSystem: Started
+
    - HandlerControllerSystem: To be implemented
+
    - SecurePackets/Hash: To be implemented
 </details>
 
 <details>
   <summary>Implement Global Features</summary>
-Implement Global Features
+
    - SceneSystem: Started
+
    - NodeSystem: Started
+
    - InstanceSystem: Started
+
    - SignalSystem: To be implemented
+
    - ModuleCompatibilySystem: To be implemented
+
    - ModuleConverter: To be implemented
+
    - HandlerControllerSystem
-   - WorkflowSystem for:
+
+   - WorkflowSystem for: Scenes / Nodes / Modules
+
    - SceneImport/Mapping/Generating
+
    - Implementing Modules/Middleware
+
 </details>
 
 <details>
   <summary>Implement Server Features</summary>
-Implement Server Features
-- NetworkBackendSystem REST API: Started
-- NetworkBackendSystem Websocket: To be implemented
-- NetworkClientSystem ENetPacketPeer: Started
-- NetworkClientSystem MultiplayerApi: To be implemented
-- PlayerMonitor: Started
-- PlayerVisualMonitor: Started
-- ValidationSystem: To be implemented
+
+   - NetworkBackendSystem REST API: Started
+
+   - NetworkBackendSystem Websocket: To be implemented
+
+   - NetworkClientSystem ENetPacketPeer: Started
+
+   - NetworkClientSystem MultiplayerApi: To be implemented
+
+   - PlayerMonitor: Started
+
+   - PlayerVisualMonitor: Started
+
+   - ValidationSystem: To be implemented
 </details>
 
 <details>
   <summary>Implement Game Features</summary>
-Implement Game Features
-- UserSystem: Started
-- MovementSystem2D: Started
-- MovementSystem3D: To be implemented
-- MovementSystemPlatformer2D: To be implemented (considering using manager, saw one very good source)
-- CombatSystem: To be implemented
-- CharacterSystem: To be implemented
-- InventorySystem: To be implemented
-- CraftSystem: To be implemented
-- SpawnSystem: Started
-- Group/TeamSystem: To be implemented
-- GuildSystem: To be implemented
-- StashSystem: To be implemented
-- MapgenSystem: Considering using Godot MapCrafter V1,thanks to https://github.com/aimforbigfoot  )
+
+   - UserSystem: Started
+
+   - MovementSystem2D: Started
+
+   - MovementSystem3D: To be implemented
+
+   - MovementSystemPlatformer2D: To be implemented (considering using manager, saw one very good source)
+
+   - CombatSystem: To be implemented
+
+   - CharacterSystem: To be implemented
+
+   - InventorySystem: To be implemented
+
+   - CraftSystem: To be implemented
+
+   - SpawnSystem: Started
+
+   - Group/TeamSystem: To be implemented
+
+   - GuildSystem: To be implemented
+
+   - StashSystem: To be implemented
+
+   - MapgenSystem: Considering using Godot MapCrafter V1,thanks to https://github.com/aimforbigfoot  )
 </details>
 
 Goal:
