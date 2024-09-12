@@ -50,26 +50,26 @@ Once the server is running, do the following to run the client:
 
 <details>
   <summary>Network Features</summary>
-- ChannelSystem: Started
-- PacketSystem: Started
-- RoutingBackendSystem: Started
-- HandlerControllerSystem: To be implemented
-- SecurePackets/Hash: To be implemented
+   - ChannelSystem: Started
+   - PacketSystem: Started
+   - RoutingBackendSystem: Started
+   - HandlerControllerSystem: To be implemented
+   - SecurePackets/Hash: To be implemented
 </details>
 
 <details>
   <summary>Implement Global Features</summary>
 Implement Global Features
-- SceneSystem: Started
-- NodeSystem: Started
-- InstanceSystem: Started
-- SignalSystem: To be implemented
-- ModuleCompatibilySystem: To be implemented
-- ModuleConverter: To be implemented
-- HandlerControllerSystem
-- WorkflowSystem for:
-- SceneImport/Mapping/Generating
-- Implementing Modules/Middleware
+   - SceneSystem: Started
+   - NodeSystem: Started
+   - InstanceSystem: Started
+   - SignalSystem: To be implemented
+   - ModuleCompatibilySystem: To be implemented
+   - ModuleConverter: To be implemented
+   - HandlerControllerSystem
+   - WorkflowSystem for:
+   - SceneImport/Mapping/Generating
+   - Implementing Modules/Middleware
 </details>
 
 <details>
