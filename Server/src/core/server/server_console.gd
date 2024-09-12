@@ -3,17 +3,22 @@ extends Control
 
 var server_init  
 var auto_connect_enabled
-@onready var backend_ip = $ServerConsoleContainer/Top/BackendIPInput
-@onready var backend_port = $ServerConsoleContainer/Top/BackendPortInput
-@onready var server_port = $ServerConsoleContainer/Top/ServerPortInput
-@onready var server_validation_token = $ServerConsoleContainer/Top/ServerValidationTokenInput
-@onready var connect_to_backend_button = $ServerConsoleContainer/Top/ConnectToBackend
-@onready var disconnect_from_backend_button = $ServerConsoleContainer/Top/DisconnectFromBackend
+# TopStartServer
+@onready var server_port = $ServerConsoleContainer/TopStartServer/ServerPortInput
+@onready var backend_check_button = $ServerConsoleContainer/TopStartServer/BackendCheckButton
+# TopBackend
+@onready var backend_ip = $ServerConsoleContainer/TopBackend/BackendIPInput
+@onready var backend_port = $ServerConsoleContainer/TopBackend/BackendPortInput
+@onready var server_validation_token = $ServerConsoleContainer/TopBackend/ServerValidationTokenInput
+@onready var connect_to_backend_button = $ServerConsoleContainer/TopBackend/ConnectToBackend
+@onready var disconnect_from_backend_button = $ServerConsoleContainer/TopBackend/DisconnectFromBackend
+@onready var auto_connect_button = $ServerConsoleContainer/TopBackend/AutoConnectCheckButton
+# Mid
 @onready var backend_status_label = $ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanelLabel
 @onready var player_list = $ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerList
 @onready var server_client_log = $ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel/ServerClientLog
 @onready var server_backend_log = $ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanel/ServerBackendLog
-@onready var auto_connect_button = $ServerConsoleContainer/Top/AutoConnectCheckButton
+
 var server_console_settings = preload("res://src/core/server/config/server_console_settings.gd").new()
 var config_file_path = "res://user/config/console.cfg"
 

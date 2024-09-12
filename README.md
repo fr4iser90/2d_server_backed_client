@@ -39,22 +39,41 @@ This should spin up the backend server.
 Once the server is running, do the following to run the client:
 
 ### My Plans/ To-dos
-Modularize overall Features
-- Choose Between: Backend Database usage or not, Websocket, REST API, Modules etc...
 
-NetworkFeatures
+<details>
+  <summary>Modularize overall Features</summary>
+- Choose Between: Backend Database usage or not, Websocket, REST API, Modules etc...
+- Refactor Client / Server
+- Client: Refactor to launcher fetch data, cache everything build Client)
+- Server: Refactor to Builder , Save Builds on Modules, show presets
+</details>
+
+<details>
+  <summary>Network Features</summary>
 - ChannelSystem: Started
 - PacketSystem: Started
 - RoutingBackendSystem: Started
 - HandlerControllerSystem: To be implemented
 - SecurePackets/Hash: To be implemented
+</details>
 
+<details>
+  <summary>Implement Global Features</summary>
 Implement Global Features
 - SceneSystem: Started
 - NodeSystem: Started
 - InstanceSystem: Started
 - SignalSystem: To be implemented
+- ModuleCompatibilySystem: To be implemented
+- ModuleConverter: To be implemented
+- HandlerControllerSystem
+- WorkflowSystem for:
+- SceneImport/Mapping/Generating
+- Implementing Modules/Middleware
+</details>
 
+<details>
+  <summary>Implement Server Features</summary>
 Implement Server Features
 - NetworkBackendSystem REST API: Started
 - NetworkBackendSystem Websocket: To be implemented
@@ -63,7 +82,10 @@ Implement Server Features
 - PlayerMonitor: Started
 - PlayerVisualMonitor: Started
 - ValidationSystem: To be implemented
+</details>
 
+<details>
+  <summary>Implement Game Features</summary>
 Implement Game Features
 - UserSystem: Started
 - MovementSystem2D: Started
@@ -78,9 +100,10 @@ Implement Game Features
 - GuildSystem: To be implemented
 - StashSystem: To be implemented
 - MapgenSystem: Considering using Godot MapCrafter V1,thanks to https://github.com/aimforbigfoot  )
+</details>
 
-
-Goal  Multiplayer Roguelite ???
+Goal:
+- a preset for RogueLite
 
 ### Modular Plans
 

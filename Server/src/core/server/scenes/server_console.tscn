@@ -25,63 +25,96 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Top" type="HBoxContainer" parent="ServerConsoleContainer"]
+[node name="PlaceHolderTop" type="Label" parent="ServerConsoleContainer/PlaceHolderTop"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "PlaceHolder"
+horizontal_alignment = 1
+
+[node name="TopStartServer" type="HBoxContainer" parent="ServerConsoleContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="StartServerLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "StartServer:"
+horizontal_alignment = 1
+
+[node name="StartServerButton2" type="Button" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+text = "StartServer"
+
+[node name="StartServerButton" type="Button" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+text = "StartServer"
+
+[node name="ServerPortLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+text = "ServerPort:"
+
+[node name="ServerPortInput" type="LineEdit" parent="ServerConsoleContainer/TopStartServer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "9997"
+
+[node name="UseBackendLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+text = "Enable Backend "
+
+[node name="BackendCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+
+[node name="TopBackend" type="HBoxContainer" parent="ServerConsoleContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="BackendIP" type="Label" parent="ServerConsoleContainer/Top"]
+[node name="BackendIP" type="Label" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "BackendIP:"
 
-[node name="BackendIPInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+[node name="BackendIPInput" type="LineEdit" parent="ServerConsoleContainer/TopBackend"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "http://localhost"
 
-[node name="BackendPortLabel" type="Label" parent="ServerConsoleContainer/Top"]
+[node name="BackendPortLabel" type="Label" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "BackendPort:"
 
-[node name="BackendPortInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+[node name="BackendPortInput" type="LineEdit" parent="ServerConsoleContainer/TopBackend"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "3000"
 placeholder_text = "3000"
 
-[node name="ServerValidationToken" type="Label" parent="ServerConsoleContainer/Top"]
+[node name="ServerValidationToken" type="Label" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "ServerValidationToken:"
 
-[node name="ServerValidationTokenInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
+[node name="ServerValidationTokenInput" type="LineEdit" parent="ServerConsoleContainer/TopBackend"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "your_server_key_here"
 placeholder_text = "your_server_key_here"
 
-[node name="ConnectToBackend" type="Button" parent="ServerConsoleContainer/Top"]
+[node name="ConnectToBackend" type="Button" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "Connect"
 
-[node name="DisconnectFromBackend" type="Button" parent="ServerConsoleContainer/Top"]
+[node name="DisconnectFromBackend" type="Button" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "Disconnect"
 
-[node name="ServerPortLabel" type="Label" parent="ServerConsoleContainer/Top"]
-layout_mode = 2
-text = "ServerPort:"
-
-[node name="ServerPortInput" type="LineEdit" parent="ServerConsoleContainer/Top"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "9997"
-
-[node name="AutoConnectLabel" type="Label" parent="ServerConsoleContainer/Top"]
+[node name="AutoConnectLabel" type="Label" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "AutoConnectoToBackend"
 
-[node name="AutoConnectCheckButton" type="CheckButton" parent="ServerConsoleContainer/Top"]
+[node name="AutoConnectCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 
 [node name="Mid" type="HBoxContainer" parent="ServerConsoleContainer"]
@@ -115,15 +148,107 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 12
 
-[node name="PlaceHolder" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
+[node name="ControlContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="BackendContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid/PlaceHolder"]
+[node name="ServerControlPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+text = "ServerControlPanel:"
+
+[node name="ServerControlPanel" type="Panel" parent="ServerConsoleContainer/Mid/ControlContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ServerControlGridContainer" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="NetworkContainer" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
+layout_mode = 2
+
+[node name="Network" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer"]
+layout_mode = 2
+text = "Network"
+
+[node name="WebSocketCheckButton3" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer"]
+layout_mode = 2
+text = "Enable ENetPacketPeer"
+
+[node name="WebSocketCheckButton2" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer"]
+layout_mode = 2
+text = "Enable MultiplayerApi"
+
+[node name="NetworkContainer2" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
+layout_mode = 2
+
+[node name="Player" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+layout_mode = 2
+text = "Player
+"
+
+[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+layout_mode = 2
+text = "Kick Player"
+
+[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+layout_mode = 2
+text = "Ban Player"
+
+[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer2"]
+layout_mode = 2
+text = "watch Player"
+
+[node name="BackendButtonPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer"]
+layout_mode = 2
+text = "BackendButtonPanel:"
+
+[node name="BackendButtonPanel" type="Panel" parent="ServerConsoleContainer/Mid/ControlContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WebSocketCheckButton" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "Enable Websocket"
+
+[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "ShowDatabases"
+
+[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "ShowUsers"
+
+[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "BanUser"
+
+[node name="Button4" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "ShowRoutes"
+
+[node name="Button5" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "ShowModels
+"
+
+[node name="Button6" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+layout_mode = 2
+text = "ShowMiddleware"
 
 [node name="ConsoleContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
 layout_mode = 2

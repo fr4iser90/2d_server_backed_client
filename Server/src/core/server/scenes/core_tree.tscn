@@ -1,23 +1,32 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmu5u3w8dflrx"]
+[gd_scene load_steps=24 format=3 uid="uid://dmu5u3w8dflrx"]
 
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/enet_server_manager.gd" id="1_wj3dc"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/channel_manager.gd" id="2_e2f4v"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/meta_channel_map.gd" id="3_nd5xl"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/packet_manager.gd" id="4_782fd"]
 [ext_resource type="Script" path="res://src/core/network/network_meta_manager/UserSessionManager.gd" id="5_0dvlc"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/heartbeat_handler.gd" id="6_4sey5"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/CharacterManager.gd" id="6_cacws"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerManager.gd" id="6_k1c6d"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/SpawnManger.gd" id="6_npyvi"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/connection_handler.gd" id="7_c6y8w"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerMovementManager.gd" id="7_lrib4"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerMonitor.gd" id="8_2nnus"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/disconnection_handler.gd" id="8_11em2"]
 [ext_resource type="Script" path="res://src/core/game_manager/world_manager/InstanceManager.gd" id="8_jut7k"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/scene_data_handler.gd" id="9_glyed"]
 [ext_resource type="Script" path="res://src/core/game_manager/player_manager/PlayerVisiualMonitor.gd" id="9_oyhxw"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/chat_messages_handler.gd" id="10_e63jl"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/status_update_handler.gd" id="11_wohmi"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/event_triggered_handler.gd" id="12_vfwmn"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/special_action_handler.gd" id="13_2gy80"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/self_test_channels.gd" id="14_cnf1j"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/player_movement_handler.gd" id="15_ebdkt"]
+[ext_resource type="Script" path="res://src/core/network/handler/packet_handlers/player_movement_sync_handler.gd" id="16_gjjup"]
 
 [node name="Core" type="Node"]
 
 [node name="NetworkManager" type="Node" parent="."]
-
-[node name="MetaHandler" type="Node" parent="NetworkManager"]
 
 [node name="MetaManager" type="Node" parent="NetworkManager"]
 
@@ -37,6 +46,43 @@ script = ExtResource("4_782fd")
 
 [node name="UserSessionManager" type="Node" parent="NetworkManager/MetaManager"]
 script = ExtResource("5_0dvlc")
+
+[node name="Handler" type="Node" parent="NetworkManager"]
+
+[node name="ClientServerHandler" type="Node" parent="NetworkManager/Handler"]
+
+[node name="HeartbeatHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("6_4sey5")
+
+[node name="ConnectionHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("7_c6y8w")
+
+[node name="DisconnectionHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("8_11em2")
+
+[node name="DataHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("9_glyed")
+
+[node name="ChatMessageHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("10_e63jl")
+
+[node name="PlayerStatusUpdateHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("11_wohmi")
+
+[node name="EventTriggeredHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("12_vfwmn")
+
+[node name="SpecialActionHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("13_2gy80")
+
+[node name="SelfTestChannelsHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("14_cnf1j")
+
+[node name="PlayerMovementHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("15_ebdkt")
+
+[node name="PlayerMovementSyncHandler" type="Node" parent="NetworkManager/Handler/ClientServerHandler"]
+script = ExtResource("16_gjjup")
 
 [node name="GameManager" type="Node" parent="."]
 
