@@ -23,9 +23,9 @@ func _ready():
 # Dynamically reference all managers and handlers
 func _reference_nodes():
 	print("Referencing managers and handlers...")
-	_reference_entities("network_meta_manager", GlobalManager.GlobalNodeConfig.network_meta_manager, managers)
-	_reference_entities("basic_handler", GlobalManager.GlobalNodeConfig.basic_handler, handlers)
-	_reference_entities("backend_handler", GlobalManager.GlobalNodeConfig.backend_handler, handlers)
+	_reference_entities("network_meta_manager", GlobalManager.NodeConfig.network_meta_manager, managers)
+	_reference_entities("basic_handler", GlobalManager.NodeConfig.basic_handler, handlers)
+	_reference_entities("backend_handler", GlobalManager.NodeConfig.backend_handler, handlers)
 
 func _reference_entities(node_type: String, paths: Dictionary, target: Dictionary):
 	for key in paths.keys():

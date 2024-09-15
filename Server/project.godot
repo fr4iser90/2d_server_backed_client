@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="GrowWorld-Server"
-run/main_scene="res://src/core/server/scenes/server_console.tscn"
+run/main_scene="res://src/core/server/scene/server_console.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalManager="*res://src/core/autoloads/global_manager.gd"
-ServerInit="*res://src/core/server/server_init.gd"
+GlobalManager="*res://src/core/autoload/GlobalManager.gd"
+ServerInit="*res://src/core/server/preset/default/server_init.gd"
 
 [display]
 

@@ -8,7 +8,7 @@ var character_information_manager = null
 
 func _ready():
 	# Get reference to the CharacterInformationManager
-	character_information_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "character_information_manager")
+	character_information_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_information_manager")
 
 	# Connect the signal to listen for character data changes
 	character_information_manager.connect("character_data_changed", Callable(self, "_on_character_data_changed"))

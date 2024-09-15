@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://cl1odwsx86mi1"]
+
+[ext_resource type="Script" path="res://src/game/world_manager/InstanceManager.gd" id="1_2riua"]
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerManager.gd" id="2_xvcct"]
+[ext_resource type="Script" path="res://src/game/player_manager/CharacterManager.gd" id="3_vnlqh"]
+[ext_resource type="Script" path="res://src/game/player_manager/SpawnManger.gd" id="4_5a42c"]
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerMovementManager.gd" id="5_j5bpp"]
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerMonitor.gd" id="6_0oin5"]
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerVisiualMonitor.gd" id="7_mx0bg"]
+
+[node name="Game" type="Node"]
+
+[node name="World" type="Node" parent="."]
+
+[node name="InstanceManager" type="Node" parent="World"]
+script = ExtResource("1_2riua")
+
+[node name="WorldLoader" type="Node" parent="World"]
+
+[node name="SceneLoader" type="Node" parent="World"]
+
+[node name="SceneBalancer" type="Node" parent="World"]
+
+[node name="Player" type="Node" parent="."]
+
+[node name="PlayerManager" type="Node" parent="Player"]
+script = ExtResource("2_xvcct")
+
+[node name="Handler" type="Node" parent="Player/PlayerManager"]
+
+[node name="PlayerSpawnHandler" type="Node" parent="Player/PlayerManager/Handler"]
+
+[node name="CharacterManager" type="Node" parent="Player"]
+script = ExtResource("3_vnlqh")
+
+[node name="Handler" type="Node" parent="Player/CharacterManager"]
+
+[node name="SpawnManager" type="Node" parent="Player"]
+script = ExtResource("4_5a42c")
+
+[node name="Handler" type="Node" parent="Player/SpawnManager"]
+
+[node name="PlayerMovementManager" type="Node" parent="Player"]
+script = ExtResource("5_j5bpp")
+
+[node name="Handler" type="Node" parent="Player/PlayerMovementManager"]
+
+[node name="PlayerMovementData" type="Node" parent="Player"]
+script = ExtResource("6_0oin5")
+
+[node name="Handler" type="Node" parent="Player/PlayerMovementData"]
+
+[node name="PlayerVisualMonitor" type="Node" parent="Player"]
+script = ExtResource("7_mx0bg")
+
+[node name="Handler" type="Node" parent="Player/PlayerVisualMonitor"]
+
+[node name="Combat" type="Node" parent="."]
+
+[node name="Inventory" type="Node" parent="."]
+
+[node name="Quest" type="Node" parent="."]
+
+[node name="Dialogue" type="Node" parent="."]
+
+[node name="UI" type="Node" parent="."]

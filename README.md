@@ -50,6 +50,8 @@ Once the server is running, do the following to run the client:
   - Client: Refactor to launcher fetch data, cache everything, build Client
 
   - Server: Refactor to Builder, Save Builds on Modules, show presets
+
+  - Build ModuleManager: Map each Module, give them vers. check vars , analyse module ai stuff to whats happening, whats goal? , workflow for modules , controller handler etc. Dependency check
 </details>
 
 <details>

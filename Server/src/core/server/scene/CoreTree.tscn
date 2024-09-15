@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmu5u3w8dflrx"]
+
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerMovementManager.gd" id="9_gndef"]
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerMonitor.gd" id="10_ind2t"]
+[ext_resource type="Script" path="res://src/game/player_manager/PlayerVisiualMonitor.gd" id="11_qgknn"]
+
+[node name="Core" type="Node"]
+
+[node name="ServerManager" type="Node" parent="."]
+
+[node name="PlayerMovementData" type="Node" parent="ServerManager"]
+script = ExtResource("10_ind2t")
+
+[node name="Handler" type="Node" parent="ServerManager/PlayerMovementData"]
+
+[node name="PlayerVisualMonitor" type="Node" parent="ServerManager"]
+script = ExtResource("11_qgknn")
+
+[node name="Handler" type="Node" parent="ServerManager/PlayerVisualMonitor"]
+
+[node name="InputManager" type="Node" parent="."]
+
+[node name="PlayerMovementManager" type="Node" parent="InputManager"]
+script = ExtResource("9_gndef")
+
+[node name="Handler" type="Node" parent="InputManager/PlayerMovementManager"]
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="Utils" type="Node" parent="."]

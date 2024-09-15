@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://cletkulpq43kt"]
+
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/manager/enet_server_manager.gd" id="1_qnmc2"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/manager/channel_manager.gd" id="2_f2xi4"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/manager/channel_map.gd" id="3_mwpdb"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/manager/packet_manager.gd" id="4_esiwu"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/handler/core_heartbeat_handler.gd" id="5_mdiyr"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/handler/core_connection_handler.gd" id="6_n85nf"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/handler/core_disconnection_handler.gd" id="7_c40lq"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/handler/auth_login_handler.gd" id="8_p1k1e"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/handler/char_fetch_handler.gd" id="9_7yjkj"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/handler/char_select_handler.gd" id="10_rtbuy"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/handler/movement_player_handler.gd" id="11_bq3co"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_client_enet_packet_peer/handler/movement_player_sync_handler.gd" id="12_bye0k"]
+
+[node name="Network" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="ENetServerManager" type="Node" parent="Manager"]
+script = ExtResource("1_qnmc2")
+
+[node name="ServerMeshManager" type="Node" parent="Manager"]
+
+[node name="ChannelManager" type="Node" parent="Manager"]
+script = ExtResource("2_f2xi4")
+
+[node name="ChannelMap" type="Node" parent="Manager/ChannelManager"]
+script = ExtResource("3_mwpdb")
+
+[node name="PacketManager" type="Node" parent="Manager"]
+script = ExtResource("4_esiwu")
+
+[node name="Sync" type="Node" parent="."]
+
+[node name="NetworkMovementSyncManager" type="Node" parent="Sync"]
+
+[node name="NetworkCombatSyncManager" type="Node" parent="Sync"]
+
+[node name="Handler" type="Node" parent="."]
+
+[node name="Core" type="Node" parent="Handler"]
+
+[node name="CoreHeartbeatHandler" type="Node" parent="Handler/Core"]
+script = ExtResource("5_mdiyr")
+
+[node name="CoreConnectionHandler" type="Node" parent="Handler/Core"]
+script = ExtResource("6_n85nf")
+
+[node name="CoreDisconnectionHandler" type="Node" parent="Handler/Core"]
+script = ExtResource("7_c40lq")
+
+[node name="Auth" type="Node" parent="Handler"]
+
+[node name="AuthLoginHandler" type="Node" parent="Handler/Auth"]
+script = ExtResource("8_p1k1e")
+
+[node name="Char" type="Node" parent="Handler"]
+
+[node name="CharFetchHandler" type="Node" parent="Handler/Char"]
+script = ExtResource("9_7yjkj")
+
+[node name="CharSelectHandler" type="Node" parent="Handler/Char"]
+script = ExtResource("10_rtbuy")
+
+[node name="Movement" type="Node" parent="Handler"]
+
+[node name="MovementPlayerHandler" type="Node" parent="Handler/Movement"]
+script = ExtResource("11_bq3co")
+
+[node name="MovementPlayerSyncHandler" type="Node" parent="Handler/Movement"]
+script = ExtResource("12_bye0k")

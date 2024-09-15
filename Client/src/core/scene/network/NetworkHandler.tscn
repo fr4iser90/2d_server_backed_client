@@ -1,0 +1,64 @@
+[gd_scene load_steps=14 format=3 uid="uid://cxfey5h31c4gg"]
+
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_heartbeat_handler.gd" id="1_7dyd1"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/login_response_handler.gd" id="2_4uw6u"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_disconnection_handler.gd" id="3_b688b"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/movement_data_handler.gd" id="4_w1fun"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/chat_messages_handler.gd" id="5_mi8p6"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/player_status_update_handler.gd" id="6_vmkt6"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/event_triggered_handler.gd" id="7_b6o2l"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/special_action_handler.gd" id="8_ytspl"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/self_test_channels.gd" id="9_s6sqw"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/auth_login_handler.gd" id="10_8l4nu"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/char_fetch_handler.gd" id="11_j7ppj"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/char_select_handler.gd" id="12_7rg76"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/movement_player_handler.gd" id="13_7wlnk"]
+
+[node name="Handler" type="Node"]
+
+[node name="Core" type="Node" parent="."]
+
+[node name="CoreHeartbeatHandler" type="Node" parent="Core"]
+script = ExtResource("1_7dyd1")
+
+[node name="CoreConnectionHandler" type="Node" parent="Core"]
+script = ExtResource("2_4uw6u")
+
+[node name="CoreDisconnectionHandler" type="Node" parent="Core"]
+script = ExtResource("3_b688b")
+
+[node name="DataHandler" type="Node" parent="Core"]
+script = ExtResource("4_w1fun")
+
+[node name="ChatMessageHandler" type="Node" parent="Core"]
+script = ExtResource("5_mi8p6")
+
+[node name="PlayerStatusUpdateHandler" type="Node" parent="Core"]
+script = ExtResource("6_vmkt6")
+
+[node name="EventTriggeredHandler" type="Node" parent="Core"]
+script = ExtResource("7_b6o2l")
+
+[node name="SpecialActionHandler" type="Node" parent="Core"]
+script = ExtResource("8_ytspl")
+
+[node name="SelfTestChannelsHandler" type="Node" parent="Core"]
+script = ExtResource("9_s6sqw")
+
+[node name="Auth" type="Node" parent="."]
+
+[node name="AuthLoginHandler" type="Node" parent="Auth"]
+script = ExtResource("10_8l4nu")
+
+[node name="Char" type="Node" parent="."]
+
+[node name="CharFetchHandler" type="Node" parent="Char"]
+script = ExtResource("11_j7ppj")
+
+[node name="CharSelectHandler" type="Node" parent="Char"]
+script = ExtResource("12_7rg76")
+
+[node name="Movement" type="Node" parent="."]
+
+[node name="MovementPlayerHandler" type="Node" parent="Movement"]
+script = ExtResource("13_7wlnk")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://j0nfqkwpqam3"]
+
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/manager/network_server_backend_manager.gd" id="1_8c88l"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/manager/backend_middleware_manager.gd" id="2_f1uhs"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/manager/backend_routes_manager.gd" id="3_8307m"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/manager/auth_server_manager.gd" id="4_1t8e7"]
+[ext_resource type="Script" path="res://src/core/network/manager/server_backend_rest/manager/auth_token_manager.gd" id="5_m1ogd"]
+
+[node name="NetworkServerBackendManager" type="Node"]
+script = ExtResource("1_8c88l")
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="BackendMiddlewareManager" type="Node" parent="Manager"]
+script = ExtResource("2_f1uhs")
+
+[node name="BackendRoutesManager" type="Node" parent="Manager"]
+script = ExtResource("3_8307m")
+
+[node name="BackendWebSocket" type="Node" parent="Manager"]
+
+[node name="AuthServerManager" type="Node" parent="Manager"]
+script = ExtResource("4_1t8e7")
+
+[node name="AuthTokenManager" type="Node" parent="Manager"]
+script = ExtResource("5_m1ogd")

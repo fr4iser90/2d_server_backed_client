@@ -6,7 +6,7 @@ var channel_manager = null
 var packet_manager = null
 var	network_manager = null
 var	enet_client_manager = null
-var	heartbeat_handler = null
+var	core_heartbeat_handler = null
 var	connection_handler = null
 var	disconnection_handler = null
 var	data_handler = null
@@ -14,9 +14,9 @@ var	chat_messages_handler = null
 var	player_status_update_handler = null
 var	event_triggered_handler = null
 var	special_action_handler = null
-var	backend_login_handler = null
-var	backend_character_handler = null
-var	backend_character_select_handler = null
+var	auth_login_handler = null
+var	char_fetch_handler = null
+var	char_select_handler = null
 var	spawn_manager = null
 var	user_manager = null
 var	character_manager = null
@@ -40,7 +40,7 @@ func _ready():
 	movement_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "movement_manager")
 			
 	
-	heartbeat_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "heartbeat_handler")
+	core_heartbeat_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "core_heartbeat_handler")
 	connection_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "connection_handler")
 	disconnection_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "disconnection_handler")
 	data_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "data_handler")
@@ -48,9 +48,9 @@ func _ready():
 	player_status_update_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "player_status_update_handler")
 	event_triggered_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "event_triggered_handler")
 	special_action_handler = GlobalManager.GlobalNodeManager.get_cached_node("basic_handler", "special_action_handler")
-	backend_login_handler = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "backend_login_handler")
-	backend_character_handler = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "backend_character_handler")
-	backend_character_select_handler = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "backend_character_select_handler")
+	auth_login_handler = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "auth_login_handler")
+	char_fetch_handler = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "char_fetch_handler")
+	char_select_handler = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "char_select_handler")
 	load_scene_from_server()
 	
 func load_scene_from_server():
