@@ -1,4 +1,4 @@
-# res://src/core/autoloads/scene_manager/SceneLoadManager.gd
+# res://src/core/autoload/scene_manager/SceneLoadingManager.gd
 extends Node
 
 var scene_config = preload("res://src/core/autoload/scene_manager/SceneConfigManager.gd").new()
@@ -15,18 +15,19 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	scene_cache_manager = GlobalManager.NodeManager.get_node_info_from_map("SceneManagerMap", "scene_manager", "scene_cache_manager")
-	
+	scene_cache_manager = GlobalManager.NodeManager.get_node_from_combined_maps("scene_manager", "scene_cache_manager")
+
+		
 # Loads and instantiates a scene by name
 func load_scene(scene_name: String, add_to_root: bool = true) -> Node:
 	var high_level = true
-	
+	var scene_cache_manager = GlobalManager.NodeManager.get_node_from_combined_maps("scene_manager", "scene_cache_manager")
 	
 	if scene_cache_manager == null:
 		print("Error: scene_cache_manager null")
 		return null
 	
-	print("Cache Manager found, attempting to get cached scene")
+	#print("Cache Manager found, attempting to get cached scene")
 	var cached_scene = scene_cache_manager.get_cached_scene(scene_name)
 	if cached_scene:
 		if add_to_root:
@@ -57,11 +58,20 @@ func load_scene(scene_name: String, add_to_root: bool = true) -> Node:
 
 # Function to switch from the current scene to a new scene
 func switch_scene(new_scene_name: String) -> void:
-	# Remove the current scene
-	var current_scene = get_tree().current_scene
-	if current_scene != null:
-		current_scene.queue_free()
+	_free_current_scene()
+	call_deferred("_load_new_scene", new_scene_name)
 
+func _free_current_scene():
+	var current_scene = get_tree().current_scene
+	print("current_scene: ", current_scene)
+	if current_scene != null:
+		var current_scene_name = current_scene.name
+		scene_cache_manager.remove_scene_from_cache(current_scene_name)
+		get_tree().root.remove_child(current_scene)
+		print("Freed scene: ", current_scene)
+		current_scene.call_deferred("queue_free")
+		
+func _load_new_scene(new_scene_name: String) -> void:
 	# Load the new scene
 	var new_scene_instance = load_scene(new_scene_name)
 	if new_scene_instance == null:
@@ -71,8 +81,7 @@ func switch_scene(new_scene_name: String) -> void:
 	# Set the new scene as the current scene
 	get_tree().current_scene = new_scene_instance
 	print("Switched to new scene:", new_scene_name)
-
-
+	
 # Function to add a scene to a specific node in the scene tree
 func put_scene_at_node(scene_name: String, node_path: String) -> Node:
 	var high_level = true
@@ -99,9 +108,11 @@ func get_node_or_create(node_path: String) -> Node:
 	for part in path_parts:
 		if part == "":
 			continue
+		print("Checking or creating part: ", part)
 		if current_node.has_node(part):
 			current_node = current_node.get_node(part)
 		else:
+			print("Creating new node for part: ", part)
 			var new_node = Node.new()
 			new_node.name = part
 			current_node.add_child(new_node)

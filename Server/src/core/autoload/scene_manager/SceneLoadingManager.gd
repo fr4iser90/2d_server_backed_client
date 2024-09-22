@@ -15,18 +15,19 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	scene_cache_manager = GlobalManager.NodeManager.get_node_from_combined_maps("manager", "scene_cache_manager")
-	
+	scene_cache_manager = GlobalManager.NodeManager.get_node_from_combined_maps("scene_manager", "scene_cache_manager")
+
+		
 # Loads and instantiates a scene by name
 func load_scene(scene_name: String, add_to_root: bool = true) -> Node:
 	var high_level = true
-	
+	var scene_cache_manager = GlobalManager.NodeManager.get_node_from_combined_maps("scene_manager", "scene_cache_manager")
 	
 	if scene_cache_manager == null:
 		print("Error: scene_cache_manager null")
 		return null
 	
-	print("Cache Manager found, attempting to get cached scene")
+	#print("Cache Manager found, attempting to get cached scene")
 	var cached_scene = scene_cache_manager.get_cached_scene(scene_name)
 	if cached_scene:
 		if add_to_root:

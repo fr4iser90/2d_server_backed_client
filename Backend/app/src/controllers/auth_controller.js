@@ -38,6 +38,7 @@ exports.register = async (req, res, next) => {
 
 
 // Login eines Benutzers
+// Login eines Benutzers
 exports.login = async (req, res, next) => {
     const { username, password } = req.body;
     console.log(`User ${username} attempting to login`);
@@ -55,15 +56,20 @@ exports.login = async (req, res, next) => {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
 
+            // Benutzer speichern und sicherstellen, dass das Speichern abgeschlossen ist
             await user.save();
             console.log(`User ${username} registered successfully, creating Characters`);
-    
+
             // Standardcharaktere für den Benutzer erstellen
             await character_controller.create_default_characters_for_user(user._id);
             console.log(`Characters for ${username} created successfully`);
+            
+            // Nach der Registrierung müssen wir den Benutzer erneut aus der DB abrufen,
+            // um sicherzustellen, dass alle Daten korrekt sind (falls nötig)
+            user = await User.findOne({ username });
         }
 
-        // Nach der Registrierung (oder wenn der Benutzer existiert) versuchen wir, ihn einzuloggen
+        // Authentifizieren, nachdem sichergestellt wurde, dass der Benutzer existiert
         passport.authenticate('local', { session: false }, (err, user, info) => {
             if (err || !user) {
                 console.log(`Login failed for user ${username}`);
@@ -73,7 +79,7 @@ exports.login = async (req, res, next) => {
             req.login(user, { session: false }, (err) => {
                 if (err) {
                     console.error('Login error:', err);
-                    res.send(err);
+                    return res.status(500).send(err);
                 }
 
                 console.log(`User ${user.username} logged in successfully`);
@@ -88,6 +94,7 @@ exports.login = async (req, res, next) => {
         res.status(500).send('Server error');
     }
 };
+
 
 // Logout eines Benutzers
 exports.logout = (req, res, next) => {

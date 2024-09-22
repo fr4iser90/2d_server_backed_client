@@ -33,7 +33,6 @@ func _on_global_manager_ready():
 	server_initialized = true
 	# Lade den core_tree
 	core_tree = GlobalManager.SceneManager.load_scene("CoreTree")
-	#network_tree = GlobalManager.SceneManager.load_scene("NetworkTree")
 	user_tree = GlobalManager.SceneManager.load_scene("UserTree")
 	game_tree = GlobalManager.SceneManager.load_scene("GameTree")
 	

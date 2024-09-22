@@ -1,4 +1,4 @@
-# res://src/core/server/server_console.gd
+# res://src/core/server/server_console/server_console.gd
 extends Control
 
 var server_init  
@@ -20,8 +20,8 @@ var auto_connect_enabled
 @onready var auto_connect_button = $ServerConsoleContainer/TopBackend/AutoConnectCheckButton
 # Mid
 @onready var backend_status_label = $ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanelLabel
-@onready var player_list = $ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerList
-@onready var server_client_log = $ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel/ServerClientLog
+@onready var player_list_manager = $ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager
+@onready var server_log = $ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel/ServerLog
 @onready var server_backend_log = $ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanel/ServerBackendLog
 
 var server_console_settings = preload("res://src/core/server/config/server_console_settings.gd").new()
@@ -42,6 +42,8 @@ func _ready():
 		server_init = get_node("/root/ServerInit")
 		server_init.connect("all_managers_initialized", Callable(self, "_on_server_initialized"))
 		connect_to_backend_button.connect("pressed", Callable(self, "_on_connect_pressed"))
+		auto_connect_button.connect("toggled", Callable(self, "_on_auto_connect_toggled"))
+		player_list_manager.initialize()
 	else:
 		print("Error: ServerInit not found!")
 		
@@ -57,7 +59,11 @@ func _connect_buttons():
 	auto_connect_enabled = server_console_settings.load_settings()	
 	if auto_connect_button:
 		auto_connect_button.set_pressed(auto_connect_enabled)
-		
+	call_deferred("auto_connect")
+	
+func auto_connect():
+	if auto_connect_enabled:
+		_on_connect_pressed()
 
 
 func _on_auto_connect_toggled(button_pressed: bool):
@@ -83,7 +89,8 @@ func _on_connect_pressed():
 # Verbindet mit dem Backend
 func connect_to_backend(ip: String, port: String, token: String):
 	print("Connecting to backend with IP: %s, Port: %s" % [ip, port])
-	network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_server_backend_manager")
+	var network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("backend_manager", "network_server_backend_manager")
+	#print(network_server_backend_manager)
 	if network_server_backend_manager:
 		network_server_backend_manager.connect_to_backend(ip, port, token)
 		network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_backend_authenticated"))
@@ -92,9 +99,11 @@ func _on_backend_authenticated(success: bool):
 	if success:
 		network_server_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_server_client_manager")
 		print("Backend authenticated successfully. Starting client network manager...")
+		
 		if network_server_client_manager:
+			GlobalManager.SceneManager.print_tree_structure()
+			network_server_client_manager.connect("network_server_client_network_started", Callable(self, "_on_server_client_network_started"))
 			network_server_client_manager.start_server_client_network()
-			network_server_client_manager.connect("network_server_client_connection_established", Callable(self, "_on_server_client_network_started"))
 		else:
 			print("ENetNetworkManager failed to start server")
 	else:
@@ -106,7 +115,10 @@ func _on_backend_authenticated(success: bool):
 # Callback, wenn der Client erfolgreich verbunden ist
 func _on_server_client_network_started():
 	print("Client network started. Server is fully operational.")
-	
+	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
+	if user_session_manager:
+		user_session_manager.connect("user_data_changed", Callable(player_list_manager, "update_player_list"))
+		
 # This function will be called when the ServerInit signals that all managers are ready
 func _on_server_initialized():
 	print("Server initialized. Proceeding to connect server console.")
@@ -123,6 +135,8 @@ func _on_server_initialized():
 	#GlobalManager.NodeManager.scan_and_register_all_nodes(get_tree().root)
 	#GlobalManager.NodeManager.scan_node_tree(get_tree().root)
 	channel_manager.register_channel_map()
+	print("tree")
+	GlobalManager.SceneManager.print_tree_structure()
 	if user_session_manager:
 		user_session_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
 		custom_print("Connected to user manager signal.")
@@ -147,47 +161,21 @@ func _update_backend_status(status: BackendStatus):
 			
 # Handle log messages
 func _on_log_message_server_client(message: String):
-	server_client_log.append_text(message + "\n")
-	server_client_log.scroll_to_line(server_client_log.get_line_count() - 1)
-	print(message)
+	if server_log.has_method("log_message"):
+		server_log.call("log_message", message)
+	else:
+		print("ServerLog script is missing log_message method")
 
 func _on_log_message_server_backend(message: String):
-	server_backend_log.append_text(message + "\n")
-	server_backend_log.scroll_to_line(server_backend_log.get_line_count() - 1)
-	custom_print(message)
+	if server_log.has_method("log_message"):
+		server_log.call("log_message", message)
+	else:
+		print("ServerLog script is missing log_message method")
 
 func custom_print(message: String):
 	print(message)
 	
-# Update player data
-func _on_user_data_changed(changed_peer_id: int, user_data: Dictionary):
-	var user_session_manager = GlobalManager.NodeManager.get_node_from_config("network_meta_manager", "user_session_manager")
-	player_list.clear()  # Clear the list before adding new items
-	for id in user_session_manager.users_data.keys():
-		var user = user_session_manager.users_data[id]
-		# Display the main player data in the ItemList (Username, Selected Character, Scene)
-		var username = user.get("username", "Unknown")
-		var current_scene = user.get("current_scene", "No Scene")
-		var selected_character = user.get("selected_character", {})  # Get selected character if exists
-		var character_name = selected_character.get("name", "No Character")  # Default to "No Character" if none selected
-		var item_text = "Username: %s, Character: %s, Scene: %s" % [username, character_name, current_scene]
-		player_list.add_item(item_text)
 
-		# Construct a tooltip with all user data fields
-		var tooltip_text = "Username: %s\nPeerID: %s\nUserID: %s\nToken: %s\nLast Scene: %s\nPosition: %s\nOnline: %s" % [
-			username,
-			str(id), 		
-			user.get("user_id", "No ID"),  # Safely get user_id
-			user.get("token", "No Token"),  # Safely get token
-			user.get("last_scene", "No Last Scene"),  # Safely get last_scene
-			str(user.get("position", Vector3())),  # Safely get position
-			str(user.get("is_online", false))  # Safely get is_online
-		]
-		
-		# Set the tooltip for the corresponding item in the list
-		player_list.set_item_tooltip(player_list.get_item_count() - 1, tooltip_text)
-
-	custom_print("Player list updated with tooltips.")
 
 # Handle backend connection established signal
 func _on_backend_connecting():

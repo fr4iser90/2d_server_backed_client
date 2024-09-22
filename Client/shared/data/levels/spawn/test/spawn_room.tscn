@@ -33,11 +33,11 @@ shape = SubResource("RectangleShape2D_eyre4")
 
 [node name="SpawnPoints" type="Node" parent="."]
 
-[node name="SpawnDefault" type="Node2D" parent="SpawnPoints"]
-position = Vector2(309, 225)
+[node name="default_spawn_point" type="Node2D" parent="SpawnPoints"]
+position = Vector2(529, 262)
 
-[node name="SpawnDefault2" type="Node2D" parent="SpawnPoints"]
-position = Vector2(40, 106)
+[node name="default2_spawn_point" type="Node2D" parent="SpawnPoints"]
+position = Vector2(78, 236)
 
-[node name="SpawnDefault3" type="Node2D" parent="SpawnPoints"]
-position = Vector2(113, 149)
+[node name="forest_spawn_point" type="Node2D" parent="SpawnPoints"]
+position = Vector2(426, 82)

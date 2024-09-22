@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwvji7mhn3ydq"]
+
+[ext_resource type="Script" path="res://src/database/server/handler/ServerAuthHandler.gd" id="1_0brge"]
+[ext_resource type="Script" path="res://src/server/handler/ServerManager.gd" id="1_0e8u5"]
+[ext_resource type="Script" path="res://src/database/user/UserManager.gd" id="1_psdm5"]
+[ext_resource type="Script" path="res://src/database/server/ServerAuthManager.gd" id="1_tyh8b"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserLoginHandler.gd" id="2_of7dy"]
+[ext_resource type="Script" path="res://src/database/server/handler/ServerTokenHandler.gd" id="2_qvjmg"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserLogoutHandler.gd" id="3_1rjw5"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserRegisterHandler.gd" id="3_8587c"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
+
+[node name="Database" type="Node"]
+
+[node name="Data" type="Node" parent="."]
+
+[node name="User" type="Node" parent="Data"]
+
+[node name="UserModel" type="Node" parent="Data/User"]
+
+[node name="Character" type="Node" parent="Data"]
+
+[node name="CharacterModel" type="Node" parent="Data/Character"]
+
+[node name="Server" type="Node" parent="Data"]
+
+[node name="Source" type="Node" parent="."]
+
+[node name="Database" type="Node" parent="Source"]
+
+[node name="User" type="Node" parent="Source/Database"]
+
+[node name="UserManager" type="Node" parent="Source/Database/User"]
+script = ExtResource("1_psdm5")
+
+[node name="UserLoginHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("2_of7dy")
+
+[node name="UserLogoutHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("3_1rjw5")
+
+[node name="UserRegisterHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("3_8587c")
+
+[node name="UserTokenHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("5_ojkqw")
+
+[node name="Character" type="Node" parent="Source/Database"]
+
+[node name="CharacterManager" type="Node" parent="Source/Database/Character"]
+
+[node name="CharacterCreationHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+
+[node name="CharacterSelectHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+
+[node name="CharacterFetchHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+
+[node name="Server" type="Node" parent="Source/Database"]
+
+[node name="ServerManager" type="Node" parent="Source/Database/Server"]
+script = ExtResource("1_tyh8b")
+
+[node name="ServerAuthHandler" type="Node" parent="Source/Database/Server/ServerManager"]
+script = ExtResource("1_0brge")
+
+[node name="ServerTokenHandler" type="Node" parent="Source/Database/Server/ServerManager"]
+script = ExtResource("2_qvjmg")
+
+[node name="Config" type="Node" parent="Source"]
+
+[node name="Game" type="Node" parent="Source"]
+
+[node name="WebSocketServer" type="Node" parent="Source"]
+
+[node name="Handler" type="Node" parent="Source/WebSocketServer"]
+
+[node name="Manager" type="Node" parent="Source/WebSocketServer"]
+
+[node name="WebSocketManager" type="Node" parent="Source/WebSocketServer/Manager"]
+script = ExtResource("1_0e8u5")

@@ -9,7 +9,7 @@ var is_logged_in = false
 var logged_in_user = ""
 var user_backend_token =""
 var handler_name = "auth_login_handler"
-var network_manager = null
+var network_module = null
 var enet_client_manager = null
 var channel_manager = null
 var packet_manager = null
@@ -20,14 +20,21 @@ func initialize():
 	if is_initialized:
 		print("handle_backend_login already initialized. Skipping.")
 		return
-	network_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "network_manager")
-	enet_client_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "packet_manager")
+	network_module = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_module")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
 	is_initialized = true
 
 # Diese Funktion wird aufgerufen, wenn ein Paket über Kanal 20 empfangen wird
-func handle_packet(data: Dictionary, peer_id: int):
+func handle_packet(data: Dictionary):
+	print(data)
+	if data.has("status") and data["status"] == "error":
+		# Handle error message sent from the server
+		print("Login failed, reason: ", data["message"])
+		emit_signal("login_failed", data["message"])
+		return
+
 	if data.has("token") and data.has("user_id"):
 		# Token und User-ID vom Backend erhalten
 		print("Login successful. User ID: ", data["user_id"])
@@ -39,12 +46,12 @@ func handle_packet(data: Dictionary, peer_id: int):
 		# Signal für erfolgreichen Login senden
 		GlobalManager.GlobalConfig.set_auth_token(user_backend_token)
 		GlobalManager.GlobalConfig.set_user_id(logged_in_user)
-		emit_signal("login_success", data["user_id"])
+		emit_signal("login_success", data["user_id"], data["token"], data.get("role", ""))
 	else:
 		# Wenn das Paket nicht die erwarteten Daten enthält, gilt der Login als fehlgeschlagen
 		print("Login failed, invalid data received.")
 		emit_signal("login_failed", "Invalid data received")
-
+		
 func login(username: String, password: String):
 	var enet_peer = enet_client_manager.get_enet_peer()
 	if not enet_peer:

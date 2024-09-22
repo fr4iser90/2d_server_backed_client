@@ -3,7 +3,7 @@ extends Node
 
 # Loading the scene configuration
 var scene_config = preload("res://src/core/autoload/scene_manager/SceneConfigManager.gd").new()
-var scene_manager_map = preload("res://src/core/autoload/map/node/NodeSceneManagerMap.gd").new()
+var scene_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var current_scene: Node = null
 
 
@@ -106,7 +106,7 @@ func put_scene_at_node(scene_name: String, node_path: String) -> Node:
 
 # Delegate the print tree structure function to SceneStateManager
 func print_tree_structure():
-	scene_state_manager.print_tree_structure()
+	return scene_state_manager.print_tree_structure()
 	
 # High-Level function to add an overlay scene using SceneOverlayManager
 func overlay_scene(scene_name: String) -> Node:
@@ -114,11 +114,11 @@ func overlay_scene(scene_name: String) -> Node:
 
 # High-Level function to remove the current scene using SceneLoader
 func remove_current_scene():
-	scene_loading_manager.remove_current_scene()
+	return scene_loading_manager.remove_current_scene()
 
 # High-Level function to remove an overlay scene using SceneOverlayManager
 func remove_overlay_scene(scene_instance: Node):
-	scene_overlay_manager.remove_overlay_scene(scene_instance)
+	return scene_overlay_manager.remove_overlay_scene(scene_instance)
 
 # High-Level function to save the current state of the scene using SceneStateManager
 func save_current_scene_state() -> Dictionary:

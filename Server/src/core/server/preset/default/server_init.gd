@@ -26,4 +26,4 @@ func _ready():
 func _on_network_managers_loaded():
 	# Netzwerk-Manager geladen, aber Backend-Verbindung wird nicht hier gestartet
 	print("Network managers loaded. Backend connection will be handled via UI.")
-	#GlobalManager.NodeManager.scan_node_tree(get_tree().root)
+	GlobalManager.NodeManager.scan_and_register_all_nodes(get_tree().root)

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://i3foluw8dcmd"]
+[gd_scene load_steps=5 format=3 uid="uid://i3foluw8dcmd"]
 
 [ext_resource type="Script" path="res://src/core/server/server_console/server_console.gd" id="1_2558d"]
+[ext_resource type="Script" path="res://src/core/server/server_console/PlayerListManager.gd" id="2_dh4te"]
+[ext_resource type="Script" path="res://src/core/server/server_console/PlayerVisualMonitorPanel.gd" id="3_euax3"]
+[ext_resource type="Script" path="res://src/core/server/server_console/ServerLog.gd" id="4_qwk75"]
 
 [node name="ServerConsole" type="Control"]
 layout_mode = 3
@@ -143,7 +146,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerList" type="ItemList" parent="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel"]
+[node name="PlayerListManager" type="ItemList" parent="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,6 +154,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 12
+script = ExtResource("2_dh4te")
+
+[node name="PlayerVisualMonitorPanel" type="Panel" parent="ServerConsoleContainer/Mid/SideContainer/PlayerContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_euax3")
 
 [node name="ControlContainer" type="VBoxContainer" parent="ServerConsoleContainer/Mid"]
 layout_mode = 2
@@ -190,26 +199,26 @@ text = "Enable ENetPacketPeer"
 layout_mode = 2
 text = "Enable MultiplayerApi"
 
-[node name="Container2" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
+[node name="PlayerControlsButton" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="Player" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
+[node name="Player" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Player
 "
 
-[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
+[node name="Kick" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton"]
 layout_mode = 2
 text = "Kick Player"
 
-[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
+[node name="Ban" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton"]
 layout_mode = 2
 text = "Ban Player"
 
-[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container2"]
+[node name="Watch" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton"]
 layout_mode = 2
 text = "watch Player"
 
@@ -364,7 +373,7 @@ text = "ServerLogPanelLabel:"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ServerClientLog" type="RichTextLabel" parent="ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel"]
+[node name="ServerLog" type="RichTextLabel" parent="ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel"]
 clip_contents = false
 custom_minimum_size = Vector2(350, 3)
 layout_mode = 1
@@ -373,6 +382,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 10
+script = ExtResource("4_qwk75")
 
 [node name="ServerBackendPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
 layout_mode = 2
@@ -397,3 +408,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+
+[connection signal="item_activated" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_activated"]
+[connection signal="item_selected" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_selected"]
+[connection signal="pressed" from="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Watch" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_watch_pressed"]

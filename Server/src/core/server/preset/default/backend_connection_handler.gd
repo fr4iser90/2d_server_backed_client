@@ -5,17 +5,17 @@ signal backend_authenticated
 
 var network_server_backend_manager
 
-# Setzt den Backend-Manager
-func set_backend_manager(manager):
-	network_server_backend_manager = manager
 
 # Verbindet mit dem Backend
 func connect_to_backend(ip: String, port: String, token: String):
-	print("Connecting to backend with IP: %s, Port: %s" % [ip, port])
-	
+	print("Connecasdsadasdasdting to backend with IP: %s, Port: %s" % [ip, port])
+	var network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_server_client_manager")
 	if network_server_backend_manager:
+		print("connecting????")
 		network_server_backend_manager.connect_to_backend(ip, port, token)
 		network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_backend_authenticated"))
+	else:
+		print("Error")
 
 func _on_backend_authenticated(success: bool):
 	if success:

@@ -3,7 +3,7 @@ extends Node
 
 # Loading the scene configuration
 var scene_config = preload("res://src/core/autoload/scene_manager/SceneConfigManager.gd").new()
-var scene_manager_map = preload("res://src/core/autoload/map/node/NodeSceneManagerMap.gd").new()
+var scene_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var current_scene: Node = null
 
 
@@ -93,12 +93,12 @@ func get_scene_path(scene_name: String) -> String:
 	
 # High-Level function to load scenes using SceneLoader
 func load_scene(scene_name: String, bool = true):
-	scene_loading_manager.load_scene(scene_name, bool)
+	return scene_loading_manager.load_scene(scene_name, bool)
 	
 # High-Level function to switch scenes using SceneLoader
 func switch_scene(scene_name: String):
-	scene_loading_manager.switch_scene(scene_name)
-
+	return scene_loading_manager.switch_scene(scene_name)
+	
 	
 # Function to add a scene to a specific node using SceneLoader
 func put_scene_at_node(scene_name: String, node_path: String) -> Node:

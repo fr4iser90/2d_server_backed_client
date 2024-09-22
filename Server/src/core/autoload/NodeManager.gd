@@ -3,7 +3,7 @@ extends Node
 
 signal node_manager_ready
 # Node Manager Variables
-var node_manager_map = preload("res://src/core/autoload/map/node/NodeManagerMap.gd").new()
+var node_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var node_map_manager = null
 var node_cache_manager = null
 var node_state_manager = null

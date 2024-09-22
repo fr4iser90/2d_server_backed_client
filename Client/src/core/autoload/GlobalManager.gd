@@ -13,7 +13,6 @@ var autoloads = [
 	{"name": "GlobalConfig", "path": "res://src/core/autoload/GlobalConfig.gd"},
 	{"name": "NodeManager", "path": "res://src/core/autoload/NodeManager.gd"},
 	{"name": "SceneManager", "path": "res://src/core/autoload/SceneManager.gd"},
-	{"name": "GlobalServerConsolePrint", "path": "res://src/core/autoload/GlobalServerConsolePrint.gd"},
 ]
 
 signal global_manager_ready

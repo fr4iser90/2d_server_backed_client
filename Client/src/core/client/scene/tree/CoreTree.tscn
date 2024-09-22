@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://camearhe1dhr4"]
+
+[node name="Core" type="Node"]
+
+[node name="ServerManager" type="Node" parent="."]
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="Utils" type="Node" parent="."]

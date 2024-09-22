@@ -1,0 +1,182 @@
+[gd_scene load_steps=8 format=3 uid="uid://csug62qrh5x3m"]
+
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/Launcher.gd" id="1_j4mox"]
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/StatusManager.gd" id="2_jjahd"]
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/ConnectionManager.gd" id="2_x1rbv"]
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/UIManager.gd" id="4_g2o3y"]
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/LoginManager.gd" id="4_kho17"]
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/CharacterManager.gd" id="5_bas33"]
+[ext_resource type="Script" path="res://src/core/client/scene/menu/launcher/DataManager.gd" id="5_xifpv"]
+
+[node name="Launcher" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4mox")
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="HBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(30, 40)
+layout_mode = 2
+script = ExtResource("2_jjahd")
+
+[node name="Label" type="Label" parent="Container/Top"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PlaceHolderTop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="Container/Top"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TopMid" type="HBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+
+[node name="ConnectionContainer" type="HBoxContainer" parent="Container/TopMid"]
+custom_minimum_size = Vector2(30, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_x1rbv")
+
+[node name="AddressLabel" type="Label" parent="Container/TopMid/ConnectionContainer"]
+layout_mode = 2
+text = "ServerAddress:"
+
+[node name="IpPortInput" type="LineEdit" parent="Container/TopMid/ConnectionContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "127.0.0.1:9997"
+placeholder_text = "127.0.0.1:9997"
+
+[node name="ConnectButton" type="Button" parent="Container/TopMid/ConnectionContainer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="DisconnectButton" type="Button" parent="Container/TopMid/ConnectionContainer"]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="AutoConnectCheckBox" type="CheckButton" parent="Container/TopMid/ConnectionContainer"]
+layout_mode = 2
+text = "AutoConnect"
+
+[node name="Mid" type="HBoxContainer" parent="Container"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UserSessionContainer" type="VBoxContainer" parent="Container/Mid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Container/Mid/UserSessionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LoginContainer" type="VBoxContainer" parent="Container/Mid/UserSessionContainer/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 210.0
+offset_bottom = 256.0
+alignment = 1
+script = ExtResource("4_kho17")
+
+[node name="UsernameLabel" type="Label" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+text = "Username : "
+
+[node name="UsernameInput" type="LineEdit" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+placeholder_text = "Username"
+
+[node name="PasswordLabel" type="Label" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+text = "Password: "
+
+[node name="PasswordInput" type="LineEdit" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+placeholder_text = "Password"
+
+[node name="StatusLabel" type="Label" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+
+[node name="LoginButton" type="Button" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+text = "Login"
+
+[node name="CancelButton" type="Button" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="AutoLoginCheckBox" type="CheckButton" parent="Container/Mid/UserSessionContainer/Panel/LoginContainer"]
+layout_mode = 2
+text = "AutoLogin"
+
+[node name="CharacterContainer" type="VBoxContainer" parent="Container/Mid/UserSessionContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("5_bas33")
+
+[node name="CharactersLabel" type="Label" parent="Container/Mid/UserSessionContainer/Panel/CharacterContainer"]
+layout_mode = 2
+text = "Characters:"
+
+[node name="MageButton" type="Button" parent="Container/Mid/UserSessionContainer/Panel/CharacterContainer"]
+layout_mode = 2
+text = "Mage"
+
+[node name="ArcherButton" type="Button" parent="Container/Mid/UserSessionContainer/Panel/CharacterContainer"]
+layout_mode = 2
+text = "Archer"
+
+[node name="KnightButton" type="Button" parent="Container/Mid/UserSessionContainer/Panel/CharacterContainer"]
+layout_mode = 2
+text = "Knight"
+
+[node name="LogoutButton" type="Button" parent="Container/Mid/UserSessionContainer/Panel/CharacterContainer"]
+layout_mode = 2
+text = "SwitchAccount"
+
+[node name="MidContainer" type="VBoxContainer" parent="Container/Mid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Container/Mid/MidContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MidContainerLast" type="VBoxContainer" parent="Container/Mid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bottom" type="HBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="UIManager" type="Control" parent="."]
+anchors_preset = 0
+script = ExtResource("4_g2o3y")
+
+[node name="DataManager" type="Node" parent="."]
+script = ExtResource("5_xifpv")
+
+[connection signal="pressed" from="Container/TopMid/ConnectionContainer/ConnectButton" to="Container/TopMid/ConnectionContainer" method="_on_connect_button_pressed"]

@@ -20,7 +20,7 @@ func _initialize_network_nodes():
 	network_server_client_manager.initialize()
 	network_server_backend_manager.initialize()
 	_check_if_managers_loaded()
-	GlobalManager.GlobalServerConsolePrint.print_to_console("NetworkModules initialized")
+
 	
 # Überprüft, ob die Manager geladen sind
 func _check_if_managers_loaded():

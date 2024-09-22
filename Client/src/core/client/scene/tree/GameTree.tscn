@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://b8owjtbse3dvd"]
+
+[ext_resource type="Script" path="res://src/game/player_manager/SpawnManager.gd" id="1_iue31"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_manager/PlayerManager.gd" id="1_yu15t"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/CharacterManager.gd" id="3_yo56v"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/InstanceManager.gd" id="4_70bm7"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="4_cjc5s"]
+[ext_resource type="Script" path="res://src/core/client/scene/tree/EntityNodeManager.gd" id="5_1br3i"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_select_handler.gd" id="5_5201h"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="6_nu6pd"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="7_r3ika"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/scene_instance_data_handler.gd" id="10_rg7th"]
+
+[node name="Game" type="Node"]
+
+[node name="Player" type="Node" parent="."]
+
+[node name="PlayerManager" type="Node" parent="Player"]
+script = ExtResource("1_yu15t")
+
+[node name="Handler" type="Node" parent="Player/PlayerManager"]
+
+[node name="NetworkHandler" type="Node" parent="Player/PlayerManager"]
+
+[node name="CharacterManager" type="Node" parent="Player"]
+script = ExtResource("3_yo56v")
+
+[node name="Handler" type="Node" parent="Player/CharacterManager"]
+
+[node name="NetworkHandler" type="Node" parent="Player/CharacterManager"]
+
+[node name="CharFetchHandler" type="Node" parent="Player/CharacterManager/NetworkHandler"]
+script = ExtResource("4_cjc5s")
+
+[node name="CharSelectHandler" type="Node" parent="Player/CharacterManager/NetworkHandler"]
+script = ExtResource("5_5201h")
+
+[node name="PlayerMovementManager" type="Node" parent="Player"]
+
+[node name="Handler" type="Node" parent="Player/PlayerMovementManager"]
+
+[node name="NetworkHandler" type="Node" parent="Player/PlayerMovementManager"]
+
+[node name="MovementPlayerHandler" type="Node" parent="Player/PlayerMovementManager/NetworkHandler"]
+script = ExtResource("6_nu6pd")
+
+[node name="MovementPlayerSyncHandler" type="Node" parent="Player/PlayerMovementManager/NetworkHandler"]
+script = ExtResource("7_r3ika")
+
+[node name="SpawnManager" type="Node" parent="Player"]
+script = ExtResource("1_iue31")
+
+[node name="World" type="Node" parent="."]
+
+[node name="InstanceManager" type="Node" parent="World"]
+script = ExtResource("4_70bm7")
+
+[node name="Handler" type="Node" parent="World/InstanceManager"]
+
+[node name="EntityNodeManager" type="Node" parent="World/InstanceManager/Handler"]
+script = ExtResource("5_1br3i")
+
+[node name="NetworkHandler" type="Node" parent="World/InstanceManager"]
+
+[node name="SceneInstanceDataHandler" type="Node" parent="World/InstanceManager/NetworkHandler"]
+script = ExtResource("10_rg7th")
+
+[node name="Combat" type="Node" parent="."]
+
+[node name="Inventory" type="Node" parent="."]
+
+[node name="Quest" type="Node" parent="."]
+
+[node name="Dialogue" type="Node" parent="."]
+
+[node name="UI" type="Node" parent="."]

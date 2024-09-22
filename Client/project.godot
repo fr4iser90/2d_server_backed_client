@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GrowWorld-Client"
-run/main_scene="res://src/system/start_scene/menu_scene.tscn"
+run/main_scene="res://src/core/client/scene/tree/BuildClient.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,8 +21,8 @@ GlobalManager="*res://src/core/autoload/GlobalManager.gd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=320
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

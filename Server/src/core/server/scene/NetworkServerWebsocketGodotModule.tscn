@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxarqnogejmud"]
+
+[ext_resource type="Script" path="res://src/core/network/module/backend_rest/manager/auth_server_manager.gd" id="1_26ev4"]
+[ext_resource type="Script" path="res://src/core/network/module/backend_rest/manager/auth_token_manager.gd" id="2_gq2g5"]
+
+[node name="NetworkServerWebsocketGodotModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="WebSocketClientManager" type="Node" parent="Manager"]
+
+[node name="AuthServerManager" type="Node" parent="Manager"]
+script = ExtResource("1_26ev4")
+
+[node name="AuthTokenManager" type="Node" parent="Manager"]
+script = ExtResource("2_gq2g5")

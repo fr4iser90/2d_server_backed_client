@@ -3,7 +3,7 @@ extends Node
 
 signal node_manager_ready
 # Node Manager Variables
-var node_manager_map = preload("res://src/core/autoload/map/node/NodeManagerMap.gd").new()
+var node_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var node_map_manager = null
 var node_cache_manager = null
 var node_state_manager = null
@@ -117,8 +117,14 @@ func get_node_from_config(node_type: String, node_name: String, auto_initialize 
 func get_node_info_from_map(map_name: String, node_type: String , node_name: String) -> Node:
 	return node_map_manager.get_node_from_map(map_name, node_type, node_name)
 
+func get_node_from_combined_maps(node_type: String, node_name: String) -> Node:
+	return node_map_manager.get_node_from_combined_maps(node_type, node_name)
+	
 func reference_map_entry(map_name: String, node_type: String, target: Dictionary):
 	return node_map_manager.reference_map_entry(map_name, node_type, target)
+
+func get_map_data(map_name: String) -> Dictionary:
+	return node_map_manager.get_map_data(map_name)
 	
 # NodeStateManager
 func mark_node_ready(node_name: String):
@@ -137,6 +143,8 @@ func mark_all_nodes_ready():
 func use_temporary_node(node_type: String, node_name: String, auto_initialize := true) -> Node:
 		return node_temporary_manager.use_temporary_node(node_type, node_name, auto_initialize)
 		
+
+	
 # NodeLifecycleManager
 func initialize_node(node_type: String, node_name: String) -> Node:
 	return node_life_cycle_manager.initialize_node(node_type, node_name)
