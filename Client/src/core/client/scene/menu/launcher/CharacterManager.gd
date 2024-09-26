@@ -1,3 +1,4 @@
+# res://src/core/client/scene/menu/launcher/CharacterManager.gd
 extends Control
 
 @onready var mage_button = $MageButton
@@ -8,7 +9,7 @@ extends Control
 var character_data = []
 var char_fetch_handler = null
 var char_select_handler = null
-
+var user_session_manager = null
 # Initialize the character manager and connect signals
 func _ready():
 	_connect_signals()
@@ -18,7 +19,7 @@ func _connect_signals():
 	logout_button.connect("pressed", Callable(self, "_on_logout_pressed"))
 	char_fetch_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "char_fetch_handler")
 	char_select_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "char_select_handler")
-
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
 	# Connect signals for character fetching and selection
 	if char_fetch_handler:
 		char_fetch_handler.connect("characters_fetched", Callable(self, "_on_characters_fetched"))
@@ -31,7 +32,7 @@ func _connect_signals():
 		char_select_handler.connect("character_selection_failed", Callable(self, "_on_character_selection_failed"))
 	else:
 		print("Character select handler not available")
-
+	
 # Fetch character data from the server
 func fetch_characters():
 	print("Fetching characters...")
@@ -97,8 +98,9 @@ func _on_character_button_pressed(character_id: String):
 # Send character selection to the server
 func _send_character_selection(character_id: String):
 	print("Sending character selection to the server")
+	
 	var request_data = {
-		"token": GlobalManager.GlobalConfig.get_auth_token(),
+		"token": user_session_manager.get_auth_token(),
 		"character_id": character_id
 	}
 	char_select_handler.select_character(request_data)
@@ -106,22 +108,21 @@ func _send_character_selection(character_id: String):
 
 # Handle successful character selection
 func _on_character_selected_success(characters: Dictionary, instance_key: String):
-	print("Character selected successfully")
-	
-	var character_data = characters.get("character")
-	print(character_data)
+	print("Character selected successfully: ", characters)
+	var character_data = characters
+	#print(character_data)
 	var character_class = character_data.get("character_class")
-	print(character_class)
+	#print(character_class)
 	var character_scene_path = GlobalManager.SceneManager.scene_config.get_scene_path(character_class)
-	print(character_scene_path)
+	#print(character_scene_path)
 	var player_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_manager")
 	var character_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_manager")
-	GlobalManager.GlobalConfig.set_selected_character_id(character_data._id)
-	character_manager.add_character_to_manager(GlobalManager.GlobalConfig.get_user_id(), character_data)
+	user_session_manager.set_selected_character_id(character_data._id)
+	character_manager.add_character_to_manager(user_session_manager.get_user_id(), character_data)
 	var enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
 	var peer_id = enet_client_manager.get_peer_id()  # Assuming this method returns the peer ID
 	# Call character manager to handle the selection logic
-	player_manager.on_character_selected(GlobalManager.GlobalConfig.get_user_id(), character_data._id)
+	player_manager.on_character_selected(user_session_manager.get_user_id(), character_data._id)
 	# Hide character selection UI and proceed (no scene switch)
 	_free_menu_and_children()
 	var client_main = get_node("/root/ClientMain")

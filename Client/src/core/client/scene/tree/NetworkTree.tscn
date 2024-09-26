@@ -1,16 +1,22 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1p05jjgkfwh5"]
+[gd_scene load_steps=27 format=3 uid="uid://d1p05jjgkfwh5"]
 
 [ext_resource type="Script" path="res://src/core/network/manager/enet_manager/enet_client_manager.gd" id="1_klug5"]
 [ext_resource type="Script" path="res://src/core/network/manager/NetworkModule.gd" id="1_ksnub"]
-[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/channel_manager.gd" id="2_bl0kw"]
-[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/ChannelMap.gd" id="3_5koiq"]
-[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/packet_manager.gd" id="4_073rg"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/channel_manager.gd" id="2_bl0kw"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/ChannelMap.gd" id="3_5koiq"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/packet_manager.gd" id="4_073rg"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_heartbeat_handler.gd" id="5_c13kn"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketDispatchHandler.gd" id="6_bjef4"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_connection_handler.gd" id="7_j4ttp"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketProcessingHandler.gd" id="7_o868r"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_disconnection_handler.gd" id="7_pikf4"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketCreationHandler.gd" id="8_lojbr"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/movement_data_handler.gd" id="8_qu6fe"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketCacheHandler.gd" id="9_eim0s"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/chat_messages_handler.gd" id="9_txqft"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/player_status_update_handler.gd" id="10_6cesx"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketValidationHandler.gd" id="10_kdxs3"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketConverterHandler.gd" id="10_sv2na"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/event_triggered_handler.gd" id="11_wmg4l"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/special_action_handler.gd" id="12_ki30e"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/self_test_channels.gd" id="13_ru1dx"]
@@ -37,6 +43,28 @@ script = ExtResource("3_5koiq")
 
 [node name="PacketManager" type="Node" parent="Manager"]
 script = ExtResource("4_073rg")
+
+[node name="PacketDispatchHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("6_bjef4")
+
+[node name="PacketProcessingHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("7_o868r")
+
+[node name="PacketCreationHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("8_lojbr")
+
+[node name="PacketHashHandler" type="Node" parent="Manager/PacketManager"]
+
+[node name="PacketCacheHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("9_eim0s")
+
+[node name="PacketConverterHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("10_sv2na")
+
+[node name="PacketValidationHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("10_kdxs3")
+
+[node name="PacketProcessingUtil" type="Node" parent="Manager/PacketManager"]
 
 [node name="Handler" type="Node" parent="."]
 

@@ -21,8 +21,6 @@ func initialize():
 func update_player_list(changed_peer_id: int, user_data: Dictionary):
 	clear()  # Clear existing items
 	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
-	print(user_data)
-	
 	for id in user_session_manager.users_data.keys():
 		var user = user_session_manager.users_data[id]
 		var username = user.get("username", "Unknown")
@@ -30,11 +28,9 @@ func update_player_list(changed_peer_id: int, user_data: Dictionary):
 		
 		# Retrieve nested character data
 		var character_data = user.get("character", {})
-		var selected_character_data = character_data.get("selected_character", {})
-		var character_info = selected_character_data.get("character", {})
 
-		var character_name = character_info.get("name", "No Character")
-		var current_scene = character_info.get("scene_name", "No Scene")
+		var character_name = character_data.get("name", "No Character")
+		var current_scene = character_data.get("scene_name", "No Scene")
 		
 		# Build the main list item text
 		var item_text = "Username: %s, Character: %s, Scene: %s" % [username, character_name, current_scene]

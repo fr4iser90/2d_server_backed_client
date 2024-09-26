@@ -19,14 +19,17 @@ func initialize():
 
 # Add a player to the manager
 func add_player(peer_id: int, player_data: Dictionary):
-	# Access the position directly from player_data
-	#print("player_data: ", player_data)
+	print("Player added to Movement Manager player_data: ", player_data)
+	
+	# Use last_known_position for initial spawn, then clean it
 	if player_data.has("last_known_position"):
 		var position = player_data["last_known_position"]
+		player_data["position"] = position  # Set the position to last known
+		player_data.erase("last_known_position")  # Remove the last_known_position
 		
-		# Add player data and initialize the position
+		# Register the player and their initial position
 		players[peer_id] = player_data
-		player_positions[peer_id] = position  # Initialize position
+		player_positions[peer_id] = position
 		print("Player added to movement manager: ", peer_id, " with position: ", position)
 	else:
 		print("Failed to add player for peer_id: ", peer_id, " - invalid player_data")
@@ -37,7 +40,6 @@ func remove_player(peer_id: int):
 	players.erase(peer_id)
 	player_positions.erase(peer_id)
 	print("Player removed from movement tracking: ", peer_id)
-
 
 # Process received movement data and update the player's position
 func process_received_data(peer_id: int, movement_data: Dictionary):

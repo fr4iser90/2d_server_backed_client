@@ -8,11 +8,13 @@ extends Control
 
 var network_module
 var data_manager
+var user_session_manager
 
 func _ready():
 	# Load and set auto-connect settings
 	
 	data_manager = get_node("/root/Menu/Launcher/DataManager")
+	user_session_manager = get_node("/root/User/Manager/UserSessionManager")
 	# Hide the disconnect button initially
 	_load_settings()
 	disconnect_button.hide()
@@ -47,8 +49,8 @@ func _on_connect_button_pressed():
 
 	network_module = get_node("/root/Core/Network")
 	data_manager.save_last_server_address(ip, port)
-	GlobalManager.GlobalConfig.set_server_ip(ip)
-	GlobalManager.GlobalConfig.set_server_port(port)
+	user_session_manager.set_server_ip(ip)
+	user_session_manager.set_server_port(port)
 	if network_module:
 		network_module.connect_to_server()
 		connect_button.hide()

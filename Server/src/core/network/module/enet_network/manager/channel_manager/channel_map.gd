@@ -60,7 +60,8 @@ const CHANNEL_MAP = {
 	3002: "scene_spawn_handler",        # Handle player spawns at specific points or last known positions
 	3003: "scene_instance_transition_handler", # Handle transitions between instances
 	3004: "scene_object_interaction_handler",  # Handle interaction with objects in the scene (doors, chests, etc.)
-
+	3006: "scene_loading_status_handler",  # Handle loading status updates from clients
+	
 	# --- 4000-4999: Player and NPC Movement ---
 	4000: "movement_player_handler",    # Handle player movement updates (e.g., walking, running)
 	4001: "movement_player_sync_handler", # Synchronize player movement within an instance

@@ -79,22 +79,28 @@ func _on_backend_characters_response(result: int, response_code: int, headers: A
 			var character_data = json.get_data()
 			GlobalManager.DebugPrint.debug_info("Characters fetched: " + str(character_data), self)
 
+			var cleaned_character_data = character_data["character"]  # Nur die Charakterdaten
+			cleaned_character_data.erase("user")  # Entferne die Benutzerdaten
+			
+
+			print("cleaned_character_data: ", cleaned_character_data)
+			
 			# Add character to manager
 			if character_manager:
-				character_manager.add_character_to_manager(peer_id, {"selected_character": character_data})
+				character_manager.add_character_to_manager(peer_id, cleaned_character_data)
 
 			# Assign player to instance
 			var instance_key = ""
 			if instance_manager:
-				instance_key = instance_manager.handle_player_character_selected(peer_id, character_data["character"])
+				instance_key = instance_manager.handle_player_character_selected(peer_id, cleaned_character_data)
 
 			# Prepare the response data, including the instance key
 			var response_data = {
-				"characters": character_data,
+				"characters": cleaned_character_data,
 				"instance_key": instance_key  # Include instance key in the response
 			}
-
 			# Send the packet back to the peer (client)
+			print("response_data :", response_data)
 			var err = enet_server_manager.send_packet(peer_id, handler_name, response_data)
 			if err != OK:
 				GlobalManager.DebugPrint.debug_error("Failed to send packet: " + str(err), self)

@@ -21,10 +21,14 @@ GlobalManager="*res://src/core/autoload/GlobalManager.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
+
+[editor]
+
+movie_writer/movie_file="/home/fr4iser/Documents/Projects/backup9 15/test.avi"
 
 [input]
 

@@ -19,6 +19,7 @@ format = 2
 layer_0/tile_data = PackedInt32Array(655361, 10, 0, 655362, 10, 0, 655363, 10, 0, 655364, 10, 0, 655365, 10, 0, 655366, 10, 0, 655367, 10, 0, 655368, 9, 0, 655371, 11, 0, 655372, 10, 0, 655373, 10, 0, 4, 38, 0, 3, 37, 0)
 
 [node name="FurnitureTileMap" type="TileMap" parent="."]
+visible = false
 tile_set = ExtResource("1_vu40u")
 format = 2
 layer_0/tile_data = PackedInt32Array(262150, 26, 0, 262151, 25, 0, 393223, 24, 0, 458757, 24, 0, 524299, 26, 0, 524300, 25, 0)
@@ -38,3 +39,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 position = Vector2(160, 160)
 shape = SubResource("RectangleShape2D_eyre4")
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="default_spawn_point" type="Node2D" parent="SpawnPoints"]
+position = Vector2(42, 79)

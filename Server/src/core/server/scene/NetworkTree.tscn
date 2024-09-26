@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cletkulpq43kt"]
+[gd_scene load_steps=15 format=3 uid="uid://cletkulpq43kt"]
 
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/enet_manager/enet_server_manager.gd" id="1_qnmc2"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/channel_manager/channel_manager.gd" id="2_f2xi4"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketCreationHandler.gd" id="7_hpgxn"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketCacheHandler.gd" id="8_oy2a7"]
 [ext_resource type="Script" path="res://src/core/network/module/backend_rest/handler/auth_login_handler.gd" id="8_p1k1e"]
+[ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketConverterHandler.gd" id="9_p8463"]
+[ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketValidationHandler.gd" id="9_sn2vu"]
 
 [node name="Network" type="Node"]
 
@@ -46,6 +48,10 @@ script = ExtResource("7_hpgxn")
 script = ExtResource("8_oy2a7")
 
 [node name="PacketConverterHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("9_p8463")
+
+[node name="PacketValidationHandler" type="Node" parent="Manager/PacketManager"]
+script = ExtResource("9_sn2vu")
 
 [node name="Sync" type="Node" parent="."]
 

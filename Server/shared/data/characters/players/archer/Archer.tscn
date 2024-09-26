@@ -39,6 +39,11 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ve3s"]
@@ -49,7 +54,7 @@ height = 14.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dm7p4")
-animation = &"idle"
+animation = &"new_animation"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

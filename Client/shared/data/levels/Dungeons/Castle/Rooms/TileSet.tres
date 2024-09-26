@@ -118,7 +118,7 @@ polygon = PackedVector2Array(8, -2.1761, -8, -1.20711, -8, -8, 8, -8)
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7cjrd"]
 texture = ExtResource("1")
 margins = Vector2i(32, 112)
-0:0/next_alternative_id = 8
+0:0/next_alternative_id = 9
 0:0/0 = 0
 0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_3t1ux")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -171,6 +171,12 @@ margins = Vector2i(32, 112)
 0:0/7/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/7/physics_layer_0/angular_velocity = 0.0
 0:0/7/physics_layer_0/polygon_0/points = PackedVector2Array(8, -1.59471, -8, -1.78853, -8, -8, 8, -8)
+0:0/8 = 8
+0:0/8/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/8/physics_layer_0/angular_velocity = 0.0
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5q2d2"]
 polygon = PackedVector2Array(-8, 2.284, 8, 2.4778, 8, 8, -8, 8)

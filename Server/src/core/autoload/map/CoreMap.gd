@@ -23,6 +23,8 @@ var packet_hander = {
 	"packet_dispatch_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketDispatchHandler", "cache": true},
 	"packet_cache_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketCacheHandler", "cache": true},
 	"packet_hash_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketHashHandler", "cache": true},
+	"packet_converter_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketConverterHandler", "cache": true},
+	"packet_validation_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketValidationHandler", "cache": true},
 }	
 
 	

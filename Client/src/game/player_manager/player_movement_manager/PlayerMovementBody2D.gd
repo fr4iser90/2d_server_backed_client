@@ -1,13 +1,11 @@
-# res://src/game/player_manager/PlayerMovementBody2D.gd
+# res://src/game/player_manager/player_movement_manager/PlayerMovementBody2D.gd
 extends CharacterBody2D
 
 var speed = 200
 var last_velocity = Vector2.ZERO
 var last_position = Vector2.ZERO
 var movement_player_handler
-
-
-
+var local_player = true  # Assuming this is always true for local players
 
 func _ready():
 	# Get the movement manager
@@ -53,8 +51,11 @@ func send_movement():
 		print("Sending movement data to the server")
 		movement_player_handler.send_movement_data(global_position, velocity)
 	else:
-		print("No player_movement_manager ")
-# Function to update other players' positions
-func update_other_player_position(position: Vector2):
-	global_position = position
-	# Here you can add logic to update the position of other players
+		print("No movement_player_handler available")
+
+# Update position for other players
+func update_other_player_position(peer_id: int, position: Vector2, velocity: Vector2):
+	if not local_player:  # Only update if this is not the local player
+		print("Updating position for peer_id: ", peer_id, " to position: ", position, " with velocity: ", velocity)
+		global_position = position
+		self.velocity = velocity

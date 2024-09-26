@@ -20,6 +20,7 @@ var char_select_handler = null
 var spawn_manager = null
 var character_manager = null
 var movement_manager = null
+var player_state_machine_manager = null
 var user_session_manager = null
 var player_manager = null
 var is_initialized = false  
@@ -45,7 +46,7 @@ func _initialize_managers():
 	character_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_manager")
 	spawn_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "spawn_manager")
 	movement_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "movement_manager")
-
+	player_state_machine_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_state_machine_manager")
 		
 	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	core_heartbeat_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "core_heartbeat_handler")
@@ -65,16 +66,13 @@ func initialize_player_and_scene(character_data: Dictionary, instance_key: Strin
 	print("Initializing player and scene with character data")
 	# Attach peer_id to character_data
 	character_data["peer_id"] = peer_id
-	# Store the character data if needed
-	GlobalManager.GlobalConfig.set_selected_scene_name(character_data.scene_name)
-	GlobalManager.GlobalConfig.set_spawn_point(character_data.spawn_point)
 	# Load the scene and defer player spawning
-	load_scene_from_server(character_data.scene_name, character_data)
+	load_scene_from_server(character_data.scene_name, character_data, instance_key)
 	# Notify the instance manager to handle players and the scene for the instance
 	var instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	instance_manager.handle_join_instance(instance_key, character_data)
 	
-func load_scene_from_server(scene_name: String, character_data: Dictionary):
+func load_scene_from_server(scene_name: String, character_data: Dictionary, instance_key: String):
 	print("Loading scene from server: ", scene_name)
 	var scene_path = GlobalManager.SceneManager.get_scene_path(scene_name)
 	print("Scene path: ", scene_path)
@@ -100,26 +98,19 @@ func load_scene_from_server(scene_name: String, character_data: Dictionary):
 	else:
 		print("Error: ClientMain node does not exist!")
 
-	# Defer player spawning
-	call_deferred("_deferred_spawn_player", character_data)
+	# Defer player spawning, pass instance_key along
+	call_deferred("_deferred_spawn_player", character_data, instance_key)
+
 
 # This function is called after the scene is loaded to spawn the player
-func _deferred_spawn_player(character_data: Dictionary):
+func _deferred_spawn_player(character_data: Dictionary, instance_key: String):
 	var client_main = get_node("/root/ClientMain")
 	if client_main == null:
 		print("ClientMain node not ready yet. Retrying.")
-		call_deferred("_deferred_spawn_player", character_data)
+		call_deferred("_deferred_spawn_player", character_data, instance_key)
 		return
 
 	print("Scene is ready. Spawning player.")
 	spawn_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "spawn_manager")
-	spawn_manager.spawn_player(character_data)
+	spawn_manager.spawn_local_player(character_data)
 
-	# Notify InstanceManager about the player joining the instance
-	print(character_data)
-	var instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-	var instance_key = instance_manager.get_instance_id_for_peer(character_data["peer_id"])
-	if instance_key != "":
-		instance_manager.update_player_position(character_data["peer_id"], character_data["last_known_position"], Vector2.ZERO)
-	else:
-		print("Error: No instance key found for peer_id:", character_data["peer_id"])

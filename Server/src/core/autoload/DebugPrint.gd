@@ -43,7 +43,8 @@ func debug(message: String, level: int = DebugLevel.INFO, caller: Object = null,
 	
 	# Get the formatted message with BBCode colors and print
 	var formatted_message = get_bbcode_colored_message(level, caller_info + message, tag)
-	print("Sending debug signal: " + formatted_message)
+	#print("Sending debug signal: " + formatted_message)
+	print(message)
 	emit_signal("log_message_emitted", message, level, caller)
 
 # Hilfsfunktionen für spezifische Level

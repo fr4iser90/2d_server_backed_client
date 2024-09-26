@@ -17,6 +17,16 @@ var network_handler = {
 	"char_select_handler": {"path_tree": "/root/Game/Player/CharacterManager/NetworkHandler/CharSelectHandler", "cache": true}
 }
 
+var packet_hander = {
+	"packet_creation_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketCreationHandler", "cache": true},
+	"packet_processing_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketProcessingHandler", "cache": true},
+	"packet_dispatch_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketDispatchHandler", "cache": true},
+	"packet_cache_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketCacheHandler", "cache": true},
+	"packet_hash_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketHashHandler", "cache": true},
+	"packet_converter_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketConverterHandler", "cache": true},
+	"packet_validation_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketValidationHandler", "cache": true},
+}	
+
 var network_meta_manager = {
 	"client_main": {"path_tree": "/root/ClientMain", "cache": true},
 	"network_module": {"path_tree": "/root/Core/Network", "cache": true},

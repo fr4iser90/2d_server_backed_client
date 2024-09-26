@@ -10,6 +10,7 @@ var enet_client_manager : ENetMultiplayerPeer = null
 var connection_timeout_timer: Timer
 var channel_manager = null
 var packet_manager = null
+var user_session_manager = null
 var connection_timeout = 10.0
 
 var is_connected = false
@@ -23,7 +24,8 @@ var is_initialized = false
 func reference_network_managers():
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	
 func create_client_peer():
 	reference_network_managers()
 	if is_connected or is_connecting:
@@ -31,8 +33,8 @@ func create_client_peer():
 		return
 
 	is_connecting = true
-	var address = GlobalManager.GlobalConfig.get_server_ip()
-	var port = GlobalManager.GlobalConfig.get_server_port()
+	var address = user_session_manager.get_server_ip()
+	var port = user_session_manager.get_server_port()
 	print("Registering ChannelMap")
 	channel_manager.register_channel_map()
 	packet_manager.cache_channel_map()

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://x8oihpowquth"]
+
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/PlayerMovementBody2D.gd" id="1_87kf6"]
+
+[node name="PlayerMovementBody2d" type="CharacterBody2D"]
+script = ExtResource("1_87kf6")

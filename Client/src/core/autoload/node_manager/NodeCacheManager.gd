@@ -39,21 +39,25 @@ func ensure_node_initialized(node_name: String) -> Node:
 	if node_cache.has(node_name):
 		var node = node_cache[node_name]
 		
+		# Check if node_flags exist
 		if not node_flags.has(node_name):
 			print("Error: Node flags for", node_name, "not found")
 			return node  # Return it anyway for now, even without flags
 
+		# Check if the node is initialized, and initialize it if not
 		if not node_flags[node_name].has("is_initialized"):
 			print("Error: Initialization flag for", node_name, "missing")
-			return node  # Return it anyway for now
-		
+			node_flags[node_name]["is_initialized"] = false  # Initialize the flag if it's missing
+
 		if not node_flags[node_name]["is_initialized"]:
-			# Only initialize if it's not initialized yet
+			# Avoid re-initialization if already in progress
+			print("Initializing node: ", node_name)
+			node_flags[node_name]["is_initialized"] = true  # Set it early to prevent recursion
+
 			if node.has_method("initialize"):
 				node.initialize()
-				node_flags[node_name]["is_initialized"] = true
-				#print("Node initialized: ", node_name)
-		
+				print("Node initialized: ", node_name)
+
 		return node
 	return null
 

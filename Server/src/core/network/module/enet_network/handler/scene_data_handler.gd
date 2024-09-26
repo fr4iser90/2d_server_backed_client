@@ -6,7 +6,7 @@ func initialize():
 	
 # Methode zum Verarbeiten von Datenpaketen (PackedByteArray)
 func handle_data(peer_id: int, packet: PackedByteArray):
-	print("Handling data from peer_id: ", peer_id)
+	#print("Handling data from peer_id: ", peer_id)
 	
 	var json = JSON.new()
 	var parse_result = json.parse(packet.get_string_from_utf8())
@@ -23,11 +23,12 @@ func handle_data(peer_id: int, packet: PackedByteArray):
 
 # Methode zum Verarbeiten von allgemeinen Paketen (PackedByteArray)
 func handle_packet(packet_peer_id: int, packet: PackedByteArray):
-	print("Handling general packet from peer: ", packet_peer_id)
+	#print("Handling general packet from peer: ", packet_peer_id)
 	# Hier die Logik zur Verarbeitung des allgemeinen Pakets implementieren
-
+	pass
 # Methode zum Verarbeiten von Dictionary-Paketen
 func handle_packet_dictionary(packet_peer_id: int, packet: Dictionary):
-	print("Handling dictionary packet from peer: ", packet_peer_id)
-	print("Packet data:", packet)
+	#print("Handling dictionary packet from peer: ", packet_peer_id)
+	#print("Packet data:", packet)
 	# Hier die Logik zur Verarbeitung des Dictionary-Pakets implementieren
+	pass

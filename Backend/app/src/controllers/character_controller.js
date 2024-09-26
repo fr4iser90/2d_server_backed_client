@@ -2,13 +2,19 @@ const mongoose = require('mongoose');
 const Character = require('../models/character_model');
 const User = require('../models/user_model');
 
+
 // Holt alle Charaktere für einen bestimmten Benutzer
 exports.get_characters_by_user = async (req, res) => {
     try {
         const user_id = req.user.id; // Angenommen, die Benutzer-ID kommt aus dem Auth Middleware
         console.log("Fetching characters for user ID:", user_id);
 
-        const characters = await Character.find({ user: user_id });
+        // Fetch characters for the user, no need to populate denormalized fields
+        const characters = await Character.find({ user: user_id })
+            .populate('inventory') // still a reference
+            .populate('crafting_materials') // still a reference
+            .populate('stash'); // still a reference
+
         console.log(`User ${req.user.username} fetched characters:`, characters);
 
         res.json(characters);
@@ -85,20 +91,23 @@ exports.select_character = async (req, res) => {
     try {
         console.log("select_character route called");
 
-        const user_id = req.user.id;  // Assuming the user is authenticated and `req.user` contains the user details
+        const user_id = req.user.id;  // Authentifizierter Benutzer
         console.log("User ID:", user_id);
 
-        console.log("Request Body:", req.body);
         const { character_id } = req.body;
 
-        // Validate incoming character_id
+        // Validierung
         if (!character_id) {
             console.log("No character ID provided");
             return res.status(400).json({ message: 'Character ID is required' });
         }
 
-        // Dynamically find character and check ownership
-        const character = await Character.findOne({ _id: character_id, user: user_id }).populate('user');
+        // Charakter abrufen und verknüpfte Daten laden
+        const character = await Character.findOne({ _id: character_id, user: user_id })             
+        .populate('inventory')           
+        .populate('crafting_materials')  
+        .populate('stash');              
+
         if (!character) {
             console.log("Character not found or does not belong to the user");
             return res.status(404).json({ message: 'Character not found or does not belong to the user' });
@@ -106,10 +115,7 @@ exports.select_character = async (req, res) => {
 
         console.log("Character found:", character);
 
-        // Dynamically populate additional related data if needed (for example, stash or inventory)
-        await character.populate('stash');  // Fixed: Removed execPopulate()
-
-        // Store selected character in the user's account
+        // Benutzerinformationen aktualisieren (ausgewählter Charakter)
         const user = await User.findById(user_id);
         if (!user) {
             console.log("User not found");

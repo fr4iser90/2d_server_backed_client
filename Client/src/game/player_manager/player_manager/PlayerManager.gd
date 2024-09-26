@@ -60,14 +60,13 @@ func get_character_data(user_id: String, character_id: String) -> Dictionary:
 # Handle the logic for character selection
 func handle_character_selected(user_id: String, character_id: String):
 	selected_characters[user_id] = character_id
-	print("Character selected for user: ", user_id, " -> Character ID: ", character_id)
 
 	# Process logic for the selected character (e.g., loading stats, etc.)
 	on_character_selected(user_id, character_id)
 
 # Logic executed after character selection
 func on_character_selected(user_id: String, character_id: String):
-	print("Character selected for user: ", user_id, " -> Character ID: ", character_id)
+	pass
 	# Add any specific logic you want to trigger after character selection
 
 # Optional: Handle character data changed signal (if needed)

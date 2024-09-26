@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://blwun4tqc243g"]
 
-[ext_resource type="Texture2D" uid="uid://donwwtfx226cq" path="res://sharedXYZ/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png" id="1_y3w1x"]
-[ext_resource type="Texture2D" uid="uid://dmc0qfchsogak" path="res://sharedXYZ/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f1.png" id="2_u3jfv"]
-[ext_resource type="Texture2D" uid="uid://6ucmcc10jfa3" path="res://sharedXYZ/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f2.png" id="3_kqmst"]
-[ext_resource type="Texture2D" uid="uid://bxbse3uwh4642" path="res://sharedXYZ/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f3.png" id="4_5wtjh"]
-[ext_resource type="Texture2D" uid="uid://dhbpxlxm36k2a" path="res://sharedXYZ/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f4.png" id="5_obmac"]
-[ext_resource type="Texture2D" uid="uid://bxukm046obq3r" path="res://sharedXYZ/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f5.png" id="6_ds8js"]
+[ext_resource type="Texture2D" uid="uid://donwwtfx226cq" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png" id="1_y3w1x"]
+[ext_resource type="Texture2D" uid="uid://dmc0qfchsogak" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f1.png" id="2_u3jfv"]
+[ext_resource type="Texture2D" uid="uid://6ucmcc10jfa3" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f2.png" id="3_kqmst"]
+[ext_resource type="Texture2D" uid="uid://bxbse3uwh4642" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f3.png" id="4_5wtjh"]
+[ext_resource type="Texture2D" uid="uid://dhbpxlxm36k2a" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f4.png" id="5_obmac"]
+[ext_resource type="Texture2D" uid="uid://bxukm046obq3r" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f5.png" id="6_ds8js"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dm7p4"]
 animations = [{

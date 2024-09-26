@@ -2,7 +2,7 @@
 extends Node
 
 # Signal for successful character selection
-signal character_selected_success(character_data: Dictionary)
+signal character_selected_success(character_data: Dictionary, instance_key: String)
 signal character_selection_failed(reason: String)
 
 var enet_client_manager = null

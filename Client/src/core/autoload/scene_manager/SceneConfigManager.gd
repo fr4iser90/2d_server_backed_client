@@ -16,6 +16,7 @@ var scene_cores = {
 }
 
 var misc_scenes = {
+	"PlayerMovementBody2D": "res://src/game/player_manager/player_movement_manager/PlayerMovementBody2D.tscn",
 	"HealthPotion": "res://shared/data/Items/Consumables/HealthPotion.tscn",
 	"Sword": "res://shared/data/Items/Weapons/Sword.tscn",
 	"BattleAxe": "res://shared/data/Items/Weapons/BattleAxe.tscn",
@@ -29,9 +30,7 @@ var misc_scenes = {
 	"Goblin": "res://shared/data/characters/Enemies/Common/Goblin/Goblin.tscn",
 	"SlimeBoss": "res://shared/data/characters/Enemies/Uniques/Slime/SlimeBoss.tscn",
 	"Enemy": "res://shared/data/characters/Enemies/Enemy.tscn",
-	"HitEffect": "res://shared/data/characters/Base/HitEffect.tscn",
 	"Character": "res://shared/data/characters/Base/Character.tscn",
-	"SpawnExplosion": "res://shared/data/characters/Base/Effects/SpawnExplosion.tscn",
 }
 
 var scene_levels = {

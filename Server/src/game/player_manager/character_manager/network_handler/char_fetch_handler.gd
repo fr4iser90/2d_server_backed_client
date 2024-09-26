@@ -3,7 +3,7 @@ extends Node
 var backend_routes_manager
 var enet_server_manager
 var handler_name = "char_fetch_handler"
-var debug_enabled = false
+var debug_enabled = true
 var is_initialized = false
 
 func initialize():

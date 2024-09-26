@@ -1,7 +1,7 @@
 extends Node
 
 # Globale Variablen
-var GlobalConfig = null
+#var GlobalConfig = null
 var NodeManager = null
 var SceneManager = null
 var SignalManager = null
@@ -10,7 +10,6 @@ var node_manager_ready = false
 var scene_manager_ready = false
 
 var autoloads = [
-	{"name": "GlobalConfig", "path": "res://src/core/autoload/GlobalConfig.gd"},
 	{"name": "NodeManager", "path": "res://src/core/autoload/NodeManager.gd"},
 	{"name": "SceneManager", "path": "res://src/core/autoload/SceneManager.gd"},
 ]

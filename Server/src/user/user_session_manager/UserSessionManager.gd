@@ -8,8 +8,10 @@ var session_lock_type_handler = null
 var timeout_handler = null
 
 var users_data: Dictionary = {}  # Holds all active user data (user-specific info)
+
 var character_manager = null
 var instance_manager = null
+
 var is_initialized = false  
 
 # Initialize the manager only once
@@ -20,8 +22,7 @@ func initialize():
 	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
 	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	character_manager.connect("character_selected", Callable(self, "_on_character_selected"))
-	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
-
+	
 	# Initialize session handlers
 	session_lock_handler = GlobalManager.NodeManager.get_cached_node("user_session_manager", "session_lock_handler")
 	#session_lock_type_handler = GlobalManager.NodeManager.get_cached_node("user_session_manager", "session_lock_type_handler")
@@ -66,21 +67,13 @@ func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 func _on_character_selected(peer_id: int, character_data: Dictionary):
 	if users_data.has(peer_id):
 		var user_data = users_data.get(peer_id, {})
-		user_data["character"] = character_data
+		user_data["character"] = character_data.duplicate(true)
 		users_data[peer_id] = user_data
 		_emit_user_data_signal(peer_id)
-
-# Called when an instance is assigned
-func _on_instance_assigned(peer_id: int, instance_key: String):
-	if users_data.has(peer_id):
-		var user_data = users_data.get(peer_id, {})
-		user_data["current_instance"] = instance_key
-		users_data[peer_id] = user_data
-		print("Instance data updated for user:", user_data["username"])
-		_emit_user_data_signal(peer_id)
+	else:
+		print("Error: Peer ID not found in users_data")
 
 func _emit_user_data_signal(peer_id: int):
-	print("Emitting user_data_changed signal for peer_id:", peer_id)
 	emit_signal("user_data_changed", peer_id, users_data.get(peer_id, {}))
 
 func update_user_data(peer_id: int, updated_data: Dictionary):
@@ -119,10 +112,15 @@ func remove_user(peer_id: int):
 		_emit_user_data_signal(peer_id)
 		print("User removed with Peer ID:", peer_id, "and Username:", username)
 
-
-
 func get_user_data(peer_id: int) -> Dictionary:
 	return users_data.get(peer_id, {})
+
+func get_username_by_peer_id(peer_id: int) -> String:
+	var user_data = get_user_data(peer_id)
+	if user_data.has("username"):
+		return user_data["username"]
+	return "Unknown"
+
 
 func validate_user_token(peer_id: int, token: String) -> bool:
 	var user_data = users_data.get(peer_id, null)

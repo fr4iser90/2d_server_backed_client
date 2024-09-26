@@ -7,12 +7,13 @@ var player_manager = {
 	"player_manager": {"path_tree": "/root/Game/Player/PlayerManager", "cache": true},
 	"player_movement_manager": {"path_tree": "/root/Game/Player/PlayerMovementManager", "cache": true},
 	"character_manager": {"path_tree": "/root/Game/Player/CharacterManager", "cache": true},
+	"player_state_machine_manager": {"path_tree": "/root/Game/Player/PlayerStateMachineManager", "cache": true},
 }
 
 var world_manager = {
 	"instance_manager": {"path_tree": "/root/Game/World/InstanceManager", "cache": true},
 	"world_loader": {"path_tree": "/root/Game/World/InstanceManager", "cache": true},
-	"entity_node_manager": {"path_tree": "/root/Game/World/InstanceManager/Handler/EntityNodeManager", "cache": true},
+	"instance_entity_node_manager": {"path_tree": "/root/Game/World/InstanceManager/Handler/InstanceEntityNodeManager", "cache": true},
 }
 
 var inventory_manager = {

@@ -13,6 +13,7 @@ var network_module = null
 var enet_client_manager = null
 var channel_manager = null
 var packet_manager = null
+var user_session_manager = null
 var is_initialized = false
 
 
@@ -24,11 +25,12 @@ func initialize():
 	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
 	is_initialized = true
 
 # Diese Funktion wird aufgerufen, wenn ein Paket über Kanal 20 empfangen wird
 func handle_packet(data: Dictionary):
-	print(data)
+	#print(data)
 	if data.has("status") and data["status"] == "error":
 		# Handle error message sent from the server
 		print("Login failed, reason: ", data["message"])
@@ -44,8 +46,8 @@ func handle_packet(data: Dictionary):
 		logged_in_user = data["user_id"]
 		user_backend_token = data["token"]
 		# Signal für erfolgreichen Login senden
-		GlobalManager.GlobalConfig.set_auth_token(user_backend_token)
-		GlobalManager.GlobalConfig.set_user_id(logged_in_user)
+		user_session_manager.set_auth_token(user_backend_token)
+		user_session_manager.set_user_id(logged_in_user)
 		emit_signal("login_success", data["user_id"], data["token"], data.get("role", ""))
 	else:
 		# Wenn das Paket nicht die erwarteten Daten enthält, gilt der Login als fehlgeschlagen

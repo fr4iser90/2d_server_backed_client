@@ -301,35 +301,36 @@ text = "Container3"
 layout_mode = 2
 text = "Enable Websocket"
 
-[node name="Container2" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
+[node name="LevelControlPanel" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+[node name="LevelControlPanel" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
 layout_mode = 2
 text = "Container3"
 
-[node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+[node name="GenerateButton" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
+layout_mode = 2
+text = "Generate Levels
+"
+
+[node name="ViewLevelButton" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
 layout_mode = 2
 text = "ShowDatabases"
 
-[node name="Button2" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
-layout_mode = 2
-text = "ShowUsers"
-
-[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+[node name="Button3" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
 layout_mode = 2
 text = "BanUser"
 
-[node name="Button4" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+[node name="Button4" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
 layout_mode = 2
 text = "ShowRoutes"
 
-[node name="Button5" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+[node name="Button5" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
 layout_mode = 2
 text = "ShowModels
 "
 
-[node name="Button6" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container2"]
+[node name="Button6" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel"]
 layout_mode = 2
 text = "ShowMiddleware"
 

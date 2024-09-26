@@ -1,4 +1,3 @@
-# res://src/core/network/server_backend/manager/auth_server_manager.gd
 extends Node
 
 signal authentication_complete(success: bool)
@@ -9,26 +8,33 @@ var retry_delay := 1.0 # Sekunden
 
 var global_config  
 var is_initialized = false  
+var debug_enabled = false
 
 func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	
+	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
+	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
+	GlobalManager.DebugPrint.debug_info("auth_server_manager initialized.", self)
+
 func authenticate_server():
+	if not is_initialized:
+		initialize()
 	if retry_count == 0:
-		pass
+		GlobalManager.DebugPrint.debug_info("Starting initial server authentication...", self)
+	
 	var delay_timer = Timer.new()
 	delay_timer.wait_time = 1.0
 	delay_timer.one_shot = true
 	add_child(delay_timer)
-	# Starte den Timer, nachdem er dem SceneTree hinzugefügt wurde
 	delay_timer.connect("timeout", Callable(self, "_perform_authentication"))
-	delay_timer.call_deferred("start")  # Hier call_deferred statt sofort start()
+	delay_timer.call_deferred("start")
 
-func _perform_authentication():	
+func _perform_authentication():
 	var url = GlobalManager.GlobalConfig.get_backend_url() + "/api/server/authenticate"
-	print(url)
+	GlobalManager.DebugPrint.debug_info("Performing authentication request to URL: " + url, self)
+
 	var headers = ["Content-Type: application/json"]
 	var body = {
 		"server_key": GlobalManager.GlobalConfig.get_server_validation_key()
@@ -42,45 +48,42 @@ func _perform_authentication():
 	var err = http_request.request(url, headers, HTTPClient.METHOD_POST, body_str)
 	
 	if err != OK:
-		print("Server authentication request failed to start, error code: ", err)
+		GlobalManager.DebugPrint.debug_error("Server authentication request failed to start, error code: " + str(err), self)
 		match err:
 			HTTPRequest.RESULT_CANT_RESOLVE:
-				print("Can't resolve hostname.")
+				GlobalManager.DebugPrint.debug_error("Can't resolve hostname.", self)
 			HTTPRequest.RESULT_CANT_CONNECT:
-				print("Can't connect to host.")
+				GlobalManager.DebugPrint.debug_error("Can't connect to host.", self)
 			HTTPRequest.RESULT_CONNECTION_ERROR:
-				print("Connection error occurred.")
+				GlobalManager.DebugPrint.debug_error("Connection error occurred.", self)
 			_:
-				print("Other error occurred.")
+				GlobalManager.DebugPrint.debug_error("Other error occurred.", self)
 		
-		# Start retry logic
 		_start_retry_authentication()
 
 func _on_authentication_completed(result: int, response_code: int, headers: Array, body: PackedByteArray):
 	if response_code == 200:
-		print("Authentication successful.")
+		GlobalManager.DebugPrint.debug_info("Authentication successful.", self)
 		emit_signal("authentication_complete", true)
 	else:
-		print("Authentication failed with response code: ", response_code)
+		GlobalManager.DebugPrint.debug_warning("Authentication failed with response code: " + str(response_code), self)
 		_start_retry_authentication()
 
 func _start_retry_authentication():
 	if retry_count < max_retries:
 		retry_count += 1
-		print("Retrying authentication in ", retry_delay, " seconds... (Attempt ", retry_count, " of ", max_retries, ")")
+		GlobalManager.DebugPrint.debug_warning("Retrying authentication in " + str(retry_delay) + " seconds... (Attempt " + str(retry_count) + " of " + str(max_retries) + ")", self)
 		
 		var retry_timer = Timer.new()
 		retry_timer.wait_time = retry_delay
 		retry_timer.one_shot = true
 		add_child(retry_timer)
-		
-		# Starte den Timer verzögert
 		retry_timer.connect("timeout", Callable(self, "_on_retry_timeout"))
-		retry_timer.call_deferred("start")  # Starte ihn nach dem Hinzufügen
+		retry_timer.call_deferred("start")
 	else:
-		print("Authentication failed after ", max_retries, " attempts.")
+		GlobalManager.DebugPrint.debug_error("Authentication failed after " + str(max_retries) + " attempts.", self)
 		emit_signal("authentication_complete", false)
 
 func _on_retry_timeout():
-	print("retry timout")
+	GlobalManager.DebugPrint.debug_info("Retrying authentication...", self)
 	authenticate_server()
