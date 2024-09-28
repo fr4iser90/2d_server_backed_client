@@ -4,7 +4,7 @@ extends Node
 signal player_data_changed  # Notify when player data is added/updated/removed
 
 var players = {}  # Tracks player nodes
-var spawn_manager
+var spawn_point_manager
 var player_movement_manager
 
 var is_initialized = false  
@@ -13,7 +13,7 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	spawn_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "spawn_manager")
+	spawn_point_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "spawn_point_manager")
 	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
 	is_initialized = true
 
@@ -37,7 +37,7 @@ func handle_player_spawn(peer_id: int, character_data: Dictionary):
 	var character_class = character_data.get("character_class", "")
 
 	if scene_name and spawn_point and character_class:
-		spawn_manager.spawn_player(peer_id, character_class, scene_name, spawn_point, false)
+		$Handler/PlayerSpawnHandler.spawn_player(peer_id, character_class, scene_name, spawn_point, false)
 	else:
 		print("Error: Missing character data for spawning.")
 

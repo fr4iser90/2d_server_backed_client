@@ -115,8 +115,14 @@ func switch_scene(scene_name: String):
 func get_spawn_points_for_scene(scene_name: String) -> Dictionary:
 	return scene_spawn_point_scanner.get_spawn_points_for_scene(scene_name)
 
+func get_trigger_data() -> Dictionary:
+	return scene_trigger_scanner.get_trigger_data()
+	
 func get_triggers_for_scene(scene_name: String) -> Dictionary:
 	return scene_trigger_scanner.get_triggers_for_scene(scene_name)
+
+func scan_scenes_for_triggers() -> Dictionary:
+	return scene_trigger_scanner.scan_scenes_for_triggers()
 	
 # Function to add a scene to a specific node using SceneLoader
 func put_scene_at_node(scene_name: String, node_path: String) -> Node:

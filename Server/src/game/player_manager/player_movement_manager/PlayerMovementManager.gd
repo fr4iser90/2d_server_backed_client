@@ -2,13 +2,13 @@
 extends Node
 
 signal player_position_updated(peer_id: int, new_position: Vector2)
-
 signal player_entered_trigger(peer_id: int, trigger_name: String, trigger_type: String)
 signal player_exited_trigger(peer_id: int, trigger_name: String, trigger_type: String)
 
 var players = {}  # Stores player nodes or references to player data
 var player_positions = {}  # Stores player positions and other relevant data
-var player_instances = {}  # Store the instance that each player belongs to
+var instance_manager
+var trigger_manager
 var is_initialized = false
 
 func _ready():
@@ -19,9 +19,12 @@ func initialize():
 		print("PlayerMovement already initialized. Skipping.")
 		return
 	is_initialized = true
-	connect("player_entered_trigger", Callable($"../TriggerManager", "_on_trigger_activated"))
-	connect("player_exited_trigger", Callable($"../TriggerManager", "_on_trigger_deactivated"))
+	trigger_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "trigger_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	
+	connect("player_entered_trigger", Callable(trigger_manager, "_on_trigger_activated"))
+	connect("player_exited_trigger", Callable(trigger_manager, "_on_trigger_deactivated"))
+
 # Add a player to the manager
 func add_player(peer_id: int, player_data: Dictionary, spawn_point: Vector2):
 	print("Player added to Movement Manager player_data: ", player_data)
@@ -74,7 +77,7 @@ func process_received_data(peer_id: int, movement_data: Dictionary):
 			player_positions[peer_id]["position"] = new_position
 			player_positions[peer_id]["velocity"] = velocity
 			emit_signal("player_position_updated", peer_id, new_position)
-
+			check_for_trigger_interaction(peer_id, new_position)
 			# Process modular additional data
 			process_additional_data(peer_id, additional_data)
 		else:
@@ -96,3 +99,47 @@ func is_valid_movement(peer_id: int, new_position: Vector2, velocity: Vector2) -
 # Utility to retrieve all players' data (positions, velocities, etc.)
 func get_all_players_data() -> Dictionary:
 	return player_positions
+
+
+# Check if a player has entered or exited a trigger
+func check_for_trigger_interaction(peer_id: int, new_position: Vector2):
+	# Use the InstanceManager to retrieve the player's instance key
+	var instance_key = instance_manager.get_instance_id_for_peer(peer_id)
+	
+	if instance_key == "":
+		print("Player", peer_id, "is not assigned to an instance.")
+		return
+	
+	# Get the triggers for the current instance
+	var triggers = trigger_manager.get_triggers_for_instance(instance_key)
+	
+	# Check if there are any triggers in the current instance
+	if triggers.is_empty():
+		print("No triggers found for instance:", instance_key)
+		return
+	
+	# Iterate over trigger categories (player_trigger_point, npc_trigger_point, etc.)
+	for category in triggers.keys():
+		var category_triggers = triggers[category]
+		
+		# Iterate over the triggers within the category
+		for trigger_name in category_triggers.keys():
+			var trigger = category_triggers[trigger_name]
+			
+			# Ensure trigger contains 'global_position' and 'area_size'
+			if trigger.has("global_position") and trigger.has("area_size"):
+				var trigger_position = trigger["global_position"]
+				var trigger_size = trigger["area_size"]
+				
+				# Simple bounds check to see if player is within the trigger area
+				if is_position_in_area(new_position, trigger_position, trigger_size):
+					emit_signal("player_entered_trigger", peer_id, trigger_name, category)
+				else:
+					emit_signal("player_exited_trigger", peer_id, trigger_name, category)
+
+
+
+# Simple check if player position is within trigger bounds
+func is_position_in_area(position: Vector2, area_position: Vector2, area_size: Vector2) -> bool:
+	var half_size = area_size * 0.5
+	return position.x > area_position.x - half_size.x and position.x < area_position.x + half_size.x and position.y > area_position.y - half_size.y and position.y < area_position.y + half_size.y

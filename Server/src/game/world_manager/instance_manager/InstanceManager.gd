@@ -7,9 +7,6 @@ extends Node
 @onready var instance_entity_manager = $Handler/InstanceEntityManager
 @onready var instance_scene_manager = $Handler/InstanceSceneManager
 @onready var instance_player_character_handler = $Handler/InstancePlayerCharacterHandler
-@onready var scene_instance_data_handler = $NetworkHandler/SceneInstanceDataHandler
-@onready var player_movement_manager = $"../../Player/PlayerMovementManager"
-@onready var spawn_manager = $"../../Player/SpawnManager"
 
 signal instance_created(instance_key: String)
 signal instance_assigned(peer_id: int, instance_key: String)

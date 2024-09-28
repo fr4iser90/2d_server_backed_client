@@ -6,14 +6,15 @@ var game_manager = {
 	"player_manager": {"path_tree": "/root/Game/Player/PlayerManager", "cache": true},
 	"character_manager": {"path_tree": "/root/Game/Player/CharacterManager", "cache": true},
 	"player_movement_manager": {"path_tree": "/root/Game/Player/PlayerMovementManager", "cache": true},
-	"spawn_manager": {"path_tree": "/root/Game/Player/SpawnManager", "cache": true},
+	
 	
 }
 
 var world_manager = {
 	"instance_manager": {"path_tree": "/root/Game/World/InstanceManager", "cache": true},
-	"trigger_manager": {"path_tree": "/root/Game/TriggerManager", "cache": true},
-	"chunk_manager": {"path_tree": "/root/Game/ChunkManager", "cache": true},
+	"trigger_manager": {"path_tree": "/root/Game/World/TriggerManager", "cache": true},
+	"chunk_manager": {"path_tree": "/root/Game/World/ChunkManager", "cache": true},
+	"spawn_point_manager": {"path_tree": "/root/Game/World/SpawnPointManager", "cache": true},
 	"world_loader": {"path_tree": "/root/Game/World/InstanceManager", "cache": true},
 	"entity_node_manager": {"path_tree": "/root/Game/World/InstanceManager/EntityNodeManager", "cache": true},
 }

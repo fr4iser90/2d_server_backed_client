@@ -4,7 +4,7 @@ extends Node
 @onready var instance_assignment_handler = $"../InstanceAssignmentHandler"
 
 var player_movement_manager
-var spawn_manager
+var spawn_point_manager
 var is_initialized = false
 
 func initialize():
@@ -12,7 +12,7 @@ func initialize():
 		return
 	is_initialized = true
 	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
-	spawn_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "spawn_manager")
+	spawn_point_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "spawn_point_manager")
 
 # Handles player selection and assigns them to an instance
 func handle_player_character_selected(peer_id: int, character_data: Dictionary) -> String:
@@ -31,11 +31,10 @@ func handle_player_character_selected(peer_id: int, character_data: Dictionary) 
 		
 		print("spawn_points: ", spawn_points)
 		# Register spawn points in SpawnManager
-		spawn_manager.register_spawn_points(instance_key, spawn_points)
+		spawn_point_manager.register_spawn_points(instance_key, spawn_points)
 		
 		# Get a specific spawn point for this player
-		var spawn_point = spawn_manager.get_spawn_point_position(instance_key, "default_spawn_point")  # Beispiel-Spawnpunktname
-		
+		var spawn_point = spawn_point_manager.get_spawn_point_position(instance_key, "default_spawn_point")  # Beispiel-Spawnpunktname
 		# Add player to the PlayerMovementManager and place at spawn point
 		if player_movement_manager:
 			player_movement_manager.add_player(peer_id, character_data, spawn_point)

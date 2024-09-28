@@ -32,6 +32,8 @@ script = ExtResource("2_xvcct")
 
 [node name="Handler" type="Node" parent="Player/PlayerManager"]
 
+[node name="PlayerSpawnHandler" type="Node" parent="Player/PlayerManager/Handler"]
+
 [node name="PlayerMovementManager" type="Node" parent="Player"]
 script = ExtResource("5_j5bpp")
 
@@ -51,9 +53,6 @@ script = ExtResource("7_mx0bg")
 script = ExtResource("6_jf6l6")
 
 [node name="Handler" type="Node" parent="Player/CharacterManager"]
-
-[node name="SpawnManager" type="Node" parent="Player"]
-script = ExtResource("6_ela85")
 
 [node name="World" type="Node" parent="."]
 
@@ -112,20 +111,6 @@ script = ExtResource("17_42ovj")
 
 [node name="ChunkLoaderHandler" type="Node" parent="World/ChunkManager/Handler"]
 
-[node name="LevelManager" type="Node" parent="World"]
-script = ExtResource("18_dvyq7")
-
-[node name="Handler" type="Node" parent="World/LevelManager"]
-
-[node name="LevelCreationHandler" type="Node" parent="World/LevelManager/Handler"]
-script = ExtResource("19_ykbnq")
-
-[node name="LevelSaveHandler" type="Node" parent="World/LevelManager/Handler"]
-script = ExtResource("20_sihwl")
-
-[node name="LevelMapGenerator" type="Node" parent="World/LevelManager/Handler"]
-script = ExtResource("21_kctyf")
-
 [node name="TriggerManager" type="Node" parent="World"]
 script = ExtResource("17_w8bnd")
 
@@ -148,6 +133,23 @@ script = ExtResource("17_w8bnd")
 [node name="NPC" type="Node" parent="World/TriggerManager/Handler"]
 
 [node name="Mob" type="Node" parent="World/TriggerManager/Handler"]
+
+[node name="SpawnPointManager" type="Node" parent="World"]
+script = ExtResource("6_ela85")
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("18_dvyq7")
+
+[node name="Handler" type="Node" parent="LevelManager"]
+
+[node name="LevelCreationHandler" type="Node" parent="LevelManager/Handler"]
+script = ExtResource("19_ykbnq")
+
+[node name="LevelSaveHandler" type="Node" parent="LevelManager/Handler"]
+script = ExtResource("20_sihwl")
+
+[node name="LevelMapGenerator" type="Node" parent="LevelManager/Handler"]
+script = ExtResource("21_kctyf")
 
 [node name="Combat" type="Node" parent="."]
 

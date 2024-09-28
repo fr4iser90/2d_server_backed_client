@@ -1,6 +1,8 @@
 # InstanceAssignmentHandler
 extends Node
 
+signal instance_assigned(peer_id: int, instance_key: String)
+
 @onready var instance_cache_handler = $"../InstanceCacheHandler"
 
 # Assign player to an available instance or create a new one
@@ -22,4 +24,5 @@ func assign_player_to_instance(peer_id: int, character_data: Dictionary) -> Stri
 		"character_data": character_data
 	})
 	print("Player assigned to instance:", instance_key)
+	emit_signal("instance_assigned", peer_id, instance_key)
 	return instance_key

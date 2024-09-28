@@ -8,51 +8,60 @@ var packet_cache_handler = null
 var channel_manager = null
 var channel_map = null
 
-var is_initialized = false  
+var is_initialized = false
+var debug_enabled = true  # For enabling/disabling debug messages for this module
 
+# Initialize all handlers
 func initialize():
 	if is_initialized:
+		GlobalManager.DebugPrint.debug_info("PacketManager already initialized. Skipping.", self)
 		return
+	
 	packet_creation_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_creation_handler")
 	packet_processing_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_processing_handler")
 	packet_dispatch_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_dispatch_handler")
 	packet_cache_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_cache_handler")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	channel_map = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_map")
+
+	# Enable/disable debugging for this module
+	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
+	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
 	is_initialized = true
 
-# Create packet for handler
+# Create a packet for the specified handler
 func create_packet_for_handler(handler_name: String, data: Dictionary) -> PackedByteArray:
 	var channel = channel_manager.get_channel_for_handler(handler_name)
 	if channel == -1:
-		print("Error: No valid channel for handler:", handler_name)
+		GlobalManager.DebugPrint.debug_error("Error: No valid channel for handler: " + handler_name, self)
 		return PackedByteArray()
 	
+	GlobalManager.DebugPrint.debug_info("Creating packet for handler: " + handler_name, self)
 	return packet_creation_handler.create_packet(handler_name, data, channel)
 
-# Process incoming packet and delegate to the dispatcher
+# Process incoming packet and delegate it to the dispatcher
 func process_packet(packet: PackedByteArray, peer_id: int):
 	var packet_data = packet_processing_handler.process_packet(packet)
 	if packet_data.size() == 0:
-		print("Failed to process packet from peer_id:", peer_id)
+		GlobalManager.DebugPrint.debug_error("Failed to process packet from peer_id: " + str(peer_id), self)
 		return
 
 	var channel = int(packet_data.get("channel", -1))
 	var data = packet_data.get("data", null)
 
 	if channel == -1 or data == null:
-		print("Invalid packet structure from peer_id:", peer_id)
+		GlobalManager.DebugPrint.debug_error("Invalid packet structure from peer_id: " + str(peer_id), self)
 		return
 
-	# Dispatch the packet
+	GlobalManager.DebugPrint.debug_info("Processing packet for channel: " + str(channel) + " and peer_id: " + str(peer_id), self)
 	packet_dispatch_handler.dispatch(channel, data, peer_id)
 
+# Cache the channel map from the channel manager
 func cache_channel_map():
-	# Überprüfe, ob `channel_map` eine Konstante `CHANNEL_MAP` hat und rufe sie direkt ab
 	if channel_map.CHANNEL_MAP != null:
-		var channel_map_dict = channel_map.CHANNEL_MAP  # Holen der CHANNEL_MAP-Konstanten als Dictionary
-		packet_cache_handler.cache_channel_map(channel_map_dict)  # Übergib es an den CacheHandler
+		var channel_map_dict = channel_map.CHANNEL_MAP
+		packet_cache_handler.cache_channel_map(channel_map_dict)
+		GlobalManager.DebugPrint.debug_info("Channel map cached successfully.", self)
 	else:
-		print("Error: CHANNEL_MAP nicht in channel_map gefunden")
-
+		GlobalManager.DebugPrint.debug_error("Error: CHANNEL_MAP not found in channel_map.", self)
 

@@ -135,6 +135,9 @@ func _format_trigger_data(trigger_data: Dictionary) -> String:
 
 	return formatted_output
 
+func get_trigger_data() -> Dictionary:
+	return trigger_data
+	
 # Utility to retrieve triggers for a specific scene
 func get_triggers_for_scene(scene_name: String) -> Dictionary:
 	return trigger_data.get(scene_name, {})
