@@ -1,14 +1,1 @@
-res://src/database/user_manager.gd
-res://data/character/CharacterModel.gd
 res://database.tscn
-res://src/server/handler/ServerManager.gd
-res://data/user/UserModel.gd
-res://src/database/user/handler/UserLoginHandler.gd
-res://src/database/server/handler/ServerAuthHandler.gd
-res://src/database/server/handler/ServerTokenHandler.gd
-res://src/database/character_manager.gd
-res://src/database/server/ServerAuthManager.gd
-res://src/database/user/handler/UserLogoutHandler.gd
-res://src/database/user/UserManager.gd
-res://src/database/user/handler/UserRegisterHandler.gd
-res://src/database/user/handler/UserTokenHandler.gd

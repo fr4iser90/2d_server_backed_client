@@ -1,3 +1,4 @@
+# SceneScanner
 extends Node
 
 # Path to the start directory to be scanned

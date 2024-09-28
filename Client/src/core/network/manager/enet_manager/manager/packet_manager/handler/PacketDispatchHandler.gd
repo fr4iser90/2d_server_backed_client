@@ -24,5 +24,5 @@ func dispatch(channel: int, data: Dictionary):
 	if not handler.has_method("handle_packet"):
 		print("Handler missing 'handle_packet' method for channel:", channel)
 		return
-	print("dispatched packet: ", data)
+	#print("dispatched packet: ", data)
 	handler.call("handle_packet", data)

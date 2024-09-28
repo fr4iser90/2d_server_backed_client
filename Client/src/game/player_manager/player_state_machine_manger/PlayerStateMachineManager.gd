@@ -62,4 +62,5 @@ func _process(delta):
 		#print("Updating current state")
 		current_state.update_state(delta)
 	else:
-		print("No current state to update")
+		#print("No current state to update")
+		pass

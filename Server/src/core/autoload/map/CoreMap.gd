@@ -2,19 +2,19 @@
 extends Node
 
 var network_handler = {
-	"core_heartbeat_handler": {"path_tree": "/root/User/Manager/UserSessionManager/NetworkHandler/CoreHeartbeatHandler", "cache": true},
-	"core_connection_handler": {"path_tree": "/root/User/Manager/UserSessionManager/NetworkHandler/CoreConnectionHandler", "cache": true},
-	"core_disconnection_handler": {"path_tree": "/root/User/Manager/UserSessionManager/NetworkHandler/CoreDisconnectionHandler", "cache": true},
+	"core_heartbeat_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreHeartbeatHandler ", "cache": true},
+	"core_connection_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreConnectionHandler", "cache": true},
+	"core_disconnection_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreDisconnectionHandler", "cache": true},
 	"core_ping_handler": {"path_tree": "/root/Core/Network/Handler/Core/CorePingHandler", "cache": true},
 	"core_server_status_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreServerStatusHandler", "cache": true},
 	"core_error_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreErrorHandler", "cache": true},
-	"movement_player_handler": {"path_tree": "/root/Game/Player/PlayerMovementManager/NetworkHandler/MovementPlayerHandler", "cache": true},
-	"movement_player_sync_handler": {"path_tree": "/root/Game/Player/PlayerMovementManager/NetworkHandler/MovementPlayerSyncHandler", "cache": true},
-	"scene_instance_data_handler": {"path_tree": "/root/Game/World/InstanceManager/NetworkHandler/SceneInstanceDataHandler", "cache": true},
+	"movement_player_handler": {"path_tree": "/root/Core/Network/Handler/Movement/MovementPlayerHandler", "cache": true},
+	"movement_player_sync_handler": {"path_tree": "/root/Core/Network/Handler/Movement/MovementPlayerSyncHandler", "cache": true},
+	"scene_instance_data_handler": {"path_tree": "/root/Core/Network/Handler/Instance/SceneInstanceDataHandler", "cache": true},
 	# Backend Handler
 	"auth_login_handler": {"path_tree": "/root/Core/Network/Handler/Auth/AuthLoginHandler", "cache": true},
-	"char_fetch_handler": {"path_tree": "/root/Game/Player/CharacterManager/NetworkHandler/CharFetchHandler", "cache": true},
-	"char_select_handler": {"path_tree": "/root/Game/Player/CharacterManager/NetworkHandler/CharSelectHandler", "cache": true}
+	"char_fetch_handler": {"path_tree": "/root/Core/Network/Handler/Character/CharacterFetchHandler", "cache": true},
+	"char_select_handler": {"path_tree": "/root/Core/Network/Handler/Character/CharacterSelectHandler", "cache": true}
 }
 
 var packet_hander = {

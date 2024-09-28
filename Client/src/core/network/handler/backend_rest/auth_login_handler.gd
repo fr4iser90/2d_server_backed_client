@@ -7,7 +7,7 @@ signal login_failed(reason: String)
 
 var is_logged_in = false
 var logged_in_user = ""
-var user_backend_token =""
+var user_session_token =""
 var handler_name = "auth_login_handler"
 var network_module = null
 var enet_client_manager = null
@@ -30,27 +30,24 @@ func initialize():
 
 # Diese Funktion wird aufgerufen, wenn ein Paket über Kanal 20 empfangen wird
 func handle_packet(data: Dictionary):
-	#print(data)
 	if data.has("status") and data["status"] == "error":
-		# Handle error message sent from the server
 		print("Login failed, reason: ", data["message"])
 		emit_signal("login_failed", data["message"])
 		return
 
-	if data.has("token") and data.has("user_id"):
-		# Token und User-ID vom Backend erhalten
-		print("Login successful. User ID: ", data["user_id"])
+	if data.has("session_token"):
+		print("Login successful. Session token received.")
 
-		# Anmeldestatus auf true setzen
+		# Set login state
 		is_logged_in = true
-		logged_in_user = data["user_id"]
-		user_backend_token = data["token"]
-		# Signal für erfolgreichen Login senden
-		user_session_manager.set_auth_token(user_backend_token)
-		user_session_manager.set_user_id(logged_in_user)
-		emit_signal("login_success", data["user_id"], data["token"], data.get("role", ""))
+		user_session_token = data["session_token"]  # store session token
+
+		# Update session manager
+		user_session_manager.set_session_token(user_session_token)
+
+		# Emit signal with session token only (no user_id)
+		emit_signal("login_success", data["session_token"])
 	else:
-		# Wenn das Paket nicht die erwarteten Daten enthält, gilt der Login als fehlgeschlagen
 		print("Login failed, invalid data received.")
 		emit_signal("login_failed", "Invalid data received")
 		

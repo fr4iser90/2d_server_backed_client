@@ -36,9 +36,12 @@ func _on_instance_assigned(peer_id: int, instance_key: String):
 			var other_peer_id = player_data["peer_id"]
 			if other_peer_id != peer_id:
 				# Sende neue Spielerdaten an bestehende Spieler
+				
 				var new_player_packet = {
-					"new_player": player_data
+					"players": player_data
 				}
+				print("new_player_packet :", new_player_packet)
+				
 				enet_server_manager.send_packet(other_peer_id, handler_name, new_player_packet)
 
 				# Sende bestehende Spieler an den neuen Spieler
@@ -46,32 +49,36 @@ func _on_instance_assigned(peer_id: int, instance_key: String):
 					"existing_player": instance_data["players"]
 				}
 				enet_server_manager.send_packet(peer_id, handler_name, existing_player_packet)
-	
+
+# Handle incoming packets from the client
+func handle_packet(packet: Dictionary, peer_id: int):
+	# Check if the packet contains a request for instance data
+	print("packet receoved instance: ", packet)
+	if packet.has("request") and packet["request"] == "update_instance_data":
+		print("Received request for instance data from peer_id:", peer_id)
+		send_instance_data_to_client(peer_id)
+		
 # Handle sending scene and instance data to a new player
 func send_instance_data_to_client(peer_id: int):
 	print("Preparing to send instance data to peer_id:", peer_id)
 	
 	# Get the instance_id for the peer_id
 	var instance_key = instance_manager.get_instance_id_for_peer(peer_id)
-	#print("Instance key for peer_id", peer_id, ":", instance_key)
-
 	if instance_key != "":
-		# Fetch minimal instance data from InstanceManager
+		# Fetch minimal data for this instance
 		var minimal_player_data = instance_manager.get_minimal_player_data(instance_key)
-		var instance_data = instance_manager.get_instance_data(instance_key)
-		#print("Fetched minimal player data for instance key:", instance_key, ":", minimal_player_data)
-		
-		# Check if instance_data is valid
-		if instance_data and instance_data.has("scene_path"):
-			# Create a packet with the scene and minimal entity data
+		var full_instance_data = instance_manager.get_instance_data(instance_key)
+
+		if full_instance_data.has("scene_path"):
+			# Send only minimal player data, but full data for mobs and NPCs
 			var packet_data = {
 				"players": minimal_player_data,
-				"mobs": instance_data["mobs"],
-				"npcs": instance_data["npcs"]
+				"mobs": full_instance_data["mobs"],
+				"npcs": full_instance_data["npcs"]
 			}
 
-			# Send the data to the client
-			print("Sending packet to scene_instance_data_handler: ", peer_id, " with data: ", packet_data)
+			# Dispatch the packet to the client
+			print("Sending instance data to peer_id:", peer_id, "with data:", packet_data)
 			enet_server_manager.send_packet(peer_id, handler_name, packet_data)
 		else:
 			print("Error: Invalid instance data for instance key:", instance_key)

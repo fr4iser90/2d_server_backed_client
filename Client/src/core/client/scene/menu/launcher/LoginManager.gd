@@ -46,12 +46,9 @@ func _on_login_button_pressed():
 		_set_status_message("Backend login handler is not available", Color.RED)
 
 # Called when the user successfully logs in
-func _on_user_logged_in_successfully(user_id: String, token: String, role: String):
+func _on_user_logged_in_successfully(session_token: String):
 	_set_status_message("Login successful!", Color.GREEN)
-	print("User logged in successfully with user ID: ", user_id)
-	print("Token: ", token)
-	print("Role: ", role)  # Optional, handle role data if necessary
-
+	print("Session token received: ", session_token)
 
 # Called when the login process fails
 func _on_login_failed(reason: String):

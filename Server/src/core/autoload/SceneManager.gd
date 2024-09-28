@@ -9,6 +9,8 @@ var current_scene: Node = null
 
 # Scene Manager Variables
 var scene_scanner = null
+var scene_spawn_point_scanner = null
+var scene_trigger_scanner = null
 var scene_cache_manager = null
 var scene_loading_manager = null
 var scene_overlay_manager = null
@@ -54,12 +56,23 @@ func _initialize_scene_managers():
 		print("All Scene Managers initialized and added successfully.")
 		node_ready = true
 		emit_signal("scene_manager_ready")
+		print("Scene scan complete. Now scanning for spawn points and checkpoints.")
+		if scene_spawn_point_scanner:
+			scene_spawn_point_scanner.scan_scenes_for_spawn_points()
+		else:
+			print("SceneSpawnPoint nicht da.")
+		if scene_trigger_scanner:
+			scene_trigger_scanner.scan_scenes_for_triggers()
+		else:
+			print("scene_trigger_scanner nicht da.")
 	else:
 		print("Some Scene Managers failed to load.")
 
 func check_scene_manager_readiness():
 	if all_scene_managers_loaded:
 		emit_signal("scene_manager_ready")
+
+
 		
 # Function to get a specific scene manager by name
 func get_scene_manager(manager_name: String) -> Node:
@@ -99,6 +112,11 @@ func load_scene(scene_name: String, bool = true):
 func switch_scene(scene_name: String):
 	scene_loading_manager.switch_scene(scene_name)
 
+func get_spawn_points_for_scene(scene_name: String) -> Dictionary:
+	return scene_spawn_point_scanner.get_spawn_points_for_scene(scene_name)
+
+func get_triggers_for_scene(scene_name: String) -> Dictionary:
+	return scene_trigger_scanner.get_triggers_for_scene(scene_name)
 	
 # Function to add a scene to a specific node using SceneLoader
 func put_scene_at_node(scene_name: String, node_path: String) -> Node:

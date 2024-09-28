@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1euj75cvqb5u"]
+
+[ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://shared/Assets/Art/im no artist/TileSet.tres" id="1_lwwvs"]
+
+[node name="RoomLayout" type="Node2D"]
+
+[node name="TileMap" type="Node2D" parent="."]
+
+[node name="GroundLayer" type="TileMap" parent="TileMap"]
+tile_set = ExtResource("1_lwwvs")
+format = 2
+
+[node name="ObstacleLayer" type="TileMap" parent="TileMap"]
+z_index = 1
+tile_set = ExtResource("1_lwwvs")
+format = 2
+
+[node name="DecorationLayer" type="TileMap" parent="TileMap"]
+tile_set = ExtResource("1_lwwvs")
+format = 2
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="npc_spawn_point" type="Node2D" parent="SpawnPoints"]
+
+[node name="player_spawn_point" type="Node2D" parent="SpawnPoints"]
+
+[node name="mob_spawn_point" type="Node2D" parent="SpawnPoints"]
+
+[node name="Interactable" type="Node2D" parent="."]
+
+[node name="InteractableTrap" type="Node2D" parent="Interactable"]
+
+[node name="InteractableSwitch" type="Node2D" parent="Interactable"]
+
+[node name="InteractableWall" type="Node2D" parent="Interactable"]
+
+[node name="StaticCollision" type="Node2D" parent="."]
+
+[node name="StaticWall" type="Node2D" parent="StaticCollision"]
+
+[node name="Door" type="Node2D" parent="StaticCollision"]
+
+[node name="Detector" type="Node2D" parent="."]
+
+[node name="PlayerDetector" type="Node2D" parent="Detector"]
+
+[node name="PlayerRoomChangeDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="PlayerEventTriggerDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="PlayerTrapDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="PlayerObjectiveDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="NPCDetector" type="Node2D" parent="Detector"]
+
+[node name="NPCRoomChangeDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="NPCEventTriggerDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="NPCTrapDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="NPCObjectiveDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="MobDetector" type="Node2D" parent="Detector"]
+
+[node name="EnemyRoomChangeDetector" type="Node2D" parent="Detector/MobDetector"]
+
+[node name="EnemyEventTriggerDetector" type="Node2D" parent="Detector/MobDetector"]
+
+[node name="EnemyTrapDetector" type="Node2D" parent="Detector/MobDetector"]
+
+[node name="EnemyObjectiveDetector" type="Node2D" parent="Detector/MobDetector"]

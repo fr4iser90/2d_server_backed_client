@@ -67,15 +67,15 @@ func initialize_player_and_scene(character_data: Dictionary, instance_key: Strin
 	# Attach peer_id to character_data
 	character_data["peer_id"] = peer_id
 	# Load the scene and defer player spawning
-	load_scene_from_server(character_data.scene_name, character_data, instance_key)
+	load_scene_from_server(character_data.current_area, character_data, instance_key)
 	# Notify the instance manager to handle players and the scene for the instance
-	var instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-	instance_manager.handle_join_instance(instance_key, character_data)
+#	var instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+#	instance_manager.handle_join_instance(instance_key, character_data)
 	
-func load_scene_from_server(scene_name: String, character_data: Dictionary, instance_key: String):
-	print("Loading scene from server: ", scene_name)
-	var scene_path = GlobalManager.SceneManager.get_scene_path(scene_name)
-	print("Scene path: ", scene_path)
+func load_scene_from_server(current_area: String, character_data: Dictionary, instance_key: String):
+	print("Loading scene from server: ", current_area)
+	var scene_path = GlobalManager.SceneManager.get_scene_path(current_area)
+	print("Scene path: ", current_area)
 
 	# Load the scene
 	var packed_scene = load(scene_path)

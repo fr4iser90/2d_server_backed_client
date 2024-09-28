@@ -34,7 +34,6 @@ func initialize():
 # Add user without character or instance data, to be updated when signals are received
 func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 	var username = user_data.get("username", "Unknown")
-	
 	# Check if this peer_id already has a session with a different username
 	if users_data.has(peer_id):
 		var current_username = users_data[peer_id].get("username", "")
@@ -52,6 +51,7 @@ func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 	existing_user_data["username"] = username
 	existing_user_data["user_id"] = user_data.get("user_id", "")
 	existing_user_data["token"] = user_data.get("token", "")
+	existing_user_data["session_token"] = user_data.get("session_token", "")
 	existing_user_data["peer_id"] = peer_id
 	existing_user_data["is_online"] = true
 
@@ -63,6 +63,18 @@ func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 	_emit_user_data_signal(peer_id)
 	return true
 
+# Retrieve session token for the peer
+func get_session_token_for_peer(peer_id: int) -> String:
+	if users_data.has(peer_id):
+		return users_data[peer_id].get("session_token", "")
+	return ""
+
+# Retrieve auth token for the peer
+func get_auth_token_for_peer(peer_id: int) -> String:
+	if users_data.has(peer_id):
+		return users_data[peer_id].get("token", "")  # Retrieve the auth token
+	return ""
+	
 # Called when the character is selected
 func _on_character_selected(peer_id: int, character_data: Dictionary):
 	if users_data.has(peer_id):
@@ -72,7 +84,33 @@ func _on_character_selected(peer_id: int, character_data: Dictionary):
 		_emit_user_data_signal(peer_id)
 	else:
 		print("Error: Peer ID not found in users_data")
+		
+func get_character_id_by_class(peer_id: int, character_class: String) -> String:
+	if users_data.has(peer_id):
+		var user_data = users_data[peer_id]
+		print("User data for peer_id: ", peer_id, user_data)
 
+		if user_data.has("characters"):
+			var characters = user_data["characters"]
+			
+			# Prüfen, ob die Charakterdaten als Array vorliegen
+			if typeof(characters) == TYPE_ARRAY:
+				print("Character data is an array for peer_id: ", peer_id)
+				
+				# Durchlaufe die Liste aller Charaktere
+				for character in characters:
+					if character.has("character_class") and character["character_class"].to_lower() == character_class.to_lower():
+						print("Found character for class: ", character_class, " with character ID: ", character["id"])
+						return character["id"]  # Rückgabe der Charakter-ID
+
+			else:
+				print("Unknown character data type: ", typeof(characters))
+
+	return ""  # Keine ID gefunden
+
+
+
+	
 func _emit_user_data_signal(peer_id: int):
 	emit_signal("user_data_changed", peer_id, users_data.get(peer_id, {}))
 
@@ -121,11 +159,37 @@ func get_username_by_peer_id(peer_id: int) -> String:
 		return user_data["username"]
 	return "Unknown"
 
+# In UserSessionManager.gd
+
+func store_characters_for_peer(peer_id: int, characters: Array):
+	if users_data.has(peer_id):
+		# Aktualisiere oder füge die Charakterdaten hinzu
+		var user_data = users_data[peer_id]
+		user_data["characters"] = characters
+		users_data[peer_id] = user_data
+		print("Updated characters for peer_id: ", peer_id, characters)
+	else:
+		print("Peer ID not found, cannot store characters.")
+
+func get_characters_for_peer(peer_id: int) -> Array:
+	if users_data.has(peer_id):
+		var user_data = users_data[peer_id]
+		if user_data.has("characters"):
+			return user_data["characters"]
+	return []
+
 
 func validate_user_token(peer_id: int, token: String) -> bool:
 	var user_data = users_data.get(peer_id, null)
 	if user_data and user_data.has("token"):
 		return user_data["token"] == token
+	return false
+	
+# Validate the session token (e.g., session management token)
+func validate_session_token(peer_id: int, session_token: String) -> bool:
+	var user_data = users_data.get(peer_id, null)
+	if user_data and user_data.has("session_token"):
+		return user_data["session_token"] == session_token
 	return false
 
 # Handle session timeout

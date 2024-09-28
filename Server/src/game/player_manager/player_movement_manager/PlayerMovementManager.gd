@@ -3,9 +3,12 @@ extends Node
 
 signal player_position_updated(peer_id: int, new_position: Vector2)
 
+signal player_entered_trigger(peer_id: int, trigger_name: String, trigger_type: String)
+signal player_exited_trigger(peer_id: int, trigger_name: String, trigger_type: String)
+
 var players = {}  # Stores player nodes or references to player data
 var player_positions = {}  # Stores player positions and other relevant data
-
+var player_instances = {}  # Store the instance that each player belongs to
 var is_initialized = false
 
 func _ready():
@@ -16,25 +19,42 @@ func initialize():
 		print("PlayerMovement already initialized. Skipping.")
 		return
 	is_initialized = true
-
-# Add a player to the manager
-func add_player(peer_id: int, player_data: Dictionary):
-	print("Player added to Movement Manager player_data: ", player_data)
+	connect("player_entered_trigger", Callable($"../TriggerManager", "_on_trigger_activated"))
+	connect("player_exited_trigger", Callable($"../TriggerManager", "_on_trigger_deactivated"))
 	
-	# Use last_known_position for initial spawn, then clean it
-	if player_data.has("last_known_position"):
-		var position = player_data["last_known_position"]
-		player_data["position"] = position  # Set the position to last known
-		player_data.erase("last_known_position")  # Remove the last_known_position
-		
+# Add a player to the manager
+func add_player(peer_id: int, player_data: Dictionary, spawn_point: Vector2):
+	print("Player added to Movement Manager player_data: ", player_data)
+	# Use checkpoint or spawn point for initial spawn
+	if player_data.has("checkpoint_id"):
+		var checkpoint_position = get_checkpoint_position(player_data["checkpoint_id"])
 		# Register the player and their initial position
 		players[peer_id] = player_data
-		player_positions[peer_id] = position
-		print("Player added to movement manager: ", peer_id, " with position: ", position)
+		player_positions[peer_id] = {
+			"position": checkpoint_position,
+			"velocity": Vector2()  # Initial velocity (could be zero)
+		}
+		print("Player added to movement manager: ", peer_id, " with position: ", checkpoint_position)
 	else:
-		print("Failed to add player for peer_id: ", peer_id, " - invalid player_data")
+		# Set the initial spawn point
+		player_data["position"] = spawn_point  # Initial position at spawn point
+		players[peer_id] = player_data
+		player_positions[peer_id] = {
+			"position": spawn_point,
+			"velocity": Vector2()  # Initial velocity
+		}
+		print("Player added to movement manager at spawn point: ", spawn_point)
 
-
+func get_checkpoint_position(checkpoint_id: String) -> Vector2:
+	# Here you can implement logic to retrieve the checkpoint position from your world/scene
+	# For now, return a mock position based on the checkpoint
+	match checkpoint_id:
+		"default_spawn_point":
+			return Vector2(25, 25)  # Example coordinates for default spawn
+		# Add more checkpoint handling if needed
+		_:
+			return Vector2(0, 0)  # Fallback position
+			
 # Remove player when they disconnect
 func remove_player(peer_id: int):
 	players.erase(peer_id)
@@ -50,6 +70,7 @@ func process_received_data(peer_id: int, movement_data: Dictionary):
 	# Validate and update the player's position
 	if is_valid_movement(peer_id, new_position, velocity):
 		if player_positions.has(peer_id):
+			# Ensure player_positions is a Dictionary containing both position and velocity
 			player_positions[peer_id]["position"] = new_position
 			player_positions[peer_id]["velocity"] = velocity
 			emit_signal("player_position_updated", peer_id, new_position)

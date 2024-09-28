@@ -46,12 +46,16 @@ const CHANNEL_MAP = {
 	2006: "char_attribute_update_handler", # Update character attributes (strength, agility, etc.)
 	2007: "char_class_change_handler",  # Handle character class change requests
 
-	# --- 3000-3999: Scene and Spawn Data Management ---
+	# --- 3000-3999: Scene and Interaction Data Management ---
 	3000: "scene_instance_data_handler",         # Handle scene loading, instance creation, and spawn points
-	3001: "scene_position_sync_handler",# Synchronize player positions between client and server
 	3002: "scene_spawn_handler",        # Handle player spawns at specific points or last known positions
 	3003: "scene_instance_transition_handler", # Handle transitions between instances
-	3004: "scene_object_interaction_handler",  # Handle interaction with objects in the scene (doors, chests, etc.)
+	3004: "scene_object_interaction_handler",  # General object interaction (doors, chests, etc.)
+	3005: "scene_door_handler",               # Handle standard doors
+	3006: "scene_trap_door_handler",          # Handle trap doors
+	3007: "scene_special_door_handler",       # Handle special doors (e.g., requiring keys or magic)
+	3008: "scene_lever_handler",              # Handle levers or switches that affect other objects
+	3009: "scene_button_handler",             # Handle button presses (for doors or other interactions)
 
 	# --- 4000-4999: Player and NPC Movement ---
 	4000: "movement_player_handler",    # Handle player movement updates (e.g., walking, running)

@@ -53,16 +53,16 @@ func process_movement_data(peer_id: int, position: Vector2, velocity: Vector2, a
 			"additional_data": additional_data  # Modular additional data
 		})
 		# Update the instance_manager with the new position
-		var instance_key = instance_manager.get_instance_id_for_peer(peer_id)
-		if instance_key != "":
-			var instance_data = instance_manager.get_instance_data(instance_key)
-			if instance_data and instance_data.has("players"):
-				# Update the last_known_position for the peer_id in the instance
-				for player_data in instance_data["players"]:
-					if player_data["peer_id"] == peer_id:
-						player_data["position"] = position
-						player_data["velocity"] = velocity
-						print("Updated PositionData for peer_id: ", peer_id, " to position: ", position, " and velocity: ", velocity)
+#		var instance_key = instance_manager.get_instance_id_for_peer(peer_id)
+#		if instance_key != "":
+#			var instance_data = instance_manager.get_instance_data(instance_key)
+#			if instance_data and instance_data.has("players"):
+#				# Update the last_known_position for the peer_id in the instance
+#				for player_data in instance_data["players"]:
+#					if player_data["peer_id"] == peer_id:
+#						player_data["position"] = position
+#						player_data["velocity"] = velocity
+#						print("Updated PositionData for peer_id: ", peer_id, " to position: ", position, " and velocity: ", velocity)
 
 		# Broadcast movement data to all clients in the same instance
 		movement_player_sync_handler.sync_positions_with_clients_in_instance(peer_id, {

@@ -42,12 +42,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "WorkFlow
-Serveranfrage zur Erstellung oder Zuweisung einer Instanz (10%).
-Daten synchronisieren (30%).
-Szenen laden (60%).
-Spieler- und Entitätspositionen laden und synchronisieren (90%).
-Fertig (100%)."
+text = "PlaceHolder"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -88,7 +83,16 @@ offset_right = 47.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "PlaceHolder"
+text = "	{\"text\": \"Requesting server to create or assign instance...\", \"progress\": 0.1},
+	{\"text\": \"Confirming instance and receiving initial data...\", \"progress\": 0.15},
+	{\"text\": \"Synchronizing basic data...\", \"progress\": 0.3},
+	{\"text\": \"Preparing scene assets...\", \"progress\": 0.45},
+	{\"text\": \"Instantiating scene...\", \"progress\": 0.6},
+	{\"text\": \"Requesting player and entity data...\", \"progress\": 0.7},
+	{\"text\": \"Receiving player and entity data...\", \"progress\": 0.8},
+	{\"text\": \"Applying player and entity positions and states...\", \"progress\": 0.9},
+	{\"text\": \"Final synchronization and completeness check...\", \"progress\": 0.95},
+	{\"text\": \"Loading complete!\", \"progress\": 1.0}"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -128,4 +132,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "PlaceHolder"
 
-[node name="Simulation" type="Node" parent="."]
+[node name="NetworkHandler" type="Node" parent="."]
+
+[node name="InstanceDataHandler" type="Node" parent="NetworkHandler"]
+
+[node name="Handler" type="Node" parent="."]
+
+[node name="PlaceHolderHandler" type="Node" parent="Handler"]
+
+[node name="PlaceHolderHandler2" type="Node" parent="Handler"]
+
+[node name="InputHandler" type="Node" parent="Handler"]

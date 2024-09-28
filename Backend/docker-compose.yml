@@ -20,7 +20,7 @@ services:
     image: mongo:4.4
     container_name: GrowWorldDatabase
     volumes:
-      - mongo-data:/data/db
+      - growworld_mongo_data:/data/db
       - ./app/src/config/mongod.conf:/etc/mongod.conf:ro
     env_file:
       - .env
@@ -31,4 +31,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
 
 volumes:
-  mongo-data:
+  growworld_mongo_data:

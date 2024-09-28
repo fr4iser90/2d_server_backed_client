@@ -26,7 +26,7 @@ func initialize():
 	
 	# Timer initialisieren
 	request_timer = Timer.new()
-	request_timer.set_wait_time(2.0)  # Anfrage alle 2 Sekunden
+	request_timer.set_wait_time(2.0)  # Anfrage alle 20 Sekunden
 	request_timer.set_autostart(true)
 	request_timer.connect("timeout", Callable(self, "_request_data_update"))
 	add_child(request_timer)  # Timer zum Node hinzufügen, damit er funktioniert
@@ -45,18 +45,34 @@ func _request_data_update():
 # Handle incoming instance data
 func handle_packet(data: Dictionary):
 	print("Handling instance data packet:", data)
-	if data.has("players") and data.has("mobs") and data.has("npcs"):
-		var players_data = data["players"]
-		var mobs_data = data["mobs"]
-		var npcs_data = data["npcs"]
+	
+	# Check if any of the keys are present
+	if data.has("players") or data.has("mobs") or data.has("npcs"):
+		# Process players
+		if data.has("players"):
+			var players_data = data["players"]
+			# Check if players data is a Dictionary (single player) or Array (multiple players)
+			if typeof(players_data) == TYPE_DICTIONARY:
+				_process_entities("players", [players_data])  # Wrap in an array for consistency
+			elif typeof(players_data) == TYPE_ARRAY:
+				_process_entities("players", players_data)
+			else:
+				print("Unexpected type for 'players' data:", typeof(players_data))
 
-		# Handle entities in the instance (players, mobs, NPCs)
-		_process_entities("players", players_data)
-		_process_entities("mobs", mobs_data)
-		_process_entities("npcs", npcs_data)
+		# Process mobs
+		if data.has("mobs"):
+			var mobs_data = data["mobs"]
+			_process_entities("mobs", mobs_data)
+
+		# Process NPCs
+		if data.has("npcs"):
+			var npcs_data = data["npcs"]
+			_process_entities("npcs", npcs_data)
+
 	else:
 		print("Invalid instance data received.")
 		emit_signal("instance_data_failed", "Missing required fields")
+
 
 # Process players, mobs, or NPCs data and emit a signal for each
 func _process_entities(entity_type: String, entity_data: Array):

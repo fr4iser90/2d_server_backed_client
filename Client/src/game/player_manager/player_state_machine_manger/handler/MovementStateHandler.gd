@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var player = null  # Reference to the CharacterBody2D player node
 var speed = 200
+var speed_multiplier = 2.5  # Multiplikator für Bewegungsgeschwindigkeit
 var last_velocity = Vector2.ZERO
 var last_position = Vector2.ZERO
 var movement_player_handler = null
@@ -44,16 +45,12 @@ func update_state(delta):
 
 	# Only handle movement for the local player (based on peer_id)
 	if enet_client_manager.get_peer_id() == player_peer_id:
-		print("Updating state for local player")
 		handle_input()
 		player.move_and_slide()
 
 		if player.global_position != last_position:
-			print("Position changed: ", player.global_position)
 			last_position = player.global_position
 			send_movement()  # Only send movement for the local player
-		else:
-			print("Position did not change")
 
 # Handle player input
 func handle_input():
@@ -70,20 +67,18 @@ func handle_input():
 		new_velocity.y -= 1
 
 	if new_velocity != Vector2.ZERO:
-		new_velocity = new_velocity.normalized() * speed
+		# Wende den Geschwindigkeitsmultiplikator an
+		new_velocity = new_velocity.normalized() * speed * speed_multiplier
 	
-	print("New velocity: ", new_velocity)
 	player.velocity = new_velocity
 	
 # Send movement data to the server
 func send_movement():
 	if movement_player_handler and enet_client_manager.get_peer_id() == player_peer_id:
-		print("Sending movement data to the server: position - ", player.global_position, " velocity - ", player.velocity)
 		movement_player_handler.send_movement_data(player.global_position, player.velocity)
 
 # Update position for other players
 func update_other_player_position(peer_id: int, position: Vector2, velocity: Vector2):
 	if peer_id != player_peer_id and player:
-		print("Updating position for peer_id: ", peer_id, " to position: ", position, " with velocity: ", velocity)
 		player.global_position = position
 		player.velocity = velocity

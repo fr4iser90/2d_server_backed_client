@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnn438wajxoem"]
+
+[ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://shared/Assets/Art/im no artist/TileSet.tres" id="1_pw2c2"]
+
+[node name="Room" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_pw2c2")
+format = 2
+
+[node name="TileMap2" type="TileMap" parent="."]
+z_index = 1
+tile_set = ExtResource("1_pw2c2")
+format = 2
+
+[node name="FurnitureTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_pw2c2")
+format = 2
+
+[node name="Entrance" type="Node2D" parent="."]
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="EnemyPositions" type="Node2D" parent="."]
+
+[node name="Traps" type="Node2D" parent="."]
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]

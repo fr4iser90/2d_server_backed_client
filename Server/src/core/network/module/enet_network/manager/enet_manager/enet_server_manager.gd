@@ -54,20 +54,30 @@ func _on_peer_connected(peer_id: int):
 		core_connection_handler.handle_connection_request(peer_id)
 
 # Called when a peer disconnects
+# Called when a peer disconnects
 func _on_peer_disconnected(peer_id: int):
 	GlobalManager.DebugPrint.debug_info("Peer disconnected with ID: " + str(peer_id), self)
 	connected_peers.erase(peer_id)  # Remove the peer from the connected list
-	GlobalManager.DebugPrint.debug_info("Updated connected peers: " + str(connected_peers), self)
-	var instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-	if instance_manager:
-		instance_manager.remove_player_from_instance(peer_id)
-	var player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
-	if player_movement_manager:
-		player_movement_manager.remove_player(peer_id)
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
-	if user_session_manager:
-		user_session_manager.remove_user(peer_id)
+	
+	# Liste von Managern, die die Peer-ID löschen müssen
+	var manager_list = [
+		{"manager": "world_manager", "node": "instance_manager", "remove_function": "remove_player_from_instance"},
+		{"manager": "game_manager", "node": "player_movement_manager", "remove_function": "remove_player"},
+		{"manager": "user_manager", "node": "user_session_manager", "remove_function": "remove_user"},
+		{"manager": "game_manager", "node": "character_manager", "remove_function": "remove_character"}
+	]
+
+	# Iteriere durch die Liste und entferne die Peer-ID dynamisch
+	for manager_data in manager_list:
+		var manager = GlobalManager.NodeManager.get_cached_node(manager_data["manager"], manager_data["node"])
+		if manager and manager.has_method(manager_data["remove_function"]):
+			manager.call(manager_data["remove_function"], peer_id)
+			GlobalManager.DebugPrint.debug_info(manager_data["remove_function"] + " called for " + manager_data["node"] + " with peer_id: " + str(peer_id), self)
+		else:
+			GlobalManager.DebugPrint.debug_warning("Manager or function not found: " + manager_data["node"], self)
+	
 	emit_signal("peer_disconnected", peer_id)
+
 
 func _process(delta):
 	if enet_server_manager:

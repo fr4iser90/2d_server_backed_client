@@ -93,18 +93,27 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 		if parse_result == OK:
 			var response_data = json.get_data()
 			var username = pending_logins.get(peer_id, "")
+			
+			# Generiere einen Session Token (bspw. zufälliger String oder JWT)
+			var session_token = generate_session_token(response_data["user_id"])
+			
 			var client_data = {
 				"user_id": response_data["user_id"],
-				"token": response_data["token"]
+				"session_token": session_token  # Session Token statt Auth Token
 			}
+			
+			# Speichere die Sitzungsdaten
 			if user_session_manager:
 				var updated_user_data = {
 					"user_id": response_data["user_id"],
 					"token": response_data["token"],
+					"session_token": session_token,
 					"username": username
 				}
+				print(updated_user_data)
 				user_session_manager.update_user_data(peer_id, updated_user_data)
 
+			# Sende die Sitzungsdaten an den Client
 			var err = enet_server_manager.send_packet(peer_id, handler_name, client_data)
 			if err != OK:
 				GlobalManager.DebugPrint.debug_error("Failed to send login packet to peer_id: " + str(peer_id), self)
@@ -114,3 +123,22 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 			GlobalManager.DebugPrint.debug_error("Failed to parse JSON response from backend.", self)
 	else:
 		GlobalManager.DebugPrint.debug_error("Backend returned error with response code: " + str(response_code), self)
+
+# Funktion zur Generierung eines Session Tokens
+func generate_session_token(user_id: String) -> String:
+	# Kombiniere User-ID und die aktuellen Ticks in Millisekunden zu einem String
+	var token_source = user_id + str(Time.get_ticks_msec())
+
+	# Erstelle einen HashingContext für MD5
+	var context = HashingContext.new()
+	context.start(HashingContext.HASH_MD5)
+
+	# Füge den String zum Hash hinzu
+	context.update(token_source.to_utf8_buffer())
+
+	# Berechne den MD5-Hash und konvertiere in eine hexadezimale Zeichenkette
+	var hash = context.finish()
+	return hash.hex_encode()
+
+
+

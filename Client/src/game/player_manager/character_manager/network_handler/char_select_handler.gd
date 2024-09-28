@@ -15,7 +15,6 @@ var is_initialized = false
 
 func initialize():
 	if is_initialized:
-		print("handle_backend_login already initialized. Skipping.")
 		return
 
 	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")

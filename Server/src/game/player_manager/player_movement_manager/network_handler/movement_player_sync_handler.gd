@@ -7,7 +7,7 @@ var user_session_manager
 var handler_name = "movement_player_sync_handler"
 
 var last_sync_time = {}
-var sync_interval = 0.05  # 50ms, for a 20 ticks per second update rate
+var sync_interval = 0.01  # 50ms, for a 20 ticks per second update rate
 var previous_positions = {}
 var previous_velocities = {}
 

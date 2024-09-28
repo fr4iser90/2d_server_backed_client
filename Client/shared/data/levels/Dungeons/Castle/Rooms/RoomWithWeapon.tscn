@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb4btkq81dag"]
-
-[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://shared/Data/Levels/Dungeons/Castle/Rooms/Room.tscn" id="1"]
-[ext_resource type="Script" path="res://Client/Rooms/RoomWithWeapon.gd" id="2"]
-
-[node name="RoomWithWeapon" instance=ExtResource("1")]
-script = ExtResource("2")
-
-[node name="WeaponPos" type="Marker2D" parent="." index="8"]

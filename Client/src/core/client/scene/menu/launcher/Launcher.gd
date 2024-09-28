@@ -93,7 +93,7 @@ func _on_connection_established():
 	ui_manager.set_connection_container_ui_enabled(connection_container, false)
 	
 # Show PlayerContainer after login
-func _on_user_logged_in_successfully(user_id: String, token: String, role: String):
+func _on_user_logged_in_successfully(session_token: String):
 	print("hide login")
 	login_container.hide()
 	character_container.show()

@@ -13,23 +13,36 @@ func initialize():
 
 # Spawn the local player at a specific point or last known position
 func spawn_local_player(character_data: Dictionary) -> Node:
-	var spawn_point = character_data.get("spawn_point", "")
-	var position = character_data.get("position", Vector2(0, 0))
-		# Check if the player is already spawned to prevent multiple spawns
+	var position_string = character_data.get("position", "")
+	var position = Vector2(0, 0)
+
+	# Umwandlung des String-Wertes in ein Vector2
+	if position_string != "":
+		position = _parse_position(position_string)
+	
+	# Check if the player is already spawned to prevent multiple spawns
 	if player_node:
 		print("Player is already spawned, skipping spawn.")
 		return player_node  # Return the existing player node
 		
-	if spawn_point != "":
-		player_node = _spawn_at_point(spawn_point, character_data)
-#	elif position != Vector2(0, 0):
-#		player_node = _spawn_at_position(position, character_data)
+	# Falls keine Position übergeben wird, verwende eine Standardposition
+	if position != Vector2(0, 0):
+		player_node = _spawn_at_position(position, character_data)
 	else:
-		player_node = _spawn_at_default_point(character_data)
-
+		#player_node = _spawn_at_default_point(character_data)
+		pass
 	# Set up local-specific features like input handling, camera, etc.
 	_initialize_player_state_machine(player_node)
 	return player_node
+
+# Hilfsfunktion zum Parsen des Positions-Strings in Vector2
+func _parse_position(position_string: String) -> Vector2:
+	# Entferne die Klammern durch Ersetzen
+	position_string = position_string.replace("(", "").replace(")", "")
+	var parts = position_string.split(", ")
+	return Vector2(parts[0].to_float(), parts[1].to_float())
+
+
 
 # Spawn at a specific point
 func _spawn_at_point(spawn_point: String, character_data: Dictionary) -> Node:
@@ -41,11 +54,6 @@ func _spawn_at_point(spawn_point: String, character_data: Dictionary) -> Node:
 func _spawn_at_position(position: Vector2, character_data: Dictionary) -> Node:
 	var player_scene = _get_player_scene(character_data.get("character_class", ""))
 	return _add_player_node_to_scene(player_scene, position)
-
-# Default spawn point
-func _spawn_at_default_point(character_data: Dictionary) -> Node:
-	var player_scene = _get_player_scene(character_data.get("character_class", ""))
-	return _add_player_node_to_scene(player_scene, Vector2(100, 100))  # Default position
 
 # Utility function to add the player node to the scene
 func _add_player_node_to_scene(player_scene: PackedScene, position: Vector2) -> Node:
@@ -73,24 +81,20 @@ func _get_player_scene(character_class: String) -> PackedScene:
 func _get_spawn_point_position(spawn_point_name: String) -> Vector2:
 	var client_main = get_node("/root/ClientMain")
 	if client_main:
-		var spawn_points_parent = client_main.get_node("SpawnRoom/SpawnPoints")
+		var spawn_points_parent = client_main.get_node("SpawnRoom/SpawnPoint/PlayerSpawnPoint")
 		if spawn_points_parent:
 			var spawn_point_node = spawn_points_parent.get_node(spawn_point_name)
 			if spawn_point_node:
 				return spawn_point_node.global_position
 			else:
 				print("Error: Spawn point not found: ", spawn_point_name)
-				return get_default_spawn_position()
+				return Vector2(-1, -1)  # Return an invalid position
 		else:
 			print("Error: SpawnPoints parent node not found.")
-			return get_default_spawn_position()
+			return Vector2(-1, -1)  # Return an invalid position
 	else:
 		print("Error: ClientMain not ready.")
-		return get_default_spawn_position()
-
-# Default spawn point position
-func get_default_spawn_position() -> Vector2:
-	return Vector2(100, 100)
+		return Vector2(-1, -1)  # Return an invalid position
 
 # Initialize the player's state machine after spawning
 func _initialize_player_state_machine(player_node: Node):

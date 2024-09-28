@@ -2,26 +2,26 @@
 
 [ext_resource type="Script" path="res://src/game/world_manager/instance_manager/InstanceManager.gd" id="1_2riua"]
 [ext_resource type="Script" path="res://src/game/player_manager/player_manager/PlayerManager.gd" id="2_xvcct"]
-[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="3_6jlbn"]
-[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="4_r3hs5"]
 [ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/PlayerMovementManager.gd" id="5_j5bpp"]
 [ext_resource type="Script" path="res://src/core/server_manager/PlayerMonitor.gd" id="6_0oin5"]
+[ext_resource type="Script" path="res://src/game/player_manager/spawn_manager/SpawnManger.gd" id="6_ela85"]
 [ext_resource type="Script" path="res://src/game/player_manager/character_manager/CharacterManager.gd" id="6_jf6l6"]
 [ext_resource type="Script" path="res://src/core/server_manager/InstanceMonitor.gd" id="7_mx0bg"]
-[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="9_drf7p"]
-[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_select_handler.gd" id="10_50eh5"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceLifecycleHandler/InstanceCreationHandler.gd" id="11_1rvuo"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceLifecycleHandler/InstanceLifecycleHandler.gd" id="11_yocpd"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceLifecycleHandler/InstanceCacheHandler.gd" id="12_pbpay"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/network_handler/scene_instance_data_handler.gd" id="12_v2kbr"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceLifecycleHandler/InstanceAssignmentHandler.gd" id="13_jaa4m"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceLifecycleHandler/InstanceDestructionHandler.gd" id="14_xyy4u"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceEntityManager/InstanceEntityManager.gd" id="15_d5exr"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceCreationHandler.gd" id="11_1rvuo"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceLifecycleHandler.gd" id="11_yocpd"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceCacheHandler.gd" id="12_pbpay"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceAssignmentHandler.gd" id="13_jaa4m"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstancePlayerCharacterHandler.gd" id="13_xx03l"]
+[ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/ChunkManager.gd" id="14_fvk5m"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceDestructionHandler.gd" id="14_xyy4u"]
+[ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/handler/ChunkCreationHandler.gd" id="15_ebuvu"]
+[ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/handler/ChunkCacheHandler.gd" id="16_v7h4k"]
+[ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/handler/ChunkBoundaryHandler.gd" id="17_42ovj"]
+[ext_resource type="Script" path="res://src/game/trigger_manager/TriggerManager.gd" id="17_w8bnd"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/LevelManager.gd" id="18_dvyq7"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/handler/LevelCreationHandler.gd" id="19_ykbnq"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/handler/LevelSaveHandler.gd" id="20_sihwl"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/handler/LevelMapGenerator.gd" id="21_kctyf"]
-[ext_resource type="Script" path="res://src/game/loading_manager/LoadingManager.gd" id="22_xmlx2"]
 
 [node name="Game" type="Node"]
 
@@ -32,47 +32,28 @@ script = ExtResource("2_xvcct")
 
 [node name="Handler" type="Node" parent="Player/PlayerManager"]
 
-[node name="NetworkHandler" type="Node" parent="Player/PlayerManager"]
-
 [node name="PlayerMovementManager" type="Node" parent="Player"]
 script = ExtResource("5_j5bpp")
 
 [node name="Handler" type="Node" parent="Player/PlayerMovementManager"]
-
-[node name="NetworkHandler" type="Node" parent="Player/PlayerMovementManager"]
-
-[node name="MovementPlayerHandler" type="Node" parent="Player/PlayerMovementManager/NetworkHandler"]
-script = ExtResource("3_6jlbn")
-
-[node name="MovementPlayerSyncHandler" type="Node" parent="Player/PlayerMovementManager/NetworkHandler"]
-script = ExtResource("4_r3hs5")
 
 [node name="PlayerMovementData" type="Node" parent="Player"]
 script = ExtResource("6_0oin5")
 
 [node name="Handler" type="Node" parent="Player/PlayerMovementData"]
 
-[node name="NetworkHandler" type="Node" parent="Player/PlayerMovementData"]
-
 [node name="PlayerVisualMonitor" type="Node" parent="Player"]
 script = ExtResource("7_mx0bg")
 
 [node name="Handler" type="Node" parent="Player/PlayerVisualMonitor"]
 
-[node name="NetworkHandler" type="Node" parent="Player/PlayerVisualMonitor"]
-
 [node name="CharacterManager" type="Node" parent="Player"]
 script = ExtResource("6_jf6l6")
 
-[node name="NetworkHandler" type="Node" parent="Player/CharacterManager"]
-
-[node name="CharFetchHandler" type="Node" parent="Player/CharacterManager/NetworkHandler"]
-script = ExtResource("9_drf7p")
-
-[node name="CharSelectHandler" type="Node" parent="Player/CharacterManager/NetworkHandler"]
-script = ExtResource("10_50eh5")
-
 [node name="Handler" type="Node" parent="Player/CharacterManager"]
+
+[node name="SpawnManager" type="Node" parent="Player"]
+script = ExtResource("6_ela85")
 
 [node name="World" type="Node" parent="."]
 
@@ -83,9 +64,6 @@ script = ExtResource("1_2riua")
 
 [node name="InstanceLifecycleHandler" type="Node" parent="World/InstanceManager/Handler"]
 script = ExtResource("11_yocpd")
-
-[node name="InstanceEntityManager" type="Node" parent="World/InstanceManager/Handler"]
-script = ExtResource("15_d5exr")
 
 [node name="InstanceSceneManager" type="Node" parent="World/InstanceManager/Handler"]
 
@@ -101,10 +79,38 @@ script = ExtResource("13_jaa4m")
 [node name="InstanceDestructionHandler" type="Node" parent="World/InstanceManager/Handler"]
 script = ExtResource("14_xyy4u")
 
-[node name="NetworkHandler" type="Node" parent="World/InstanceManager"]
+[node name="InstanceBoundaryHandler" type="Node" parent="World/InstanceManager/Handler"]
 
-[node name="SceneInstanceDataHandler" type="Node" parent="World/InstanceManager/NetworkHandler"]
-script = ExtResource("12_v2kbr")
+[node name="InstanceLoaderHandler" type="Node" parent="World/InstanceManager/Handler"]
+
+[node name="InstancePlayerCharacterHandler" type="Node" parent="World/InstanceManager/Handler"]
+script = ExtResource("13_xx03l")
+
+[node name="ChunkManager" type="Node" parent="World"]
+script = ExtResource("14_fvk5m")
+
+[node name="Handler" type="Node" parent="World/ChunkManager"]
+
+[node name="ChunkLifecycleHandler" type="Node" parent="World/ChunkManager/Handler"]
+
+[node name="ChunkSceneManager" type="Node" parent="World/ChunkManager/Handler"]
+
+[node name="ChunkCreationHandler" type="Node" parent="World/ChunkManager/Handler"]
+script = ExtResource("15_ebuvu")
+
+[node name="ChunkCacheHandler" type="Node" parent="World/ChunkManager/Handler"]
+script = ExtResource("16_v7h4k")
+
+[node name="ChunkAssignmentHandler" type="Node" parent="World/ChunkManager/Handler"]
+
+[node name="ChunkDestructionHandler" type="Node" parent="World/ChunkManager/Handler"]
+
+[node name="ChunkBoundaryHandler" type="Node" parent="World/ChunkManager/Handler"]
+script = ExtResource("17_42ovj")
+
+[node name="ChunkEventHandler" type="Node" parent="World/ChunkManager/Handler"]
+
+[node name="ChunkLoaderHandler" type="Node" parent="World/ChunkManager/Handler"]
 
 [node name="LevelManager" type="Node" parent="World"]
 script = ExtResource("18_dvyq7")
@@ -120,6 +126,29 @@ script = ExtResource("20_sihwl")
 [node name="LevelMapGenerator" type="Node" parent="World/LevelManager/Handler"]
 script = ExtResource("21_kctyf")
 
+[node name="TriggerManager" type="Node" parent="World"]
+script = ExtResource("17_w8bnd")
+
+[node name="Handler" type="Node" parent="World/TriggerManager"]
+
+[node name="Player" type="Node" parent="World/TriggerManager/Handler"]
+
+[node name="TriggerInstanceChangeHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+
+[node name="TriggerZoneChangeHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+
+[node name="TriggerRoomChangeHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+
+[node name="TriggerEventHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+
+[node name="TriggerTrapHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+
+[node name="TriggerObjectiveHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+
+[node name="NPC" type="Node" parent="World/TriggerManager/Handler"]
+
+[node name="Mob" type="Node" parent="World/TriggerManager/Handler"]
+
 [node name="Combat" type="Node" parent="."]
 
 [node name="Inventory" type="Node" parent="."]
@@ -129,10 +158,3 @@ script = ExtResource("21_kctyf")
 [node name="Dialogue" type="Node" parent="."]
 
 [node name="UI" type="Node" parent="."]
-
-[node name="LoadingManager" type="Node" parent="."]
-script = ExtResource("22_xmlx2")
-
-[node name="Handler" type="Node" parent="LoadingManager"]
-
-[node name="NetworkHandler" type="Node" parent="LoadingManager"]

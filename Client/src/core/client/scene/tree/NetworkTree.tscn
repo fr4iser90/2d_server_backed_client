@@ -23,8 +23,8 @@
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/auth_login_handler.gd" id="14_ur55w"]
 [ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="15_dpouu"]
 [ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_select_handler.gd" id="16_7wkc2"]
-[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="17_j8iy3"]
-[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="19_huaql"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/MovementPlayerHandler.gd" id="17_j8iy3"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/MovementPlayerSyncHandler.gd" id="19_huaql"]
 [ext_resource type="Script" path="res://src/core/network/handler/backend_rest/scene_instance_data_handler.gd" id="20_eslj1"]
 
 [node name="Network" type="Node"]

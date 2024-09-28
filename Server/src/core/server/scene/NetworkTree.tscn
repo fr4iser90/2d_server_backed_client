@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cletkulpq43kt"]
+[gd_scene load_steps=20 format=3 uid="uid://cletkulpq43kt"]
 
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/enet_manager/enet_server_manager.gd" id="1_qnmc2"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/channel_manager/channel_manager.gd" id="2_f2xi4"]
-[ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/channel_manager/channel_map.gd" id="3_mwpdb"]
+[ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/channel_manager/ChannelMap.gd" id="3_mwpdb"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/packet_manager.gd" id="4_esiwu"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketDispatchHandler.gd" id="5_ipmmw"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/handler/core_heartbeat_handler.gd" id="5_mdiyr"]
@@ -14,6 +14,11 @@
 [ext_resource type="Script" path="res://src/core/network/module/backend_rest/handler/auth_login_handler.gd" id="8_p1k1e"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketConverterHandler.gd" id="9_p8463"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/packet_manager/handler/PacketValidationHandler.gd" id="9_sn2vu"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="15_63hbc"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_select_handler.gd" id="16_olf1s"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="17_cp0yx"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="18_mvlrb"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/network_handler/scene_instance_data_handler.gd" id="19_kf07y"]
 
 [node name="Network" type="Node"]
 
@@ -76,3 +81,26 @@ script = ExtResource("7_c40lq")
 
 [node name="AuthLoginHandler" type="Node" parent="Handler/Auth"]
 script = ExtResource("8_p1k1e")
+
+[node name="Character" type="Node" parent="Handler"]
+
+[node name="CharacterFetchHandler" type="Node" parent="Handler/Character"]
+script = ExtResource("15_63hbc")
+
+[node name="CharacterSelectHandler" type="Node" parent="Handler/Character"]
+script = ExtResource("16_olf1s")
+
+[node name="CharacterUpdateHandler" type="Node" parent="Handler/Character"]
+
+[node name="Movement" type="Node" parent="Handler"]
+
+[node name="MovementPlayerHandler" type="Node" parent="Handler/Movement"]
+script = ExtResource("17_cp0yx")
+
+[node name="MovementPlayerSyncHandler" type="Node" parent="Handler/Movement"]
+script = ExtResource("18_mvlrb")
+
+[node name="Instance" type="Node" parent="Handler"]
+
+[node name="SceneInstanceDataHandler" type="Node" parent="Handler/Instance"]
+script = ExtResource("19_kf07y")

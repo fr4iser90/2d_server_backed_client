@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://b083ub6qflwx"]
+
+[ext_resource type="Texture2D" uid="uid://dhy5girsusy6u" path="res://shared/Assets/Art/im no artist/knight2.png" id="1_qajbh"]
+[ext_resource type="Texture2D" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png" id="2_7e0b3"]
+[ext_resource type="Texture2D" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f1.png" id="3_xu8q4"]
+[ext_resource type="Texture2D" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f2.png" id="4_yq4tc"]
+[ext_resource type="Texture2D" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f3.png" id="5_2uq2t"]
+[ext_resource type="Texture2D" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f4.png" id="6_6yyop"]
+[ext_resource type="Texture2D" path="res://shared/Assets/Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f5.png" id="7_fto8k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dm7p4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qajbh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7e0b3")
+}],
+"loop": true,
+"name": &"default2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7e0b3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xu8q4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yq4tc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2uq2t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6yyop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fto8k")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ve3s"]
+height = 26.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuk0d"]
+size = Vector2(5.5, 4)
+
+[node name="Knight" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 512
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_dm7p4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, -4)
+shape = SubResource("CapsuleShape2D_1ve3s")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_tuk0d")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(9, 12)
+shape = SubResource("RectangleShape2D_tuk0d")
