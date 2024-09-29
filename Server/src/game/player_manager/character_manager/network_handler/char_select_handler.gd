@@ -9,19 +9,13 @@ var user_session_manager
 var instance_manager
 var character_manager
 var handler_name = "char_select_handler"
-var debug_enabled = true
+
 var is_initialized = false
 
 func initialize():
 	if is_initialized:
 		GlobalManager.DebugPrint.debug_info("handle_backend_login already initialized. Skipping.", self)
 		return
-	
-	# Setze den Debug-Modus für dieses Skript (true oder false)
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
-	# Optional: Du kannst hier auch das Debug-Level pro Modul setzen, falls notwendig
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-
 	# Initialisiere die Manager
 	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("backend_manager", "backend_routes_manager")
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_manager", "enet_server_manager")

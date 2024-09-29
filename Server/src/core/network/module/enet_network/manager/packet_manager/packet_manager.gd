@@ -9,7 +9,7 @@ var channel_manager = null
 var channel_map = null
 
 var is_initialized = false
-var debug_enabled = true  # For enabling/disabling debug messages for this module
+
 
 # Initialize all handlers
 func initialize():
@@ -23,10 +23,6 @@ func initialize():
 	packet_cache_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_cache_handler")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	channel_map = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_map")
-
-	# Enable/disable debugging for this module
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
 	is_initialized = true
 
 # Create a packet for the specified handler

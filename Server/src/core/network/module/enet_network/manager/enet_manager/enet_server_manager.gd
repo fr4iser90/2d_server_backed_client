@@ -10,16 +10,13 @@ signal enet_server_ready
 signal enet_server_started
 
 var is_initialized = false
-var debug_enabled = true
+
 
 func initialize():
 	if is_initialized:
 		GlobalManager.DebugPrint.debug_info("ENetServerManager already initialized. Skipping.", self)
 		return
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
 	GlobalManager.DebugPrint.debug_info("Initializing ENetServerManager...", self)
-	
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	is_initialized = true

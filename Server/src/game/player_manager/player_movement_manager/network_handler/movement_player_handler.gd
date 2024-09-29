@@ -27,18 +27,18 @@ func handle_packet(data: Dictionary, peer_id: int):
 	var velocity = data.get("velocity", null)
 
 	# Debugging extracted position and velocity
-	print("Extracted position: ", position, " and velocity: ", velocity, " for peer_id: ", peer_id)
+	#print("Extracted position: ", position, " and velocity: ", velocity, " for peer_id: ", peer_id)
 
 	# Convert position and velocity using the PacketConverterHandler
 	var position_converted = packet_converter_handler.convert_to_vector2(position)
 	var velocity_converted = packet_converter_handler.convert_to_vector2(velocity)
 
 	# Debugging converted position and velocity
-	print("Converted position: ", position_converted, " and velocity: ", velocity_converted, " for peer_id: ", peer_id)
+	#print("Converted position: ", position_converted, " and velocity: ", velocity_converted, " for peer_id: ", peer_id)
 
 	# Validate the data using PacketConverterHandler and process it
 	if packet_converter_handler.validate_movement_data(data):
-		print("Valid movement data for peer_id: ", peer_id, ". Processing movement...")
+		#print("Valid movement data for peer_id: ", peer_id, ". Processing movement...")
 		process_movement_data(peer_id, position_converted, velocity_converted, data)
 	else:
 		print("Invalid position or velocity for peer_id ", peer_id, ": position = ", position_converted, ", velocity = ", velocity_converted)

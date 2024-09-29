@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cletkulpq43kt"]
+[gd_scene load_steps=26 format=3 uid="uid://cletkulpq43kt"]
 
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/enet_manager/enet_server_manager.gd" id="1_qnmc2"]
 [ext_resource type="Script" path="res://src/core/network/module/enet_network/manager/channel_manager/channel_manager.gd" id="2_f2xi4"]
@@ -19,6 +19,12 @@
 [ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="17_cp0yx"]
 [ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="18_mvlrb"]
 [ext_resource type="Script" path="res://src/game/world_manager/instance_manager/network_handler/scene_instance_data_handler.gd" id="19_kf07y"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerInstanceChangeHandler.gd" id="20_mv7mw"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerZoneChangeHandler.gd" id="21_00p1n"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerRoomChangeHandler.gd" id="22_l162b"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerEventHandler.gd" id="23_n8px4"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="24_6p042"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="25_lo6t4"]
 
 [node name="Network" type="Node"]
 
@@ -57,12 +63,6 @@ script = ExtResource("9_p8463")
 
 [node name="PacketValidationHandler" type="Node" parent="Manager/PacketManager"]
 script = ExtResource("9_sn2vu")
-
-[node name="Sync" type="Node" parent="."]
-
-[node name="NetworkMovementSyncManager" type="Node" parent="Sync"]
-
-[node name="NetworkCombatSyncManager" type="Node" parent="Sync"]
 
 [node name="Handler" type="Node" parent="."]
 
@@ -104,3 +104,27 @@ script = ExtResource("18_mvlrb")
 
 [node name="SceneInstanceDataHandler" type="Node" parent="Handler/Instance"]
 script = ExtResource("19_kf07y")
+
+[node name="Trigger" type="Node" parent="Handler"]
+
+[node name="TriggerEntryHandler" type="Node" parent="Handler/Trigger"]
+
+[node name="TriggerExitHandler" type="Node" parent="Handler/Trigger"]
+
+[node name="TriggerInstanceChangeHandler" type="Node" parent="Handler/Trigger"]
+script = ExtResource("20_mv7mw")
+
+[node name="TriggerZoneChangeHandler" type="Node" parent="Handler/Trigger"]
+script = ExtResource("21_00p1n")
+
+[node name="TriggerRoomChangeHandler" type="Node" parent="Handler/Trigger"]
+script = ExtResource("22_l162b")
+
+[node name="TriggerEventHandler" type="Node" parent="Handler/Trigger"]
+script = ExtResource("23_n8px4")
+
+[node name="TriggerTrapHandler" type="Node" parent="Handler/Trigger"]
+script = ExtResource("24_6p042")
+
+[node name="TriggerObjectiveHandler" type="Node" parent="Handler/Trigger"]
+script = ExtResource("25_lo6t4")

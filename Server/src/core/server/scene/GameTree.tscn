@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cl1odwsx86mi1"]
+[gd_scene load_steps=30 format=3 uid="uid://cl1odwsx86mi1"]
 
 [ext_resource type="Script" path="res://src/game/world_manager/instance_manager/InstanceManager.gd" id="1_2riua"]
 [ext_resource type="Script" path="res://src/game/player_manager/player_manager/PlayerManager.gd" id="2_xvcct"]
@@ -17,11 +17,18 @@
 [ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/handler/ChunkCreationHandler.gd" id="15_ebuvu"]
 [ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/handler/ChunkCacheHandler.gd" id="16_v7h4k"]
 [ext_resource type="Script" path="res://src/game/world_manager/chunk_manager/handler/ChunkBoundaryHandler.gd" id="17_42ovj"]
-[ext_resource type="Script" path="res://src/game/trigger_manager/TriggerManager.gd" id="17_w8bnd"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/TriggerManager.gd" id="17_w8bnd"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/LevelManager.gd" id="18_dvyq7"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerInstanceChangeHandler.gd" id="18_k4ofq"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerZoneChangeHandler.gd" id="19_nhut7"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/handler/LevelCreationHandler.gd" id="19_ykbnq"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerRoomChangeHandler.gd" id="20_mrwm8"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/handler/LevelSaveHandler.gd" id="20_sihwl"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerEventHandler.gd" id="21_0t8i8"]
 [ext_resource type="Script" path="res://src/game/world_manager/level_manager/handler/LevelMapGenerator.gd" id="21_kctyf"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="22_ycx3f"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="23_6nl82"]
+[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerArea2DCalculationHandler.gd" id="24_6ljsc"]
 
 [node name="Game" type="Node"]
 
@@ -116,23 +123,26 @@ script = ExtResource("17_w8bnd")
 
 [node name="Handler" type="Node" parent="World/TriggerManager"]
 
-[node name="Player" type="Node" parent="World/TriggerManager/Handler"]
+[node name="TriggerInstanceChangeHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("18_k4ofq")
 
-[node name="TriggerInstanceChangeHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+[node name="TriggerZoneChangeHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("19_nhut7")
 
-[node name="TriggerZoneChangeHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+[node name="TriggerRoomChangeHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("20_mrwm8")
 
-[node name="TriggerRoomChangeHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+[node name="TriggerEventHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("21_0t8i8")
 
-[node name="TriggerEventHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+[node name="TriggerTrapHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("22_ycx3f")
 
-[node name="TriggerTrapHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
+[node name="TriggerObjectiveHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("23_6nl82")
 
-[node name="TriggerObjectiveHandler" type="Node" parent="World/TriggerManager/Handler/Player"]
-
-[node name="NPC" type="Node" parent="World/TriggerManager/Handler"]
-
-[node name="Mob" type="Node" parent="World/TriggerManager/Handler"]
+[node name="TriggerArea2DCalculationHandler" type="Node" parent="World/TriggerManager/Handler"]
+script = ExtResource("24_6ljsc")
 
 [node name="SpawnPointManager" type="Node" parent="World"]
 script = ExtResource("6_ela85")

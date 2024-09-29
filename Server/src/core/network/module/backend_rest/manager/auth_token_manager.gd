@@ -6,13 +6,11 @@ var enet_server_manager
 signal token_validated(peer_id: int, success: bool)
 
 var is_initialized = false
-var debug_enabled = true
+
 
 func initialize():
 	if is_initialized:
 		return
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
 	GlobalManager.DebugPrint.debug_info("Initializing auth_token_manager...", self)
 	
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_server_manager")

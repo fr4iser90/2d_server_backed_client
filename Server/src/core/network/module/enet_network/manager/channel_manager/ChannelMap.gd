@@ -145,6 +145,15 @@ const CHANNEL_MAP = {
 	13002: "misc_resource_sync_handler",# Sync world resources like ores, herbs, etc.
 	13003: "misc_emote_handler",        # Handle player emotes (e.g., waving, dancing)
 
+	# --- 14000-14999: Trigger Management ---
+	14000: "trigger_entry_handler",        # Handle when a player enters a trigger zone
+	14001: "trigger_exit_handler",         # Handle when a player exits a trigger zone
+	14002: "trigger_instance_change_handler", # Handle instance change triggers
+	14003: "trigger_room_change_handler",  # Handle room change triggers
+	14004: "trigger_event_handler",        # Handle event triggers (e.g., scripted events, boss fights)
+	14005: "trigger_trap_handler",         # Handle trap triggers (e.g., stepping on a trap)
+	14006: "trigger_objective_handler",    # Handle objective triggers (e.g., completing objectives)
+
 	# --- 90000-99999: Admin and Backend ---
 	90000: "admin_login_handler",       # Handle backend login (user authentication)
 	90001: "admin_logout_handler",      # Handle backend logout

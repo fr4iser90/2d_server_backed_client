@@ -1,9 +1,7 @@
-# res://src/core/network/manager/server_client_enet_packet_peer/manager/network_server_client_manager.gd (Server)
 extends Node
 
 var handlers = {}
 var managers = {}
-
 
 signal network_server_client_manager_initialized
 signal network_server_client_network_started
@@ -20,17 +18,17 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	print("Initializing NetworkServerClientManager...")
+	GlobalManager.DebugPrint.debug_info("Initializing NetworkServerClientManager", self)
 	_reference_nodes()
 	emit_signal("network_server_client_manager_initialized")
 
 # Starts the client-side network server
 func start_server_client_network():
 	if is_connected:
-		print("Server-client network is already connected.")
+		GlobalManager.DebugPrint.debug_info("Server-client network is already connected", self)
 		return
 	
-	print("Starting server-client network...")
+	GlobalManager.DebugPrint.debug_info("Starting server-client network...", self)
 	if not nodes_referenced:
 		_reference_nodes()
 
@@ -42,10 +40,10 @@ func start_server_client_network():
 		enet_server_manager.connect("enet_server_started", Callable(self, "_on_enet_server_started"))
 		enet_server_manager.start_server(GlobalManager.GlobalConfig.get_server_port())
 	else:
-		print("Error: ENet server manager not found.")
+		GlobalManager.DebugPrint.debug_error("ENet server manager not found", self)
 
 func _on_enet_server_started():
-	print("ENet server is fully started and listening for connections.")
+	GlobalManager.DebugPrint.debug_system("ENet server is fully started and listening for connections", self)
 	var channel_manager = managers.get("channel_manager")
 	var packet_manager = managers.get("packet_manager")
 	
@@ -63,20 +61,20 @@ func _reference_nodes():
 	if nodes_referenced:
 		return  # Avoid double-referencing
 
-	print("Referencing client-side managers and handlers...")
+	GlobalManager.DebugPrint.debug_info("Referencing client-side managers and handlers", self)
 	GlobalManager.NodeManager.reference_map_entry("CoreMap", "network_meta_manager", managers)
 	GlobalManager.NodeManager.reference_map_entry("CoreMap", "network_handler", handlers)
 	nodes_referenced = true
 
 # Connect signals for client-side events
 func _connect_signals():
-	print("Connecting client-side signals...")
+	GlobalManager.DebugPrint.debug_info("Connecting client-side signals", self)
 	var enet_server_manager = managers.get("enet_server_manager")
 	if enet_server_manager:
 		enet_server_manager.connect("peer_connected", Callable(self, "_on_peer_connected"))
 		enet_server_manager.connect("peer_disconnected", Callable(self, "_on_peer_disconnected"))
 	else:
-		print("Error: ENet server manager not found.")
+		GlobalManager.DebugPrint.debug_error("ENet server manager not found", self)
 
 # Handle peer connection
 func _on_peer_connected(peer_id: int):

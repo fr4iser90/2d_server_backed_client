@@ -7,8 +7,7 @@ var managers = {}
 signal network_server_backend_manager_initialized
 signal network_server_backend_connection_established
 signal network_server_backend_authentication_success
-signal network_server_backend_login_process_completed 
-
+signal network_server_backend_login_process_completed
 
 var nodes_referenced = false
 var is_initialized = false
@@ -19,13 +18,12 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	print("Initializing NetworkServerBackendManager...")
+	GlobalManager.DebugPrint.debug_info("Initializing NetworkServerBackendManager...", self)
 	_reference_nodes()
 	emit_signal("network_server_backend_manager_initialized")
-	
 
 func connect_to_backend(ip: String, port: String, token: String):
-	print("Connecting to backend...")
+	GlobalManager.DebugPrint.debug_info("Connecting to backend...", self)
 	if not nodes_referenced:
 		_reference_nodes()
 	emit_signal("network_server_backend_connection_established")
@@ -33,32 +31,33 @@ func connect_to_backend(ip: String, port: String, token: String):
 
 func _authenticate_backend():
 	if is_authenticated:
-		print("Backend is already authenticated.")
+		GlobalManager.DebugPrint.debug_info("Backend is already authenticated.", self)
 		return
-	print("Authenticating backend...")
+	GlobalManager.DebugPrint.debug_info("Authenticating backend...", self)
 	var auth_server_manager = managers.get("auth_server_manager")
 	if auth_server_manager:
 		auth_server_manager.connect("authentication_complete", Callable(self, "_on_backend_authenticated"))
 		auth_server_manager.authenticate_server()
 	else:
-		print("Error: AuthServerManager not found.")
+		GlobalManager.DebugPrint.debug_error("Error: AuthServerManager not found.", self)
 
 func _on_backend_authenticated(success: bool):
 	if success:
 		is_authenticated = true
-		print("Backend authentication successful. Fetching routes")
-		var backend_routes_manager = GlobalManager.NodeManager.get_cached_node("backend_manager", "backend_routes_manager")
-		backend_routes_manager.fetch_routes()
+		GlobalManager.DebugPrint.debug_info("Backend authentication successful. Fetching routes...", self)
+		var backend_routes_manager = managers.get("backend_routes_manager")
+		if backend_routes_manager:
+			backend_routes_manager.fetch_routes()
 		emit_signal("network_server_backend_authentication_success", true)
 	else:
-		print("Backend authentication failed.")
+		GlobalManager.DebugPrint.debug_error("Backend authentication failed.", self)
 		is_connected = false
 		emit_signal("network_server_backend_authentication_success", false)
 
 # Reference backend managers and handlers
 func _reference_nodes():
-	print("Referencing backend managers and handlers...")
+	GlobalManager.DebugPrint.debug_info("Referencing backend managers and handlers...", self)
 	GlobalManager.NodeManager.reference_map_entry("CoreMap", "network_meta_manager", managers)
 	GlobalManager.NodeManager.reference_map_entry("CoreMap", "backend_manager", managers)
 	GlobalManager.NodeManager.reference_map_entry("CoreMap", "network_handler", handlers)
-	var nodes_referenced = true
+	nodes_referenced = true

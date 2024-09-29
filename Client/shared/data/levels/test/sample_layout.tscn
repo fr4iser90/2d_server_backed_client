@@ -27,8 +27,6 @@ format = 2
 
 [node name="mob_spawn_point" type="Node2D" parent="SpawnPoints"]
 
-[node name="PlayerDetector" type="Node2D" parent="."]
-
 [node name="Interactable" type="Node2D" parent="."]
 
 [node name="InteractableTrap" type="Node2D" parent="Interactable"]
@@ -42,3 +40,35 @@ format = 2
 [node name="StaticWall" type="Node2D" parent="StaticCollision"]
 
 [node name="Door" type="Node2D" parent="StaticCollision"]
+
+[node name="Detector" type="Node2D" parent="."]
+
+[node name="PlayerDetector" type="Node2D" parent="Detector"]
+
+[node name="PlayerRoomChangeDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="PlayerEventTriggerDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="PlayerTrapDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="PlayerObjectiveDetector" type="Node2D" parent="Detector/PlayerDetector"]
+
+[node name="NPCDetector" type="Node2D" parent="Detector"]
+
+[node name="NPCRoomChangeDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="NPCEventTriggerDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="NPCTrapDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="NPCObjectiveDetector" type="Node2D" parent="Detector/NPCDetector"]
+
+[node name="MobDetector" type="Node2D" parent="Detector"]
+
+[node name="EnemyRoomChangeDetector" type="Node2D" parent="Detector/MobDetector"]
+
+[node name="EnemyEventTriggerDetector" type="Node2D" parent="Detector/MobDetector"]
+
+[node name="EnemyTrapDetector" type="Node2D" parent="Detector/MobDetector"]
+
+[node name="EnemyObjectiveDetector" type="Node2D" parent="Detector/MobDetector"]

@@ -52,15 +52,12 @@ func _on_instance_assigned(peer_id: int, instance_key: String):
 
 # Handle incoming packets from the client
 func handle_packet(packet: Dictionary, peer_id: int):
-	# Check if the packet contains a request for instance data
-	print("packet receoved instance: ", packet)
 	if packet.has("request") and packet["request"] == "update_instance_data":
-		print("Received request for instance data from peer_id:", peer_id)
 		send_instance_data_to_client(peer_id)
 		
 # Handle sending scene and instance data to a new player
 func send_instance_data_to_client(peer_id: int):
-	print("Preparing to send instance data to peer_id:", peer_id)
+	#print("Preparing to send instance data to peer_id:", peer_id)
 	
 	# Get the instance_id for the peer_id
 	var instance_key = instance_manager.get_instance_id_for_peer(peer_id)
@@ -78,7 +75,7 @@ func send_instance_data_to_client(peer_id: int):
 			}
 
 			# Dispatch the packet to the client
-			print("Sending instance data to peer_id:", peer_id, "with data:", packet_data)
+			#print("Sending instance data to peer_id:", peer_id, "with data:", packet_data)
 			enet_server_manager.send_packet(peer_id, handler_name, packet_data)
 		else:
 			print("Error: Invalid instance data for instance key:", instance_key)

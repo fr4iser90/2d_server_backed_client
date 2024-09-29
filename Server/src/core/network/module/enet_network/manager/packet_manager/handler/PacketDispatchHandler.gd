@@ -5,18 +5,13 @@ var packet_manager = null
 var channel_manager = null
 
 var is_initialized = false
-var debug_enabled = true  # Enable/disable debugging for this module
+
 
 # Initialize the connection handler
 func initialize():
 	if is_initialized:
 		GlobalManager.DebugPrint.debug_warning("PacketDispatchHandler already initialized. Skipping.", self)
 		return
-
-	# Set debug level to WARNING
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-	
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
 	is_initialized = true

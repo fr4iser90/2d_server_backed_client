@@ -6,7 +6,7 @@ var channel_map
 var packet_manager
 
 var is_initialized = false
-var debug_enabled = false
+
 
 func _ready():
 	initialize()
@@ -16,8 +16,6 @@ func initialize():
 	if is_initialized:
 		GlobalManager.DebugPrint.debug_info("ChannelManager already initialized. Skipping.", self)
 		return
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
 	GlobalManager.DebugPrint.debug_info("Initializing ChannelManager...", self)
 
 	channel_map = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_map")

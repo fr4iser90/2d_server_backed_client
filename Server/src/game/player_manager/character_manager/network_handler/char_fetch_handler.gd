@@ -4,18 +4,12 @@ extends Node
 var backend_routes_manager
 var enet_server_manager
 var handler_name = "char_fetch_handler"
-var debug_enabled = true
 var is_initialized = false
 
 func initialize():
 	if is_initialized:
 		GlobalManager.DebugPrint.debug_info("handle_backend_login already initialized. Skipping.", self)
 		return
-	
-	# Setze den Debug-Modus für dieses Skript
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
-	# Optional: Setze das Debug-Level für dieses Modul
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
 
 	# Initialisiere die Manager
 	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("backend_manager", "backend_routes_manager")

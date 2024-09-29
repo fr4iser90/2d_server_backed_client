@@ -8,14 +8,13 @@ var retry_delay := 1.0 # Sekunden
 
 var global_config  
 var is_initialized = false  
-var debug_enabled = false
+
 
 func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
+
 	GlobalManager.DebugPrint.debug_info("auth_server_manager initialized.", self)
 
 func authenticate_server():

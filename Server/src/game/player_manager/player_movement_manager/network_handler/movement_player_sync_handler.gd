@@ -72,7 +72,7 @@ func _should_broadcast_movement(peer_id: int, movement_data: Dictionary) -> bool
 
 # Broadcast movement data to all players in the same instance, excluding the sender
 func _broadcast_movement_to_instance(peer_id: int, instance: Dictionary, movement_data: Dictionary):
-	print("Broadcasting movement data to instance: ", instance)
+	#print("Broadcasting movement data to instance: ", instance)
 	
 	for player_data in instance["players"]:
 		var target_peer_id = player_data["peer_id"]
@@ -82,7 +82,7 @@ func _broadcast_movement_to_instance(peer_id: int, instance: Dictionary, movemen
 		# Build and send movement packet
 		var packet = _build_movement_packet(peer_id, movement_data)
 		_send_packet_to_peer(target_peer_id, packet)
-		print("Sent movement data to peer: ", target_peer_id)
+		#print("Sent movement data to peer: ", target_peer_id)
 
 
 # Build movement data packet for a given peer_id

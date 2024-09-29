@@ -17,6 +17,7 @@ func _ready():
 	connect("input_event", Callable(self, "_on_input_event"))
 	collision_layer = 3  # Set to layer 3 for interactive elements
 	collision_mask = 0 
+	
 # Function to handle mouse entering the area (hover)
 func _on_mouse_entered():
 	print("Mouse entered the area.")
@@ -31,4 +32,6 @@ func _on_mouse_exited():
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		print("Area clicked!")
+#		Wenn der Spieler in der Area von ExitSpawnRoomToSpawnRoom2Collision ist dann darf der client hier den server anfragen ob er in eine neue instanc kann ,
+#		der server entfernt den user aus dieser instance dann assign in neue instance oder? und daten an clienten , wie mache ich as erstrmal richtig mit den static bods 
 		emit_signal("area_clicked")  # Emit signal when the area is clicked

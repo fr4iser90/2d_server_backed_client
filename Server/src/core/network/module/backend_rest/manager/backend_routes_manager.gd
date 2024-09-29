@@ -1,4 +1,3 @@
-# res://src/core/network/backend_routes_manager.gd (Server)
 extends Node
 
 var routes: Dictionary = {}  # Routes dictionary with full paths as keys
@@ -6,28 +5,28 @@ var short_name_to_path: Dictionary = {}  # Map short names to full paths
 
 var routes_api_url = GlobalManager.GlobalConfig.get_backend_url() + "/api/utility/get_all_routes"
 var http_request: HTTPRequest
-var is_initialized = false  # Flag zur Verhinderung von Doppelinitialisierung
+var is_initialized = false  # Flag to prevent double initialization
 
 func initialize():
 	if is_initialized:
 		return
 
-	# Setze nur den HTTPRequest auf und verbinde das Signal, aber hole die URL noch nicht
+	# Set up HTTPRequest and connect the signal, but do not fetch the URL yet
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.connect("request_completed", Callable(self, "_on_routes_fetched"))
 
 	is_initialized = true
-	print("BackendRoutesManager initialized, waiting for backend connection.")
+	GlobalManager.DebugPrint.debug_info("BackendRoutesManager initialized, waiting for backend connection.", self)
 
 func fetch_routes():
 	if http_request == null:
-		await initialize()  # Warten bis die HTTPRequest korrekt initialisiert wurde
+		await initialize()  # Wait until HTTPRequest is correctly initialized
 	var err = http_request.request(routes_api_url)
 	if err != OK:
-		print("Failed to fetch routes, error code: ", err)
+		GlobalManager.DebugPrint.debug_error("Failed to fetch routes, error code: " + str(err), self)
 	else:
-		print("Fetching routes from backend...")
+		GlobalManager.DebugPrint.debug_info("Fetching routes from backend...", self)
 
 func _on_routes_fetched(result: int, response_code: int, headers: Array, body: PackedByteArray):
 	if response_code == 200:
@@ -42,12 +41,12 @@ func _on_routes_fetched(result: int, response_code: int, headers: Array, body: P
 				# Extract the last part as short name
 				var short_name = _get_short_name(path)
 				short_name_to_path[short_name] = path
-			#print("Routes fetched successfully: ", routes)
-			#print("Short routes to paths mapping: ", short_name_to_path)  # Print short routes
+			
+			GlobalManager.DebugPrint.debug_info("Routes fetched successfully.", self)
 		else:
-			print("Failed to parse routes JSON.")
+			GlobalManager.DebugPrint.debug_error("Failed to parse routes JSON.", self)
 	else:
-		print("Failed to fetch routes, response code: ", response_code)
+		GlobalManager.DebugPrint.debug_error("Failed to fetch routes, response code: " + str(response_code), self)
 
 # Access method to get a route by short name or full path
 func get_route(route_name: String) -> Dictionary:
@@ -64,4 +63,3 @@ func _get_short_name(path: String) -> String:
 	if path.begins_with("/api"):
 		path = path.replace("/api", "")
 	return path  # Return the rest of the path unchanged
-

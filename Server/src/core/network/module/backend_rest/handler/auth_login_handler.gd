@@ -17,7 +17,7 @@ func initialize():
 		return
 	
 	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
-	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
+#	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
 	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("backend_manager", "backend_routes_manager")
