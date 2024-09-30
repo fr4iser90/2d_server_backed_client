@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://j0nfqkwpqam3"]
 
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/NetworkDatabaseModule.gd" id="1_mr1jj"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/NetworkDatabaseMongoDBRESTModule.gd" id="1_mr1jj"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/manager/NetworkMiddlewareManager.gd" id="2_shogd"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/manager/NetworkEndpointManager.gd" id="3_pe40q"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseServerAuthHandler.gd" id="4_0dpjg"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseUserLoginHandler.gd" id="5_kq6d4"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseUserTokenHandler.gd" id="6_yhhe7"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseCharacterFetchHandler.gd" id="7_gjrl7"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseCharacterSelectHandler.gd" id="8_efnlr"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBServerAuthHandler.gd" id="4_0dpjg"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBUserLoginHandler.gd" id="5_kq6d4"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBUserTokenHandler.gd" id="6_yhhe7"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBCharacterFetchHandler.gd" id="7_gjrl7"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBCharacterSelectHandler.gd" id="8_efnlr"]
 
 [node name="NetworkDatabaseModule" type="Node"]
 script = ExtResource("1_mr1jj")

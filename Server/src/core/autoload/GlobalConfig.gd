@@ -40,7 +40,7 @@ func set_backend_port(new_backend_port: int):
 
 # Function to get the Backend Port
 func get_backend_port() -> int:
-	return BACKEND_PORT
+	return int(BACKEND_PORT)
 
 # Function to set the Server Validation Key
 func set_server_validation_key(new_key: String):

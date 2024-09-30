@@ -26,7 +26,7 @@
 [ext_resource type="Script" path="res://src/core/network/module/network_game/game_udp/network_handler/user/UserLoginHandler.gd" id="24_5047v"]
 [ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="24_h33fm"]
 [ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="25_fj5cl"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseUserTokenHandler.gd" id="25_mysvb"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBUserTokenHandler.gd" id="25_mysvb"]
 
 [node name="NetworkGameModule" type="Node"]
 script = ExtResource("1_d0lfc")

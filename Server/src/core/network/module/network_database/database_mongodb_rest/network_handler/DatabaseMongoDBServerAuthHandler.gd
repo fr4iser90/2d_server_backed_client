@@ -1,4 +1,4 @@
-# # ( refactor to handler) DatabaseAuthServerHandler
+# DatabaseAuthServerHandler
 extends Node
 
 signal authentication_complete(success: bool)
@@ -15,7 +15,6 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-
 	GlobalManager.DebugPrint.debug_info("auth_server_manager initialized.", self)
 
 func authenticate_server():

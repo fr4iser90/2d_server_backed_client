@@ -13,6 +13,7 @@ extends Control
 @onready var server_validation_token = $ServerConsoleContainer/TopBackend/ServerValidationTokenInput
 @onready var connect_to_backend_button = $ServerConsoleContainer/TopBackend/ConnectToBackend
 @onready var disconnect_from_backend_button = $ServerConsoleContainer/TopBackend/DisconnectFromBackend
+@onready var database_connect_checkbutton = $ServerConsoleContainer/TopBackend/DatabaseConnectCheckButton
 # Mid
 @onready var backend_status_label = $ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanelLabel
 @onready var player_list_manager = $ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager
@@ -62,8 +63,6 @@ func _get_manager():
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
 	
 func _ready():
-	connect_to_backend_button.hide()
-	disconnect_from_backend_button.hide()
 	_populate_preset_list()
 	_connect_buttons()
 	_load_settings()
@@ -71,6 +70,7 @@ func _ready():
 	_check_settings()
 	
 func _connect_buttons():
+	database_connect_checkbutton.connect("toggled", Callable(self, "_on_database_connect_checkbutton_toggled"))
 	server_auto_start_checkbutton.connect("toggled", Callable(self, "_on_server_auto_start_checkbutton_toggled"))
 	server_preset_list.connect("item_selected", Callable(self, "_on_preset_selected"))
 
@@ -88,6 +88,8 @@ func _load_settings():
 	if server_auto_start_checkbutton:
 		server_auto_start_checkbutton.set_pressed(auto_start_server_enabled)
 		
+	if database_connect_checkbutton:
+		database_connect_checkbutton.set_pressed(auto_connect_database_enabled)
 		
 func _check_settings():
 		if auto_start_server_enabled:
@@ -98,7 +100,13 @@ func _check_settings():
 		add_child(timer)
 		timer.start()
 		await timer.timeout
-
+		if auto_connect_database_enabled:
+			_on_connect_to_backend_pressed()
+		
+func _on_database_connect_checkbutton_toggled(button_pressed: bool):
+	if auto_connect_database_enabled != button_pressed:
+		auto_connect_database_enabled = button_pressed
+		server_console_settings_handler.save_auto_connect(auto_connect_database_enabled)
 
 func _on_server_auto_start_checkbutton_toggled(button_pressed: bool):
 	if auto_start_server_enabled != button_pressed:
@@ -125,8 +133,7 @@ func _on_start_server_button_pressed():
 
 
 # Function that is called when the connect button is pressed
-func connect_to_database():
-	print("Network game and database modules initialized.")
+func _on_connect_to_backend_pressed():
 	_get_manager()
 	# Set the values in the global config from the UI inputs
 	GlobalManager.GlobalConfig.set_backend_ip_dns(backend_ip.text)
@@ -169,7 +176,8 @@ func _on_server_client_network_started():
 # This function will be called when the ServerInit signals that all managers are ready
 func _on_server_initialized():
 	GlobalManager.DebugPrint.debug_info("Server initialized. Proceeding to connect server console.", self)
-
+	if auto_connect_database_enabled:
+		_on_connect_to_backend_pressed()
 	GlobalManager.GlobalServerConsolePrint.connect("log_server_console_message", Callable(self, "_on_log_message_server_client"))
 	user_session_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
 	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connected"))

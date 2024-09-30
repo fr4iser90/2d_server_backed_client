@@ -49,7 +49,7 @@ text = "Server:"
 horizontal_alignment = 1
 
 [node name="ServerPresetList" type="ItemList" parent="ServerConsoleContainer/TopStartServer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 item_count = 2
 item_0/text = "MongoDB REST"
@@ -72,16 +72,16 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "9997"
 
-[node name="UseBackendLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
-layout_mode = 2
-text = "Backend Type:"
-
-[node name="UseBackendTypeLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
-layout_mode = 2
-
 [node name="ServerAutoStartCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
 text = "AutoStartServer"
+
+[node name="UseDatabaseLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+text = "Backend Type:"
+
+[node name="UseDatabaseTypeLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
 
 [node name="TopBackend" type="HBoxContainer" parent="ServerConsoleContainer"]
 custom_minimum_size = Vector2(0, 30)
@@ -125,10 +125,6 @@ text = "Connect"
 [node name="DisconnectFromBackend" type="Button" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "Disconnect"
-
-[node name="DatabaseConnectCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopBackend"]
-layout_mode = 2
-text = "AutoConnectoToBackend"
 
 [node name="Mid" type="HBoxContainer" parent="ServerConsoleContainer"]
 layout_mode = 2
@@ -415,7 +411,6 @@ script = ExtResource("6_ene3s")
 [connection signal="pressed" from="ServerConsoleContainer/TopStartServer/StartServerButton" to="." method="_on_start_server_button_pressed"]
 [connection signal="toggled" from="ServerConsoleContainer/TopStartServer/ServerAutoStartCheckButton" to="." method="_on_server_auto_start_check_button_toggled"]
 [connection signal="pressed" from="ServerConsoleContainer/TopBackend/ConnectToBackend" to="." method="_on_connect_to_backend_pressed"]
-[connection signal="toggled" from="ServerConsoleContainer/TopBackend/DatabaseConnectCheckButton" to="." method="_on_database_connect_check_button_toggled"]
 [connection signal="item_activated" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_activated"]
 [connection signal="item_selected" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_selected"]
 [connection signal="pressed" from="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Watch" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_watch_pressed"]

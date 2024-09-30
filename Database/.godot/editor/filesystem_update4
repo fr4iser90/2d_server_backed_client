@@ -1,1 +1,2 @@
 res://database.tscn
+res://src/server/handler/ServerManager.gd

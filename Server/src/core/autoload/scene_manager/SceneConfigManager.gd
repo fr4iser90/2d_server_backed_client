@@ -3,7 +3,7 @@ extends Node
 var scene_cores = {
 	"NetworkGameUDPENetPeerModule": "res://src/core/network/module/network_game/game_udp/NetworkGameUDPENetPeerModule.tscn",
 	"NetworkDatabaseMongoDBRESTModule": "res://src/core/network/module/network_database/database_mongodb_rest/NetworkDatabaseMongoDBRESTModule.tscn",
-	"NetworkServerWebsocketGodotModule": "res://src/core/network/module/network_database/database_godot_websocket/NetworkServerWebsocketGodotModule.tscn",
+	"NetworkDatabaseGodotWebsocketModule": "res://src/core/network/module/network_database/database_godot_websocket/NetworkDatabaseGodotWebsocketModule.tscn",
 	"ServerConsole": "res://src/core/server/scene/ServerConsole.tscn",
 	"GameTree": "res://src/core/server/scene/GameTree.tscn",
 	"NetworkTree": "res://src/core/server/scene/NetworkTree.tscn",

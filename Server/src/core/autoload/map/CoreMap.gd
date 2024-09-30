@@ -2,6 +2,7 @@
 extends Node
 
 var server_manager = {
+	"server_console": {"path_tree": "/root/ServerConsole", "cache": true},
 	"player_visual_monitor": {"path_tree": "/root/Core/ServerManager/PlayerVisualMonitor", "cache": true},
 	"player_movmemnt_data_monitor": {"path_tree": "/root/Core/ServerManager/PlayerMovementData", "cache": true},
 }

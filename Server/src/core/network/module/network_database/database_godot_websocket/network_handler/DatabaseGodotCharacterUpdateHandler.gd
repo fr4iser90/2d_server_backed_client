@@ -1,4 +1,3 @@
-# res://src/core/server/server_console/presets.gd
 extends Node
 
 

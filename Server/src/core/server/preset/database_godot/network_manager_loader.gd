@@ -2,12 +2,9 @@
 extends Node
 
 var network_tree
-var network_server_client_manager
-var network_server_backend_manager
+var network_server_game_module
+var network_server_databse_module
 var network_handler
-
-signal managers_loaded
-
 
 # Initialisiert die Netzwerk-Manager
 func load_network_managers():
@@ -16,18 +13,19 @@ func load_network_managers():
 # Initialisiert die Netzwerkknoten
 func _initialize_network_nodes():
 	network_tree = GlobalManager.SceneManager.put_scene_at_node("NetworkTree", "Core")
-	network_server_client_manager = GlobalManager.SceneManager.put_scene_at_node("NetworkServerClientManager", "Core/Network")
-	network_server_backend_manager = GlobalManager.SceneManager.put_scene_at_node("NetworkServerBackendManager", "Core/Network")
-	network_server_client_manager.initialize()
-	network_server_backend_manager.initialize()
+	network_server_game_module = GlobalManager.SceneManager.put_scene_at_node("NetworkGameUDPENetPeerModule", "Core/Network")
+	network_server_databse_module = GlobalManager.SceneManager.put_scene_at_node("NetworkDatabaseGodotWebsocketModule", "Core/Network")
+	network_server_game_module.initialize()
+	network_server_databse_module.initialize()
 	_check_if_managers_loaded()
 
-	
 # Überprüft, ob die Manager geladen sind
 func _check_if_managers_loaded():
-	if network_server_client_manager and network_server_backend_manager:
+	if network_server_game_module and network_server_databse_module:
 		print("Network Server Client Manager and Backend Manager loaded.")
-		emit_signal("managers_loaded")
+		var server_console = GlobalManager.NodeManager.get_cached_node("server_manager", "server_console")
+		server_console.connect_to_database()
+		emit_signal("network_game_database_module_intialized")
 	else:
 		print("Waiting for managers to be loaded...")
 		call_deferred("_check_if_managers_loaded")

@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxarqnogejmud"]
+
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/manager/NetworkGodotMiddlewareManager.gd" id="1_6je7j"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/NetworkDatabaseGodotWebsocketModule.gd" id="1_gu5l2"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/manager/NetworkGodotEndpointManager.gd" id="2_xg8ge"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotServerAuthHandler.gd" id="3_0snkw"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotUserLoginHandler.gd" id="4_ket4y"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotUserTokenHandler.gd" id="5_7jxo2"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotCharacterFetchHandler.gd" id="6_8jwu0"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotCharacterSelectHandler.gd" id="7_riixv"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotCharacterUpdateHandler.gd" id="8_juiio"]
+
+[node name="NetworkDatabaseModule" type="Node"]
+script = ExtResource("1_gu5l2")
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="NetworkMiddlewareManager" type="Node" parent="Manager"]
+script = ExtResource("1_6je7j")
+
+[node name="NetworkEndpointManager" type="Node" parent="Manager"]
+script = ExtResource("2_xg8ge")
+
+[node name="Handler" type="Node" parent="."]
+
+[node name="DatabaseServer" type="Node" parent="Handler"]
+
+[node name="DatabaseServerAuthHandler" type="Node" parent="Handler/DatabaseServer"]
+script = ExtResource("3_0snkw")
+
+[node name="DatabaseUser" type="Node" parent="Handler"]
+
+[node name="DatabaseUserLoginHandler" type="Node" parent="Handler/DatabaseUser"]
+script = ExtResource("4_ket4y")
+
+[node name="DatabaseUserTokenHandler" type="Node" parent="Handler/DatabaseUser"]
+script = ExtResource("5_7jxo2")
+
+[node name="DatabaseCharacter" type="Node" parent="Handler"]
+
+[node name="DatabaseCharacterFetchHandler" type="Node" parent="Handler/DatabaseCharacter"]
+script = ExtResource("6_8jwu0")
+
+[node name="DatabaseCharacterSelectHandler" type="Node" parent="Handler/DatabaseCharacter"]
+script = ExtResource("7_riixv")
+
+[node name="DatabaseCharacterUpdateHandler" type="Node" parent="Handler/DatabaseCharacter"]
+script = ExtResource("8_juiio")

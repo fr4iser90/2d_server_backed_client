@@ -6,7 +6,7 @@ var multiplayer_peer: WebSocketMultiplayerPeer
 @onready var user_manager = $"../../../Database/User/UserManager"
 @onready var character_manager = $"../../../Database/Character/CharacterManager"
 
-@export var port: int = 3372
+@export var port: int = 3500
 
 func _ready():
 	multiplayer_peer = WebSocketMultiplayerPeer.new()
