@@ -1,71 +1,120 @@
 # NetworkMiddlewareManager
 extends Node
 
-var server_validation_key = GlobalManager.GlobalConfig.get_server_validation_key()
-# Signal to trigger the connection to the WebSocket server
-signal connect_database_button_pressed
-
 var ip = "127.0.0.1"
 var port = "3500"
-#var port = GlobalManager.GlobalConfig.get_backend_port()
-#var ip = GlobalManager.GlobalConfig.get_backend_ip_dns()
 var network_endpoint_manager
-var multiplayer_peer: WebSocketMultiplayerPeer
+var database_server_auth_handler
+var websocket_multiplayer_peer: WebSocketMultiplayerPeer
 var is_connected = false
-
 
 # Connect the signal when the node enters the scene tree
 func _ready():
-	connect("connect_database_button_pressed", Callable(self, "_on_connect_button_pressed"))
 	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
-
-	
-# Connect to the WebSocket server when the signal is emitted
-func _on_connect_button_pressed():
+	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_server_auth_handler")
+	# Initiate connection to the server
 	connect_to_server()
 
+	# Create and start a Timer for checking the connection status every 2 seconds
+	var timer = Timer.new()
+	timer.wait_time = 2.0
+	timer.autostart = true
+	timer.connect("timeout", Callable(self, "_check_connection_status"))
+	add_child(timer)
+
 func connect_to_server():
-	multiplayer_peer = WebSocketMultiplayerPeer.new()
+	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var url = "ws://" + ip + ":" + str(port)
-	var err = multiplayer_peer.create_client(url)
-
+	var err = websocket_multiplayer_peer.create_client(url)
+	multiplayer.multiplayer_peer = websocket_multiplayer_peer
 	if err != OK:
-		GlobalManager.DebugPrint.debug_error("Failed to connect to WebSocket server. Error: " + str(err), self)
+		print("Failed to connect to WebSocket server. Error: " + str(err), self)
 		return
-
-	multiplayer.multiplayer_peer = multiplayer_peer
-	multiplayer_peer.connect("connection_established", Callable(self, "_on_connection_established"))
-	multiplayer_peer.connect("connection_closed", Callable(self, "_on_connection_closed"))
-	multiplayer_peer.connect("data_received", Callable(self, "_on_data_received"))
-
-func _on_connection_established(protocol: String = ""):
-	is_connected = true
-	GlobalManager.DebugPrint.debug_info("Connected to WebSocket server at " + ip + ":" + str(port), self)
-	# Notify that the connection is established
-	emit_signal("connection_established")
-
-func _on_connection_closed(was_clean_close: bool):
-	is_connected = false
-	GlobalManager.DebugPrint.debug_info("Disconnected from WebSocket server", self)
-
-func _on_data_received():
-	var packet = multiplayer_peer.get_packet().get_string_from_utf8()
-	GlobalManager.DebugPrint.debug_info("Data received from server: " + packet, self)
-
-	# Delegate the message handling to WebSocketEndpointManager
-	if network_endpoint_manager:
-		network_endpoint_manager.handle_websocket_message(packet)
 	else:
-		GlobalManager.DebugPrint.debug_error("Endpoint manager not set.", self)
+		print("Attempting to connect to WebSocket server: " + url, self)
+		
 
+
+# Timer callback to check connection status every 2 seconds
+func _check_connection_status():
+	if websocket_multiplayer_peer:
+		websocket_multiplayer_peer.poll()  # Continue polling the peer
+
+		# Check the connection status
+		var status = websocket_multiplayer_peer.get_connection_status()
+		#print("Checking WebSocket peer - Connection Status: ", status)
+		
+		match status:
+			0:
+				if is_connected:
+					print("Connection lost or disconnected.")
+					is_connected = false
+			1:
+				print("Connecting...")
+			2:
+				if not is_connected:
+					print("Connection established")
+					is_connected = true
+					_on_connection_established()
+			3:
+				print("Error - Failed to Connect")
+				is_connected = false
+
+func _on_connection_established():
+	print("Connected to WebSocket server at " + ip + ":" + str(port))
+	var test_data = {"test_key": "test_value"}
+	send_data_to_server(test_data)
+	# Here you can trigger any additional logic that should happen when connected
+	if database_server_auth_handler:
+		database_server_auth_handler.authenticate_server()
+	
 func send_data_to_server(data: Dictionary):
 	if is_connected:
+		var websocket_multiplayer_peer_id = websocket_multiplayer_peer.get_unique_id()
 		var json_str = JSON.stringify(data)
-		multiplayer_peer.put_packet(json_str.to_utf8_buffer())
+		
+		# Send actual data
+		#websocket_multiplayer_peer.put_packet(json_str.to_utf8_buffer())
+		
+		
+		var test_data2 = "HelloServer"
+		print("Sending test data: ", test_data2)
+		websocket_multiplayer_peer.put_packet(test_data2.to_utf8_buffer())		
+		# Create simple test data as an additional packet
+		var test_data = {"test_key": "test_value"}
+		var test_data_str = JSON.stringify(test_data)
+		
+		# Send the test data packet
+		websocket_multiplayer_peer.put_packet(test_data_str.to_utf8_buffer())
+		
+		print("Message:", data, "is sent via ID:", websocket_multiplayer_peer_id)
+		print("Test data sent:", test_data)
+		
+		# Test sending various packet types
+		_test_packet_types()
 	else:
-		GlobalManager.DebugPrint.debug_error("Not connected to the server, cannot send data", self)
+		print("Not connected to the server, cannot send data", self)
 
-func _process(delta: float) -> void:
-	if multiplayer_peer:
-		multiplayer_peer.poll()
+# Function to test sending different types of packets
+func _test_packet_types():
+	var test_packets = [
+		{ "type": "string", "value": "Hello, World!" },
+		{ "type": "int", "value": 42 },
+		{ "type": "float", "value": 3.14 },
+		{ "type": "bool", "value": true },
+		{ "type": "array", "value": [1, 2, 3] },
+		{ "type": "dictionary", "value": { "key": "value" } }
+	]
+	
+	for packet in test_packets:
+		var packet_str = JSON.stringify(packet)
+		websocket_multiplayer_peer.put_packet(packet_str.to_utf8_buffer())
+		print("Test packet sent:", packet)
 
+
+
+func get_websocket_peer() -> WebSocketMultiplayerPeer:
+	if websocket_multiplayer_peer and is_connected:
+		return websocket_multiplayer_peer
+	else:
+		return null

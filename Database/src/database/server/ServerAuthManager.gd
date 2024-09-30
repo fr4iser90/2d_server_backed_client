@@ -1,8 +1,9 @@
 # res://src/database/server/ServerAuthManager.gd
 extends Node
 
-@onready var server_auth_handler = $Source/Database/Server/ServerAuthManager/ServerAuthHandler
-@onready var server_token_handler = $Source/Database/Server/ServerAuthManager/ServerTokenHandler
+@onready var server_auth_handler = $ServerAuthHandler
+@onready var server_token_handler = $ServerTokenHandler
+
 
 func _ready():
 	print("ServerManager intialized")

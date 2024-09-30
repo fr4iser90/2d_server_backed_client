@@ -10,6 +10,8 @@ signal network_server_backend_connection_established
 signal network_server_backend_authentication_success
 signal network_server_backend_login_process_completed
 
+var network_endpoint_manager
+var network_middleware_manager
 var nodes_referenced = false
 var is_initialized = false
 var is_connected = false
@@ -19,11 +21,15 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	GlobalManager.DebugPrint.debug_info("Initializing NetworkServerBackendManager...", self)
+	GlobalManager.DebugPrint.debug_info("Initializing NetworkGodotDatabaseModule...", self)
 	_reference_nodes()
+	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
+	network_middleware_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
 	emit_signal("network_server_backend_manager_initialized")
 
 func connect_to_backend(ip: String, port: String, token: String):
+	if not is_initialized:
+		initialize()
 	GlobalManager.DebugPrint.debug_info("Connecting to backend...", self)
 	if not nodes_referenced:
 		_reference_nodes()
@@ -39,7 +45,7 @@ func _authenticate_backend():
 	var database_server_auth_handler = handlers.get("database_server_auth_handler")
 	if database_server_auth_handler:
 		database_server_auth_handler.connect("authentication_complete", Callable(self, "_on_backend_authenticated"))
-		database_server_auth_handler.authenticate_server()
+		#database_server_auth_handler._ready()
 	else:
 		GlobalManager.DebugPrint.debug_error("Error: AuthServerHandler not found.", self)
 
@@ -61,5 +67,7 @@ func _reference_nodes():
 	GlobalManager.DebugPrint.debug_info("Referencing backend managers and handlers...", self)
 	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_module", managers)
 	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_handler", handlers)
-	print("NetworkDatabaseMap HANDLER:  ", handlers, "  MANAGER:  ", )
+	
+	print("NetworkDatabaseMap HANDLER:  ", handlers, "  MANAGER:  ")
 	nodes_referenced = true
+

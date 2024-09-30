@@ -1,10 +1,11 @@
 # res://src/database/user/UserManager.gd
 extends Node
 
-@onready var user_login_handler = $Source/Database/User/UserManager/UserLoginHandler
-@onready var user_logout_handler = $Source/Database/User/UserManager/UserLogoutHandler
-@onready var user_register_handler = $Source/Database/User/UserManager/UserRegisterHandler
-@onready var user_token_handler = $Source/Database/User/UserManager/UserTokenHandler
+@onready var user_login_handler = $UserLoginHandler
+@onready var user_logout_handler = $UserLogoutHandler
+@onready var user_register_handler = $UserRegisterHandler
+@onready var user_token_handler = $UserTokenHandler
+
 
 var users_data_dir = "res://data/users/"
 

@@ -24,8 +24,18 @@ func _check_if_managers_loaded():
 	if network_server_game_module and network_server_databse_module:
 		print("Network Server Client Manager and Backend Manager loaded.")
 		var server_console = GlobalManager.NodeManager.get_cached_node("server_manager", "server_console")
+		#_reference_nodes()
 		server_console.connect_to_database()
 		emit_signal("network_game_database_module_intialized")
 	else:
 		print("Waiting for managers to be loaded...")
 		call_deferred("_check_if_managers_loaded")
+
+
+# Reference backend managers and handlers
+func _reference_nodes():
+	GlobalManager.DebugPrint.debug_info("Referencing backend managers and handlers...", self)
+	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_module")
+	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_handler")
+
+

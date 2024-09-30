@@ -1,2 +1,4 @@
 res://database.tscn
 res://src/server/handler/ServerManager.gd
+res://src/database/user/UserManager.gd
+res://src/database/server/ServerAuthManager.gd
