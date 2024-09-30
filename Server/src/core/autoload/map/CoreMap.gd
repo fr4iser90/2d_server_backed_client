@@ -1,55 +1,6 @@
 # res://src/core/autoload/map/CoreMap.gd
 extends Node
 
-var network_handler = {
-	"core_heartbeat_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreHeartbeatHandler ", "cache": true},
-	"core_connection_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreConnectionHandler", "cache": true},
-	"core_disconnection_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreDisconnectionHandler", "cache": true},
-	"core_ping_handler": {"path_tree": "/root/Core/Network/Handler/Core/CorePingHandler", "cache": true},
-	"core_server_status_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreServerStatusHandler", "cache": true},
-	"core_error_handler": {"path_tree": "/root/Core/Network/Handler/Core/CoreErrorHandler", "cache": true},
-	"movement_player_handler": {"path_tree": "/root/Core/Network/Handler/Movement/MovementPlayerHandler", "cache": true},
-	"movement_player_sync_handler": {"path_tree": "/root/Core/Network/Handler/Movement/MovementPlayerSyncHandler", "cache": true},
-	"scene_instance_data_handler": {"path_tree": "/root/Core/Network/Handler/Instance/SceneInstanceDataHandler", "cache": true},
-	# Backend Handler
-	"auth_login_handler": {"path_tree": "/root/Core/Network/Handler/Auth/AuthLoginHandler", "cache": true},
-	"char_fetch_handler": {"path_tree": "/root/Core/Network/Handler/Character/CharacterFetchHandler", "cache": true},
-	"char_select_handler": {"path_tree": "/root/Core/Network/Handler/Character/CharacterSelectHandler", "cache": true}
-}
-
-var packet_hander = {
-	"packet_creation_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketCreationHandler", "cache": true},
-	"packet_processing_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketProcessingHandler", "cache": true},
-	"packet_dispatch_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketDispatchHandler", "cache": true},
-	"packet_cache_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketCacheHandler", "cache": true},
-	"packet_hash_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketHashHandler", "cache": true},
-	"packet_converter_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketConverterHandler", "cache": true},
-	"packet_validation_handler": {"path_tree": "/root/Core/Network/Manager/PacketManager/PacketValidationHandler", "cache": true},
-}	
-
-	
-var backend_manager = {
-	"backend_middleware_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager/Manager/BackendMiddlewareManager", "cache": true},
-	"backend_routes_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager/Manager/BackendRoutesManager", "cache": true},
-	"network_server_backend_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager", "cache": true},
-	"auth_server_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager/Manager/AuthServerManager", "cache": true},
-	"auth_token_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager/Manager/AuthTokenManager", "cache": true},
-}
-
-var auth_manager = {
-	"auth_server_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager/Manager/AuthServerManager", "cache": true},
-	"auth_token_manager": {"path_tree": "/root/Core/Network/NetworkServerBackendManager/Manager/AuthTokenManager", "cache": true},
-}
-
-var network_meta_manager = {
-	"network_manager": {"path_tree": "/root/Core/Network", "cache": true},
-	"network_server_client_manager": {"path_tree": "/root/Core/Network/NetworkServerClientManager", "cache": true},
-	"enet_server_manager": {"path_tree": "/root/Core/Network/Manager/ENetServerManager", "cache": true},
-	"packet_manager": {"path_tree": "/root/Core/Network/Manager/PacketManager", "cache": true},
-	"channel_manager": {"path_tree": "/root/Core/Network/Manager/ChannelManager", "cache": true},
-	"channel_map": {"path_tree": "/root/Core/Network/Manager/ChannelManager/ChannelMap", "cache": true},
-}
-
 var server_manager = {
 	"player_visual_monitor": {"path_tree": "/root/Core/ServerManager/PlayerVisualMonitor", "cache": true},
 	"player_movmemnt_data_monitor": {"path_tree": "/root/Core/ServerManager/PlayerMovementData", "cache": true},

@@ -6,89 +6,72 @@ var node_cache: Dictionary = {}
 var node_flags: Dictionary = {}
 
 var is_initialized = false  
+var is_debug_enabled = false
 
-# Initialize the manager only once
 func initialize():
 	if is_initialized:
+		GlobalManager.DebugPrint.debug_info("NodeCacheManager already initialized.", self)
 		return
+		
+	
+	GlobalManager.DebugPrint.debug_info("Initializing NodeCacheManager.", self)
 	is_initialized = true
 	
-# Ready function to initialize
 func _ready():
+	GlobalManager.DebugPrint.set_script_debug_level("NodeCacheManager", GlobalManager.DebugPrint.DebugLevel.ERROR)
 	if not is_initialized:
 		initialize()
 	node_map_manager = get_node("/root/GlobalManager/NodeManager/NodeMapManager")
 
 # Retrieve a cached node or cache it if necessary
 func get_cached_node(node_type: String, node_name: String) -> Node:
-	# Try to get the node info from the combined maps
 	var node_info = node_map_manager.get_node_from_combined_maps(node_type, node_name)
+	GlobalManager.DebugPrint.debug_info("Requesting node: " + node_name + " of type: " + node_type, self)
 		
-	# If the node is already cached, ensure it's initialized and return it
 	if node_cache.has(node_name):
+		GlobalManager.DebugPrint.debug_info("Node found in cache: " + node_name, self)
 		return ensure_node_initialized(node_name)
 
-	# If the node is valid, proceed to cache it
+	GlobalManager.DebugPrint.debug_info("Node not in cache, caching: " + node_name, self)
 	cache_node(node_type, node_name)
-
-	# Ensure the node is initialized and return it
 	return ensure_node_initialized(node_name)
 
-# Ensure the node is initialized if it hasn't been yet
 func ensure_node_initialized(node_name: String) -> Node:
 	if node_cache.has(node_name):
 		var node = node_cache[node_name]
-		
-		# Check if node_flags exist
 		if not node_flags.has(node_name):
-			print("Error: Node flags for", node_name, "not found")
-			return node  # Return it anyway for now, even without flags
+			GlobalManager.DebugPrint.debug_warning("Error: Node flags for " + node_name + " not found.", self)
+			return node
 
-		# Check if the node is initialized, and initialize it if not
 		if not node_flags[node_name].has("is_initialized"):
-			print("Error: Initialization flag for", node_name, "missing")
-			node_flags[node_name]["is_initialized"] = false  # Initialize the flag if it's missing
+			GlobalManager.DebugPrint.debug_warning("Error: Initialization flag for " + node_name + " missing.", self)
+			node_flags[node_name]["is_initialized"] = false
 
 		if not node_flags[node_name]["is_initialized"]:
-			# Avoid re-initialization if already in progress
-			print("Initializing node: ", node_name)
-			node_flags[node_name]["is_initialized"] = true  # Set it early to prevent recursion
+			GlobalManager.DebugPrint.debug_info("Initializing node: " + node_name, self)
+			node_flags[node_name]["is_initialized"] = true
 
 			if node.has_method("initialize"):
 				node.initialize()
-				print("Node initialized: ", node_name)
+				GlobalManager.DebugPrint.debug_info("Node initialized: " + node_name, self)
 
 		return node
 	return null
 
-
-# Cache a node based on its node_type and node_name
 func cache_node(node_type: String, node_name: String):
-	#print("Attempting to cache node: ", node_name, " of type: ", node_type)
-	
 	var node_info = node_map_manager.get_combined_map_data(node_name)
 	if not node_info:
-		#print("Error: Invalid node name ", node_name)
+		GlobalManager.DebugPrint.debug_warning("Error: Invalid node name " + node_name, self)
 		return
 	
-	# Only cache the node if it's not cached yet and marked for caching
 	if not node_cache.has(node_name) and node_info.get("cache", false):
 		var node_path = node_info.get("path_tree", "")
-		#print("Node path for caching: ", node_path)
+		GlobalManager.DebugPrint.debug_info("Node path for caching: " + node_path, self)
 		
 		var node = get_node_or_null(node_path)
 		if node:
 			node_cache[node_name] = node
-			node_flags[node_name] = {"is_initialized": false}  # Set the initialized flag
-			print("Successfully cached node: ", node_name)
+			node_flags[node_name] = {"is_initialized": false}
+			GlobalManager.DebugPrint.debug_info("Successfully cached node: " + node_name, self)
 		else:
-			#print("Error: Could not cache node: ", node_name, " (Path: ", node_path, ")")
-			return
-	else:
-		#print("Node is already cached or not marked for caching: ", node_name)
-		return
-
-
-# Get a node from config, optionally caching it
-func get_node_from_config(node_type: String, node_name: String) -> Node:
-	return get_cached_node(node_type, node_name)
+			GlobalManager.DebugPrint.debug_warning("Error: Could not cache node: " + node_name + " (Path: " + node_path + ")", self)

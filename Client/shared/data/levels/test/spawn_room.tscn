@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://3rfj78ug52ik"]
+[gd_scene load_steps=8 format=3 uid="uid://3rfj78ug52ik"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://shared/Assets/Art/im no artist/TileSet.tres" id="1_gry6l"]
 [ext_resource type="Script" path="res://shared/data/levels/test/spawn_room.gd" id="2_ipx65"]
@@ -8,6 +8,11 @@ size = Vector2(57.1429, 48.3619)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jo04i"]
 size = Vector2(75, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsgof"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpkri"]
+size = Vector2(90, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jlj7c"]
 size = Vector2(65, 49.922)
@@ -111,6 +116,13 @@ position = Vector2(90.4902, 40.756)
 scale = Vector2(0.785714, 0.879308)
 texture = SubResource("PlaceholderTexture2D_jo04i")
 region_rect = Rect2(33.81, 16, 0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger/PlayerTrigger/PlayerInstanceChangeTrigger/InstanceChangeExitArea2DToSpawn2"]
+shape = SubResource("RectangleShape2D_qsgof")
+
+[node name="TriggerCollisionShape2D" type="CollisionShape2D" parent="Trigger/PlayerTrigger/PlayerInstanceChangeTrigger/InstanceChangeExitArea2DToSpawn2"]
+position = Vector2(-2, 49.142)
+shape = SubResource("RectangleShape2D_qpkri")
 
 [node name="NPCTrigger" type="Node2D" parent="Trigger"]
 

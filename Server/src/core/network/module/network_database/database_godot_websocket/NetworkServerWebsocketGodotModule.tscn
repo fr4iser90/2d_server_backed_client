@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxarqnogejmud"]
+
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseServerAuthHandler.gd" id="1_rikj4"]
+[ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseUserTokenHandler.gd" id="2_5oatc"]
+
+[node name="NetworkServerWebsocketGodotModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="WebSocketClientManager" type="Node" parent="Manager"]
+
+[node name="AuthServerManager" type="Node" parent="Manager"]
+script = ExtResource("1_rikj4")
+
+[node name="AuthTokenManager" type="Node" parent="Manager"]
+script = ExtResource("2_5oatc")

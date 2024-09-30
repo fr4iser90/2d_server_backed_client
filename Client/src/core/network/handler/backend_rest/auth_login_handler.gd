@@ -8,7 +8,7 @@ signal login_failed(reason: String)
 var is_logged_in = false
 var logged_in_user = ""
 var user_session_token =""
-var handler_name = "auth_login_handler"
+var handler_name = "user_login_handler"
 var network_module = null
 var enet_client_manager = null
 var channel_manager = null

@@ -6,6 +6,8 @@ var global_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.g
 var core_map = preload("res://src/core/autoload/map/CoreMap.gd").new()
 var user_map = preload("res://src/core/autoload/map/UserMap.gd").new()
 var game_map  = preload("res://src/core/autoload/map/GameMap.gd").new()
+var network_database_map = preload("res://src/core/autoload/map/NetworkDatabaseMap.gd").new()
+var network_game_map = preload("res://src/core/autoload/map/NetworkGameMap.gd").new()
 
 # Manager instances and maps
 var node_manager_name_and_paths = {}
@@ -34,6 +36,8 @@ func _collect_all_manager_maps() -> Dictionary:
 	all_manager_maps["CoreMap"] = core_map.get_data()
 	all_manager_maps["UserMap"] = user_map.get_data()
 	all_manager_maps["GameMap"] = game_map.get_data()
+	all_manager_maps["NetworkDatabaseMap"] = network_database_map.get_data()
+	all_manager_maps["NetworkGameMap"] = network_game_map.get_data()
 	return all_manager_maps
 
 # Attach map nodes as children

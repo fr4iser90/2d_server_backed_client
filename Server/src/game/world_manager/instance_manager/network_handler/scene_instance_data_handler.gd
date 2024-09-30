@@ -10,7 +10,7 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_server_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
 	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")  # Get instance manager node
 	instance_manager.connect("instance_created", Callable(self, "_on_instance_created"))
 	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
@@ -67,7 +67,7 @@ func send_instance_data_to_client(peer_id: int):
 		var full_instance_data = instance_manager.get_instance_data(instance_key)
 
 		if full_instance_data.has("scene_path"):
-			# Send only minimal player data, but full data for mobs and NPCs
+			# Send only minimal player data, but full dataa for mobs and NPCs
 			var packet_data = {
 				"players": minimal_player_data,
 				"mobs": full_instance_data["mobs"],

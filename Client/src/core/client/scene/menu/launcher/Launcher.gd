@@ -66,7 +66,7 @@ func _connect_signals():
 		core_connection_handler.connect("connection_established", Callable(self, "_on_connection_established"))
 		core_connection_handler.connect("connection_failed", Callable(self, "_on_connection_failed_with_reason"))
 		
-	handle_backend_login = GlobalManager.NodeManager.get_cached_node("network_handler", "auth_login_handler")
+	handle_backend_login = GlobalManager.NodeManager.get_cached_node("network_handler", "user_login_handler")
 	if handle_backend_login:
 		handle_backend_login.connect("login_success", Callable(self, "_on_user_logged_in_successfully"))
 		handle_backend_login.connect("login_failed", Callable(self, "_on_login_failed"))

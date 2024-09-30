@@ -1,16 +1,15 @@
 extends Node
 
 var scene_cores = {
+	"NetworkGameUDPENetPeerModule": "res://src/core/network/module/network_game/game_udp/NetworkGameUDPENetPeerModule.tscn",
+	"NetworkDatabaseMongoDBRESTModule": "res://src/core/network/module/network_database/database_mongodb_rest/NetworkDatabaseMongoDBRESTModule.tscn",
+	"NetworkServerWebsocketGodotModule": "res://src/core/network/module/network_database/database_godot_websocket/NetworkServerWebsocketGodotModule.tscn",
 	"ServerConsole": "res://src/core/server/scene/ServerConsole.tscn",
 	"GameTree": "res://src/core/server/scene/GameTree.tscn",
 	"NetworkTree": "res://src/core/server/scene/NetworkTree.tscn",
-	"NetworkServerClientManager": "res://src/core/server/scene/NetworkServerClientManager.tscn",
 	"UserTree": "res://src/core/server/scene/UserTree.tscn",
-	"Module": "res://src/core/server/scene/Module.tscn",
 	"builder": "res://src/core/server/scene/builder.tscn",
 	"CoreTree": "res://src/core/server/scene/CoreTree.tscn",
-	"NetworkServerWebsocketGodotModule": "res://src/core/server/scene/NetworkServerWebsocketGodotModule.tscn",
-	"NetworkServerBackendManager": "res://src/core/server/scene/NetworkServerBackendManager.tscn",
 }
 
 var misc_scenes = {

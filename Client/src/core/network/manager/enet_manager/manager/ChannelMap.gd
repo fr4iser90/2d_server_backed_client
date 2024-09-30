@@ -19,22 +19,23 @@ const CHANNEL_MAP = {
 	13: "core_sync_time_handler",         # Handle synchronization of time between clients and server
 
 	# --- 1000-1999: Authentication and User Management ---
-	1000: "auth_login_handler",           # Handle login requests (credentials, tokens)
-	1001: "auth_logout_handler",          # Handle logout requests
-	1002: "auth_register_handler",        # Handle user registration
-	1003: "auth_password_reset_handler",  # Handle password reset requests
-	1004: "auth_token_refresh_handler",   # Handle refresh of authentication tokens
-	1005: "auth_account_verification_handler", # Handle account verification (e.g., email or phone)
-	1006: "auth_session_timeout_handler", # Handle session timeout notifications
-	1007: "auth_multifactor_auth_handler",# Handle multi-factor authentication (e.g., OTP, app-based)
-	1008: "auth_revoke_token_handler",    # Handle revocation of authentication tokens
-	1009: "auth_login_attempt_handler",   # Track login attempts and lockout on multiple failures
-	1010: "auth_privacy_settings_handler",# Handle updates to user privacy settings
-	1011: "auth_ban_account_handler",     # Handle account bans and user restrictions
-	1012: "auth_user_profile_fetch_handler", # Fetch basic user profile data
-	1013: "auth_user_profile_update_handler", # Handle updates to user profile (e.g., avatar, bio)
-	1014: "auth_account_recovery_handler",# Handle account recovery process (e.g., security questions)
-	1015: "auth_device_management_handler",# Handle device management for user sessions (e.g., logout from specific devices)
+	1000: "user_login_handler",            # Handle login requests (credentials, tokens)
+	1001: "user_logout_handler",           # Handle logout requests
+	1002: "user_register_handler",         # Handle user registration
+	1003: "user_password_reset_handler",   # Handle password reset requests
+	1004: "user_token_refresh_handler",    # Handle refreshing authentication tokens
+	1005: "user_account_verification_handler", # Handle account verification (e.g., email or phone)
+	1006: "user_session_timeout_handler",  # Handle session timeout notifications
+	1007: "user_multifactor_auth_handler", # Handle multi-factor authentication (e.g., OTP, app-based)
+	1008: "user_revoke_token_handler",     # Handle revocation of authentication tokens
+	1009: "user_login_attempt_handler",    # Track login attempts and lockout
+	1010: "user_privacy_settings_handler", # Handle user privacy settings updates
+	1011: "user_ban_account_handler",      # Handle managing account bans and restrictions
+	1012: "user_profile_fetch_handler",    # Fetch basic user profile data
+	1013: "user_profile_update_handler",   # Handle updating user profile data (e.g., avatar, bio)
+	1014: "user_account_recovery_handler", # Handle the account recovery process
+	1015: "user_device_management_handler",# Handle managing devices in user sessions (e.g., logout from specific devices)
+
 
 	# --- 2000-2999: Character Management ---
 	2000: "char_fetch_handler",         # Fetch the list of characters

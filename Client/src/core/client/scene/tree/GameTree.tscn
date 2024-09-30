@@ -83,6 +83,18 @@ script = ExtResource("11_3aa6j")
 [node name="SceneInstanceDataHandler" type="Node" parent="World/InstanceManager/NetworkHandler"]
 script = ExtResource("10_rg7th")
 
+[node name="SceneTransitionManager" type="Node" parent="World"]
+
+[node name="Handler" type="Node" parent="World/SceneTransitionManager"]
+
+[node name="Handler3" type="Node" parent="World/SceneTransitionManager/Handler"]
+
+[node name="NetworkHandler" type="Node" parent="World/SceneTransitionManager"]
+
+[node name="SceneTransitionRequestHandler" type="Node" parent="World/SceneTransitionManager/NetworkHandler"]
+
+[node name="SceneTransitionResponseHandler" type="Node" parent="World/SceneTransitionManager/NetworkHandler"]
+
 [node name="Combat" type="Node" parent="."]
 
 [node name="Inventory" type="Node" parent="."]

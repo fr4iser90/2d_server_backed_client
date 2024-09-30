@@ -58,7 +58,6 @@ func _initialize_node_managers():
 
 	# Final check if all managers were loaded successfully
 	if all_node_managers_loaded:
-		print("All Node Managers initialized and added successfully. Setting Node node_ready=true")
 		node_ready = true  # Set ready to true after successful initialization
 		emit_signal("node_manager_ready")
 	else:
@@ -81,7 +80,6 @@ func get_node_manager(manager_name: String) -> Node:
 
 # Überprüfen, ob alle Manager bereit sind
 func check_node_manager_readiness():
-	print("check_node_manager_readiness")
 	if all_node_managers_loaded:
 		emit_signal("node_manager_ready")
 
@@ -93,7 +91,6 @@ func get_all_node_managers() -> Dictionary:
 		var manager = get_node_or_null(var_name)
 		if manager != null:
 			managers[var_name] = manager
-			print(var_name + " is loaded and available.")
 		else:
 			print("Error: " + var_name + " not loaded!")
 	return managers

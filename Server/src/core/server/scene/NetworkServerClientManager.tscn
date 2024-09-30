@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cudxxv1ij0nt2"]
-
-[ext_resource type="Script" path="res://src/core/network/module/enet_network/NetworkServerClientModule.gd" id="1_o21ba"]
-
-[node name="NetworkServerClientManager" type="Node"]
-script = ExtResource("1_o21ba")

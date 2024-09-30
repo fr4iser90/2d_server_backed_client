@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalManager="*res://src/core/autoload/GlobalManager.gd"
-ServerInit="*res://src/core/server/preset/default/server_init.gd"
 
 [display]
 

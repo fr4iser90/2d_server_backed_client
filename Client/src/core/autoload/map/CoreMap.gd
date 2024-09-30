@@ -12,7 +12,7 @@ var network_handler = {
 	"movement_player_sync_handler": {"path_tree": "/root/Game/Player/PlayerMovementManager/NetworkHandler/MovementPlayerSyncHandler", "cache": true},
 	"scene_instance_data_handler": {"path_tree": "/root/Game/World/InstanceManager/NetworkHandler/SceneInstanceDataHandler", "cache": true},
 	# Backend Handler
-	"auth_login_handler": {"path_tree": "/root/Core/Network/Handler/Auth/AuthLoginHandler", "cache": true},
+	"user_login_handler": {"path_tree": "/root/Core/Network/Handler/Auth/AuthLoginHandler", "cache": true},
 	"char_fetch_handler": {"path_tree": "/root/Game/Player/CharacterManager/NetworkHandler/CharFetchHandler", "cache": true},
 	"char_select_handler": {"path_tree": "/root/Game/Player/CharacterManager/NetworkHandler/CharSelectHandler", "cache": true}
 }

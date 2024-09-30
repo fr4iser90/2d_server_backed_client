@@ -27,7 +27,6 @@ func initialize():
 	trigger_data = GlobalManager.SceneManager.get_trigger_data()  # Fetch trigger data globally
 	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
-	print("Trigger data fetched: ", trigger_data)
 	is_initialized = true
 
 	if trigger_data.size() == 0:

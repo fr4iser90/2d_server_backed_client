@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://i3foluw8dcmd"]
+[gd_scene load_steps=7 format=3 uid="uid://i3foluw8dcmd"]
 
 [ext_resource type="Script" path="res://src/core/server/server_console/server_console.gd" id="1_2558d"]
-[ext_resource type="Script" path="res://src/core/server/server_console/PlayerListManager.gd" id="2_dh4te"]
-[ext_resource type="Script" path="res://src/core/server/server_console/PlayerVisualMonitorPanel.gd" id="3_euax3"]
-[ext_resource type="Script" path="res://src/core/server/server_console/ServerLog.gd" id="4_qwk75"]
+[ext_resource type="Script" path="res://src/core/server/server_console/player_panel/PlayerListManager.gd" id="2_dh4te"]
+[ext_resource type="Script" path="res://src/core/server/server_console/player_panel/PlayerVisualMonitorPanel.gd" id="3_euax3"]
+[ext_resource type="Script" path="res://src/core/server/server_console/server_log_panel/ServerLog.gd" id="4_qwk75"]
+[ext_resource type="Script" path="res://src/core/server/server_console/handler/PresetHandler.gd" id="5_gh1et"]
+[ext_resource type="Script" path="res://src/core/server/server_console/handler/SettingsHandler.gd" id="6_ene3s"]
 
 [node name="ServerConsole" type="Control"]
 layout_mode = 3
@@ -40,15 +42,18 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="StartServerLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
+[node name="ServerLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Server:"
 horizontal_alignment = 1
 
-[node name="ServerNameList" type="ItemList" parent="ServerConsoleContainer/TopStartServer"]
+[node name="ServerPresetList" type="ItemList" parent="ServerConsoleContainer/TopStartServer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+item_count = 2
+item_0/text = "MongoDB REST"
+item_1/text = "Godot Database"
 
 [node name="StartServerButton" type="Button" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
@@ -56,7 +61,7 @@ text = "StartServer"
 
 [node name="StopServerButton" type="Button" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
-text = "StartServer"
+text = "StopServer"
 
 [node name="ServerPortLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
@@ -69,10 +74,14 @@ text = "9997"
 
 [node name="UseBackendLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
-text = "Enable Backend "
+text = "Backend Type:"
 
-[node name="ServerAutoStartCheckbox" type="CheckButton" parent="ServerConsoleContainer/TopStartServer"]
+[node name="UseBackendTypeLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
+
+[node name="ServerAutoStartCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopStartServer"]
+layout_mode = 2
+text = "AutoStartServer"
 
 [node name="TopBackend" type="HBoxContainer" parent="ServerConsoleContainer"]
 custom_minimum_size = Vector2(0, 30)
@@ -117,12 +126,9 @@ text = "Connect"
 layout_mode = 2
 text = "Disconnect"
 
-[node name="AutoConnectLabel" type="Label" parent="ServerConsoleContainer/TopBackend"]
+[node name="DatabaseConnectCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopBackend"]
 layout_mode = 2
 text = "AutoConnectoToBackend"
-
-[node name="AutoConnectCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopBackend"]
-layout_mode = 2
 
 [node name="Mid" type="HBoxContainer" parent="ServerConsoleContainer"]
 layout_mode = 2
@@ -191,14 +197,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Network"
 
-[node name="WebSocketCheckButton3" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer"]
-layout_mode = 2
-text = "Enable ENetPacketPeer"
-
-[node name="WebSocketCheckButton2" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer"]
-layout_mode = 2
-text = "Enable MultiplayerApi"
-
 [node name="PlayerControlsButton" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -228,10 +226,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
 layout_mode = 2
 text = "Container3"
-
-[node name="WebSocketCheckButton" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
-layout_mode = 2
-text = "Enable Websocket"
 
 [node name="Button" type="Button" parent="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3"]
 layout_mode = 2
@@ -296,10 +290,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container1"]
 layout_mode = 2
 text = "Container3"
-
-[node name="WebSocketCheckButton" type="CheckButton" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container1"]
-layout_mode = 2
-text = "Enable Websocket"
 
 [node name="LevelControlPanel" type="GridContainer" parent="ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer"]
 layout_mode = 2
@@ -410,6 +400,22 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
+[node name="Handler" type="Node" parent="."]
+
+[node name="ServerConsoleLifeCycleHandler" type="Node" parent="Handler"]
+
+[node name="ServerConsolePresetHandler" type="Node" parent="Handler"]
+script = ExtResource("5_gh1et")
+
+[node name="ServerConsoleSettingsHandler" type="Node" parent="Handler"]
+script = ExtResource("6_ene3s")
+
+[node name="ServerConsoleUILoadHandler" type="Node" parent="Handler"]
+
+[connection signal="pressed" from="ServerConsoleContainer/TopStartServer/StartServerButton" to="." method="_on_start_server_button_pressed"]
+[connection signal="toggled" from="ServerConsoleContainer/TopStartServer/ServerAutoStartCheckButton" to="." method="_on_server_auto_start_check_button_toggled"]
+[connection signal="pressed" from="ServerConsoleContainer/TopBackend/ConnectToBackend" to="." method="_on_connect_to_backend_pressed"]
+[connection signal="toggled" from="ServerConsoleContainer/TopBackend/DatabaseConnectCheckButton" to="." method="_on_database_connect_check_button_toggled"]
 [connection signal="item_activated" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_activated"]
 [connection signal="item_selected" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_selected"]
 [connection signal="pressed" from="ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Watch" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_watch_pressed"]
