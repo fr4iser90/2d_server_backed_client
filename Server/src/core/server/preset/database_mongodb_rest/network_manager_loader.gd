@@ -6,9 +6,6 @@ var network_server_game_module
 var network_server_databse_module
 var network_handler
 
-
-
-
 # Initialisiert die Netzwerk-Manager
 func load_network_managers():
 	call_deferred("_initialize_network_nodes")

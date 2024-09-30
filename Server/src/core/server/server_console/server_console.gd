@@ -51,7 +51,7 @@ var packet_manager
 func _populate_preset_list():
 	server_preset_list.clear()  # Clear the list
 	server_preset_list.add_item("MongoDB REST")
-	server_preset_list.add_item("Godot Database")
+	server_preset_list.add_item("Godot WS")
 	server_preset_list.select(0)  # Default selection
 		
 func _get_manager():
@@ -67,7 +67,6 @@ func _ready():
 	_populate_preset_list()
 	_connect_buttons()
 	_load_settings()
-	_get_manager()
 	_check_settings()
 	
 func _connect_buttons():
@@ -117,10 +116,18 @@ func _on_start_server_button_pressed():
 	if selected_items.size() > 0:
 		var selected_preset = selected_items[0]  # Holt den Index des ausgewählten Presets
 		var selected_preset_name = server_preset_list.get_item_text(selected_preset)  # Holt den Namen des ausgewählten Presets
+
+		# Überprüfe, ob der ServerInit bereits existiert
+		var current_server_init = get_tree().root.get_node_or_null("ServerInit")
+		if current_server_init:
+			GlobalManager.DebugPrint.debug_system("ServerInit is already running. Skipping initialization.", self)
+			return
+
 		GlobalManager.DebugPrint.debug_system("Loading selected preset: " + selected_preset_name, self)
 		server_console_preset_handler.load_preset(selected_preset)
 	else:
 		GlobalManager.DebugPrint.debug_error("No preset selected for server start", self)
+
 
 
 

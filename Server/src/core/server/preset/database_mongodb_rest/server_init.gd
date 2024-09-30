@@ -1,7 +1,6 @@
 # res://src/core/server/preset/database_mongodb_rest/server_init.gd
 extends Node
 
-
 var server_init_manager: Node
 var network_manager_loader: Node
 var backend_connection_handler: Node
@@ -11,7 +10,6 @@ var is_initialized = false
 func _ready():
 	initialize()
 
-	
 func initialize():
 	if is_initialized:
 		GlobalManager.DebugPrint.debug_info("ServerInit for MongoDB REST already initialized. Skipping.", self)

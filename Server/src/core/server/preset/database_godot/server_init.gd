@@ -1,12 +1,19 @@
 # res://src/core/server/preset/database_godot/server_init.gd
 extends Node
 
-var preset_name = "database_godot"
 var server_init_manager: Node
 var network_manager_loader: Node
 var backend_connection_handler: Node
+var is_initialized = false
 
 func _ready():
+	initialize()
+	
+func initialize():
+	if is_initialized:
+		GlobalManager.DebugPrint.debug_info("ServerInit for GodotDB WebSocket already initialized. Skipping.", self)
+		return
+	is_initialized = true
 	# Lade die modularen Skripte
 	server_init_manager = load("res://src/core/server/preset/database_godot/server_init_manager.gd").new()
 	network_manager_loader = load("res://src/core/server/preset/database_godot/network_manager_loader.gd").new()

@@ -22,7 +22,7 @@ func _initialize_network_nodes():
 # Überprüft, ob die Manager geladen sind
 func _check_if_managers_loaded():
 	if network_server_game_module and network_server_databse_module:
-		print("Network Server Client Manager and Backend Manager loaded.")
+		print("Network Server Client Manager and GodotDatabase + Websocket Manager loaded.")
 		var server_console = GlobalManager.NodeManager.get_cached_node("server_manager", "server_console")
 		server_console.connect_to_database()
 		emit_signal("network_game_database_module_intialized")

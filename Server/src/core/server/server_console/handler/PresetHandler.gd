@@ -4,7 +4,7 @@ extends Node
 # Enum oder String für die Presets
 enum ServerPreset {
 	MONGODB_REST,
-	GODOT_DATABASE
+	GODOT_WS
 }
 
 # Methode, um den richtigen Initialisierungsprozess zu starten
@@ -12,7 +12,7 @@ func load_preset(selected_preset: int):
 	match selected_preset:
 		ServerPreset.MONGODB_REST:
 			load_mongodb_rest()
-		ServerPreset.GODOT_DATABASE:
+		ServerPreset.GODOT_WS:
 			load_godot_database()
 		_:
 			print("Unknown preset selected")
