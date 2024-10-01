@@ -3,7 +3,7 @@ extends Node
 signal authentication_complete(success: bool)
 
 var retry_count := 0
-var max_retries := 3
+var max_retries := 6
 var retry_delay := 1.0  # Seconds
 var is_initialized = false  
 var connection_check_timer: Timer = null 

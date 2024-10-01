@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwvji7mhn3ydq"]
+[gd_scene load_steps=11 format=3 uid="uid://dwvji7mhn3ydq"]
 
 [ext_resource type="Script" path="res://src/database/server/handler/ServerAuthHandler.gd" id="1_0brge"]
-[ext_resource type="Script" path="res://src/server/handler/ServerManager.gd" id="1_0e8u5"]
+[ext_resource type="Script" path="res://src/server/handler/WebSocketServer.gd" id="1_0e8u5"]
 [ext_resource type="Script" path="res://src/database/user/UserManager.gd" id="1_psdm5"]
 [ext_resource type="Script" path="res://src/database/server/ServerAuthManager.gd" id="1_tyh8b"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserLoginHandler.gd" id="2_of7dy"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://src/database/user/handler/UserLogoutHandler.gd" id="3_1rjw5"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserRegisterHandler.gd" id="3_8587c"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
+[ext_resource type="Script" path="res://src/server/handler/PacketManager.gd" id="10_poc24"]
 
 [node name="Database" type="Node"]
 
@@ -78,3 +79,75 @@ script = ExtResource("2_qvjmg")
 
 [node name="WebSocketManager" type="Node" parent="Source/WebSocketServer/Manager"]
 script = ExtResource("1_0e8u5")
+
+[node name="PacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager"]
+script = ExtResource("10_poc24")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "PlaceHolder"
+
+[node name="PeerContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -295.0
+offset_bottom = 284.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/PeerContainer"]
+layout_mode = 2
+text = "PlaceHolder"
+
+[node name="PeerPanel" type="Panel" parent="Control/PeerContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PeerList" type="ItemList" parent="Control/PeerContainer/PeerPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer3"]
+layout_mode = 2
+text = "PlaceHolder"
+
+[node name="UIManager" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

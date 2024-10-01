@@ -13,8 +13,8 @@ var scene_manager = {
 	"scene_transition_manager": {"name": "SceneTransitionManager", "path_file": "res://src/core/autoload/scene_manager/SceneTransitionManager.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneTransitionManager", "cache": true},
 	"scene_state_manager": {"name": "SceneStateManager", "path_file": "res://src/core/autoload/scene_manager/SceneStateManager.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneStateManager", "cache": true},
 	"scene_scanner": {"name": "SceneScanner", "path_file": "res://src/core/autoload/scene_manager/SceneScanner.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneScanner", "cache": true},
-	"scene_spawn_point_scanner": {"name": "SceneScanner", "path_file": "res://src/core/autoload/scene_manager/SceneSpawnPointScanner.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneSpawnPointScanner", "cache": true},
-	"scene_trigger_scanner": {"name": "SceneScanner", "path_file": "res://src/core/autoload/scene_manager/SceneTriggerScanner.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneTriggerScanner", "cache": true},
+	"scene_spawn_point_scanner": {"name": "SceneSpawnPointScanner", "path_file": "res://src/core/autoload/scene_manager/SceneSpawnPointScanner.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneSpawnPointScanner", "cache": true},
+	"scene_trigger_scanner": {"name": "SceneTriggerScanner", "path_file": "res://src/core/autoload/scene_manager/SceneTriggerScanner.gd", "path_tree": "/root/GlobalManager/SceneManager/SceneTriggerScanner", "cache": true},
 }
 
 var node_manager = {
