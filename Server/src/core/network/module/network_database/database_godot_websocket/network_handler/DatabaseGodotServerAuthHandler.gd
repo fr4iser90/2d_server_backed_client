@@ -11,17 +11,8 @@ var network_middleware_manager = null  # Reference to the middleware manager
 
 func _ready():
 	GlobalManager.DebugPrint.debug_info("WebSocketServerAuthHandler initialized.", self)
-	
 	# Fetch the NetworkMiddlewareManager directly
 	network_middleware_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
-	
-	# Start a timer to check the connection status periodically
-	connection_check_timer = Timer.new()
-	connection_check_timer.wait_time = 0.5  # Check every 0.5 seconds
-	connection_check_timer.autostart = true
-	connection_check_timer.one_shot = false
-	connection_check_timer.connect("timeout", Callable(self, "_check_connection_status"))
-	add_child(connection_check_timer)
 
 # Check the WebSocket connection status
 func _check_connection_status():
@@ -36,7 +27,7 @@ func authenticate_server():
 	var websocket_peer = network_middleware_manager.get_websocket_peer()
 	if websocket_peer and websocket_peer.get_connection_status() == WebSocketMultiplayerPeer.CONNECTION_CONNECTED:
 		var request_data = {
-			"action": "server_auth",
+			"type": "server_auth",
 			"server_key": GlobalManager.GlobalConfig.get_server_validation_key()
 		}
 		_send_message_to_server(request_data)
@@ -49,7 +40,6 @@ func _send_message_to_server(message: Dictionary):
 	var websocket_peer = network_middleware_manager.get_websocket_peer()
 	if websocket_peer and websocket_peer.get_connection_status() == WebSocketMultiplayerPeer.CONNECTION_CONNECTED:
 		var json_message = JSON.stringify(message)
-		#print("sending data:", websocket_peer, " message: ", json_message)
 		network_middleware_manager.send_data_to_server(message)
 	else:
 		GlobalManager.DebugPrint.debug_error("Cannot send message, WebSocket peer is null or not connected.", self)

@@ -83,6 +83,30 @@ script = ExtResource("1_0e8u5")
 [node name="PacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager"]
 script = ExtResource("10_poc24")
 
+[node name="NetworkHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager"]
+
+[node name="DatabaseServerAuthHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseUserAuthHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseCharacterHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseCombatEventHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseServerMessageHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseQuestUpdateHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseInstanceChangeHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseWorldChangeHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseSyncStatusHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="DatabaseErrorMessage" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
+
+[node name="Handler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager"]
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15

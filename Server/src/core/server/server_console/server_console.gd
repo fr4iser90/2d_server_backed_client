@@ -129,8 +129,6 @@ func _on_start_server_button_pressed():
 		GlobalManager.DebugPrint.debug_error("No preset selected for server start", self)
 
 
-
-
 # Function that is called when the connect button is pressed
 func connect_to_database():
 	print("Network game and database modules initialized.")

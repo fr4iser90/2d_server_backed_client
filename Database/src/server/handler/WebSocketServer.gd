@@ -6,6 +6,7 @@ var peers_info = {}  # Stores information for each peer, such as packet counts.
 
 @export var port: int = 3500
 @onready var peer_list = $"../../../../Control/PeerContainer/PeerPanel/PeerList"  # UI element for displaying connected peers
+@onready var packet_manager = $PacketManager
 
 # Initial setup of the WebSocket server
 func _ready():
@@ -73,8 +74,6 @@ func _handle_incoming_packet():
 		_update_peer_list(peer_id)
 	_handle_received_packet(packet, peer_id)
 
-@onready var packet_manager = $PacketManager
-
 # Parses and processes the received packet (JSON format)
 func _handle_received_packet(packet: String, peer_id: int):
 	var json = JSON.new()
@@ -83,15 +82,38 @@ func _handle_received_packet(packet: String, peer_id: int):
 	if parse_result == OK:
 		var result = json.get_data()  # Access the parsed result through `get_data()`
 
-		if result.has("server_key"):
-			# Call server authentication function
-			print("Server key received from peer ", peer_id)
-		elif result.has("user_data"):
-			print("User data received from peer ", peer_id)
-		else:
-			print("Unrecognized data received from peer ", peer_id)
+		# Process the packet based on the type
+		match result.get("type", null):
+			"server_auth":
+				packet_manager.handle_server_auth(peer_id, result)
+			"user_auth":
+				packet_manager.handle_user_auth(result, peer_id)
+			"character_data":
+				packet_manager.handle_character_data(result, peer_id)
+			"player_position":
+				packet_manager.handle_player_position(result, peer_id)
+			"combat_event":
+				packet_manager.handle_combat_event(result, peer_id)
+			"chat_message":
+				packet_manager.handle_chat_message(result, peer_id)
+			"inventory_update":
+				packet_manager.handle_inventory_update(result, peer_id)
+			"quest_update":
+				packet_manager.handle_quest_update(result, peer_id)
+			"instance_change":
+				packet_manager.handle_instance_change(result, peer_id)
+			"world_change":
+				packet_manager.handle_world_change(result, peer_id)
+			"server_message":
+				packet_manager.handle_server_message(result, peer_id)
+			"sync_status":
+				packet_manager.handle_sync_status(result, peer_id)
+			"error_message":
+				packet_manager.handle_error_message(result, peer_id)
+			_:
+				print("Unrecognized packet type received from peer ", peer_id)
 	else:
-		print("Error parsing packet: ", json.error_string)  # error_string contains the parsing error
+		print("Error parsing packet: ", json.error_string)
 
 
 

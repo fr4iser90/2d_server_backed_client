@@ -31,6 +31,7 @@ func connect_to_backend(ip: String, port: String, token: String):
 	if not is_initialized:
 		initialize()
 	GlobalManager.DebugPrint.debug_info("Connecting to backend...", self)
+	network_middleware_manager.connect_to_server()
 	if not nodes_referenced:
 		_reference_nodes()
 	emit_signal("network_server_backend_connection_established")
@@ -45,7 +46,6 @@ func _authenticate_backend():
 	var database_server_auth_handler = handlers.get("database_server_auth_handler")
 	if database_server_auth_handler:
 		database_server_auth_handler.connect("authentication_complete", Callable(self, "_on_backend_authenticated"))
-		#database_server_auth_handler._ready()
 	else:
 		GlobalManager.DebugPrint.debug_error("Error: AuthServerHandler not found.", self)
 
@@ -61,6 +61,7 @@ func _on_backend_authenticated(success: bool):
 		GlobalManager.DebugPrint.debug_error("Backend authentication failed.", self)
 		is_connected = false
 		emit_signal("network_server_backend_authentication_success", false)
+
 
 # Reference backend managers and handlers
 func _reference_nodes():

@@ -1,6 +1,4 @@
 res://database.tscn
-res://src/server/handler/ServerManager.gd
-res://src/console/UIManager.gd
-res://src/server/handler/WebSocketServer.gd
-res://src/server/handler/WebSocketServer_old.gd
 res://src/server/handler/PacketManager.gd
+res://src/server/handler/WebSocketServer.gd
+res://src/database/server/handler/ServerAuthHandler.gd

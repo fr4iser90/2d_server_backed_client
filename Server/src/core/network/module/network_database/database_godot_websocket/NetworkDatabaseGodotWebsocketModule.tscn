@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxarqnogejmud"]
+[gd_scene load_steps=10 format=3 uid="uid://cxarqnogejmud"]
 
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/manager/NetworkGodotMiddlewareManager.gd" id="1_6je7j"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/NetworkDatabaseGodotWebsocketModule.gd" id="1_gu5l2"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/manager/NetworkGodotEndpointManager.gd" id="2_xg8ge"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotServerAuthHandler.gd" id="3_0snkw"]
-[ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/testdata.gd" id="4_jygae"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotUserLoginHandler.gd" id="4_ket4y"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotUserTokenHandler.gd" id="5_7jxo2"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotCharacterFetchHandler.gd" id="6_8jwu0"]
@@ -21,9 +20,6 @@ script = ExtResource("1_6je7j")
 
 [node name="NetworkEndpointManager" type="Node" parent="Manager"]
 script = ExtResource("2_xg8ge")
-
-[node name="testdata" type="Node" parent="Manager"]
-script = ExtResource("4_jygae")
 
 [node name="Handler" type="Node" parent="."]
 

@@ -4,16 +4,19 @@ var ip = "127.0.0.1"
 var port = "3500"
 var database_server_auth_handler
 var websocket_multiplayer_peer: WebSocketMultiplayerPeer
-var test_packet_timer: Timer
 var is_connected = false
 
-# Connect the signal when the node enters the scene tree
-func _ready():
+func connect_to_server():
 	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_server_auth_handler")
+	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
+	var url = "ws://" + ip + ":" + str(port)
+	var err = websocket_multiplayer_peer.create_client(url)
 	
-	connect_to_server()
-
-	# Create a Timer for checking connection status every 2 seconds
+	if err != OK:
+		print("Failed to connect to WebSocket server. Error: " + str(err), self)
+		return
+	else:
+		print("Attempting to connect to WebSocket server: " + url)
 	var status_timer = Timer.new()
 	status_timer.wait_time = 2.0
 	status_timer.autostart = true
@@ -21,30 +24,16 @@ func _ready():
 	status_timer.connect("timeout", Callable(self, "_check_connection_status"))
 	add_child(status_timer)
 
-	# Create a Timer for sending test packets every 2 seconds
-	test_packet_timer = Timer.new()
-	test_packet_timer.wait_time = 2.0
-	test_packet_timer.autostart = false  # Only start when connection is established
-	test_packet_timer.one_shot = false
-	test_packet_timer.connect("timeout", Callable(self, "_send_test_packets"))
-	add_child(test_packet_timer)
-
-func connect_to_server():
-	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
-	var url = "ws://" + ip + ":" + str(port)
-	var err = websocket_multiplayer_peer.create_client(url)
-	multiplayer.multiplayer_peer = websocket_multiplayer_peer
-	if err != OK:
-		print("Failed to connect to WebSocket server. Error: " + str(err), self)
-		return
-	else:
-		print("Attempting to connect to WebSocket server: " + url)
-
+func _process(delta):
+	if websocket_multiplayer_peer:
+		websocket_multiplayer_peer.poll()
+		
+		if websocket_multiplayer_peer.get_available_packet_count() > 0:
+			_check_connection_status()
+			_handle_incoming_message()
+		
 # Timer callback to check connection status every 2 seconds
 func _check_connection_status():
-	if websocket_multiplayer_peer:
-		websocket_multiplayer_peer.poll()  # Continue polling the peer
-
 		# Check the connection status
 		var status = websocket_multiplayer_peer.get_connection_status()
 		match status:
@@ -52,7 +41,6 @@ func _check_connection_status():
 				if is_connected:
 					print("Connection lost or disconnected.")
 					is_connected = false
-					test_packet_timer.stop()  # Stop sending test packets
 			1:
 				print("Connecting...")
 			2:
@@ -60,61 +48,28 @@ func _check_connection_status():
 					print("Connection established")
 					is_connected = true
 					_on_connection_established()
-					test_packet_timer.start()  # Start sending test packets
 			3:
 				print("Error - Failed to Connect")
 				is_connected = false
 
+			
 func _on_connection_established():
 	print("Connected to WebSocket server at " + ip + ":" + str(port))
-	var welcome_message = {
-		"type": "greeting",
-		"message": "Greetings from Client"
-	}
-	var json_str = JSON.stringify(welcome_message)
-	var test_packet = json_str.to_utf8_buffer()
-
-	# Set the server's peer ID as 1 (commonly used for the server in many setups)
-	websocket_multiplayer_peer.set_target_peer(1) 
-	websocket_multiplayer_peer.put_packet(test_packet)
-	print("Sent greeting to server")
 	
+	# Send server authentication request
 	if database_server_auth_handler:
 		database_server_auth_handler.authenticate_server()
-
 
 # Function to send data to server
 func send_data_to_server(data: Dictionary):
 	if is_connected:
+		var websocket_peer_id = websocket_multiplayer_peer.get_unique_id()
 		var json_str = JSON.stringify(data)
 		websocket_multiplayer_peer.set_target_peer(1)  # Target the server (peer ID 1)
 		websocket_multiplayer_peer.put_packet(json_str.to_utf8_buffer())
-		print("Sending data to server:", json_str)
+		print("Sending data to server: ", json_str, " with  PeerId : ", websocket_peer_id)
 	else:
 		print("Not connected to the server, cannot send data", self)
-
-# Function to send test packets every 2 seconds
-func _send_test_packets():
-	if is_connected:
-		var test_data = { "message": "Hello from the client" }
-		var test_data_str = JSON.stringify(test_data)
-		websocket_multiplayer_peer.put_packet(test_data_str.to_utf8_buffer())
-		print("Test data sent every 2 seconds:", test_data)
-
-# Function to test sending different types of packets
-func _test_packet_types():
-	var test_packets = [
-		{ "type": "string", "value": "Hello, World!" },
-		{ "type": "int", "value": 42 },
-		{ "type": "float", "value": 3.14 },
-		{ "type": "bool", "value": true },
-		{ "type": "array", "value": [1, 2, 3] },
-		{ "type": "dictionary", "value": { "key": "value" } }
-	]
-	for packet in test_packets:
-		var packet_str = JSON.stringify(packet)
-		websocket_multiplayer_peer.put_packet(packet_str.to_utf8_buffer())
-		print("Test packet sent:", packet)
 
 # Helper function to return the peer instance
 func get_websocket_peer() -> WebSocketMultiplayerPeer:
@@ -122,3 +77,46 @@ func get_websocket_peer() -> WebSocketMultiplayerPeer:
 		return websocket_multiplayer_peer
 	else:
 		return null
+
+
+# Function to handle incoming packets from the server
+func _handle_incoming_message():
+	var packet = websocket_multiplayer_peer.get_packet().get_string_from_utf8()
+	print("Received packet from server:", packet)  # Debug-Print
+	var json = JSON.new()
+	var parse_result = json.parse(packet)
+	if parse_result == OK:
+		var message_data = json.get_data()
+		_process_packet(message_data)
+	else:
+		print("Error parsing packet: " + json.error_string)
+
+# Function to process different packet types
+func _process_packet(packet: Dictionary):
+	match packet.get("type", null):
+		"server_auth_response":
+			_handle_server_auth_response(packet)
+		"player_position":
+			_handle_player_position(packet)
+		"chat_message":
+			_handle_chat_message(packet)
+		# Add more packet types as needed
+		_:
+			print("Unknown packet type received: ", packet.get("type", null))
+
+# Handler for server authentication response
+func _handle_server_auth_response(packet: Dictionary):
+	if packet.get("auth_status") == "success":
+		print("Server authenticated successfully.")
+	else:
+		print("Server authentication failed.")
+
+# Handler for player position updates
+func _handle_player_position(packet: Dictionary):
+	var position = packet.get("position")
+	print("Player position received: ", position)
+
+# Handler for chat messages
+func _handle_chat_message(packet: Dictionary):
+	var message = packet.get("message")
+	print("Chat message received: ", message)
