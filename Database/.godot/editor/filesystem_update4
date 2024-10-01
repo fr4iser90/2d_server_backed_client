@@ -2,3 +2,8 @@ res://database.tscn
 res://src/server/handler/PacketManager.gd
 res://src/server/handler/WebSocketServer.gd
 res://src/database/server/handler/ServerAuthHandler.gd
+res://src/database/user/handler/UserLoginHandler.gd
+res://src/database/user/UserManager.gd
+res://src/database/user/handler/UserUtilityHandler.gd
+res://src/database/user/handler/UserRegisterHandler.gd
+res://data/user/UserModel.gd

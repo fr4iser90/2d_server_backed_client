@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://src/database/server/ServerAuthManager.gd" id="1_tyh8b"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserLoginHandler.gd" id="2_of7dy"]
 [ext_resource type="Script" path="res://src/database/server/handler/ServerTokenHandler.gd" id="2_qvjmg"]
-[ext_resource type="Script" path="res://src/database/user/handler/UserLogoutHandler.gd" id="3_1rjw5"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserRegisterHandler.gd" id="3_8587c"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserUtilityHandler.gd" id="5_m2580"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
 [ext_resource type="Script" path="res://src/server/handler/PacketManager.gd" id="10_poc24"]
 
@@ -37,14 +37,16 @@ script = ExtResource("1_psdm5")
 [node name="UserLoginHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("2_of7dy")
 
-[node name="UserLogoutHandler" type="Node" parent="Source/Database/User/UserManager"]
-script = ExtResource("3_1rjw5")
-
-[node name="UserRegisterHandler" type="Node" parent="Source/Database/User/UserManager"]
+[node name="UserCreateHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("3_8587c")
 
 [node name="UserTokenHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("5_ojkqw")
+
+[node name="UserUtilityHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("5_m2580")
+
+[node name="UserPasswordHashHandler" type="Node" parent="Source/Database/User/UserManager"]
 
 [node name="Character" type="Node" parent="Source/Database"]
 

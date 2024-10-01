@@ -87,29 +87,29 @@ func _handle_received_packet(packet: String, peer_id: int):
 			"server_auth":
 				packet_manager.handle_server_auth(peer_id, result)
 			"user_auth":
-				packet_manager.handle_user_auth(result, peer_id)
+				packet_manager.handle_user_auth(peer_id, result)
 			"character_data":
-				packet_manager.handle_character_data(result, peer_id)
+				packet_manager.handle_character_data(peer_id, result)
 			"player_position":
-				packet_manager.handle_player_position(result, peer_id)
+				packet_manager.handle_player_position(peer_id, result)
 			"combat_event":
-				packet_manager.handle_combat_event(result, peer_id)
+				packet_manager.handle_combat_event(peer_id, result)
 			"chat_message":
-				packet_manager.handle_chat_message(result, peer_id)
+				packet_manager.handle_chat_message(peer_id, result)
 			"inventory_update":
-				packet_manager.handle_inventory_update(result, peer_id)
+				packet_manager.handle_inventory_update(peer_id, result)
 			"quest_update":
-				packet_manager.handle_quest_update(result, peer_id)
+				packet_manager.handle_quest_update(peer_id, result)
 			"instance_change":
-				packet_manager.handle_instance_change(result, peer_id)
+				packet_manager.handle_instance_change(peer_id, result)
 			"world_change":
-				packet_manager.handle_world_change(result, peer_id)
+				packet_manager.handle_world_change(peer_id, result)
 			"server_message":
-				packet_manager.handle_server_message(result, peer_id)
+				packet_manager.handle_server_message(peer_id, result)
 			"sync_status":
-				packet_manager.handle_sync_status(result, peer_id)
+				packet_manager.handle_sync_status(peer_id, result)
 			"error_message":
-				packet_manager.handle_error_message(result, peer_id)
+				packet_manager.handle_error_message(peer_id, result)
 			_:
 				print("Unrecognized packet type received from peer ", peer_id)
 	else:

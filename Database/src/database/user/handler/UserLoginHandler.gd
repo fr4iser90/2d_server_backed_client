@@ -1,27 +1,46 @@
 # Source/Database/User/Handler/UserLoginHandler.gd
 extends Node
 
-# Handle login request
-func handle_login_request(client_id, data):
-	var username = data.get("username", "")
-	var password = data.get("password", "")
+@onready var user_manager = $".."
 
-	# Simulate checking against the user data
-	var user_model = get_node("/root/Data/Users/UserModel")
-	var user = user_model.find_user(username, password)
-	
-	if user != null:
-		send_success_response(client_id, {"message": "Login successful", "user_id": user.user_id})
+
+		
+func authenticate_user(peer_id: int, username: String, password: String):
+	# Lädt die Liste der Benutzer
+	var users_list = user_manager.load_users_list()
+
+	# Überprüfe, ob der Benutzer bereits existiert
+	if username in users_list:
+		# Lade die Benutzerdaten
+		var user_data = user_manager.load_user_data(username)
+		
+		if user_data == null:
+			print("User data not found for: ", username)
+			user_manager._send_login_error(peer_id, "User data not found")
+			return
+		
+		# Hash das eingegebene Passwort für den Vergleich
+		var hashed_input_password = hash_password(password)
+		
+		# Überprüfe das Passwort
+		if user_data["password"] == hashed_input_password:
+			print("User authenticated successfully: ", username)
+			print("user_data:", user_data)
+			user_manager._send_login_success(peer_id, user_data)
+		else:
+			print("Incorrect password for user: ", username)
+			user_manager._send_login_error(peer_id, "Incorrect password")
 	else:
-		send_error_response(client_id, "Invalid credentials")
+		# Benutzer existiert nicht, also erstelle ihn
+		print("User does not exist, creating new user: ", username)
+		var new_user_data = user_manager.create_user(username, password)
+		print("User created: ", new_user_data)
+		user_manager._send_login_success(peer_id, new_user_data)
 
-# Send success response to the client
-func send_success_response(client_id, response_data):
-	var json = JSON.stringify(response_data)
-	get_parent().ws_server.get_peer(client_id).put_packet(json.to_utf8_buffer())
-
-# Send error response to the client
-func send_error_response(client_id, error_message):
-	var json = JSON.stringify({"error": error_message})
-	get_parent().ws_server.get_peer(client_id).put_packet(json.to_utf8_buffer())
-
+# Hash the user's password using SHA-256
+func hash_password(password: String) -> String:
+	var ctx = HashingContext.new()
+	ctx.start(HashingContext.HASH_SHA256)
+	ctx.update(password.to_utf8_buffer())
+	var hashed_password = ctx.finish()
+	return hashed_password.hex_encode()  # Convert to hex string
