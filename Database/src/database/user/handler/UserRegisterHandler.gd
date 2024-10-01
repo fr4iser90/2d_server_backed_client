@@ -4,32 +4,13 @@ extends Node
 var users_data_dir = "user://data/users/"
 var users_list_file = "user://data/users_list.json"
 
-# Lädt die Liste der Benutzer
-func load_users_list() -> Array:
-	if FileAccess.file_exists(users_list_file):
-		var file = FileAccess.open(users_list_file, FileAccess.READ)
-		var json = JSON.new()  # Erstellt eine Instanz von JSON
-		var result = json.parse(file.get_as_text())  # Verwende die Instanz, um das JSON zu parsen
-		file.close()
-		
-		if result.error == OK:
-			return result.result  # Zugriff auf das geparste Ergebnis
-		else:
-			print("Error parsing users list JSON")
-			return []
-	else:
-		return []  # Leere Liste, wenn keine Datei vorhanden
-
-# Speichert die Liste der Benutzernamen
-func save_users_list(users_list: Array) -> void:
-	var file = FileAccess.open(users_list_file, FileAccess.WRITE)
-	file.store_string(JSON.stringify(users_list))
-	file.close()
+@onready var character_creation_handler = $"../../../Character/CharacterManager/CharacterCreationHandler"
+@onready var user_utility_handler = $"../UserUtilityHandler"
 
 # Erstelle einen neuen Benutzer und füge ihn der Liste hinzu
 func create_user(username: String, password: String) -> Dictionary:
 	# Lade die Liste der Benutzer
-	var users_list = load_users_list()
+	var users_list = user_utility_handler.load_users_list()
 
 	# Check if the user already exists in the list
 	if username in users_list:
@@ -53,6 +34,16 @@ func create_user(username: String, password: String) -> Dictionary:
 		"characters": []
 	}
 
+	# Erstelle einen Charakter für den Benutzer
+	var character_data = character_creation_handler.create_character_for_user(username)  # Assuming this creates a default character
+	var character_id = character_creation_handler.create_unique_character_id()
+	
+	# Füge den Charakter zur Liste der Benutzer hinzu
+	user_data["characters"].append({
+		"id": character_id,
+		"data": character_data
+	})
+
 	# Speichere die Benutzerdaten als JSON-String
 	var user_file = FileAccess.open(file_path, FileAccess.WRITE)
 	if user_file != null:
@@ -61,10 +52,10 @@ func create_user(username: String, password: String) -> Dictionary:
 
 		# Füge den neuen Benutzer zur Liste hinzu und speichere die Liste
 		users_list.append(username)
-		save_users_list(users_list)
+		user_utility_handler.save_users_list(users_list)
 
-		print("User created: ", username)
-		return user_data  # Gib die vollständigen Benutzerdaten zurück
+		print("User created with character: ", username)
+		return user_data  # Gib die vollständigen Benutzerdaten und Charakterdaten zurück
 	else:
 		print("Failed to create user file for: ", username)
 		return {}

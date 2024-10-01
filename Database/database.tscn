@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwvji7mhn3ydq"]
+[gd_scene load_steps=15 format=3 uid="uid://dwvji7mhn3ydq"]
 
 [ext_resource type="Script" path="res://src/database/server/handler/ServerAuthHandler.gd" id="1_0brge"]
 [ext_resource type="Script" path="res://src/server/handler/WebSocketServer.gd" id="1_0e8u5"]
@@ -9,7 +9,11 @@
 [ext_resource type="Script" path="res://src/database/user/handler/UserRegisterHandler.gd" id="3_8587c"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserUtilityHandler.gd" id="5_m2580"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
+[ext_resource type="Script" path="res://src/database/character/handler/CharacterCreationHandler.gd" id="7_sw6du"]
 [ext_resource type="Script" path="res://src/server/handler/PacketManager.gd" id="10_poc24"]
+[ext_resource type="Script" path="res://src/database/utility/RemoveHandler.gd" id="11_itfl6"]
+[ext_resource type="Script" path="res://src/database/utility/FetchHandler.gd" id="12_dhnf7"]
+[ext_resource type="Script" path="res://src/console/database/DatabasePanelList.gd" id="15_31mhg"]
 
 [node name="Database" type="Node"]
 
@@ -53,6 +57,7 @@ script = ExtResource("5_m2580")
 [node name="CharacterManager" type="Node" parent="Source/Database/Character"]
 
 [node name="CharacterCreationHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+script = ExtResource("7_sw6du")
 
 [node name="CharacterSelectHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 
@@ -68,6 +73,16 @@ script = ExtResource("1_0brge")
 
 [node name="ServerTokenHandler" type="Node" parent="Source/Database/Server/ServerManager"]
 script = ExtResource("2_qvjmg")
+
+[node name="Utility" type="Node" parent="Source/Database"]
+
+[node name="DatabaseRemove" type="Node" parent="Source/Database/Utility"]
+script = ExtResource("11_itfl6")
+
+[node name="DatabaseFetch" type="Node" parent="Source/Database/Utility"]
+script = ExtResource("12_dhnf7")
+
+[node name="DatabasePost" type="Node" parent="Source/Database/Utility"]
 
 [node name="Config" type="Node" parent="Source"]
 
@@ -158,6 +173,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="DatabasePanel" type="Panel" parent="Control/PeerContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DatabaseList" type="ItemList" parent="Control/PeerContainer/DatabasePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_31mhg")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Control"]
 layout_mode = 1

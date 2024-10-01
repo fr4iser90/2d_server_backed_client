@@ -7,3 +7,8 @@ res://src/database/user/UserManager.gd
 res://src/database/user/handler/UserUtilityHandler.gd
 res://src/database/user/handler/UserRegisterHandler.gd
 res://data/user/UserModel.gd
+res://data/character/CharacterModel.gd
+res://src/database/character/handler/CharacterCreationHandler.gd
+res://src/database/utility/RemoveHandler.gd
+res://src/database/utility/FetchHandler.gd
+res://src/console/database/DatabasePanelList.gd

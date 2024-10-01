@@ -6,12 +6,11 @@ class_name CharacterModel
 # Define character attributes
 var name: String = ""
 var character_class: String = ""
-var scene_name: String = "spawn_room"
-var spawn_point: String = "default_spawn_point"
+var current_area: String = "spawn_room"
+var checkpoint_id: String = ""
 var level: int = 1
 var experience: int = 0
 
-var last_known_position: Vector2 = Vector2(0, 0)
 
 # Character stats
 var stats = {
@@ -51,11 +50,11 @@ func save_character_data(filepath: String):
 	var character_data = {
 		"name": name,
 		"character_class": character_class,
-		"scene_name": scene_name,
-		"spawn_point": spawn_point,
+		"current_area": current_area,
+		"checkpoint_id": checkpoint_id,
 		"level": level,
 		"experience": experience,
-		"last_known_position": last_known_position,
+
 		"stats": stats,
 		"equipment": equipment,
 		"inventory": inventory
@@ -85,11 +84,10 @@ func load_character_data(filepath: String):
 			var character_data = json.get_data()
 			name = character_data["name"]
 			character_class = character_data["character_class"]
-			scene_name = character_data["scene_name"]
-			spawn_point = character_data["spawn_point"]
+			current_area = character_data["current_area"]
+			checkpoint_id = character_data["checkpoint_id"]
 			level = character_data["level"]
 			experience = character_data["experience"]
-			last_known_position = character_data["last_known_position"]
 			stats = character_data["stats"]
 			equipment = character_data["equipment"]
 			inventory = character_data["inventory"]
