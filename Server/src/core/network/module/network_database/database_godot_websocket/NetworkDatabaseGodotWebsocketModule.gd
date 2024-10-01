@@ -54,8 +54,8 @@ func _on_backend_authenticated(success: bool):
 		is_authenticated = true
 		GlobalManager.DebugPrint.debug_info("Backend authentication successful. Fetching routes...", self)
 		var network_endpoint_manager = managers.get("network_endpoint_manager")
-		if network_endpoint_manager:
-			network_endpoint_manager.fetch_routes()
+#		if network_endpoint_manager:
+#			network_endpoint_manager.fetch_routes()
 		emit_signal("network_server_backend_authentication_success", true)
 	else:
 		GlobalManager.DebugPrint.debug_error("Backend authentication failed.", self)
@@ -69,6 +69,5 @@ func _reference_nodes():
 	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_module", managers)
 	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_handler", handlers)
 	
-	print("NetworkDatabaseMap HANDLER:  ", handlers, "  MANAGER:  ")
 	nodes_referenced = true
 

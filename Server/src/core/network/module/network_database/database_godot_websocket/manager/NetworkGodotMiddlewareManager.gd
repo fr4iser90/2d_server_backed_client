@@ -11,7 +11,7 @@ func connect_to_server():
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var url = "ws://" + ip + ":" + str(port)
 	var err = websocket_multiplayer_peer.create_client(url)
-	
+
 	if err != OK:
 		print("Failed to connect to WebSocket server. Error: " + str(err), self)
 		return
@@ -95,7 +95,7 @@ func _handle_incoming_message():
 func _process_packet(packet: Dictionary):
 	match packet.get("type", null):
 		"server_auth_response":
-			_handle_server_auth_response(packet)
+			database_server_auth_handler.handle_incoming_message(packet)
 		"player_position":
 			_handle_player_position(packet)
 		"chat_message":
