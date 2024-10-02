@@ -1,0 +1,110 @@
+[gd_scene load_steps=21 format=3 uid="uid://q6o43ierr1pd"]
+
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/InstanceManager.gd" id="1_4280o"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstanceLifecycleHandler.gd" id="2_0b0p6"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstanceCreationHandler.gd" id="3_2l5vr"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstanceCacheHandler.gd" id="4_4k8g1"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstanceAssignmentHandler.gd" id="5_uxvgv"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstanceDestructionHandler.gd" id="6_m2cko"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstancePlayerCharacterHandler.gd" id="7_u8ukh"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/ChunkManager.gd" id="8_o4prb"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkCreationHandler.gd" id="9_406h0"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkCacheHandler.gd" id="10_yq3y5"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkBoundaryHandler.gd" id="11_lpp8d"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/TriggerManager.gd" id="12_miu4u"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerInstanceChangeHandler.gd" id="13_sl8vs"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerZoneChangeHandler.gd" id="14_k0n6n"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerRoomChangeHandler.gd" id="15_bdeh5"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerEventHandler.gd" id="16_pbsis"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="17_uktdy"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="18_dwkjr"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerArea2DCalculationHandler.gd" id="19_2wwjh"]
+[ext_resource type="Script" path="res://src/game/module/player_manager/spawn_manager/SpawnManger.gd" id="20_5ya2i"]
+
+[node name="GameWorldModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="InstanceManager" type="Node" parent="Manager"]
+script = ExtResource("1_4280o")
+
+[node name="Handler" type="Node" parent="Manager/InstanceManager"]
+
+[node name="InstanceLifecycleHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("2_0b0p6")
+
+[node name="InstanceSceneManager" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceCreationHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("3_2l5vr")
+
+[node name="InstanceCacheHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("4_4k8g1")
+
+[node name="InstanceAssignmentHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("5_uxvgv")
+
+[node name="InstanceDestructionHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("6_m2cko")
+
+[node name="InstanceBoundaryHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceLoaderHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstancePlayerCharacterHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("7_u8ukh")
+
+[node name="ChunkManager" type="Node" parent="Manager"]
+script = ExtResource("8_o4prb")
+
+[node name="Handler" type="Node" parent="Manager/ChunkManager"]
+
+[node name="ChunkLifecycleHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="ChunkSceneManager" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="ChunkCreationHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("9_406h0")
+
+[node name="ChunkCacheHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("10_yq3y5")
+
+[node name="ChunkAssignmentHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="ChunkDestructionHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="ChunkBoundaryHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("11_lpp8d")
+
+[node name="ChunkEventHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="ChunkLoaderHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="TriggerManager" type="Node" parent="Manager"]
+script = ExtResource("12_miu4u")
+
+[node name="Handler" type="Node" parent="Manager/TriggerManager"]
+
+[node name="TriggerInstanceChangeHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("13_sl8vs")
+
+[node name="TriggerZoneChangeHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("14_k0n6n")
+
+[node name="TriggerRoomChangeHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("15_bdeh5")
+
+[node name="TriggerEventHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("16_pbsis")
+
+[node name="TriggerTrapHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("17_uktdy")
+
+[node name="TriggerObjectiveHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("18_dwkjr")
+
+[node name="TriggerArea2DCalculationHandler" type="Node" parent="Manager/TriggerManager/Handler"]
+script = ExtResource("19_2wwjh")
+
+[node name="SpawnPointManager" type="Node" parent="Manager"]
+script = ExtResource("20_5ya2i")

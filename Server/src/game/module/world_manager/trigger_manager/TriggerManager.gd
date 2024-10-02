@@ -36,6 +36,8 @@ func initialize():
 
 # Main loop to check for player positions relative to triggers
 func _process(delta: float):
+	if not is_initialized:
+		initialize()
 	# Get the list of all player IDs from the player movement manager
 	var player_ids = player_movement_manager.get_all_player_ids()
 	for peer_id in player_ids:

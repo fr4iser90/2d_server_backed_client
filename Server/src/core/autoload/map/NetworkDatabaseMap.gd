@@ -3,18 +3,18 @@ extends Node
 
 
 var network_database_module = {
-	"network_database_module": {"path_tree": "/root/Core/Network/NetworkDatabaseModule", "cache": true},
-	"network_middleware_manager": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Manager/NetworkMiddlewareManager", "cache": true},
-	"network_endpoint_manager": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Manager/NetworkEndpointManager", "cache": true},
+	"network_database_module": {"path_tree": "/root/Network/NetworkDatabaseModule", "cache": true},
+	"network_middleware_manager": {"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkMiddlewareManager", "cache": true},
+	"network_endpoint_manager": {"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkEndpointManager", "cache": true},
 }
 
 var network_database_handler = {
-	"database_server_auth_handler": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Handler/DatabaseServer/DatabaseServerAuthHandler", "cache": true},
-	"database_user_login_handler": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Handler/DatabaseUser/DatabaseUserLoginHandler", "cache": true},
-	"database_user_token_handler": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Handler/DatabaseUser/DatabaseUserTokenHandler", "cache": true},
-	"database_character_fetch_handler": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Handler/DatabaseCharacter/DatabaseCharacterFetchHandler", "cache": true},
-	"database_character_select_handler": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Handler/DatabaseCharacter/DatabaseCharacterSelectHandler", "cache": true},
-	"database_character_update_handler": {"path_tree": "/root/Core/Network/NetworkDatabaseModule/Handler/DatabaseCharacter/DatabaseCharacterUpdateHandler", "cache": true},
+	"database_server_auth_handler": {"path_tree": "/root/Network/NetworkDatabaseModule/NetworkHandler/DatabaseServer/DatabaseServerAuthHandler", "cache": true},
+	"database_user_login_handler": {"path_tree": "/root/Network/NetworkDatabaseModule/NetworkHandler/DatabaseUser/DatabaseUserLoginHandler", "cache": true},
+	"database_user_token_handler": {"path_tree": "/root/Network/NetworkDatabaseModule/NetworkHandler/DatabaseUser/DatabaseUserTokenHandler", "cache": true},
+	"database_character_fetch_handler": {"path_tree": "/root/Network/NetworkDatabaseModule/NetworkHandler/DatabaseCharacter/DatabaseCharacterFetchHandler", "cache": true},
+	"database_character_select_handler": {"path_tree": "/root/Network/NetworkDatabaseModule/NetworkHandler/DatabaseCharacter/DatabaseCharacterSelectHandler", "cache": true},
+	"database_character_update_handler": {"path_tree": "/root/Network/NetworkDatabaseModule/NetworkHandler/DatabaseCharacter/DatabaseCharacterUpdateHandler", "cache": true},
 }
 
 

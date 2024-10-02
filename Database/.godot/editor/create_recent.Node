@@ -1,6 +1,9 @@
 Node
+GridContainer
+Button
+VBoxContainer
+HBoxContainer
 Control
 ItemList
 Panel
 Label
-VBoxContainer

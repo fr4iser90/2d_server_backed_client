@@ -14,18 +14,18 @@
 [ext_resource type="Script" path="res://src/core/network/module/network_game/game_udp/network_handler/core/core_heartbeat_handler.gd" id="12_ino61"]
 [ext_resource type="Script" path="res://src/core/network/module/network_game/game_udp/network_handler/core/core_connection_handler.gd" id="13_47jjv"]
 [ext_resource type="Script" path="res://src/core/network/module/network_game/game_udp/network_handler/core/core_disconnection_handler.gd" id="14_wvvyj"]
-[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="15_4b8tu"]
-[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_select_handler.gd" id="16_5c2ti"]
-[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="17_xnihq"]
-[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="18_atgia"]
-[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/network_handler/scene_instance_data_handler.gd" id="19_xc5h5"]
-[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerInstanceChangeHandler.gd" id="20_5spt7"]
-[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerZoneChangeHandler.gd" id="21_fren4"]
-[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerRoomChangeHandler.gd" id="22_4yyqk"]
-[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerEventHandler.gd" id="23_j3ufk"]
+[ext_resource type="Script" path="res://src/game/module/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="15_4b8tu"]
+[ext_resource type="Script" path="res://src/game/module/player_manager/character_manager/network_handler/char_select_handler.gd" id="16_5c2ti"]
+[ext_resource type="Script" path="res://src/game/module/player_manager/player_movement_manager/network_handler/movement_player_handler.gd" id="17_xnihq"]
+[ext_resource type="Script" path="res://src/game/module/player_manager/player_movement_manager/network_handler/movement_player_sync_handler.gd" id="18_atgia"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/network_handler/scene_instance_data_handler.gd" id="19_xc5h5"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerInstanceChangeHandler.gd" id="20_5spt7"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerZoneChangeHandler.gd" id="21_fren4"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerRoomChangeHandler.gd" id="22_4yyqk"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerEventHandler.gd" id="23_j3ufk"]
 [ext_resource type="Script" path="res://src/core/network/module/network_game/game_udp/network_handler/user/UserLoginHandler.gd" id="24_5047v"]
-[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="24_h33fm"]
-[ext_resource type="Script" path="res://src/game/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="25_fj5cl"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="24_h33fm"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="25_fj5cl"]
 [ext_resource type="Script" path="res://src/core/network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBUserTokenHandler.gd" id="25_mysvb"]
 
 [node name="NetworkGameModule" type="Node"]
@@ -39,102 +39,114 @@ script = ExtResource("2_0eset")
 [node name="NetworkChannelManager" type="Node" parent="Manager"]
 script = ExtResource("3_n2k4d")
 
-[node name="ChannelMap" type="Node" parent="Manager/NetworkChannelManager"]
+[node name="Map" type="Node" parent="Manager/NetworkChannelManager"]
+
+[node name="ChannelMap" type="Node" parent="Manager/NetworkChannelManager/Map"]
 script = ExtResource("4_7df81")
+
+[node name="Handler" type="Node" parent="Manager/NetworkChannelManager"]
 
 [node name="NetworkPacketManager" type="Node" parent="Manager"]
 script = ExtResource("5_23jpr")
 
-[node name="PacketDispatchHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="Handler" type="Node" parent="Manager/NetworkPacketManager"]
+
+[node name="PacketDispatchHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("6_k6a2e")
 
-[node name="PacketProcessingHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="PacketProcessingHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("7_45nmv")
 
-[node name="PacketCreationHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="PacketCreationHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("8_hs1m5")
 
-[node name="PacketHashHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="PacketHashHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 
-[node name="PacketCacheHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="PacketCacheHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("9_cebe6")
 
-[node name="PacketConverterHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="PacketConverterHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("10_13fup")
 
-[node name="PacketValidationHandler" type="Node" parent="Manager/NetworkPacketManager"]
+[node name="PacketValidationHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("11_icdrw")
 
-[node name="Handler" type="Node" parent="."]
+[node name="NetworkHandler" type="Node" parent="."]
 
-[node name="GameCore" type="Node" parent="Handler"]
+[node name="GameCore" type="Node" parent="NetworkHandler"]
 
-[node name="CoreHeartbeatHandler" type="Node" parent="Handler/GameCore"]
+[node name="CoreHeartbeatHandler" type="Node" parent="NetworkHandler/GameCore"]
 script = ExtResource("12_ino61")
 
-[node name="CoreConnectionHandler" type="Node" parent="Handler/GameCore"]
+[node name="CoreConnectionHandler" type="Node" parent="NetworkHandler/GameCore"]
 script = ExtResource("13_47jjv")
 
-[node name="CoreDisconnectionHandler" type="Node" parent="Handler/GameCore"]
+[node name="CoreDisconnectionHandler" type="Node" parent="NetworkHandler/GameCore"]
 script = ExtResource("14_wvvyj")
 
-[node name="CorePingHandler" type="Node" parent="Handler/GameCore"]
+[node name="CorePingHandler" type="Node" parent="NetworkHandler/GameCore"]
 
-[node name="CoreServerStatusHandler" type="Node" parent="Handler/GameCore"]
+[node name="CoreServerStatusHandler" type="Node" parent="NetworkHandler/GameCore"]
 
-[node name="CoreErrorHandler" type="Node" parent="Handler/GameCore"]
+[node name="CoreErrorHandler" type="Node" parent="NetworkHandler/GameCore"]
 
-[node name="GameMovement" type="Node" parent="Handler"]
+[node name="GameMovement" type="Node" parent="NetworkHandler"]
 
-[node name="MovementPlayerHandler" type="Node" parent="Handler/GameMovement"]
+[node name="MovementPlayerHandler" type="Node" parent="NetworkHandler/GameMovement"]
 script = ExtResource("17_xnihq")
 
-[node name="MovementPlayerSyncHandler" type="Node" parent="Handler/GameMovement"]
+[node name="MovementPlayerSyncHandler" type="Node" parent="NetworkHandler/GameMovement"]
 script = ExtResource("18_atgia")
 
-[node name="GameInstance" type="Node" parent="Handler"]
+[node name="GameInstance" type="Node" parent="NetworkHandler"]
 
-[node name="SceneInstanceDataHandler" type="Node" parent="Handler/GameInstance"]
+[node name="SceneInstanceDataHandler" type="Node" parent="NetworkHandler/GameInstance"]
 script = ExtResource("19_xc5h5")
 
-[node name="GameTrigger" type="Node" parent="Handler"]
+[node name="GameTrigger" type="Node" parent="NetworkHandler"]
 
-[node name="TriggerEntryHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerEntryHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 
-[node name="TriggerExitHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerExitHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 
-[node name="TriggerInstanceChangeHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerInstanceChangeHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 script = ExtResource("20_5spt7")
 
-[node name="TriggerZoneChangeHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerZoneChangeHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 script = ExtResource("21_fren4")
 
-[node name="TriggerRoomChangeHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerRoomChangeHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 script = ExtResource("22_4yyqk")
 
-[node name="TriggerEventHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerEventHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 script = ExtResource("23_j3ufk")
 
-[node name="TriggerTrapHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerTrapHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 script = ExtResource("24_h33fm")
 
-[node name="TriggerObjectiveHandler" type="Node" parent="Handler/GameTrigger"]
+[node name="TriggerObjectiveHandler" type="Node" parent="NetworkHandler/GameTrigger"]
 script = ExtResource("25_fj5cl")
 
-[node name="GameUser" type="Node" parent="Handler"]
+[node name="GameUser" type="Node" parent="NetworkHandler"]
 
-[node name="UserLoginHandler" type="Node" parent="Handler/GameUser"]
+[node name="UserLoginHandler" type="Node" parent="NetworkHandler/GameUser"]
 script = ExtResource("24_5047v")
 
-[node name="UserTokenHandler" type="Node" parent="Handler/GameUser"]
+[node name="UserTokenHandler" type="Node" parent="NetworkHandler/GameUser"]
 script = ExtResource("25_mysvb")
 
-[node name="GameCharacter" type="Node" parent="Handler"]
+[node name="GameCharacter" type="Node" parent="NetworkHandler"]
 
-[node name="CharacterFetchHandler" type="Node" parent="Handler/GameCharacter"]
+[node name="CharacterFetchHandler" type="Node" parent="NetworkHandler/GameCharacter"]
 script = ExtResource("15_4b8tu")
 
-[node name="CharacterSelectHandler" type="Node" parent="Handler/GameCharacter"]
+[node name="CharacterSelectHandler" type="Node" parent="NetworkHandler/GameCharacter"]
 script = ExtResource("16_5c2ti")
 
-[node name="CharacterUpdateHandler" type="Node" parent="Handler/GameCharacter"]
+[node name="CharacterUpdateHandler" type="Node" parent="NetworkHandler/GameCharacter"]
+
+[node name="Config" type="Node" parent="."]
+
+[node name="Map" type="Node" parent="."]
+
+[node name="Handler" type="Node" parent="."]

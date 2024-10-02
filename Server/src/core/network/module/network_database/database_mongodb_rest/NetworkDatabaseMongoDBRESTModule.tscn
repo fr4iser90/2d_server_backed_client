@@ -20,27 +20,33 @@ script = ExtResource("2_shogd")
 [node name="NetworkEndpointManager" type="Node" parent="Manager"]
 script = ExtResource("3_pe40q")
 
-[node name="Handler" type="Node" parent="."]
+[node name="NetworkHandler" type="Node" parent="."]
 
-[node name="DatabaseServer" type="Node" parent="Handler"]
+[node name="DatabaseServer" type="Node" parent="NetworkHandler"]
 
-[node name="DatabaseServerAuthHandler" type="Node" parent="Handler/DatabaseServer"]
+[node name="DatabaseServerAuthHandler" type="Node" parent="NetworkHandler/DatabaseServer"]
 script = ExtResource("4_0dpjg")
 
-[node name="DatabaseUser" type="Node" parent="Handler"]
+[node name="DatabaseUser" type="Node" parent="NetworkHandler"]
 
-[node name="DatabaseUserLoginHandler" type="Node" parent="Handler/DatabaseUser"]
+[node name="DatabaseUserLoginHandler" type="Node" parent="NetworkHandler/DatabaseUser"]
 script = ExtResource("5_kq6d4")
 
-[node name="DatabaseUserTokenHandler" type="Node" parent="Handler/DatabaseUser"]
+[node name="DatabaseUserTokenHandler" type="Node" parent="NetworkHandler/DatabaseUser"]
 script = ExtResource("6_yhhe7")
 
-[node name="DatabaseCharacter" type="Node" parent="Handler"]
+[node name="DatabaseCharacter" type="Node" parent="NetworkHandler"]
 
-[node name="DatabaseCharacterFetchHandler" type="Node" parent="Handler/DatabaseCharacter"]
+[node name="DatabaseCharacterFetchHandler" type="Node" parent="NetworkHandler/DatabaseCharacter"]
 script = ExtResource("7_gjrl7")
 
-[node name="DatabaseCharacterSelectHandler" type="Node" parent="Handler/DatabaseCharacter"]
+[node name="DatabaseCharacterSelectHandler" type="Node" parent="NetworkHandler/DatabaseCharacter"]
 script = ExtResource("8_efnlr")
 
-[node name="DatabaseCharacterUpdateHandler" type="Node" parent="Handler/DatabaseCharacter"]
+[node name="DatabaseCharacterUpdateHandler" type="Node" parent="NetworkHandler/DatabaseCharacter"]
+
+[node name="Handler" type="Node" parent="."]
+
+[node name="Config" type="Node" parent="."]
+
+[node name="Map" type="Node" parent="."]

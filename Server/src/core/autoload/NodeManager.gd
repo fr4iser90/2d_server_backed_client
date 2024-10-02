@@ -5,6 +5,7 @@ signal node_manager_ready
 # Node Manager Variables
 var node_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var node_map_manager = null
+var node_categorization_manager = null 
 var node_cache_manager = null
 var node_state_manager = null
 var node_life_cycle_manager = null
@@ -95,6 +96,9 @@ func get_all_node_managers() -> Dictionary:
 			print("Error: " + var_name + " not loaded!")
 	return managers
 
+func categorize_and_save_runtime_node_map():
+		return node_categorization_manager.process_and_save_categorized_node_data()
+		
 # NodeCacheManager
 func get_node_info(node_type: String, node_name: String) -> Dictionary:
 		return node_map_manager.get_node_info(node_type, node_name)

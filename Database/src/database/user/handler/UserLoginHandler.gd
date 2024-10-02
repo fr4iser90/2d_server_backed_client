@@ -36,8 +36,7 @@ func authenticate_user(peer_id: int, username: String, password: String):
 		print("User does not exist, creating new user: ", username)
 		var new_user_data = user_manager.create_user(username, password)
 		print("User created: ", new_user_data)
-		var user_data = new_user_data.erase("characters")
-		user_manager._send_login_success(peer_id, user_data)
+		user_manager._send_login_success(peer_id, new_user_data)
 
 # Hash the user's password using SHA-256
 func hash_password(password: String) -> String:

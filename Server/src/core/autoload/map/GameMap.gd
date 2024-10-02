@@ -3,20 +3,18 @@ extends Node
 
 
 var game_manager = {
-	"player_manager": {"path_tree": "/root/Game/Player/PlayerManager", "cache": true},
-	"character_manager": {"path_tree": "/root/Game/Player/CharacterManager", "cache": true},
-	"player_movement_manager": {"path_tree": "/root/Game/Player/PlayerMovementManager", "cache": true},
-	
-	
+	"player_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerManager", "cache": true},
+	"character_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager", "cache": true},
+	"player_movement_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager", "cache": true},
 }
 
 var world_manager = {
-	"instance_manager": {"path_tree": "/root/Game/World/InstanceManager", "cache": true},
-	"trigger_manager": {"path_tree": "/root/Game/World/TriggerManager", "cache": true},
-	"chunk_manager": {"path_tree": "/root/Game/World/ChunkManager", "cache": true},
-	"spawn_point_manager": {"path_tree": "/root/Game/World/SpawnPointManager", "cache": true},
-	"world_loader": {"path_tree": "/root/Game/World/InstanceManager", "cache": true},
-	"entity_node_manager": {"path_tree": "/root/Game/World/InstanceManager/EntityNodeManager", "cache": true},
+	"instance_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager", "cache": true},
+	"trigger_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager", "cache": true},
+	"chunk_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager", "cache": true},
+	"spawn_point_manager": {"path_tree": "/root/Game/WGameWorldModule/Manager/SpawnPointManager", "cache": true},
+	"world_loader": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager", "cache": true},
+	"entity_node_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/EntityNodeManager", "cache": true},
 }
 
 var inventory_manager = {
@@ -30,7 +28,7 @@ var quest_manager = {
 func get_data() -> Dictionary:
 	var all_data = {}
 
-	# Get the list of properties (variables) in the current script
+	# Get the list of properties (variablenochmlqas) in the current script
 	var properties = get_property_list()
 
 	# Iterate through the properties and add any Dictionary-type variables to all_data

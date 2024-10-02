@@ -5,15 +5,16 @@ var scene_cores = {
 	"NetworkDatabaseMongoDBRESTModule": "res://src/core/network/module/network_database/database_mongodb_rest/NetworkDatabaseMongoDBRESTModule.tscn",
 	"NetworkDatabaseGodotWebsocketModule": "res://src/core/network/module/network_database/database_godot_websocket/NetworkDatabaseGodotWebsocketModule.tscn",
 	"ServerConsole": "res://src/core/server/scene/ServerConsole.tscn",
-	"GameTree": "res://src/core/server/scene/GameTree.tscn",
-	"NetworkTree": "res://src/core/server/scene/NetworkTree.tscn",
-	"UserTree": "res://src/core/server/scene/UserTree.tscn",
+	"UserSessionModule": "res://src/core/server/scene/UserSessionModule.tscn",
 	"builder": "res://src/core/server/scene/builder.tscn",
 	"CoreTree": "res://src/core/server/scene/CoreTree.tscn",
 }
 
 var misc_scenes = {
-	"LoadingScene": "res://src/game/loading_manager/LoadingScene.tscn",
+	"LoadingScene": "res://src/game/module/loading_manager/LoadingScene.tscn",
+	"GameWorldModule": "res://src/game/module/GameWorldModule.tscn",
+	"GameLevelModule": "res://src/game/module/GameLevelModule.tscn",
+	"GamePlayerModule": "res://src/game/module/GamePlayerModule.tscn",
 	"Mage": "res://shared/data/characters/players/Mage.tscn",
 	"Archer": "res://shared/data/characters/players/Archer.tscn",
 	"Knight": "res://shared/data/characters/players/Knight.tscn",

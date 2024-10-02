@@ -1,15 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://dwvji7mhn3ydq"]
+[gd_scene load_steps=19 format=3 uid="uid://dwvji7mhn3ydq"]
 
 [ext_resource type="Script" path="res://src/database/server/handler/ServerAuthHandler.gd" id="1_0brge"]
 [ext_resource type="Script" path="res://src/server/handler/WebSocketServer.gd" id="1_0e8u5"]
 [ext_resource type="Script" path="res://src/database/user/UserManager.gd" id="1_psdm5"]
 [ext_resource type="Script" path="res://src/database/server/ServerAuthManager.gd" id="1_tyh8b"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserFetchHandler.gd" id="2_dnkms"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserLoginHandler.gd" id="2_of7dy"]
 [ext_resource type="Script" path="res://src/database/server/handler/ServerTokenHandler.gd" id="2_qvjmg"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserRegisterHandler.gd" id="3_8587c"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserUpdateHandler.gd" id="4_74j4r"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserUtilityHandler.gd" id="5_m2580"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserDeleteHandler.gd" id="6_hh3vy"]
 [ext_resource type="Script" path="res://src/database/character/handler/CharacterCreationHandler.gd" id="7_sw6du"]
+[ext_resource type="Script" path="res://src/database/character/handler/CharacterFetchHandler.gd" id="10_cave0"]
 [ext_resource type="Script" path="res://src/server/handler/PacketManager.gd" id="10_poc24"]
 [ext_resource type="Script" path="res://src/database/utility/RemoveHandler.gd" id="11_itfl6"]
 [ext_resource type="Script" path="res://src/database/utility/FetchHandler.gd" id="12_dhnf7"]
@@ -38,11 +42,20 @@
 [node name="UserManager" type="Node" parent="Source/Database/User"]
 script = ExtResource("1_psdm5")
 
-[node name="UserLoginHandler" type="Node" parent="Source/Database/User/UserManager"]
-script = ExtResource("2_of7dy")
+[node name="UserFetchHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("2_dnkms")
 
 [node name="UserCreateHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("3_8587c")
+
+[node name="UserUpdateHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("4_74j4r")
+
+[node name="UserDeleteHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("6_hh3vy")
+
+[node name="UserLoginHandler" type="Node" parent="Source/Database/User/UserManager"]
+script = ExtResource("2_of7dy")
 
 [node name="UserTokenHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("5_ojkqw")
@@ -62,6 +75,7 @@ script = ExtResource("7_sw6du")
 [node name="CharacterSelectHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 
 [node name="CharacterFetchHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+script = ExtResource("10_cave0")
 
 [node name="Server" type="Node" parent="Source/Database"]
 
@@ -145,7 +159,7 @@ grow_horizontal = 2
 layout_mode = 2
 text = "PlaceHolder"
 
-[node name="PeerContainer" type="VBoxContainer" parent="Control"]
+[node name="MainVBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -158,15 +172,23 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/PeerContainer"]
-layout_mode = 2
-text = "PlaceHolder"
-
-[node name="PeerPanel" type="Panel" parent="Control/PeerContainer"]
+[node name="MainHBoxContainer" type="HBoxContainer" parent="Control/MainVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PeerList" type="ItemList" parent="Control/PeerContainer/PeerPanel"]
+[node name="ListContainer" type="VBoxContainer" parent="Control/MainVBoxContainer/MainHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PeerPanelLabel" type="Label" parent="Control/MainVBoxContainer/MainHBoxContainer/ListContainer"]
+layout_mode = 2
+text = "PeerList"
+
+[node name="PeerPanel" type="Panel" parent="Control/MainVBoxContainer/MainHBoxContainer/ListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PeerList" type="ItemList" parent="Control/MainVBoxContainer/MainHBoxContainer/ListContainer/PeerPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,11 +196,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DatabasePanel" type="Panel" parent="Control/PeerContainer"]
+[node name="DatabasePanelLabel" type="Label" parent="Control/MainVBoxContainer/MainHBoxContainer/ListContainer"]
+layout_mode = 2
+text = "UserData
+"
+
+[node name="DatabasePanel" type="Panel" parent="Control/MainVBoxContainer/MainHBoxContainer/ListContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DatabaseList" type="ItemList" parent="Control/PeerContainer/DatabasePanel"]
+[node name="DatabaseList" type="ItemList" parent="Control/MainVBoxContainer/MainHBoxContainer/ListContainer/DatabasePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -186,6 +213,117 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_31mhg")
+
+[node name="ControlContainer" type="VBoxContainer" parent="Control/MainVBoxContainer/MainHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PeerControlPanelLabel" type="Label" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer"]
+layout_mode = 2
+text = "PeerList"
+
+[node name="PeerControlPanel" type="Panel" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Button" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Start"
+
+[node name="Button2" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Stop"
+
+[node name="Button3" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "KickServer"
+
+[node name="Button4" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "BanServerKey"
+
+[node name="Button5" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "RegisterServerKey"
+
+[node name="Button6" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Button"
+
+[node name="DatabasePanelLabel" type="Label" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer"]
+layout_mode = 2
+text = "UserData
+"
+
+[node name="DatabasePanel" type="Panel" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="DeleteUserButton" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Delete Selection"
+
+[node name="DeleteDATABASE" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "DELETEDATABASE"
+
+[node name="Button3" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "test"
+
+[node name="Button4" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Button"
+
+[node name="Button5" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Button"
+
+[node name="Button6" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Button"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -201,7 +339,6 @@ grow_vertical = 0
 layout_mode = 2
 text = "PlaceHolder"
 
-[node name="UIManager" type="Control" parent="Control"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[connection signal="item_selected" from="Control/MainVBoxContainer/MainHBoxContainer/ListContainer/DatabasePanel/DatabaseList" to="Source/Database/User/UserManager/UserUtilityHandler" method="_on_database_list_item_selected"]
+[connection signal="pressed" from="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer/DeleteUserButton" to="Source/Database/User/UserManager/UserDeleteHandler" method="_on_delete_user_button_pressed"]
+[connection signal="pressed" from="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer/DeleteDATABASE" to="Source/Database/User/UserManager/UserUtilityHandler" method="_on_delete_database_pressed"]

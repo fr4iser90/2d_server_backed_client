@@ -5,7 +5,7 @@ var websocket_multiplayer_peer: WebSocketMultiplayerPeer
 var peers_info = {}  # Stores information for each peer, such as packet counts.
 
 @export var port: int = 3500
-@onready var peer_list = $"../../../../Control/PeerContainer/PeerPanel/PeerList"  # UI element for displaying connected peers
+@onready var peer_list = $"../../../../Control/MainVBoxContainer/MainHBoxContainer/ListContainer/PeerPanel/PeerList"
 @onready var packet_manager = $PacketManager
 
 # Initial setup of the WebSocket server

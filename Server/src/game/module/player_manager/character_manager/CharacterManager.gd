@@ -8,13 +8,14 @@ signal character_selected(peer_id: int, character_data: Dictionary)
 var characters_data: Dictionary = {}  # Holds all character-specific data
 var is_initialized = false
 
-@onready var instance_manager = $"../../World/InstanceManager"
+var instance_manager
 
 # Initialize the manager only once
 func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
+	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
 
 # Add character data to the manager

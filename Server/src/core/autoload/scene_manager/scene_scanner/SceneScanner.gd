@@ -8,7 +8,7 @@ var start_directory = "res://src"
 var shared_directory = "res://shared"
 
 # Output file for the scenes
-var output_file = "res://src/core/autoload/scene_manager/SceneConfigManager.gd"
+var output_file = "res://src/core/autoload/map/GlobalSceneMap.gd"
 
 # Flag to indicate if the scan has been completed
 var scanner_done = false

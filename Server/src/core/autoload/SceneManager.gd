@@ -2,13 +2,14 @@
 extends Node
 
 # Loading the scene configuration
-var scene_config = preload("res://src/core/autoload/scene_manager/SceneConfigManager.gd").new()
-var scene_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
+var global_scene_map = preload("res://src/core/autoload/map/GlobalSceneMap.gd").new()
+var global_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var current_scene: Node = null
 
 
 # Scene Manager Variables
 var scene_scanner = null
+var scene_node_scanner = null
 var scene_spawn_point_scanner = null
 var scene_trigger_scanner = null
 var scene_cache_manager = null
@@ -28,7 +29,7 @@ var manager_instances = {}
 # Function to initialize Scene Managers once Node Manager is ready
 func _ready():
 	print("Node Manager is ready. Initializing Scene Managers...")
-	scene_manager_name_and_paths = scene_manager_map.scene_manager
+	scene_manager_name_and_paths = global_manager_map.scene_manager
 	_initialize_scene_managers()
 	
 # Initialize and add all Scene Managers as child nodes
@@ -56,6 +57,8 @@ func _initialize_scene_managers():
 		print("All Scene Managers initialized and added successfully.")
 		node_ready = true
 		emit_signal("scene_manager_ready")
+#		if scene_node_scanner:
+#			scene_node_scanner.scan_scenes()
 		print("Scene scan complete. Now scanning for spawn points and checkpoints.")
 		if scene_spawn_point_scanner:
 			scene_spawn_point_scanner.scan_scenes_for_spawn_points()
@@ -102,7 +105,7 @@ func get_all_scene_managers() -> Dictionary:
 
 
 func get_scene_path(scene_name: String) -> String:
-	return scene_config.get_scene_path(scene_name)
+	return global_scene_map.get_scene_path(scene_name)
 	
 # High-Level function to load scenes using SceneLoader
 func load_scene(scene_name: String, bool = true):
@@ -123,6 +126,9 @@ func get_triggers_for_scene(scene_name: String) -> Dictionary:
 
 func scan_scenes_for_triggers() -> Dictionary:
 	return scene_trigger_scanner.scan_scenes_for_triggers()
+
+func scan_runtime_node_map():
+	return scene_node_scanner.scan_runtime_node_map()
 	
 # Function to add a scene to a specific node using SceneLoader
 func put_scene_at_node(scene_name: String, node_path: String) -> Node:

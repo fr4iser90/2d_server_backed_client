@@ -1,7 +1,7 @@
 # res://src/core/autoloads/scene_manager/SceneLoadManager.gd
 extends Node
 
-var scene_config = preload("res://src/core/autoload/scene_manager/SceneConfigManager.gd").new()
+var global_scene_map = preload("res://src/core/autoload/map/GlobalSceneMap.gd").new()
 var scene_cache_manager = null
 
 var is_initialized = false
@@ -34,7 +34,7 @@ func load_scene(scene_name: String, add_to_root: bool = true) -> Node:
 			get_tree().root.call_deferred("add_child", cached_scene.duplicate())
 		return cached_scene.duplicate()
 
-	var scene_path = scene_config.get_scene_path(scene_name)
+	var scene_path = global_scene_map.get_scene_path(scene_name)
 	if scene_path == "":
 		print("Error: Invalid scene path for", scene_name)
 		return null

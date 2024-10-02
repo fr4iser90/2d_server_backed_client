@@ -15,6 +15,7 @@ func initialize():
 		return
 	is_initialized = true
 	# Lade die modularen Skripte
+	
 	server_init_manager = load("res://src/core/server/preset/database_godot/server_init_manager.gd").new()
 	network_manager_loader = load("res://src/core/server/preset/database_godot/network_manager_loader.gd").new()
 

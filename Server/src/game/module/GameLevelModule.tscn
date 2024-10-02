@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://5sjsbw7c06si"]
+
+[ext_resource type="Script" path="res://src/game/module/world_manager/level_manager/LevelManager.gd" id="1_soufh"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/level_manager/handler/LevelCreationHandler.gd" id="2_1dbaw"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/level_manager/handler/LevelSaveHandler.gd" id="3_e8swb"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/level_manager/handler/LevelMapGenerator.gd" id="4_cs21c"]
+
+[node name="GameLevelModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="LevelManager" type="Node" parent="Manager"]
+script = ExtResource("1_soufh")
+
+[node name="Handler" type="Node" parent="Manager/LevelManager"]
+
+[node name="LevelCreationHandler" type="Node" parent="Manager/LevelManager/Handler"]
+script = ExtResource("2_1dbaw")
+
+[node name="LevelSaveHandler" type="Node" parent="Manager/LevelManager/Handler"]
+script = ExtResource("3_e8swb")
+
+[node name="LevelMapGenerator" type="Node" parent="Manager/LevelManager/Handler"]
+script = ExtResource("4_cs21c")

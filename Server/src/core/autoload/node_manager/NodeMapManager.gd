@@ -2,6 +2,7 @@
 extends Node
 
 # Load the map files
+var categorized_runtime_node_map = "res://src/core/autoload/map/CategorizedRuntimeNodeMap.gd"
 var global_manager_map = preload("res://src/core/autoload/map/GlobalManagerMap.gd").new()
 var core_map = preload("res://src/core/autoload/map/CoreMap.gd").new()
 var user_map = preload("res://src/core/autoload/map/UserMap.gd").new()
