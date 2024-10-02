@@ -16,6 +16,7 @@ func delete_user(user_id: String) -> bool:
 	# If deletion was successful, remove the user from the users list
 	if deleted:
 		print("User deleted successfully: ", user_id)
+		user_list_handler.remove_user_from_list(user_id)  # Entferne den Benutzer aus der Benutzernamenliste
 		database_list.remove_user_from_list(user_id)  # Remove the user from the list of users
 		return true
 	else:

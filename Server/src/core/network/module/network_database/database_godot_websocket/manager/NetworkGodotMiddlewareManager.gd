@@ -3,11 +3,14 @@ extends Node
 var ip = "127.0.0.1"
 var port = "3500"
 var database_server_auth_handler
+var database_user_login_handler
+var database_character_fetch_handler
 var websocket_multiplayer_peer: WebSocketMultiplayerPeer
 var is_connected = false
 
 func connect_to_server():
 	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_server_auth_handler")
+	database_user_login_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_user_login_handler")
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var url = "ws://" + ip + ":" + str(port)
 	var err = websocket_multiplayer_peer.create_client(url)
@@ -96,11 +99,30 @@ func _process_packet(packet: Dictionary):
 	match packet.get("type", null):
 		"server_auth_response":
 			database_server_auth_handler.handle_incoming_message(packet)
-		"player_position":
-			_handle_player_position(packet)
-		"chat_message":
-			_handle_chat_message(packet)
-		# Add more packet types as needed
+		"user_auth":
+			database_user_login_handler.handle_user_auth(packet)
+#		"character_data":
+#			packet_manager.handle_character_data(packet)
+#		"player_position":
+#			packet_manager.handle_player_position(peer_id, result)
+#		"combat_event":
+#			packet_manager.handle_combat_event(peer_id, result)
+#		"chat_message":
+#			packet_manager.handle_chat_message(peer_id, result)
+#		"inventory_update":
+#			packet_manager.handle_inventory_update(peer_id, result)
+#		"quest_update":
+#			packet_manager.handle_quest_update(peer_id, result)
+#		"instance_change":
+#			packet_manager.handle_instance_change(peer_id, result)
+#		"world_change":
+#			packet_manager.handle_world_change(peer_id, result)
+#		"server_message":
+#			packet_manager.handle_server_message(peer_id, result)
+#		"sync_status":
+#			packet_manager.handle_sync_status(peer_id, result)
+#		"error_message":
+#			packet_manager.handle_error_message(peer_id, result)
 		_:
 			print("Unknown packet type received: ", packet.get("type", null))
 

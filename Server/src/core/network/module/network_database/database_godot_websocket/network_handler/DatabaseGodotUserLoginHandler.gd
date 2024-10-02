@@ -28,3 +28,23 @@ func process_login(client_data: Dictionary, peer_id: int) -> void:
 		emit_signal("login_request_sent")
 	else:
 		print("WebSocket is not connected, unable to send login data")
+
+func handle_user_auth(packet: Dictionary):
+	# Directly use the packet as it's already a Dictionary
+	var response_data = packet
+	
+	# Check if the packet is of type 'user_auth'
+	if response_data.has("type") and response_data["type"] == "user_auth":
+		var auth_status = response_data.get("auth_status", "")
+		if auth_status == "success":
+			# Authentication was successful
+			var user_data = response_data.get("user_data", {})
+			print("Login successful. User data: ", user_data)
+			emit_signal("login_response_received", true, user_data)
+		else:
+			# Authentication failed
+			var error_message = response_data.get("error_message", "Unknown error")
+			print("Login failed: ", error_message)
+			emit_signal("login_response_received", false, {})
+	else:
+		print("Unexpected packet type or missing 'user_auth' field in response")

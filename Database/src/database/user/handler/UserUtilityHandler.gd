@@ -25,3 +25,18 @@ func save_users_list(users_list: Array) -> void:
 	file.store_string(JSON.stringify(users_list))
 	file.close()
 	print("Users list saved successfully")
+
+# Entfernt einen Benutzer aus der Liste und speichert die aktualisierte Liste
+func remove_user_from_list(user_id: String) -> void:
+	var users_list = load_users_list()
+
+	# Suche nach dem Benutzer mit der entsprechenden ID und entferne ihn
+	for i in range(users_list.size()):
+		var user_entry = users_list[i]
+		if user_entry.has("user_id") and user_entry["user_id"] == user_id:
+			users_list.remove_at(i)
+			print("User removed from list: ", user_id)
+			break
+
+	# Speichere die aktualisierte Liste
+	save_users_list(users_list)
