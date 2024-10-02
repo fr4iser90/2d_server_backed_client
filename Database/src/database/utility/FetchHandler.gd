@@ -42,7 +42,7 @@ func load_user_data(username: String) -> Dictionary:
 func fetch_user_characters(user_data: Dictionary) -> Array:
 	var character_ids = user_data["characters"]
 	var characters = []
-	print("character_id", character_ids)
+	#print("character_id", character_ids)
 	
 	for character_entry in character_ids:
 		# Extract the character ID from the dictionary

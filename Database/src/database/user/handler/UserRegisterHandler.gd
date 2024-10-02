@@ -2,11 +2,12 @@
 extends Node
 
 var users_data_dir = "user://data/users/"
-var users_list_file = "user://data/users_list.json"
+var users_list_file = "user://data/users/users_list.json"
 
 @onready var character_creation_handler = $"../../../Character/CharacterManager/CharacterCreationHandler"
-@onready var user_utility_handler = $"../UserUtilityHandler"
+@onready var user_list_handler = $"../UserListHandler"
 @onready var user_fetch_handler = $"../UserFetchHandler"
+@onready var database_list = $"../../../../../Control/MainVBoxContainer/MainHBoxContainer/ListContainer/DatabasePanel/DatabaseList"
 
 # Erstelle eine eindeutige ID für den Benutzer
 func create_unique_user_id() -> String:
@@ -21,7 +22,7 @@ func create_unique_user_id() -> String:
 
 # Erstelle einen neuen Benutzer und füge ihn der Liste hinzu
 func create_user(username: String, password: String) -> Dictionary:
-	var users_list = user_fetch_handler.load_users_list()
+	var users_list = user_list_handler.load_users_list()
 
 	# Prüfe, ob der Benutzer bereits existiert
 	if username in users_list:
@@ -67,8 +68,8 @@ func create_user(username: String, password: String) -> Dictionary:
 		
 		# Füge den neuen Benutzer zur Benutzerliste hinzu und speichere die Liste
 		users_list.append(username)
-		user_utility_handler.save_users_list(users_list)
-
+		user_list_handler.save_users_list(users_list)
+		database_list.request_update()
 		print("User created: ", username, " with User ID: ", user_id)
 		return user_data  # Gib die vollständigen Benutzerdaten zurück
 	else:

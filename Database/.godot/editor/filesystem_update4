@@ -10,3 +10,5 @@ res://src/database/user/handler/UserRegisterHandler.gd
 res://src/database/utility/FetchHandler.gd
 res://src/database/user/handler/UserFetchHandler.gd
 res://src/database/character/handler/CharacterFetchHandler.gd
+res://src/server/handler/PacketManager.gd
+res://src/database/utility/RemoveHandler.gd

@@ -9,24 +9,27 @@ func authenticate_user(peer_id: int, username: String, password: String):
 	# Lädt die Liste der Benutzer
 	var users_list = user_manager.load_users_list()
 
-	# Überprüfe, ob der Benutzer bereits existiert
+	# Überprüfe, ob der Benutzername existiert
 	if username in users_list:
-		# Lade die Benutzerdaten
-		var user_data = user_manager.load_user_data(username)
+		# Finde die Benutzer-ID des Benutzers
+		var user_id = user_manager.get_user_id_by_username(username)
+
+		# Lade die Benutzerdaten basierend auf der Benutzer-ID
+		var user_data = user_manager.load_user_data(user_id)
 		
-		if user_data == null:
+		if user_data.size() == 0:
 			print("User data not found for: ", username)
 			user_manager._send_login_error(peer_id, "User data not found")
 			return
 		
+		print("user_data: ", user_data)
 		# Hash das eingegebene Passwort für den Vergleich
 		var hashed_input_password = hash_password(password)
+		var user_data_password = user_data["password"]
 		
 		# Überprüfe das Passwort
-		if user_data["password"] == hashed_input_password:
+		if user_data_password == hashed_input_password:
 			print("User authenticated successfully: ", username)
-			print("user_data:", user_data)
-		
 			user_manager._send_login_success(peer_id, user_data)
 		else:
 			print("Incorrect password for user: ", username)
@@ -35,8 +38,8 @@ func authenticate_user(peer_id: int, username: String, password: String):
 		# Benutzer existiert nicht, also erstelle ihn
 		print("User does not exist, creating new user: ", username)
 		var new_user_data = user_manager.create_user(username, password)
-		print("User created: ", new_user_data)
 		user_manager._send_login_success(peer_id, new_user_data)
+
 
 # Hash the user's password using SHA-256
 func hash_password(password: String) -> String:

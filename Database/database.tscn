@@ -60,7 +60,7 @@ script = ExtResource("2_of7dy")
 [node name="UserTokenHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("5_ojkqw")
 
-[node name="UserUtilityHandler" type="Node" parent="Source/Database/User/UserManager"]
+[node name="UserListHandler" type="Node" parent="Source/Database/User/UserManager"]
 script = ExtResource("5_m2580")
 
 [node name="UserPasswordHashHandler" type="Node" parent="Source/Database/User/UserManager"]
@@ -76,6 +76,8 @@ script = ExtResource("7_sw6du")
 
 [node name="CharacterFetchHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 script = ExtResource("10_cave0")
+
+[node name="CharacterRemoveHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 
 [node name="Server" type="Node" parent="Source/Database"]
 
@@ -137,6 +139,12 @@ script = ExtResource("10_poc24")
 [node name="DatabaseErrorMessage" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
 
 [node name="Handler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager"]
+
+[node name="Control" type="Node" parent="Source"]
+
+[node name="UserDataControl" type="Node" parent="Source/Control"]
+
+[node name="UserDataControl" type="Node" parent="Source/Control/UserDataControl"]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -289,13 +297,13 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
-[node name="DeleteUserButton" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+[node name="DeleteSelectedButton" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "Delete Selection"
 
-[node name="DeleteDATABASE" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
+[node name="DeleteDATABASEButton" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -339,6 +347,6 @@ grow_vertical = 0
 layout_mode = 2
 text = "PlaceHolder"
 
-[connection signal="item_selected" from="Control/MainVBoxContainer/MainHBoxContainer/ListContainer/DatabasePanel/DatabaseList" to="Source/Database/User/UserManager/UserUtilityHandler" method="_on_database_list_item_selected"]
-[connection signal="pressed" from="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer/DeleteUserButton" to="Source/Database/User/UserManager/UserDeleteHandler" method="_on_delete_user_button_pressed"]
-[connection signal="pressed" from="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer/DeleteDATABASE" to="Source/Database/User/UserManager/UserUtilityHandler" method="_on_delete_database_pressed"]
+[connection signal="item_selected" from="Control/MainVBoxContainer/MainHBoxContainer/ListContainer/DatabasePanel/DatabaseList" to="Source/Database/User/UserManager/UserDeleteHandler" method="_on_database_list_item_selected"]
+[connection signal="pressed" from="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer/DeleteSelectedButton" to="Source/Database/User/UserManager/UserDeleteHandler" method="_on_delete_selected_button_pressed"]
+[connection signal="pressed" from="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer/DeleteDATABASEButton" to="Source/Database/Utility/DatabaseRemove" method="_on_delete_database_button_pressed"]
