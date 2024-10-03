@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://q6o43ierr1pd"]
+[gd_scene load_steps=26 format=3 uid="uid://q6o43ierr1pd"]
 
 [ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/InstanceManager.gd" id="1_4280o"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/instance_manager/handler/InstanceLifecycleHandler.gd" id="2_0b0p6"]
@@ -11,10 +11,15 @@
 [ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkCreationHandler.gd" id="9_406h0"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkCacheHandler.gd" id="10_yq3y5"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkBoundaryHandler.gd" id="11_lpp8d"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkAssignmentHandler.gd" id="11_yr7gw"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkDestructionHandler.gd" id="12_gcjdw"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/TriggerManager.gd" id="12_miu4u"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerInstanceChangeHandler.gd" id="13_sl8vs"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerZoneChangeHandler.gd" id="14_k0n6n"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkEventHandler.gd" id="14_mxxjv"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerRoomChangeHandler.gd" id="15_bdeh5"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkUpdateHandler.gd" id="15_en54q"]
+[ext_resource type="Script" path="res://src/game/module/world_manager/chunk_manager/handler/ChunkCalucationHandler.gd" id="16_7uv3q"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerEventHandler.gd" id="16_pbsis"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerTrapHandler.gd" id="17_uktdy"]
 [ext_resource type="Script" path="res://src/game/module/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="18_dwkjr"]
@@ -59,10 +64,6 @@ script = ExtResource("8_o4prb")
 
 [node name="Handler" type="Node" parent="Manager/ChunkManager"]
 
-[node name="ChunkLifecycleHandler" type="Node" parent="Manager/ChunkManager/Handler"]
-
-[node name="ChunkSceneManager" type="Node" parent="Manager/ChunkManager/Handler"]
-
 [node name="ChunkCreationHandler" type="Node" parent="Manager/ChunkManager/Handler"]
 script = ExtResource("9_406h0")
 
@@ -70,15 +71,26 @@ script = ExtResource("9_406h0")
 script = ExtResource("10_yq3y5")
 
 [node name="ChunkAssignmentHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("11_yr7gw")
 
 [node name="ChunkDestructionHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("12_gcjdw")
 
 [node name="ChunkBoundaryHandler" type="Node" parent="Manager/ChunkManager/Handler"]
 script = ExtResource("11_lpp8d")
 
 [node name="ChunkEventHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("14_mxxjv")
 
-[node name="ChunkLoaderHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+[node name="ChunkUpdateHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("15_en54q")
+
+[node name="ChunkCalculationHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+script = ExtResource("16_7uv3q")
+
+[node name="ChunkTransitionHandler" type="Node" parent="Manager/ChunkManager/Handler"]
+
+[node name="ChunkStateHandler" type="Node" parent="Manager/ChunkManager/Handler"]
 
 [node name="TriggerManager" type="Node" parent="Manager"]
 script = ExtResource("12_miu4u")

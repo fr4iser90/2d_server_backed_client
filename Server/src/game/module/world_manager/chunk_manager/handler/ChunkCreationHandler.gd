@@ -20,11 +20,3 @@ func load_chunk(chunk_key: String):
 	print("Loading chunk: ", chunk_key)
 	# Code to load the chunk from cache or create a new one
 	loaded_chunks[chunk_key] = {}  # Store data for the loaded chunk
-
-# Unload a chunk
-func unload_chunk(chunk_key: String):
-	if loaded_chunks.has(chunk_key):
-		print("Unloading chunk: ", chunk_key)
-		loaded_chunks.erase(chunk_key)
-	else:
-		print("Chunk not loaded: ", chunk_key)
