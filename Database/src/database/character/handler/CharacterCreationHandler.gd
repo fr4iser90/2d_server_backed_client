@@ -26,7 +26,7 @@ func serialize_character(character: CharacterModel) -> Dictionary:
 		"race": character.race,
 		"gender": character.gender,
 		"current_position": character.current_position,
-		"respawn_location": character.respawn_location,
+		"current_area": character.current_area,
 		"level": character.level,
 		"experience": character.experience,
 		"attributes": character.attributes,
@@ -62,7 +62,7 @@ func create_characters_for_user(user_id: String) -> Array:
 		character.level = 1
 		character.experience = 0
 		character.current_position = Vector2(0, 0)
-		character.respawn_location = "spawn_room"
+		character.current_area = "spawn_room"
 		character.attributes = {
 			"strength": 1,
 			"dexterity": 1,

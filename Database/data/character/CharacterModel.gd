@@ -12,7 +12,7 @@ var gender: String = ""
 var main_profession: String = ""  # Hauptberuf
 var secondary_profession: String = ""  # Nebenberuf
 var current_position: Vector2 = Vector2(0, 0)  # Aktuelle Position in der Welt
-var respawn_location: String = "default_spawn"  # Ort, an dem der Charakter wiederbelebt wird
+var current_area: String = "default_spawn"  # Ort, an dem der Charakter wiederbelebt wird
 var level: int = 1
 var experience: int = 0
 var faction: String = ""  # Zugehörigkeit zu einer Fraktion
@@ -115,7 +115,7 @@ func save_character_data(filepath: String):
 		"main_profession": main_profession,
 		"secondary_profession": secondary_profession,
 		"current_position": current_position,
-		"respawn_location": respawn_location,
+		"current_area": current_area,
 		"level": level,
 		"experience": experience,
 		"faction": faction,
@@ -170,7 +170,7 @@ func load_character_data(filepath: String):
 			main_profession = character_data["main_profession"]
 			secondary_profession = character_data["secondary_profession"]
 			current_position = character_data["current_position"]
-			respawn_location = character_data["respawn_location"]
+			current_area = character_data["current_area"]
 			level = character_data["level"]
 			experience = character_data["experience"]
 			faction = character_data["faction"]

@@ -39,7 +39,7 @@ func process_character_selection(peer_id: int, character_class: String):
 
 	# Prepare response data to send back to client
 	var response_data = {
-		"character": cleaned_character_data,
+		"characters": cleaned_character_data,
 		"instance_key": instance_key
 	}
 	print("response_data WS: ", response_data)
