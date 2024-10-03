@@ -39,8 +39,6 @@ func process_fetch_characters(peer_id: int):
 func handle_all_character_for_user(packet: Dictionary):
 	var characters = packet.get("characters", [])
 	if characters.size() > 0:
-		print("packetpacketpacketpacket:", packet)
-		print("Fetched characters: ", characters)
 		# Clean character data and emit signal
 		var cleaned_characters = []
 		for character in characters:

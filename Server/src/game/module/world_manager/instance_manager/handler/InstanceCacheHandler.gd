@@ -27,6 +27,47 @@ func get_minimal_player_data(instance_key: String) -> Array:
 func get_instance_id_for_peer(peer_id: int) -> String:
 	return player_instance_map.get(peer_id, "")
 
+
+func update_player_position(peer_id: int, position: Vector2, velocity: Vector2):
+	var instance_key = get_instance_id_for_peer(peer_id)
+	
+	# Ensure the instance key is valid
+	if instance_key == "":
+		print("Error: No instance found for peer_id:", peer_id)
+		return
+	
+	# Get the full instance data for the instance
+	var instance_data = full_instances.get(instance_key, {})
+	var minimal_data = minimal_instances.get(instance_key, {})
+	# Check if the instance has players and the peer_id exists
+	if instance_data.has("players"):
+		for player_data in instance_data["players"]:
+			if player_data.get("peer_id") == peer_id:
+				# Update the player's position and velocity
+				player_data["position"] = position
+				player_data["velocity"] = velocity
+				print("Updated player position for peer_id:", peer_id, "to position:", position, "and velocity:", velocity)
+				break
+	else:
+		print("Error: No players found in instance:", instance_key)
+		return
+		
+	print("minimal_data:", minimal_data)
+	
+	print("minimal_data:", minimal_data)
+	if minimal_data.has("players"):
+		print("minimal_data:", minimal_data)
+		for minimal_player_data in minimal_data["players"]:
+			if minimal_player_data.get("peer_id") == peer_id:
+				# Update the position in the minimal instance data if necessary
+				minimal_player_data["position"] = position
+				print("Updated minimal instance player position for peer_id:", peer_id, "to position:", position)
+				break
+	else:
+		print("Error: No players found in minimal instance:", instance_key)
+
+
+
 # Find an available instance based on scene name
 func get_available_instance(scene_name: String) -> String:
 	var max_players = instance_manager.get_max_players_per_instance()
@@ -59,6 +100,8 @@ func create_instance(scene_name: String) -> String:
 func add_player_to_instance(instance_key: String, player_data: Dictionary):
 	# Remove position and velocity from player_data
 	var cleaned_player_data = player_data.duplicate()
+	#print("player_data player_data player_data : ", cleaned_player_data)
+	cleaned_player_data.erase("current_position")
 	cleaned_player_data.erase("position")
 	cleaned_player_data.erase("velocity")
 

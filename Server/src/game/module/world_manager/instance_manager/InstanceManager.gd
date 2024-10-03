@@ -23,6 +23,9 @@ func initialize():
 
 func get_max_players_per_instance() -> int:
 	return max_players_per_instance
+
+func update_player_position(peer_id: int, position: Vector2, velocity: Vector2):
+	return instance_cache_handler.update_player_position(peer_id, position, velocity)
 	
 # Handles player selection and assigns them to an instance
 func handle_player_character_selected(peer_id: int, character_data: Dictionary):

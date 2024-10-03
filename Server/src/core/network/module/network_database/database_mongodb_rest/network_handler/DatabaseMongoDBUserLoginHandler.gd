@@ -48,7 +48,7 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 				"server_session_token": server_session_token
 			}
 
-			print("response_data :", response_data)
+
 			# Store user session
 			var updated_user_data = {
 				"user_id": response_data["user_id"],

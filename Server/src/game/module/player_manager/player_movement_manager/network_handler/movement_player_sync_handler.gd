@@ -17,7 +17,7 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_server_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
 	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user", "user_session_manager")
 	is_initialized = true
@@ -73,7 +73,9 @@ func _should_broadcast_movement(peer_id: int, movement_data: Dictionary) -> bool
 # Broadcast movement data to all players in the same instance, excluding the sender
 func _broadcast_movement_to_instance(peer_id: int, instance: Dictionary, movement_data: Dictionary):
 	#print("Broadcasting movement data to instance: ", instance)
-	
+	var player_position = movement_data.get("position", Vector2.ZERO)
+	var player_velocity = movement_data.get("velocity", Vector2.ZERO)
+	instance_manager.update_player_position(peer_id, player_position, player_velocity)
 	for player_data in instance["players"]:
 		var target_peer_id = player_data["peer_id"]
 		if target_peer_id == peer_id:

@@ -1,3 +1,4 @@
+# PlayerMovementManager
 extends Node
 
 signal player_position_updated(peer_id: int, new_position: Vector2)

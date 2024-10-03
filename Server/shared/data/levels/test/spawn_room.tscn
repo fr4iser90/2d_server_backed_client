@@ -39,9 +39,10 @@ layer_2/tile_data = PackedInt32Array()
 [node name="NPCSpawnPoint" type="Node2D" parent="SpawnPoint"]
 
 [node name="PlayerSpawnPoint" type="Node2D" parent="SpawnPoint"]
+position = Vector2(35, 203)
 
 [node name="default_spawn_point" type="Marker2D" parent="SpawnPoint/PlayerSpawnPoint"]
-position = Vector2(41, 134)
+position = Vector2(66, 240)
 
 [node name="MobSpawnPoint" type="Node2D" parent="SpawnPoint"]
 
@@ -90,8 +91,10 @@ position = Vector2(1, 26.5211)
 shape = SubResource("RectangleShape2D_0l5hc")
 
 [node name="ZoneChangeTrigger" type="Node2D" parent="Trigger"]
+position = Vector2(56, 186)
 
 [node name="InstanceChangeTrigger" type="Node2D" parent="Trigger"]
+position = Vector2(-215, 235)
 
 [node name="InstanceChangeExitArea2DToSpawn2" type="Area2D" parent="Trigger/InstanceChangeTrigger"]
 position = Vector2(-416, 0)
@@ -119,10 +122,13 @@ scale = Vector2(1, 0.780031)
 shape = SubResource("RectangleShape2D_0fh13")
 
 [node name="EventTrigger" type="Node2D" parent="Trigger"]
+position = Vector2(-59, 339)
 
 [node name="ObjectiveTrigger" type="Node2D" parent="Trigger"]
+position = Vector2(-58, 263)
 
 [node name="TrapTrigger" type="Node2D" parent="Trigger"]
+position = Vector2(-169, 226)
 
 [connection signal="input_event" from="Trigger/RoomChangeTrigger/RoomExitArea2DToSpawn2" to="Trigger/RoomChangeTrigger/RoomExitArea2DToSpawn2" method="_on_input_event"]
 [connection signal="mouse_entered" from="Trigger/RoomChangeTrigger/RoomExitArea2DToSpawn2" to="Trigger/RoomChangeTrigger/RoomExitArea2DToSpawn2" method="_on_mouse_entered"]

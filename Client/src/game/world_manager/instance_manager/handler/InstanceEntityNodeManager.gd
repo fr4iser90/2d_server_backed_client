@@ -42,9 +42,26 @@ func create_entity_node(entity_type: String, entity_id: int, entity_data: Dictio
 	var scene = load(scene_path)
 	if scene and scene is PackedScene:
 		var entity_node = scene.instantiate()
-		var position = entity_data.get("position", Vector2.ZERO)
+		var position = entity_data.get("position", "")  # Start by retrieving position, expecting a string like "(101, 443)".
+
+		# Check if position is a string and convert it to Vector2 if necessary
+		if typeof(position) == TYPE_STRING and position != "":
+			# Remove parentheses and split the string by comma and space
+			var position_list = position.replace("(", "").replace(")", "").split(", ")
+			
+			# Ensure the list contains two elements and convert to Vector2
+			if position_list.size() == 2:
+				position = Vector2(position_list[0].to_float(), position_list[1].to_float())
+			else:
+				position = Vector2.ZERO  # Fallback if conversion fails
+		else:
+			# If position isn't a string, use the fallback Vector2.ZERO
+			position = Vector2.ZERO
+
+		# Now, assign the parsed or fallback position
 		entity_node.global_position = position
 		entity_node.set_meta("character_class", character_class)
+
 
 		# Add entity node to the scene tree and track it
 		get_tree().root.add_child(entity_node)

@@ -17,7 +17,7 @@ func authenticate_user(peer_id: int, username: String, password: String):
 
 		if user_data.size() == 0:
 			print("User data not found for: ", username)
-			_send_auth_response(peer_id, false, "User data not found")
+			_send_auth_response(peer_id, false, username, "User not found", user_id)
 			return
 
 		print("user_data: ", user_data)
@@ -31,35 +31,37 @@ func authenticate_user(peer_id: int, username: String, password: String):
 			var database_session_token = user_token_handler.generate_database_session_token()
 			
 			print("User authenticated successfully: ", username)
-			_send_auth_response(peer_id, true, database_session_token, user_id)
+			_send_auth_response(peer_id, true, database_session_token, username, user_id)
 		else:
 			print("Incorrect password for user: ", username)
-			_send_auth_response(peer_id, false, "Incorrect password")
+			_send_auth_response(peer_id, false, username, "Incorrect password", user_id)
 	else:
 		# User does not exist, create a new user
 		print("User does not exist, creating new user: ", username)
 		var new_user_data = user_manager.create_user(username, password)
 		var database_session_token = user_token_handler.generate_database_session_token()
-		_send_auth_response(peer_id, true, database_session_token, new_user_data["user_id"])
+		_send_auth_response(peer_id, true, database_session_token, username, new_user_data["user_id"])
 
 
 # Sends the authentication response to the peer
-func _send_auth_response(peer_id: int, success: bool, token_or_message, user_id = ""):
+func _send_auth_response(peer_id: int, success: bool, token_or_message: String, username: String, user_id = ""):
 	var auth_status = "success" if success else "failed"
 	var response_data = {
 		"type": "user_auth",
 		"auth_status": auth_status,
 	}
 
-	# If success, include the database_session_token and user_id 
+	# If success, include the database_session_token, user_id, and username
 	if success:
 		response_data["database_session_token"] = token_or_message
 		response_data["user_id"] = user_id
+		response_data["username"] = username
 	else:
 		response_data["error_message"] = token_or_message  # On failure, this is the error message
 
 	# Send the response to the peer
 	user_manager._send_login_success(peer_id, response_data)
+
 
 
 # Hash the user's password using SHA-256

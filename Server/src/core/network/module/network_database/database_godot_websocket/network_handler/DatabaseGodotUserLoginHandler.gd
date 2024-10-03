@@ -30,7 +30,7 @@ func process_login(client_data: Dictionary, peer_id: int) -> void:
 		var json_str = JSON.stringify(login_packet)
 		websocket_peer.set_target_peer(1)  # Assuming 1 is the server ID
 		websocket_peer.put_packet(json_str.to_utf8_buffer())
-		print("Sending login data to server: ", json_str)
+
 		emit_signal("login_request_sent")
 	else:
 		print("WebSocket is not connected, unable to send login data")
@@ -52,7 +52,6 @@ func handle_user_auth(packet: Dictionary):
 				"server_session_token": server_session_token
 			}
 
-			print("response_data :", response_data)
 			# Store user session
 			var updated_user_data = {
 				"user_id": response_data["user_id"],

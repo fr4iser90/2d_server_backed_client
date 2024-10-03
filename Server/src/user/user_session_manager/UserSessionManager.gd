@@ -53,8 +53,11 @@ func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 	existing_user_data["peer_id"] = peer_id
 	existing_user_data["is_online"] = true
 
-	# Lock the session for this username
-	session_lock_handler.lock_session(username)
+	if username != "":
+		session_lock_handler.lock_session(username)
+	else:
+		GlobalManager.DebugPrint.debug_warning("Empty username for peer_id: " + str(peer_id), self)
+
 
 	# Store the user data in the session manager
 	users_data[peer_id] = existing_user_data
@@ -138,19 +141,17 @@ func update_user_data(peer_id: int, updated_data: Dictionary):
 		add_user_to_manager(peer_id, updated_data)
 	else:
 		var user_data = users_data[peer_id]
-		var current_username = user_data.get("username", "")
-		var new_username = updated_data.get("username", current_username)
 
-		# If the username is being changed, log and handle this case
-		if current_username != "" and current_username != new_username:
-			GlobalManager.DebugPrint.debug_warning("Username change attempted for peer_id: " + str(peer_id), self)
-			return  # Block the update if you don't allow username changes mid-session
-
-		# Proceed with updating the other data
+		# Update only the relevant data (no need to check or change the username)
 		for key in updated_data.keys():
 			user_data[key] = updated_data[key]
+
+		# Store the updated data back in the users_data dictionary
 		users_data[peer_id] = user_data
+
+		# Emit the signal to notify that the user data has changed
 		_emit_user_data_signal(peer_id)
+
 
 func remove_user(peer_id: int):
 	if users_data.has(peer_id):
@@ -225,3 +226,11 @@ func generate_session_token(user_id: String) -> String:
 	context.start(HashingContext.HASH_MD5)
 	context.update(token_source.to_utf8_buffer())
 	return context.finish().hex_encode()
+
+func is_user_logged_in(username: String) -> bool:
+	var data = users_data
+	print("usernameusernameusername  :", username, data )
+	for user_data in users_data.values():
+		if user_data.has("username") and user_data["username"] == username:
+			return true
+	return false

@@ -42,7 +42,7 @@ func process_character_selection(peer_id: int, character_class: String):
 		"characters": cleaned_character_data,
 		"instance_key": instance_key
 	}
-	print("response_data WS: ", response_data)
+
 	# Emit success signal to notify the client handler
 	emit_signal("character_selected_success", peer_id, response_data)
 
