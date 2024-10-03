@@ -1,4 +1,4 @@
-# DatabaseCharacterSelectHandler.gd
+# DatabaseMongoDBCharacterSelectHandler.gd
 extends Node
 
 signal character_selected_success(peer_id: int, character_data: Dictionary)
@@ -78,7 +78,7 @@ func _on_backend_characters_response(result: int, response_code: int, headers: A
 				"characters": cleaned_character_data,
 				"instance_key": instance_key
 			}
-
+			print("response_data REST: ", response_data)
 			# Emit success signal
 			emit_signal("character_selected_success", peer_id, response_data)
 		else:

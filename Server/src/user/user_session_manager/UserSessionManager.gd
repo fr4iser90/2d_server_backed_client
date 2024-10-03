@@ -112,6 +112,26 @@ func get_character_id_by_class(peer_id: int, character_class: String) -> String:
 func _emit_user_data_signal(peer_id: int):
 	emit_signal("user_data_changed", peer_id, users_data.get(peer_id, {}))
 
+func get_character_data_by_class(peer_id: int, character_class: String) -> Dictionary:
+	if users_data.has(peer_id):
+		var user_data = users_data[peer_id]
+		
+		if user_data.has("characters"):
+			var characters = user_data["characters"]
+			
+			# Check if the character data is an array
+			if typeof(characters) == TYPE_ARRAY:
+				for character in characters:
+					print("get_character_data_by_class :", character)
+					if character.has("character_class") and character["character_class"].to_lower() == character_class.to_lower():
+						GlobalManager.DebugPrint.debug_info("Found character for class: " + character_class + " with character ID: " + character["id"], self)
+						return character  # Return the full character data
+			else:
+				GlobalManager.DebugPrint.debug_warning("Unknown character data type for peer_id: " + str(peer_id), self)
+
+	return {}  # Return empty Dictionary if no character is found
+
+
 func update_user_data(peer_id: int, updated_data: Dictionary):
 	if not users_data.has(peer_id):
 		GlobalManager.DebugPrint.debug_warning("User not found, creating new user for peer_id: " + str(peer_id), self)

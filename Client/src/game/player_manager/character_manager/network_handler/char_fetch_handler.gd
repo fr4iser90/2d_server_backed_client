@@ -28,6 +28,7 @@ func initialize():
 # Diese Funktion wird aufgerufen, wenn ein Paket über Kanal 21 empfangen wird
 func handle_packet(data: Dictionary):
 	if data.has("characters"):
+		print("data", data)
 		emit_signal("characters_fetched", data["characters"])
 	else:
 		print("Character fetch failed, invalid data received.")

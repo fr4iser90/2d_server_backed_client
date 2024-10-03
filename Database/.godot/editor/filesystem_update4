@@ -15,3 +15,4 @@ res://src/database/character/CharacterManager.gd
 res://src/websocket_server/manager/packet_manager/manager/CharacterPacketManager.gd
 res://src/database/character/handler/CharacterFetchHandler.gd
 res://src/websocket_server/manager/packet_manager/manager/ResponsePacketManage.gd
+res://src/database/character/handler/CharacterCreationHandler.gd

@@ -25,6 +25,7 @@ func initialize():
 
 # Handle packet received from the server with character and instance data
 func handle_packet(data: Dictionary):
+	print("handle_packet:", handle_packet)
 	if data.has("characters") and data.has("instance_key"):
 		# Character selection successful
 		print("Character selected: ", data["characters"], " in instance: ", data["instance_key"])

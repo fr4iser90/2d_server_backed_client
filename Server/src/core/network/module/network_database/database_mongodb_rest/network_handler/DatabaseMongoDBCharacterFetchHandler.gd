@@ -1,4 +1,4 @@
-# DatabaseCharFetchHandler.gd
+# DatabaseMongoDBCharacterFetchHandler.gd
 extends Node
 
 signal backend_characters_fetched(peer_id, processed_characters)

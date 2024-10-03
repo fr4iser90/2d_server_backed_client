@@ -23,7 +23,7 @@ func handle_packet(client_data: Dictionary, peer_id: int):
 	if client_data.has("session_token"):
 		var server_session_token = client_data["session_token"]
 		var database_session_token = user_session_manager.get_database_session_token_for_peer(peer_id)
-		backend_handler.process_fetch_characters(peer_id, database_session_token)
+		backend_handler.process_fetch_characters(peer_id)
 	else:
 		GlobalManager.DebugPrint.debug_error("Character fetch failed: Missing session token", self)
 

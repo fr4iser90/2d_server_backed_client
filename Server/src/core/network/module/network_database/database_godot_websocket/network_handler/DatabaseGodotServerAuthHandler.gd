@@ -1,3 +1,4 @@
+# DatabaseGodotServerAuthHandler
 extends Node
 
 signal authentication_complete(success: bool)

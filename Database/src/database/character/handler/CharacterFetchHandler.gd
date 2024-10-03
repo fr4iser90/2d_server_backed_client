@@ -7,16 +7,16 @@ extends Node
 var users_data_dir = "user://data/users/"
 
 # Fetches all characters for a user based on their user_id
-# Fetches all characters for a user based on their user_id
 func fetch_all_characters(user_id: String) -> Array:
 	var user_data = user_manager.load_user_data(user_id)
 	print("user_data fetch_all_characters", user_data)
 	var characters = []
 	
 	if user_data.has("characters"):
-		# Directly use the character data without fetching the ID again, as it's already stored
 		for character in user_data["characters"]:
-			characters.append(character["data"])  # Append the character data as is
+			# Add the character_id directly from the user data
+			character["data"]["id"] = character["id"]
+			characters.append(character["data"])
 		return characters
 	else:
 		print("No characters found for user: ", user_id)

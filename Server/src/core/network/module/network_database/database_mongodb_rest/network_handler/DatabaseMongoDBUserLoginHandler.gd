@@ -1,4 +1,4 @@
-# DatabaseUserLoginHandler REST
+# DatabaseMongoDBUserLoginHandler REST
 extends Node
 
 signal backend_login_processed(peer_id, processed_data)

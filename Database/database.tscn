@@ -97,6 +97,8 @@ script = ExtResource("10_cave0")
 
 [node name="CharacterRemoveHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 
+[node name="CharacterDataHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+
 [node name="Server" type="Node" parent="Source/Database"]
 
 [node name="ServerManager" type="Node" parent="Source/Database/Server"]

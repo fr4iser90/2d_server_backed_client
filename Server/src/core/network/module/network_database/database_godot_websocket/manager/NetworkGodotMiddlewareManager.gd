@@ -11,6 +11,7 @@ var is_connected = false
 func connect_to_server():
 	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_server_auth_handler")
 	database_user_login_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_user_login_handler")
+	database_character_fetch_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_fetch_handler")
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var url = "ws://" + ip + ":" + str(port)
 	var err = websocket_multiplayer_peer.create_client(url)
@@ -101,8 +102,8 @@ func _process_packet(packet: Dictionary):
 			database_server_auth_handler.handle_incoming_message(packet)
 		"user_auth":
 			database_user_login_handler.handle_user_auth(packet)
-#		"character_data":
-#			packet_manager.handle_character_data(packet)
+		"fetch_all_characters":
+			database_character_fetch_handler.handle_all_character_for_user(packet)
 #		"player_position":
 #			packet_manager.handle_player_position(peer_id, result)
 #		"combat_event":

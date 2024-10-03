@@ -1,4 +1,4 @@
-# DatabaseAuthServerHandler
+# DatabaseMongoDBServerAuthHandler
 extends Node
 
 signal authentication_complete(success: bool)

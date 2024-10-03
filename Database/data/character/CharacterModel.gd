@@ -1,10 +1,11 @@
+# CharacterModel
 extends Resource
 
 class_name CharacterModel
 
 # Basisinformationen
 var name: String = ""
-var main_class: String = ""  # Hauptklasse des Charakters
+var character_class: String = ""  # Hauptklasse des Charakters
 var subclass: String = ""  # Unterklasse des Charakters
 var race: String = ""
 var gender: String = ""
@@ -107,7 +108,7 @@ var completed_quests: Array = []  # Abgeschlossene Quests
 func save_character_data(filepath: String):
 	var character_data = {
 		"name": name,
-		"main_class": main_class,
+		"character_class": character_class,
 		"subclass": subclass,
 		"race": race,
 		"gender": gender,
@@ -120,7 +121,6 @@ func save_character_data(filepath: String):
 		"faction": faction,
 		"reputation": reputation,
 		"alignment": alignment,
-
 		"attributes": attributes,
 		"passive_tree": passive_tree,
 		"skills": skills,
@@ -163,7 +163,7 @@ func load_character_data(filepath: String):
 		if err == OK:
 			var character_data = json.get_data()
 			name = character_data["name"]
-			main_class = character_data["main_class"]
+			character_class = character_data["character_class"]
 			subclass = character_data["subclass"]
 			race = character_data["race"]
 			gender = character_data["gender"]

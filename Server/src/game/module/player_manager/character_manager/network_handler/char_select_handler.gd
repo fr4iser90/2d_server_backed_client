@@ -2,7 +2,7 @@
 extends Node
 
 var enet_server_manager
-var backend_handler
+var database_handler
 var handler_name = "character_select_handler"
 var is_initialized = false
 
@@ -10,9 +10,9 @@ func initialize():
 	if is_initialized:
 		return
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	backend_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_select_handler")
-	backend_handler.connect("character_selected_success", Callable(self, "_on_character_selected_success"))
-	backend_handler.connect("character_selection_failed", Callable(self, "_on_character_selection_failed"))
+	database_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_select_handler")
+	database_handler.connect("character_selected_success", Callable(self, "_on_character_selected_success"))
+	database_handler.connect("character_selection_failed", Callable(self, "_on_character_selection_failed"))
 	is_initialized = true
 
 # Handle incoming packet from the client
@@ -27,7 +27,8 @@ func handle_packet(client_data: Dictionary, peer_id: int):
 			return
 
 		# Forward request to backend handler
-		backend_handler.process_character_selection(peer_id, character_class)
+		print("client_data: ", client_data)
+		database_handler.process_character_selection(peer_id, character_class)
 	else:
 		_on_character_selection_failed("Missing session_token or character_class")
 
