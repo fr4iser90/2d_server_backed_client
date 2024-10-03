@@ -3,28 +3,29 @@ extends Node
 
 # Enum oder String für die Presets
 enum ServerPreset {
-	MONGODB_REST,
-	GODOT_WS
+	GodotDatabaseWebSocket,
+	MongoDatabaseRestAPI,
 }
+
 
 # Methode, um den richtigen Initialisierungsprozess zu starten
 func load_preset(selected_preset: int):
 	match selected_preset:
-		ServerPreset.MONGODB_REST:
-			load_mongodb_rest()
-		ServerPreset.GODOT_WS:
-			load_godot_database()
+		ServerPreset.GodotDatabaseWebSocket:
+			load_mongo_database_rest_api()
+		ServerPreset.MongoDatabaseRestAPI:
+			load_godot_database_web_socket()
 		_:
 			print("Unknown preset selected")
 
-func load_mongodb_rest():
+func load_mongo_database_rest_api():
 	print("Loading MongoDB REST preset...")
 	var server_init = load("res://src/core/server/preset/database_mongodb_rest/server_init.gd").new()
 	server_init.set_name("ServerInit")
 	get_tree().root.add_child(server_init)
 	server_init._ready()
 
-func load_godot_database():
+func load_godot_database_web_socket():
 	print("Loading Godot Database preset...")
 	var server_init = load("res://src/core/server/preset/database_godot/server_init.gd").new()
 	server_init.set_name("ServerInit")  

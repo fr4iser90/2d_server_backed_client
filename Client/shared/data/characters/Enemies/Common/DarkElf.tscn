@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://de1xawbcbunpg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_onry7"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sn8sc"]
+height = 26.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dnesh"]
+size = Vector2(5.5, 4)
+
+[node name="DarkElf" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_onry7")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-2, 0)
+shape = SubResource("CapsuleShape2D_sn8sc")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-7, 14)
+shape = SubResource("RectangleShape2D_dnesh")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(3, 14)
+shape = SubResource("RectangleShape2D_dnesh")

@@ -52,8 +52,8 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 item_count = 2
-item_0/text = "MongoDB REST"
-item_1/text = "Godot WS"
+item_0/text = "GodotDatabaseWebSocket"
+item_1/text = "MongoDatabaseRestAPI"
 
 [node name="StartServerButton" type="Button" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2

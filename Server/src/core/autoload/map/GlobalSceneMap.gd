@@ -14,10 +14,13 @@ var misc_scenes = {
 	"LoadingScene": "res://src/game/module/loading_manager/LoadingScene.tscn",
 	"GameWorldModule": "res://src/game/module/GameWorldModule.tscn",
 	"GameLevelModule": "res://src/game/module/GameLevelModule.tscn",
+	"GameNPCModule": "res://src/game/module/GameNPCModule.tscn",
 	"GamePlayerModule": "res://src/game/module/GamePlayerModule.tscn",
 	"Mage": "res://shared/data/characters/players/Mage.tscn",
 	"Archer": "res://shared/data/characters/players/Archer.tscn",
 	"Knight": "res://shared/data/characters/players/Knight.tscn",
+	"npc_test": "res://shared/data/characters/NPC/npc_test.tscn",
+	"enemy_test": "res://shared/data/characters/Enemies/enemy_test.tscn",
 }
 
 var scene_levels = {

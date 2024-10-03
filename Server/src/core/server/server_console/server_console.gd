@@ -50,10 +50,10 @@ var packet_manager
 # Populate server preset list
 func _populate_preset_list():
 	server_preset_list.clear()  # Clear the list
-	server_preset_list.add_item("MongoDB REST")
-	server_preset_list.add_item("Godot WS")
+	server_preset_list.add_item("GodotDatabaseWebSocket")
+	server_preset_list.add_item("MongoDatabaseRestAP")
 	server_preset_list.select(0)  # Default selection
-		
+
 func _get_manager():
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
 	network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_database_module")

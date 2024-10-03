@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://k7j1v1elnidw"]
+[gd_scene load_steps=5 format=3 uid="uid://doq1q3lqg3yh6"]
 
-[ext_resource type="Texture2D" uid="uid://bucblo35hk2no" path="res://shared/Assets/Art/im no artist/archer.png" id="2_cc8j8"]
+[ext_resource type="Texture2D" uid="uid://8f6a6fevk8jc" path="res://shared/Assets/Art/im no artist/darkelf_64_64.png" id="1_f0xax"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dm7p4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_cc8j8")
+"texture": ExtResource("1_f0xax")
 }],
 "loop": true,
 "name": &"default",
@@ -19,7 +19,7 @@ height = 26.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hshox"]
 size = Vector2(5.5, 4)
 
-[node name="Archer" type="CharacterBody2D"]
+[node name="EnemyTest" type="CharacterBody2D"]
 y_sort_enabled = true
 position = Vector2(1, 1)
 collision_layer = 512

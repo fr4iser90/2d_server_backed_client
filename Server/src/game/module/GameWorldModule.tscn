@@ -59,6 +59,18 @@ script = ExtResource("6_m2cko")
 [node name="InstancePlayerCharacterHandler" type="Node" parent="Manager/InstanceManager/Handler"]
 script = ExtResource("7_u8ukh")
 
+[node name="InstanceUpdateHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceCalculationHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceNPCHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceMobHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceStateHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
+[node name="InstanceEventHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+
 [node name="ChunkManager" type="Node" parent="Manager"]
 script = ExtResource("8_o4prb")
 

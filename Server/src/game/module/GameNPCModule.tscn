@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b3gu5grxk4s2m"]
+
+[node name="GameNpcModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="NPCSpawningManager" type="Node" parent="Manager"]
+
+[node name="NPCStateManager" type="Node" parent="Manager"]
+
+[node name="NPCMovementManager" type="Node" parent="Manager"]
+
+[node name="NPCHealthManager" type="Node" parent="Manager"]
+
+[node name="NPCUpdateManager" type="Node" parent="Manager"]
+
+[node name="NPCEventManager" type="Node" parent="Manager"]
+
+[node name="NPCAggroManager" type="Node" parent="Manager"]
+
+[node name="NPCLootManager" type="Node" parent="Manager"]
+
+[node name="NPCPathfindingManager" type="Node" parent="Manager"]
+
+[node name="NPCMemoryManager" type="Node" parent="Manager"]
+
+[node name="NPCAnimationManager" type="Node" parent="Manager"]
