@@ -12,9 +12,8 @@ func load_network_managers():
 
 # Initialisiert die Netzwerkknoten
 func _initialize_network_nodes():
-	network_tree = GlobalManager.SceneManager.put_scene_at_node("NetworkTree", "Core")
-	network_server_game_module = GlobalManager.SceneManager.put_scene_at_node("NetworkGameUDPENetPeerModule", "Core/Network")
-	network_server_databse_module = GlobalManager.SceneManager.put_scene_at_node("NetworkDatabaseMongoDBRESTModule", "Core/Network")
+	network_server_game_module = GlobalManager.SceneManager.put_scene_at_node("NetworkGameUDPENetPeerModule", "Network")
+	network_server_databse_module = GlobalManager.SceneManager.put_scene_at_node("NetworkDatabaseMongoDBRESTModule", "Network")
 #	GlobalManager.SceneManager.scan_runtime_node_map()
 	network_server_game_module.initialize()
 	network_server_databse_module.initialize()

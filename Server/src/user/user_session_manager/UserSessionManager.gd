@@ -48,8 +48,8 @@ func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 	var existing_user_data = users_data.get(peer_id, {})
 	existing_user_data["username"] = username
 	existing_user_data["user_id"] = user_data.get("user_id", "")
-	existing_user_data["token"] = user_data.get("token", "")
-	existing_user_data["session_token"] = user_data.get("session_token", "")
+	existing_user_data["server_session_token"] = user_data.get("server_session_token", "")
+	existing_user_data["database_session_token"] = user_data.get("database_session_token", "")
 	existing_user_data["peer_id"] = peer_id
 	existing_user_data["is_online"] = true
 
@@ -64,15 +64,15 @@ func add_user_to_manager(peer_id: int, user_data: Dictionary) -> bool:
 	return true
 
 # Retrieve session token for the peer
-func get_session_token_for_peer(peer_id: int) -> String:
+func get_server_session_token_for_peer(peer_id: int) -> String:
 	if users_data.has(peer_id):
-		return users_data[peer_id].get("session_token", "")
+		return users_data[peer_id].get("server_session_token", "")
 	return ""
 
 # Retrieve auth token for the peer
-func get_auth_token_for_peer(peer_id: int) -> String:
+func get_database_session_token_for_peer(peer_id: int) -> String:
 	if users_data.has(peer_id):
-		return users_data[peer_id].get("token", "")  # Retrieve the auth token
+		return users_data[peer_id].get("database_session_token", "")  # Retrieve the auth token
 	return ""
 	
 # Called when the character is selected
@@ -151,6 +151,12 @@ func remove_user(peer_id: int):
 func get_user_data(peer_id: int) -> Dictionary:
 	return users_data.get(peer_id, {})
 
+func get_user_id(peer_id: int) -> String:
+	var user_data = get_user_data(peer_id)
+	if user_data.has("user_id"):
+		return user_data["user_id"]
+	return "Unknown"
+	
 func get_username_by_peer_id(peer_id: int) -> String:
 	var user_data = get_user_data(peer_id)
 	if user_data.has("username"):
@@ -174,20 +180,28 @@ func get_characters_for_peer(peer_id: int) -> Array:
 			return user_data["characters"]
 	return []
 
-func validate_user_token(peer_id: int, token: String) -> bool:
+func validate_user_database_session_token(peer_id: int, database_session_token: String) -> bool:
 	var user_data = users_data.get(peer_id, null)
-	if user_data and user_data.has("token"):
-		return user_data["token"] == token
+	if user_data and user_data.has("database_session_token"):
+		return user_data["database_session_token"] == database_session_token
 	return false
 	
 # Validate the session token (e.g., session management token)
-func validate_session_token(peer_id: int, session_token: String) -> bool:
+func validate_user_server_session_token(peer_id: int, server_session_token: String) -> bool:
 	var user_data = users_data.get(peer_id, null)
-	if user_data and user_data.has("session_token"):
-		return user_data["session_token"] == session_token
+	print(user_data)
+	if user_data and user_data.has("server_session_token"):
+		return user_data["server_session_token"] == server_session_token
 	return false
 
 # Handle session timeout
 func _on_session_timeout(peer_id: int):
 	remove_user(peer_id)
 	GlobalManager.DebugPrint.debug_warning("Session for peer_id " + str(peer_id) + " timed out and removed.", self)
+	
+func generate_session_token(user_id: String) -> String:
+	var token_source = user_id + str(Time.get_ticks_msec())
+	var context = HashingContext.new()
+	context.start(HashingContext.HASH_MD5)
+	context.update(token_source.to_utf8_buffer())
+	return context.finish().hex_encode()

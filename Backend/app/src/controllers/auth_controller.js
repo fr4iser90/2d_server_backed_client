@@ -83,9 +83,9 @@ exports.login = async (req, res, next) => {
                 }
 
                 console.log(`User ${user.username} logged in successfully`);
-                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const database_session_token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
                 // Gebe auch die user_id in der Antwort zurück
-                return res.json({ token, user_id: user._id });
+                return res.json({ database_session_token, user_id: user._id });
             });
         })(req, res, next);
 

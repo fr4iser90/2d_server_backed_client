@@ -22,7 +22,7 @@ func process_fetch_characters(peer_id: int):
 		return
 
 	var backend_url = GlobalManager.GlobalConfig.get_backend_url() + route_info.get("path", "")
-	var headers = ["Authorization: Bearer " + get_stored_auth_token_for_peer(peer_id)]
+	var headers = ["Authorization: Bearer " + get_stored_database_session_token_for_peer(peer_id)]
 
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
@@ -98,6 +98,6 @@ func clean_character_data(character_data: Dictionary) -> Dictionary:
 	cleaned_data.erase("_id")
 	return cleaned_data
 
-func get_stored_auth_token_for_peer(peer_id: int) -> String:
+func get_stored_database_session_token_for_peer(peer_id: int) -> String:
 	var user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	return user_session_manager.get_auth_token_for_peer(peer_id)
+	return user_session_manager.get_database_session_token_for_peer(peer_id)

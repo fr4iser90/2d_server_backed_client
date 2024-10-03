@@ -22,7 +22,7 @@ func initialize():
 # Process character selection, fetch data from backend, and return result to the client handler
 func process_character_selection(peer_id: int, character_class: String):
 	var character_id = user_session_manager.get_character_id_by_class(peer_id, character_class)
-	var auth_token = user_session_manager.get_auth_token_for_peer(peer_id)
+	var database_session_token = user_session_manager.get_database_session_token_for_peer(peer_id)
 	
 	if character_id == "":
 		GlobalManager.DebugPrint.debug_error("Character ID not found for class: " + str(character_class), self)
@@ -30,7 +30,7 @@ func process_character_selection(peer_id: int, character_class: String):
 		return
 
 	# Fetch character data from backend
-	fetch_characters_from_backend(auth_token, character_id, peer_id)
+	fetch_characters_from_backend(database_session_token, character_id, peer_id)
 
 # Function to make HTTP request to fetch character data from backend
 func fetch_characters_from_backend(token: String, character_id: String, peer_id: int):

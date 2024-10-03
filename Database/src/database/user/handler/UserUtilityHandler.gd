@@ -12,11 +12,14 @@ func load_users_list() -> Array:
 		file.close()
 		
 		if error == OK:
-			return json.get_data()  # The list should contain dictionaries with "username" and "user_id"
+			var users_list = json.get_data()
+			print("Loaded users list: ", users_list)  # Debug-Ausgabe
+			return users_list  # The list should contain dictionaries with "username" and "user_id"
 		else:
 			print("Error parsing users list JSON")
 			return []
 	else:
+		print("Users list file not found")
 		return []  # Leere Liste, wenn keine Datei vorhanden
 
 # Speichert die Liste der Benutzernamen in eine Datei

@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://dwvji7mhn3ydq"]
+[gd_scene load_steps=24 format=3 uid="uid://dwvji7mhn3ydq"]
 
 [ext_resource type="Script" path="res://src/database/server/handler/ServerAuthHandler.gd" id="1_0brge"]
-[ext_resource type="Script" path="res://src/server/handler/WebSocketServer.gd" id="1_0e8u5"]
+[ext_resource type="Script" path="res://src/websocket_server/manager/WebSocketServer.gd" id="1_0e8u5"]
 [ext_resource type="Script" path="res://src/database/user/UserManager.gd" id="1_psdm5"]
 [ext_resource type="Script" path="res://src/database/server/ServerAuthManager.gd" id="1_tyh8b"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserFetchHandler.gd" id="2_dnkms"]
@@ -13,11 +13,16 @@
 [ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserDeleteHandler.gd" id="6_hh3vy"]
 [ext_resource type="Script" path="res://src/database/character/handler/CharacterCreationHandler.gd" id="7_sw6du"]
+[ext_resource type="Script" path="res://src/database/character/CharacterManager.gd" id="9_iy1lg"]
 [ext_resource type="Script" path="res://src/database/character/handler/CharacterFetchHandler.gd" id="10_cave0"]
-[ext_resource type="Script" path="res://src/server/handler/PacketManager.gd" id="10_poc24"]
+[ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/PacketManager.gd" id="10_poc24"]
 [ext_resource type="Script" path="res://src/database/utility/RemoveHandler.gd" id="11_itfl6"]
 [ext_resource type="Script" path="res://src/database/utility/FetchHandler.gd" id="12_dhnf7"]
 [ext_resource type="Script" path="res://src/console/database/DatabasePanelList.gd" id="15_31mhg"]
+[ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/manager/ServerPacketManager.gd" id="18_b82ws"]
+[ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/manager/UserPacketManager.gd" id="19_lx43x"]
+[ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/manager/CharacterPacketManager.gd" id="21_u65i7"]
+[ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/manager/ResponsePacketManage.gd" id="22_kjgkt"]
 
 [node name="Database" type="Node"]
 
@@ -30,6 +35,16 @@
 [node name="Character" type="Node" parent="Data"]
 
 [node name="CharacterModel" type="Node" parent="Data/Character"]
+
+[node name="CharacterModel" type="Node" parent="Data/Character/CharacterModel"]
+
+[node name="CharacterModel2" type="Node" parent="Data/Character/CharacterModel"]
+
+[node name="CharacterModel3" type="Node" parent="Data/Character/CharacterModel"]
+
+[node name="CharacterModel4" type="Node" parent="Data/Character/CharacterModel"]
+
+[node name="CharacterModel5" type="Node" parent="Data/Character/CharacterModel"]
 
 [node name="Server" type="Node" parent="Data"]
 
@@ -65,9 +80,12 @@ script = ExtResource("5_m2580")
 
 [node name="UserPasswordHashHandler" type="Node" parent="Source/Database/User/UserManager"]
 
+[node name="UserValidationHandler" type="Node" parent="Source/Database/User/UserManager"]
+
 [node name="Character" type="Node" parent="Source/Database"]
 
 [node name="CharacterManager" type="Node" parent="Source/Database/Character"]
+script = ExtResource("9_iy1lg")
 
 [node name="CharacterCreationHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 script = ExtResource("7_sw6du")
@@ -100,6 +118,10 @@ script = ExtResource("12_dhnf7")
 
 [node name="DatabasePost" type="Node" parent="Source/Database/Utility"]
 
+[node name="Global" type="Node" parent="Source/Database"]
+
+[node name="GlobalManager" type="Node" parent="Source/Database/Global"]
+
 [node name="Config" type="Node" parent="Source"]
 
 [node name="Game" type="Node" parent="Source"]
@@ -116,29 +138,21 @@ script = ExtResource("1_0e8u5")
 [node name="PacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager"]
 script = ExtResource("10_poc24")
 
+[node name="Manager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager"]
+
+[node name="ServerPacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/Manager"]
+script = ExtResource("18_b82ws")
+
+[node name="UserPacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/Manager"]
+script = ExtResource("19_lx43x")
+
+[node name="CharacterPacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/Manager"]
+script = ExtResource("21_u65i7")
+
+[node name="ResponsePacketManager" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/Manager"]
+script = ExtResource("22_kjgkt")
+
 [node name="NetworkHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager"]
-
-[node name="DatabaseServerAuthHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseUserAuthHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseCharacterHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseCombatEventHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseServerMessageHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseQuestUpdateHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseInstanceChangeHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseWorldChangeHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseSyncStatusHandler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="DatabaseErrorMessage" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager/NetworkHandler"]
-
-[node name="Handler" type="Node" parent="Source/WebSocketServer/Manager/WebSocketManager/PacketManager"]
 
 [node name="Control" type="Node" parent="Source"]
 

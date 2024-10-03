@@ -52,6 +52,7 @@ func create_user(username: String, password: String) -> Dictionary:
 	var user_file_path = user_dir + "user_data.json"
 	var characters = character_creation_handler.create_characters_for_user(user_id)
 	# Hash das Passwort des Benutzers
+	print("characterscharacterscharacterscharacters", characters)
 	var hashed_password = hash_password(password)
 	var user_data = {
 		"user_id": user_id,
@@ -67,7 +68,7 @@ func create_user(username: String, password: String) -> Dictionary:
 		user_file.close()
 		
 		# Füge den neuen Benutzer zur Benutzerliste hinzu und speichere die Liste
-		users_list.append(username)
+		users_list.append({"username": username, "user_id": user_id})
 		user_list_handler.save_users_list(users_list)
 		database_list.request_update()
 		print("User created: ", username, " with User ID: ", user_id)

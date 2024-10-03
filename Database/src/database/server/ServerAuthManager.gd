@@ -7,7 +7,7 @@ extends Node
 
 func _ready():
 	print("ServerManager intialized")
-	
+
 func authenticate_server(peer_id: int, server_key: String):
 	return server_auth_handler.authenticate_server(peer_id, server_key)
 

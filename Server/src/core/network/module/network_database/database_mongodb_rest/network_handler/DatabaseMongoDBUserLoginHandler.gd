@@ -41,18 +41,19 @@ func _on_backend_login_response(result: int, response_code: int, headers: Array,
 		if parse_result == OK:
 			var response_data = json.get_data()
 			var username = response_data.get("username", "")
-			var session_token = generate_session_token(response_data["user_id"])
+			var server_session_token = generate_session_token(response_data["user_id"])
 
 			var processed_data = {
 				"user_id": response_data["user_id"],
-				"session_token": session_token
+				"server_session_token": server_session_token
 			}
 
+			print("response_data :", response_data)
 			# Store user session
 			var updated_user_data = {
 				"user_id": response_data["user_id"],
-				"token": response_data["token"],
-				"session_token": session_token,
+				"database_session_token": response_data["database_session_token"],
+				"server_session_token": server_session_token,
 				"username": username
 			}
 			user_session_manager.update_user_data(peer_id, updated_user_data)

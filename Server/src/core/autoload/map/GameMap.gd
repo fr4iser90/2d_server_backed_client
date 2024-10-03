@@ -12,7 +12,7 @@ var world_manager = {
 	"instance_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager", "cache": true},
 	"trigger_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager", "cache": true},
 	"chunk_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager", "cache": true},
-	"spawn_point_manager": {"path_tree": "/root/Game/WGameWorldModule/Manager/SpawnPointManager", "cache": true},
+	"spawn_point_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/SpawnPointManager", "cache": true},
 	"world_loader": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager", "cache": true},
 	"entity_node_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/EntityNodeManager", "cache": true},
 }

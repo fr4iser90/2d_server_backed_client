@@ -27,7 +27,8 @@ func authenticate_server():
 	var websocket_peer = network_middleware_manager.get_websocket_peer()
 	if websocket_peer and websocket_peer.get_connection_status() == WebSocketMultiplayerPeer.CONNECTION_CONNECTED:
 		var request_data = {
-			"type": "server_auth",
+			"type": "server",
+			"action": "authenticate",
 			"server_key": GlobalManager.GlobalConfig.get_server_validation_key()
 		}
 		_send_message_to_server(request_data)

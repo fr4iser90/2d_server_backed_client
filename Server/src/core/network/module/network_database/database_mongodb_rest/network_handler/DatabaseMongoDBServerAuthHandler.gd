@@ -86,3 +86,4 @@ func _start_retry_authentication():
 func _on_retry_timeout():
 	GlobalManager.DebugPrint.debug_info("Retrying authentication...", self)
 	authenticate_server()
+

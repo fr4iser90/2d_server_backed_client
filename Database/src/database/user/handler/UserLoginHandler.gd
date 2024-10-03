@@ -1,17 +1,17 @@
 extends Node
 
 @onready var user_manager = $".."
+@onready var user_token_handler = $"../UserTokenHandler"
 
 # Authenticates the user
 func authenticate_user(peer_id: int, username: String, password: String):
 	# Load the list of users
 	var users_list = user_manager.load_users_list()
 
-	# Check if the username exists
-	if username in users_list:
-		# Find the user ID of the user
-		var user_id = user_manager.get_user_id_by_username(username)
+	# Check if the username exists in the list
+	var user_id = user_manager.get_user_id_by_username(username)
 
+	if user_id != "":  # If a user_id is found, the user exists
 		# Load the user data based on the user ID
 		var user_data = user_manager.load_user_data(user_id)
 
@@ -27,33 +27,40 @@ func authenticate_user(peer_id: int, username: String, password: String):
 
 		# Check the password
 		if user_data_password == hashed_input_password:
+			# Generate a session token
+			var database_session_token = user_token_handler.generate_database_session_token()
+			
 			print("User authenticated successfully: ", username)
-			_send_auth_response(peer_id, true, user_data)
+			_send_auth_response(peer_id, true, database_session_token, user_id)
 		else:
 			print("Incorrect password for user: ", username)
 			_send_auth_response(peer_id, false, "Incorrect password")
 	else:
-		# User does not exist, so create them
+		# User does not exist, create a new user
 		print("User does not exist, creating new user: ", username)
 		var new_user_data = user_manager.create_user(username, password)
-		_send_auth_response(peer_id, true, new_user_data)
+		var database_session_token = user_token_handler.generate_database_session_token()
+		_send_auth_response(peer_id, true, database_session_token, new_user_data["user_id"])
+
 
 # Sends the authentication response to the peer
-func _send_auth_response(peer_id: int, success: bool, user_data_or_message):
+func _send_auth_response(peer_id: int, success: bool, token_or_message, user_id = ""):
 	var auth_status = "success" if success else "failed"
 	var response_data = {
 		"type": "user_auth",
 		"auth_status": auth_status,
 	}
 
-	# If success, include the user data
+	# If success, include the database_session_token and user_id 
 	if success:
-		response_data["user_data"] = user_data_or_message
+		response_data["database_session_token"] = token_or_message
+		response_data["user_id"] = user_id
 	else:
-		response_data["error_message"] = user_data_or_message  # On failure, this is the error message
+		response_data["error_message"] = token_or_message  # On failure, this is the error message
 
 	# Send the response to the peer
 	user_manager._send_login_success(peer_id, response_data)
+
 
 # Hash the user's password using SHA-256
 func hash_password(password: String) -> String:

@@ -18,11 +18,11 @@ func initialize():
 # Handle incoming packet from the client
 func handle_packet(client_data: Dictionary, peer_id: int):
 	if client_data.has("session_token") and client_data.has("character_class"):
-		var session_token = client_data["session_token"]
+		var server_session_token = client_data["session_token"]
 		var character_class = client_data["character_class"]
 
 		# Validate session token
-		if not GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager").validate_session_token(peer_id, session_token):
+		if not GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager").validate_user_server_session_token(peer_id, server_session_token):
 			_on_character_selection_failed("Invalid session token")
 			return
 

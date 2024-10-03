@@ -35,18 +35,18 @@ func handle_packet(data: Dictionary):
 		emit_signal("login_failed", data["message"])
 		return
 
-	if data.has("session_token"):
+	if data.has("server_session_token"):
 		print("Login successful. Session token received.")
 
 		# Set login state
 		is_logged_in = true
-		user_session_token = data["session_token"]  # store session token
+		user_session_token = data["server_session_token"]  # store session token
 
 		# Update session manager
 		user_session_manager.set_session_token(user_session_token)
 
 		# Emit signal with session token only (no user_id)
-		emit_signal("login_success", data["session_token"])
+		emit_signal("login_success", data["server_session_token"])
 	else:
 		print("Login failed, invalid data received.")
 		emit_signal("login_failed", "Invalid data received")

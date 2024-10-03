@@ -2,10 +2,10 @@
 extends Node
 
 var user_manager = {
-	"user_session_manager": {"path_tree": "/root/User/Manager/UserSessionManager", "cache": true},
-	"session_lock_handler": {"path_tree": "/root/User/Manager/UserSessionManager/Handler/SessionLockHandler", "cache": true},
-	"session_lock_type_handler": {"path_tree": "/root/User/Manager/UserSessionManager/Handler/SessionLockTypeHandler", "cache": true},
-	"timeout_handler": {"path_tree": "/root/User/Manager/UserSessionManager/Handler/TimeoutHandler", "cache": true},
+	"user_session_manager": {"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager", "cache": true},
+	"session_lock_handler": {"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager/Handler/SessionLockHandler", "cache": true},
+	"session_lock_type_handler": {"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager/Handler/SessionLockTypeHandler", "cache": true},
+	"timeout_handler": {"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager/Handler/TimeoutHandler", "cache": true},
 }
 
 func get_data() -> Dictionary:

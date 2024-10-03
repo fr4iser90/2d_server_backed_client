@@ -13,7 +13,6 @@ extends Node
 func _ready():
 	print("UserManager intialized")
 
-
 # Lädt die Liste der Benutzernamen
 func fetch_all_users() -> Array:
 	return user_fetch_handler.fetch_all_users()
@@ -31,7 +30,6 @@ func load_users_list() -> Array:
 	
 func get_user_id_by_username(username: String) -> String:
 	return user_fetch_handler.get_user_id_by_username(username) 
-
 	
 func create_user(username: String, password: String):
 	return user_create_handler.create_user(username, password)
