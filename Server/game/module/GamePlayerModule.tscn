@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdvnonr6b4wvb"]
+
+[ext_resource type="Script" path="res://game/module/player_manager/player_manager/PlayerManager.gd" id="1_5n2tl"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/PlayerMovementManager.gd" id="2_y5qrp"]
+[ext_resource type="Script" path="res://server/server_manager/PlayerMonitor.gd" id="3_ciub3"]
+[ext_resource type="Script" path="res://server/server_manager/InstanceMonitor.gd" id="4_3fa8d"]
+[ext_resource type="Script" path="res://game/module/player_manager/character_manager/CharacterManager.gd" id="5_yi34c"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_state_manager/PlayerStateManager.gd" id="6_u8usa"]
+
+[node name="GamePlayerModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="PlayerManager" type="Node" parent="Manager"]
+script = ExtResource("1_5n2tl")
+
+[node name="Handler" type="Node" parent="Manager/PlayerManager"]
+
+[node name="PlayerSpawnHandler" type="Node" parent="Manager/PlayerManager/Handler"]
+
+[node name="PlayerMovementManager" type="Node" parent="Manager"]
+script = ExtResource("2_y5qrp")
+
+[node name="Handler" type="Node" parent="Manager/PlayerMovementManager"]
+
+[node name="PlayerMovementData" type="Node" parent="Manager"]
+script = ExtResource("3_ciub3")
+
+[node name="Handler" type="Node" parent="Manager/PlayerMovementData"]
+
+[node name="PlayerVisualMonitor" type="Node" parent="Manager"]
+script = ExtResource("4_3fa8d")
+
+[node name="Handler" type="Node" parent="Manager/PlayerVisualMonitor"]
+
+[node name="CharacterManager" type="Node" parent="Manager"]
+script = ExtResource("5_yi34c")
+
+[node name="Handler" type="Node" parent="Manager/CharacterManager"]
+
+[node name="PlayerStateManager" type="Node" parent="Manager"]
+script = ExtResource("6_u8usa")
+
+[node name="PlayerIdleStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerMovingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerAttackingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerCastingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerSwimmingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerClimbingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerJumpingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerDashingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerDodgingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerStunnedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerDeadStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerInteractingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerBlockingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerRidingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerStealthStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerHealingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerFallingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerFlyingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerKnockedDownStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerClimbingLadderStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerSlidingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerCrouchingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerTradingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerUsingItemStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerAimingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerRespawningStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerMountedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerTeleportingStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerDisarmedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerParalyzedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerKnockingBackStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerDebuffedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerBuffedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerInCombatStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerEncumberedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="PlayerFrozenStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="Handler" type="Node" parent="."]

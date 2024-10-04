@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1dmmasefgrbs"]
+
+[ext_resource type="Script" path="res://user/module/user_session/user_session_manager/UserSessionManager.gd" id="1_whrvf"]
+[ext_resource type="Script" path="res://user/module/user_session/user_session_manager/handler/session_lock_handler.gd" id="2_illlv"]
+[ext_resource type="Script" path="res://user/module/user_session/user_session_manager/handler/timeout_handler.gd" id="3_0ffqh"]
+
+[node name="UserSessionModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="UserSessionManager" type="Node" parent="Manager"]
+script = ExtResource("1_whrvf")
+
+[node name="Handler" type="Node" parent="Manager/UserSessionManager"]
+
+[node name="SessionLockHandler" type="Node" parent="Manager/UserSessionManager/Handler"]
+script = ExtResource("2_illlv")
+
+[node name="TimeoutHandler" type="Node" parent="Manager/UserSessionManager/Handler"]
+script = ExtResource("3_0ffqh")
+
+[node name="SessionLockTypeHandler" type="Node" parent="Manager/UserSessionManager/Handler"]
+
+[node name="Handler" type="Node" parent="."]

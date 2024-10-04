@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmu5u3w8dflrx"]
+
+[ext_resource type="Script" path="res://server/server_manager/PlayerMonitor.gd" id="1_0ut77"]
+[ext_resource type="Script" path="res://server/server_manager/InstanceMonitor.gd" id="2_het6b"]
+
+[node name="Core" type="Node"]
+
+[node name="ServerManager" type="Node" parent="."]
+
+[node name="PlayerMovementData" type="Node" parent="ServerManager"]
+script = ExtResource("1_0ut77")
+
+[node name="Handler" type="Node" parent="ServerManager/PlayerMovementData"]
+
+[node name="PlayerVisualMonitor" type="Node" parent="ServerManager"]
+script = ExtResource("2_het6b")
+
+[node name="Handler" type="Node" parent="ServerManager/PlayerVisualMonitor"]
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="Utils" type="Node" parent="."]
