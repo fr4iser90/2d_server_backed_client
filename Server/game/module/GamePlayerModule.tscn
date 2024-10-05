@@ -1,11 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdvnonr6b4wvb"]
+[gd_scene load_steps=14 format=3 uid="uid://bdvnonr6b4wvb"]
 
 [ext_resource type="Script" path="res://game/module/player_manager/player_manager/PlayerManager.gd" id="1_5n2tl"]
 [ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/PlayerMovementManager.gd" id="2_y5qrp"]
 [ext_resource type="Script" path="res://server/server_manager/PlayerMonitor.gd" id="3_ciub3"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovementValidationHandler.gd" id="3_qfor6"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovementUpdateHandler.gd" id="3_y86hp"]
 [ext_resource type="Script" path="res://server/server_manager/InstanceMonitor.gd" id="4_3fa8d"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovementPositionSyncHandler.gd" id="4_ij5it"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerObstacleDetectionHandler.gd" id="5_mx36j"]
 [ext_resource type="Script" path="res://game/module/player_manager/character_manager/CharacterManager.gd" id="5_yi34c"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovementTriggerHandler.gd" id="6_mm3gd"]
 [ext_resource type="Script" path="res://game/module/player_manager/player_state_manager/PlayerStateManager.gd" id="6_u8usa"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovementStateHandler.gd" id="8_n3i13"]
+[ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovmementProcessHandler.gd" id="9_gdrxg"]
 
 [node name="GamePlayerModule" type="Node"]
 
@@ -22,6 +29,27 @@ script = ExtResource("1_5n2tl")
 script = ExtResource("2_y5qrp")
 
 [node name="Handler" type="Node" parent="Manager/PlayerMovementManager"]
+
+[node name="PlayerMovementValidationHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("3_qfor6")
+
+[node name="PlayerMovementPositionSyncHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("4_ij5it")
+
+[node name="PlayerMovementObstacleDetectionHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("5_mx36j")
+
+[node name="PlayerMovementTriggerHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("6_mm3gd")
+
+[node name="PlayerMovementUpdateHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("3_y86hp")
+
+[node name="PlayerMovementStateHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("8_n3i13")
+
+[node name="PlayerMovmementProcessHandler" type="Node" parent="Manager/PlayerMovementManager/Handler"]
+script = ExtResource("9_gdrxg")
 
 [node name="PlayerMovementData" type="Node" parent="Manager"]
 script = ExtResource("3_ciub3")
@@ -112,5 +140,3 @@ script = ExtResource("6_u8usa")
 [node name="PlayerEncumberedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
 
 [node name="PlayerFrozenStateHandler" type="Node" parent="Manager/PlayerStateManager"]
-
-[node name="Handler" type="Node" parent="."]

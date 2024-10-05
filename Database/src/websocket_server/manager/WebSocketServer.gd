@@ -1,3 +1,4 @@
+# WebSocketManager Type-Action System
 extends Node
 
 # Server variables

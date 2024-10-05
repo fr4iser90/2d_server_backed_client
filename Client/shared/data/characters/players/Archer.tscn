@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://k7j1v1elnidw"]
+[gd_scene load_steps=6 format=3 uid="uid://k7j1v1elnidw"]
 
 [ext_resource type="Texture2D" uid="uid://bucblo35hk2no" path="res://shared/Assets/Art/im no artist/archer.png" id="2_cc8j8"]
+[ext_resource type="Script" path="res://shared/data/characters/players/archer/NavigationAgent2D.gd" id="2_ru2qs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dm7p4"]
 animations = [{
@@ -63,3 +64,9 @@ offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 13
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+script = ExtResource("2_ru2qs")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+avoidance_layers = 2

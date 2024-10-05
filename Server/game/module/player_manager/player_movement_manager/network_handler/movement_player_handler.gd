@@ -35,7 +35,14 @@ func handle_packet(data: Dictionary, peer_id: int):
 
 	# Debugging converted position and velocity
 	#print("Converted position: ", position_converted, " and velocity: ", velocity_converted, " for peer_id: ", peer_id)
-
+	# Validate the movement before updating
+	if player_movement_manager.is_valid_movement(peer_id, position_converted, velocity_converted):
+		player_movement_manager.process_received_data(peer_id, {
+			"position": position_converted,
+			"velocity": velocity_converted
+		})
+	else:
+		print("Movement denied for peer_id ", peer_id, " due to obstacle.")
 	# Validate the data using PacketConverterHandler and process it
 	if packet_converter_handler.validate_movement_data(data):
 		#print("Valid movement data for peer_id: ", peer_id, ". Processing movement...")

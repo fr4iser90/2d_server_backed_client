@@ -1,3 +1,4 @@
+# TriggerManager
 extends Node
 
 # Managers

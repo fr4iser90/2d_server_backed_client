@@ -15,6 +15,7 @@ var world_manager = {
 	"spawn_point_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/SpawnPointManager", "cache": true},
 	"world_loader": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager", "cache": true},
 	"entity_node_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/EntityNodeManager", "cache": true},
+	"navigation_mesh_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager", "cache": true},
 }
 
 var inventory_manager = {

@@ -24,7 +24,7 @@ func _on_instance_created(instance_key: String):
 
 # Handler für das Signal 'instance_assigned'
 func _on_instance_assigned(peer_id: int, instance_key: String):
-	print("Instance assigned to peer:", peer_id, "with instance key:", instance_key)
+	#print("Instance assigned to peer:", peer_id, "with instance key:", instance_key)
 	
 	# Sende Instanzdaten an den neuen Client
 	send_instance_data_to_client(peer_id)
@@ -85,7 +85,7 @@ func send_instance_data_to_client(peer_id: int):
 			var players_minimal_data = []
 
 			for player in full_instance_data["players"]:
-				print(full_instance_data["players"])
+				#print(full_instance_data["players"])
 				
 				players_minimal_data.append({
 					"peer_id": player["peer_id"],
@@ -103,7 +103,7 @@ func send_instance_data_to_client(peer_id: int):
 
 			# Dispatch the packet to the client
 			enet_server_manager.send_packet(peer_id, handler_name, packet_data)
-			print("Instance data sent to peer_id:", peer_id, "with filtered data:", packet_data)
+			#print("Instance data sent to peer_id:", peer_id, "with filtered data:", packet_data)
 		else:
 			print("Error: Invalid instance data for instance key:", instance_key)
 	else:

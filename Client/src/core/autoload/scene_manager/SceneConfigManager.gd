@@ -25,6 +25,7 @@ var misc_scenes = {
 
 var scene_levels = {
 	"spawn_room2": "res://shared/data/levels/test/spawn_room2.tscn",
+	"spawn_room4": "res://shared/data/levels/test/spawn_room4.tscn",
 	"sample_layout": "res://shared/data/levels/test/sample_layout.tscn",
 	"spawn_room333": "res://shared/data/levels/test/spawn_room333.tscn",
 	"Room": "res://shared/data/levels/test/Room.tscn",

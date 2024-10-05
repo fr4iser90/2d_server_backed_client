@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwvji7mhn3ydq"]
+[gd_scene load_steps=25 format=3 uid="uid://dwvji7mhn3ydq"]
 
 [ext_resource type="Script" path="res://src/database/server/handler/ServerAuthHandler.gd" id="1_0brge"]
 [ext_resource type="Script" path="res://src/websocket_server/manager/WebSocketServer.gd" id="1_0e8u5"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://src/database/character/handler/CharacterFetchHandler.gd" id="10_cave0"]
 [ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/PacketManager.gd" id="10_poc24"]
 [ext_resource type="Script" path="res://src/database/utility/RemoveHandler.gd" id="11_itfl6"]
+[ext_resource type="Script" path="res://src/database/character/handler/CharacterUpdateHandler.gd" id="12_8spfd"]
 [ext_resource type="Script" path="res://src/database/utility/FetchHandler.gd" id="12_dhnf7"]
 [ext_resource type="Script" path="res://src/console/database/DatabasePanelList.gd" id="15_31mhg"]
 [ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/manager/ServerPacketManager.gd" id="18_b82ws"]
@@ -98,6 +99,9 @@ script = ExtResource("10_cave0")
 [node name="CharacterRemoveHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
 
 [node name="CharacterDataHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+
+[node name="CharacterUpdateHandler" type="Node" parent="Source/Database/Character/CharacterManager"]
+script = ExtResource("12_8spfd")
 
 [node name="Server" type="Node" parent="Source/Database"]
 

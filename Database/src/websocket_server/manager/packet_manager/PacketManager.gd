@@ -1,4 +1,4 @@
-# PacketManager.gd
+# PacketManager.gd this time Type-Action System
 extends Node
 
 @onready var global_manager = $"../../../../Database/Global/GlobalManager"

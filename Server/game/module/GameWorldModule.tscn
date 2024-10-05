@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://q6o43ierr1pd"]
+[gd_scene load_steps=34 format=3 uid="uid://q6o43ierr1pd"]
 
 [ext_resource type="Script" path="res://game/module/world_manager/instance_manager/InstanceManager.gd" id="1_4280o"]
 [ext_resource type="Script" path="res://game/module/world_manager/instance_manager/handler/InstanceLifecycleHandler.gd" id="2_0b0p6"]
@@ -26,6 +26,13 @@
 [ext_resource type="Script" path="res://game/module/world_manager/trigger_manager/handler/TriggerArea2DCalculationHandler.gd" id="19_2wwjh"]
 [ext_resource type="Script" path="res://game/module/player_manager/spawn_manager/SpawnManger.gd" id="20_5ya2i"]
 [ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/NavigationMeshManager.gd" id="26_i1mef"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshPathfindingHandler.gd" id="27_qrtxd"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshObstacleHandler.gd" id="28_dd3m2"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshInstanceHandler.gd" id="29_iq4kr"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshUpdateHandler.gd" id="30_g6ir5"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshBakingHandler.gd" id="31_rgb5f"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshLoadingHandler.gd" id="32_wnbrc"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/handler/NavigationMeshSyncHandler.gd" id="33_meexa"]
 
 [node name="GameWorldModule" type="Node"]
 
@@ -139,12 +146,29 @@ script = ExtResource("26_i1mef")
 
 [node name="Handler" type="Node" parent="Manager/NavigationMeshManager"]
 
-[node name="Handler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+[node name="NavigationMeshPathfindingHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("27_qrtxd")
 
-[node name="Handler2" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+[node name="NavigationMeshObstacleHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("28_dd3m2")
 
-[node name="Handler3" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+[node name="NavigationMeshInstanceHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("29_iq4kr")
 
-[node name="Handler4" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+[node name="NavigationMeshUpdateHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("30_g6ir5")
 
-[node name="Handler5" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+[node name="NavigationMeshMobHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="NavigationMeshNPCHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="NavigationMeshBakingHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("31_rgb5f")
+
+[node name="NavigationMeshLoadingHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("32_wnbrc")
+
+[node name="NavigationMeshBoundaryHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="NavigationMeshSyncHandler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+script = ExtResource("33_meexa")

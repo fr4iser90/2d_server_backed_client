@@ -4,10 +4,13 @@ var channel_manager = null
 var packet_manager = null
 var enet_server_manager
 var connected_peers = {}  # Dictionary to track connected peers
-signal peer_connected(peer_id: int)
-signal peer_disconnected(peer_id: int)
+
 signal enet_server_ready
 signal enet_server_started
+
+@onready var enet_server_on_peer_connected_handler = $Handler/ENetServerOnPeerConnectedHandler
+@onready var enet_server_on_peer_disconnected_handler = $Handler/ENetServerOnPeerDisconnectedHandler
+
 
 var is_initialized = false
 
@@ -40,40 +43,13 @@ func start_server(port: int):
 		GlobalManager.DebugPrint.debug_error("Failed to start server: " + str(err), self)
 		set_process(false)
 
-# Called when a peer connects
+# Handle peer connection event
 func _on_peer_connected(peer_id: int):
-	GlobalManager.DebugPrint.debug_info("Peer connected with ID: " + str(peer_id), self)
-	connected_peers[peer_id] = true  # Register the peer as connected
-	emit_signal("peer_connected", peer_id)
-	
-	var core_connection_handler = GlobalManager.NodeManager.get_cached_node("network_game_handler", "core_connection_handler")
-	if core_connection_handler:
-		core_connection_handler.handle_connection_request(peer_id)
+	return enet_server_on_peer_connected_handler.handle_peer_connected(peer_id, connected_peers)
 
-# Called when a peer disconnects
-# Called when a peer disconnects
+# Handle peer disconnection event
 func _on_peer_disconnected(peer_id: int):
-	GlobalManager.DebugPrint.debug_info("Peer disconnected with ID: " + str(peer_id), self)
-	connected_peers.erase(peer_id)  # Remove the peer from the connected list
-	
-	# Liste von Managern, die die Peer-ID löschen müssen
-	var manager_list = [
-		{"manager": "world_manager", "node": "instance_manager", "remove_function": "remove_player_from_instance"},
-		{"manager": "game_manager", "node": "player_movement_manager", "remove_function": "remove_player"},
-		{"manager": "user_manager", "node": "user_session_manager", "remove_function": "remove_user"},
-		{"manager": "game_manager", "node": "character_manager", "remove_function": "remove_character"}
-	]
-
-	# Iteriere durch die Liste und entferne die Peer-ID dynamisch
-	for manager_data in manager_list:
-		var manager = GlobalManager.NodeManager.get_cached_node(manager_data["manager"], manager_data["node"])
-		if manager and manager.has_method(manager_data["remove_function"]):
-			manager.call(manager_data["remove_function"], peer_id)
-			GlobalManager.DebugPrint.debug_info(manager_data["remove_function"] + " called for " + manager_data["node"] + " with peer_id: " + str(peer_id), self)
-		else:
-			GlobalManager.DebugPrint.debug_warning("Manager or function not found: " + manager_data["node"], self)
-	
-	emit_signal("peer_disconnected", peer_id)
+	return enet_server_on_peer_disconnected_handler.handle_peer_disconnected(peer_id, connected_peers)
 
 
 func _process(delta):

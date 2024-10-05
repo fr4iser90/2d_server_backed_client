@@ -60,3 +60,13 @@ ui_down={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_navigation/layer_1="GroundLayer"
+2d_navigation/layer_2="ObstacleLayer"
+2d_navigation/layer_3="BlockingLayer"
+2d_navigation/layer_4="NoFlyLayer"
+2d_navigation/layer_5="PathfindingHintLayer"
+avoidance/layer_1="SolidObstacle"
+avoidance/layer_3="BackGround"

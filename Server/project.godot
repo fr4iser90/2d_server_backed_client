@@ -23,3 +23,9 @@ GlobalManager="*res://autoload/GlobalManager.gd"
 
 window/size/viewport_width=1440
 window/size/viewport_height=920
+
+[layer_names]
+
+2d_navigation/layer_1="GroundLayer"
+2d_navigation/layer_2="ObstacleLayer"
+2d_navigation/layer_3="NavigationRegion2D"

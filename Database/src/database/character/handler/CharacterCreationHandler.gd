@@ -1,3 +1,4 @@
+# CharacterCreationHandler
 extends Node
 
 const CharacterModel = preload("res://data/character/CharacterModel.gd")

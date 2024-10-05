@@ -130,3 +130,40 @@ func cleanup_player_data(peer_id: int):
 func _on_peer_disconnected(peer_id: int):
 	print("Peer disconnected: ", peer_id)
 	cleanup_player_data(peer_id)
+
+
+
+
+## SHOULLD END UP
+#extends Node
+#
+#var enet_server_manager
+#var instance_manager
+#var handler_name = "movement_player_sync_handler"
+#
+#var is_initialized = false
+#
+### Initialization function to retrieve required managers
+##func initialize():
+	##if is_initialized:
+		##return
+	##enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
+	##instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	##is_initialized = true
+#
+## Handle incoming movement packets and forward them for processing
+#func handle_movement_packet(peer_id: int, movement_data: Dictionary):
+	#if not is_initialized:
+		#print("Sync handler not initialized.")
+		#return
+#
+	## Forward the movement data to the process handler for validation and syncing
+	#var player_movement_process_handler = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_process_handler")
+	#player_movement_process_handler.process_received_data(peer_id, movement_data)
+#
+## Send the movement data to a specific peer
+#func send_packet_to_peer(target_peer_id: int, packet: Dictionary):
+	#if enet_server_manager:
+		#enet_server_manager.send_packet(target_peer_id, handler_name, packet)
+	#else:
+		#print("Error: ENet server manager is not initialized.")

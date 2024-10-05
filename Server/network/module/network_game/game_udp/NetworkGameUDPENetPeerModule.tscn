@@ -1,12 +1,18 @@
-[gd_scene load_steps=28 format=3 uid="uid://cudxxv1ij0nt2"]
+[gd_scene load_steps=34 format=3 uid="uid://cudxxv1ij0nt2"]
 
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/NetworkGameModule.gd" id="1_d0lfc"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/enet_server_manager.gd" id="2_0eset"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/channel_manager/channel_manager.gd" id="3_n2k4d"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerStartHandler.gd" id="3_yk8g8"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/channel_manager/ChannelMap.gd" id="4_7df81"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerStopHandler.gd" id="4_lpjob"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/packet_manager/packet_manager.gd" id="5_23jpr"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerOnPeerConnectedHandler.gd" id="5_olooa"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerOnPeerDisconnectedHandler.gd" id="6_1vfhx"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/packet_manager/handler/PacketDispatchHandler.gd" id="6_k6a2e"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/packet_manager/handler/PacketProcessingHandler.gd" id="7_45nmv"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerProcessHandler.gd" id="7_h2h6j"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerPacketSendHandler.gd" id="8_hpljq"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/packet_manager/handler/PacketCreationHandler.gd" id="8_hs1m5"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/packet_manager/handler/PacketCacheHandler.gd" id="9_cebe6"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/packet_manager/handler/PacketConverterHandler.gd" id="10_13fup"]
@@ -35,6 +41,26 @@ script = ExtResource("1_d0lfc")
 
 [node name="NetworkENetServerManager" type="Node" parent="Manager"]
 script = ExtResource("2_0eset")
+
+[node name="Handler" type="Node" parent="Manager/NetworkENetServerManager"]
+
+[node name="ENetServerStartHandler" type="Node" parent="Manager/NetworkENetServerManager/Handler"]
+script = ExtResource("3_yk8g8")
+
+[node name="ENetServerStopHandler" type="Node" parent="Manager/NetworkENetServerManager/Handler"]
+script = ExtResource("4_lpjob")
+
+[node name="ENetServerOnPeerConnectedHandler" type="Node" parent="Manager/NetworkENetServerManager/Handler"]
+script = ExtResource("5_olooa")
+
+[node name="ENetServerOnPeerDisconnectedHandler" type="Node" parent="Manager/NetworkENetServerManager/Handler"]
+script = ExtResource("6_1vfhx")
+
+[node name="ENetServerProcessHandler" type="Node" parent="Manager/NetworkENetServerManager/Handler"]
+script = ExtResource("7_h2h6j")
+
+[node name="ENetServerPacketSendHandler" type="Node" parent="Manager/NetworkENetServerManager/Handler"]
+script = ExtResource("8_hpljq")
 
 [node name="NetworkChannelManager" type="Node" parent="Manager"]
 script = ExtResource("3_n2k4d")
