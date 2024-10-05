@@ -2,7 +2,6 @@
 extends Node
 
 var core_tree
-var network_tree
 var user_session_module
 var game_player_module
 var game_world_module
@@ -22,6 +21,6 @@ func _initialize():
 	game_player_module = GlobalManager.SceneManager.put_scene_at_node("GamePlayerModule", "Game")
 	game_world_module = GlobalManager.SceneManager.put_scene_at_node("GameWorldModule", "Game")
 	game_level_module = GlobalManager.SceneManager.put_scene_at_node("GameLevelModule", "Game")
-	
+	print("All SD ASDSA")
 
 	emit_signal("all_managers_initialized")

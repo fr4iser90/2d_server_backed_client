@@ -12,9 +12,9 @@ enum ServerPreset {
 func load_preset(selected_preset: int):
 	match selected_preset:
 		ServerPreset.GodotDatabaseWebSocket:
-			load_mongo_database_rest_api()
-		ServerPreset.MongoDatabaseRestAPI:
 			load_godot_database_web_socket()
+		ServerPreset.MongoDatabaseRestAPI:
+			load_mongo_database_rest_api()
 		_:
 			print("Unknown preset selected")
 

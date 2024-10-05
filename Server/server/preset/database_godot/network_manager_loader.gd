@@ -12,6 +12,7 @@ func load_network_managers():
 
 # Initialisiert die Netzwerkknoten
 func _initialize_network_nodes():
+	print("adding Network")
 	network_server_game_module = GlobalManager.SceneManager.put_scene_at_node("NetworkGameUDPENetPeerModule", "Network")
 	network_server_databse_module = GlobalManager.SceneManager.put_scene_at_node("NetworkDatabaseGodotWebsocketModule", "Network")
 #	GlobalManager.SceneManager.scan_runtime_node_map()

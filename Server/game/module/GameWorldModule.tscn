@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://q6o43ierr1pd"]
+[gd_scene load_steps=27 format=3 uid="uid://q6o43ierr1pd"]
 
 [ext_resource type="Script" path="res://game/module/world_manager/instance_manager/InstanceManager.gd" id="1_4280o"]
 [ext_resource type="Script" path="res://game/module/world_manager/instance_manager/handler/InstanceLifecycleHandler.gd" id="2_0b0p6"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://game/module/world_manager/trigger_manager/handler/TriggerObjectiveHandler.gd" id="18_dwkjr"]
 [ext_resource type="Script" path="res://game/module/world_manager/trigger_manager/handler/TriggerArea2DCalculationHandler.gd" id="19_2wwjh"]
 [ext_resource type="Script" path="res://game/module/player_manager/spawn_manager/SpawnManger.gd" id="20_5ya2i"]
+[ext_resource type="Script" path="res://game/module/world_manager/navigation_mesh_manager/NavigationMeshManager.gd" id="26_i1mef"]
 
 [node name="GameWorldModule" type="Node"]
 
@@ -132,3 +133,18 @@ script = ExtResource("19_2wwjh")
 
 [node name="SpawnPointManager" type="Node" parent="Manager"]
 script = ExtResource("20_5ya2i")
+
+[node name="NavigationMeshManager" type="Node" parent="Manager"]
+script = ExtResource("26_i1mef")
+
+[node name="Handler" type="Node" parent="Manager/NavigationMeshManager"]
+
+[node name="Handler" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="Handler2" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="Handler3" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="Handler4" type="Node" parent="Manager/NavigationMeshManager/Handler"]
+
+[node name="Handler5" type="Node" parent="Manager/NavigationMeshManager/Handler"]
