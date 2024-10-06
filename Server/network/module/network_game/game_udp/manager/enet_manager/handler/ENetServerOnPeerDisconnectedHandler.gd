@@ -24,9 +24,17 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	var updated_data = character_manager.get_selected_character_data(peer_id)
 	
 	print("character_data will update : ", updated_data)
-	var character_id = updated_data["id"]
-	database_character_update_handler.process_character_update(peer_id, character_id, updated_data)
-	network_enet_server_manager.connected_peers.erase(peer_id)  # Remove the peer from the connected list
+	
+	# Make sure the updated_data has the "id" key before accessing
+	if updated_data.has("id"):
+		var character_id = updated_data["id"]
+		updated_data.erase("id")
+		database_character_update_handler.process_character_update(peer_id, character_id, updated_data)
+	else:
+		print("Character ID not found for peer_id:", peer_id)
+	
+	# Remove the peer from the connected list
+	network_enet_server_manager.connected_peers.erase(peer_id)
 	
 	# Liste von Managern, die die Peer-ID löschen müssen
 	var manager_list = [

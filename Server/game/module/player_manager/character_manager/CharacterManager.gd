@@ -71,7 +71,10 @@ func get_character_data_by_name(peer_id: int, character_name: String) -> Diction
 
 # Retrieve the selected character data for a peer
 func get_selected_character_data(peer_id: int) -> Dictionary:
-	return selected_character_data.get(peer_id, {})
+	print("Retrieving selected character data for peer_id:", peer_id)
+	var character = selected_character_data.get(peer_id, {})
+	print("Selected character data:", character)
+	return character
 
 # Store sensitive data for a peer
 func store_sensitive_data(peer_id: int, sensitive_info: Dictionary):

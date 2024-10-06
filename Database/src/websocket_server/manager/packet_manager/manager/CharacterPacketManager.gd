@@ -20,7 +20,8 @@ func handle_character_packet(peer_id: int, packet: Dictionary):
 			character_manager.create_character(packet["user_id"], packet["character_name"], packet["character_class"])
 			response_packet_manager.send_response(peer_id, "create_character", true)
 		"update_character":
-			character_manager.update_character(packet["character_id"], packet["updated_data"])
+			print()
+			character_manager.update_character(packet["user_id"], packet["character_id"], packet["character_data"])
 			response_packet_manager.send_response(peer_id, "update_character", true)
 		"delete_character":
 			character_manager.delete_character(packet["character_id"])
