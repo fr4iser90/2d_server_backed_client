@@ -17,7 +17,7 @@ func _initialize_network_nodes():
 #	GlobalManager.SceneManager.scan_runtime_node_map()
 	network_server_game_module.initialize()
 	network_server_databse_module.initialize()
-	_check_if_managers_loaded()
+	call_deferred("_check_if_managers_loaded()")
 
 # Überprüft, ob die Manager geladen sind
 func _check_if_managers_loaded():

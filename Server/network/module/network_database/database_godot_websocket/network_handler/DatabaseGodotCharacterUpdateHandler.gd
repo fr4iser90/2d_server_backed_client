@@ -8,6 +8,7 @@ var user_session_manager
 var character_manager
 var instance_manager
 var character_class
+var websocket_multiplayer_manager
 var is_initialized = false
 
 func initialize():
@@ -16,6 +17,7 @@ func initialize():
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
 	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
 	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
 	is_initialized = true
 
 
@@ -27,7 +29,7 @@ func process_character_update(peer_id: int, character_id: String, character_data
 	var user_id = user_session_manager.get_user_id(peer_id)
 
 	# Prepare WebSocket connection
-	var websocket_peer = GlobalManager.NodeManager.get_cached_node("network_game_module", "websocket_multiplayer_manager").get_websocket_peer()
+	var websocket_peer = websocket_multiplayer_manager.get_websocket_peer()
 
 	# Check if WebSocket is connected
 	if websocket_peer and websocket_peer.get_connection_status() == WebSocketMultiplayerPeer.CONNECTION_CONNECTED:

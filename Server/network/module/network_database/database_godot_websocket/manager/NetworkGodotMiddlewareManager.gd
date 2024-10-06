@@ -1,19 +1,29 @@
 extends Node
 
-var ip = "127.0.0.1"
-var port = "3500"
+var ip = ""
+var port = ""
 var database_server_auth_handler
 var database_user_login_handler
 var database_character_fetch_handler
 var websocket_multiplayer_peer: WebSocketMultiplayerPeer
 var is_connected = false
 
-func connect_to_server():
+func connect_to_server(ip_input: String, port_input: String, token: String):
+	# Convert "localhost" to "127.0.0.1"
+	ip = ip_input
+	if ip_input.to_lower() == "localhost":
+		ip = "127.0.0.1"
+	
+	# Ensure no "http://" or "https://" is in the IP string
+	if ip.begins_with("http://") or ip.begins_with("https://"):
+		ip = ip.substr(ip.find("/") + 2)  # Remove the protocol
+	port = port_input
 	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_server_auth_handler")
 	database_user_login_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_user_login_handler")
 	database_character_fetch_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_fetch_handler")
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
-	var url = "ws://" + ip + ":" + str(port)
+	var url = "ws://" + ip + ":" + str(port_input)
+	print("URL: ", url)
 	var err = websocket_multiplayer_peer.create_client(url)
 
 	if err != OK:

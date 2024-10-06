@@ -4,17 +4,17 @@ extends Node
 # Server variables
 var websocket_multiplayer_peer: WebSocketMultiplayerPeer
 var peers_info = {}  # Stores information for each peer, such as packet counts.
+var port: int
 
-@export var port: int = 3500
+@onready var database_port_input = $"../../../../Control/MainVBoxContainer/SettingsContainer/DatabasePortInput"
+#@export var port: int = 3500
 @onready var peer_list = $"../../../../Control/MainVBoxContainer/MainHBoxContainer/ListContainer/PeerPanel/PeerList"
 @onready var packet_manager = $PacketManager
 
-# Initial setup of the WebSocket server
-func _ready():
-	initialize_server()
 
 # Initializes WebSocket server
 func initialize_server():
+	port = int(database_port_input.text)
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var err = websocket_multiplayer_peer.create_server(port, "0.0.0.0")
 
@@ -59,9 +59,10 @@ func _unregister_peer(peer_id: int):
 
 # Process WebSocket events and poll for packets
 func _process(delta):
-	websocket_multiplayer_peer.poll()
-	if websocket_multiplayer_peer.get_available_packet_count() > 0:
-		_handle_incoming_packet()
+	if websocket_multiplayer_peer:
+		websocket_multiplayer_peer.poll()
+		if websocket_multiplayer_peer.get_available_packet_count() > 0:
+			_handle_incoming_packet()
 
 # Handle incoming packets
 func _handle_incoming_packet():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://i3foluw8dcmd"]
+[gd_scene load_steps=8 format=3 uid="uid://i3foluw8dcmd"]
 
 [ext_resource type="Script" path="res://server/server_console/server_console.gd" id="1_7nc8j"]
 [ext_resource type="Script" path="res://server/server_console/player_panel/PlayerListManager.gd" id="2_fmqo2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://server/server_console/server_log_panel/ServerLog.gd" id="4_46ccg"]
 [ext_resource type="Script" path="res://server/server_console/handler/PresetHandler.gd" id="5_013mx"]
 [ext_resource type="Script" path="res://server/server_console/handler/SettingsHandler.gd" id="6_07408"]
+[ext_resource type="Script" path="res://server/server_console/handler/UILoadHandler.gd" id="7_5jjw1"]
 
 [node name="ServerConsole" type="Control"]
 layout_mode = 3
@@ -75,13 +76,6 @@ text = "9997"
 [node name="ServerAutoStartCheckButton" type="CheckButton" parent="ServerConsoleContainer/TopStartServer"]
 layout_mode = 2
 text = "AutoStartServer"
-
-[node name="UseDatabaseLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
-layout_mode = 2
-text = "Backend Type:"
-
-[node name="UseDatabaseTypeLabel" type="Label" parent="ServerConsoleContainer/TopStartServer"]
-layout_mode = 2
 
 [node name="TopBackend" type="HBoxContainer" parent="ServerConsoleContainer"]
 custom_minimum_size = Vector2(0, 30)
@@ -372,8 +366,10 @@ grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 10
 script = ExtResource("4_46ccg")
 
-[node name="ServerBackendPanelLabel" type="Label" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
+[node name="DatabaseLabel" type="RichTextLabel" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
+custom_minimum_size = Vector2(0, 23)
 layout_mode = 2
+bbcode_enabled = true
 text = "Backend:"
 
 [node name="ServerBackendPanel" type="Panel" parent="ServerConsoleContainer/Mid/ConsoleContainer"]
@@ -407,9 +403,12 @@ script = ExtResource("5_013mx")
 script = ExtResource("6_07408")
 
 [node name="ServerConsoleUILoadHandler" type="Node" parent="Handler"]
+script = ExtResource("7_5jjw1")
 
 [connection signal="pressed" from="ServerConsoleContainer/TopStartServer/StartServerButton" to="." method="_on_start_server_button_pressed"]
 [connection signal="toggled" from="ServerConsoleContainer/TopStartServer/ServerAutoStartCheckButton" to="." method="_on_server_auto_start_check_button_toggled"]
+[connection signal="text_changed" from="ServerConsoleContainer/TopBackend/BackendIPInput" to="." method="_on_backend_ip_input_text_changed"]
+[connection signal="text_changed" from="ServerConsoleContainer/TopBackend/BackendPortInput" to="." method="_on_backend_port_input_text_changed"]
 [connection signal="pressed" from="ServerConsoleContainer/TopBackend/ConnectToBackend" to="." method="_on_connect_to_backend_pressed"]
 [connection signal="item_activated" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_activated"]
 [connection signal="item_selected" from="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" to="ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager" method="_on_item_selected"]

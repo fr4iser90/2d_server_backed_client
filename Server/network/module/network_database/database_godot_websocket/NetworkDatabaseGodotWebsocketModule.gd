@@ -31,7 +31,8 @@ func connect_to_backend(ip: String, port: String, token: String):
 	if not is_initialized:
 		initialize()
 	GlobalManager.DebugPrint.debug_info("Connecting to backend...", self)
-	network_middleware_manager.connect_to_server()
+	network_middleware_manager.connect_to_server(ip, port, token)
+#	network_middleware_manager.connect_to_server()
 	if not nodes_referenced:
 		_reference_nodes()
 	emit_signal("network_server_backend_connection_established")

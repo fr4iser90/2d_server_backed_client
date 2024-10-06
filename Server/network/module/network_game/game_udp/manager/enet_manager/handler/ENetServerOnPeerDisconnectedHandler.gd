@@ -21,11 +21,11 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 		initialize()
 	GlobalManager.DebugPrint.debug_info("Peer disconnected with ID: " + str(peer_id), self)
 	var database_character_update_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_update_handler")
-	var character_data = character_manager.get_selected_character_data(peer_id)
+	var updated_data = character_manager.get_selected_character_data(peer_id)
 	
-	print("character_data will update : ", character_data)
-#	var character_id = character_data["character_id"]
-#	database_character_update_handler.process_character_update(peer_id, character_id, character_data)
+	print("character_data will update : ", updated_data)
+	var character_id = updated_data["id"]
+	database_character_update_handler.process_character_update(peer_id, character_id, updated_data)
 	network_enet_server_manager.connected_peers.erase(peer_id)  # Remove the peer from the connected list
 	
 	# Liste von Managern, die die Peer-ID löschen müssen

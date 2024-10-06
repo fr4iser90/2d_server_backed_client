@@ -1,8 +1,10 @@
+CheckButton
+Button
+HBoxContainer
+LineEdit
 Node
 GridContainer
-Button
 VBoxContainer
-HBoxContainer
 Control
 ItemList
 Panel

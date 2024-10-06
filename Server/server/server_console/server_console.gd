@@ -7,9 +7,10 @@ extends Control
 @onready var server_stop_button = $ServerConsoleContainer/TopStartServer/StopServerButton
 @onready var server_port = $ServerConsoleContainer/TopStartServer/ServerPortInput
 @onready var server_auto_start_checkbutton = $ServerConsoleContainer/TopStartServer/ServerAutoStartCheckButton
+@onready var current_database_type_label = $ServerConsoleContainer/TopStartServer/CurrentDatabaseTypeLabel
 # TopBackend
-@onready var backend_ip = $ServerConsoleContainer/TopBackend/BackendIPInput
-@onready var backend_port = $ServerConsoleContainer/TopBackend/BackendPortInput
+@onready var backend_ip_input = $ServerConsoleContainer/TopBackend/BackendIPInput
+@onready var backend_port_input = $ServerConsoleContainer/TopBackend/BackendPortInput
 @onready var server_validation_token = $ServerConsoleContainer/TopBackend/ServerValidationTokenInput
 @onready var connect_to_backend_button = $ServerConsoleContainer/TopBackend/ConnectToBackend
 @onready var disconnect_from_backend_button = $ServerConsoleContainer/TopBackend/DisconnectFromBackend
@@ -23,6 +24,7 @@ extends Control
 @onready var server_console_preset_handler = $Handler/ServerConsolePresetHandler
 @onready var server_console_settings_handler = $Handler/ServerConsoleSettingsHandler
 @onready var server_console_ui_load_handler = $Handler/ServerConsoleUILoadHandler
+
 
 
 enum BackendStatus {
@@ -60,7 +62,9 @@ func _get_manager():
 	network_server_client_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_game_module")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
-	
+	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connecting"))
+	network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_authentication_complete"))
+
 func _ready():
 	connect_to_backend_button.hide()
 	disconnect_from_backend_button.hide()
@@ -79,13 +83,23 @@ func _load_settings():
 	auto_connect_database_enabled = settings.get("auto_connect_enabled", false)
 	auto_start_server_enabled = settings.get("auto_start_server_enabled", false)
 
+	# Set the preset
 	if settings.has("selected_preset"):
 		server_preset_list.select(settings["selected_preset"])
 	else:
-		server_preset_list.select(0) 
-		
+		server_preset_list.select(0)  # Default to the first preset
+
+	# Set the auto-start checkbox
 	if server_auto_start_checkbutton:
 		server_auto_start_checkbutton.set_pressed(auto_start_server_enabled)
+
+	# Load the network settings into the UI inputs
+	if settings.has("backend_ip_input"):
+		backend_ip_input.text = settings["backend_ip_input"]
+	if settings.has("backend_port_input"):
+		backend_port_input.text = str(settings["backend_port_input"])
+	if settings.has("server_port_input"):
+		server_port.text = str(settings["server_port_input"])
 		
 		
 func _check_settings():
@@ -97,19 +111,6 @@ func _check_settings():
 		add_child(timer)
 		timer.start()
 		await timer.timeout
-
-
-func _on_server_auto_start_checkbutton_toggled(button_pressed: bool):
-	if auto_start_server_enabled != button_pressed:
-		auto_start_server_enabled = button_pressed
-		print("auto_start_server_enabled: ", auto_start_server_enabled)
-		server_console_settings_handler.save_auto_start(auto_start_server_enabled)
-		# Wenn Auto-Start aktiviert ist, den Server starten
-		if auto_start_server_enabled:
-			_on_start_server_button_pressed()
-			
-func _on_preset_selected(index: int):
-	server_console_settings_handler.save_preset(index)
 
 func _on_start_server_button_pressed():
 	var selected_items = server_preset_list.get_selected_items()
@@ -131,11 +132,10 @@ func _on_start_server_button_pressed():
 
 # Function that is called when the connect button is pressed
 func connect_to_database():
-	print("Network game and database modules initialized.")
 	_get_manager()
 	# Set the values in the global config from the UI inputs
-	GlobalManager.GlobalConfig.set_backend_ip_dns(backend_ip.text)
-	GlobalManager.GlobalConfig.set_backend_port(int(backend_port.text))
+	GlobalManager.GlobalConfig.set_backend_ip_dns(backend_ip_input.text)
+	GlobalManager.GlobalConfig.set_backend_port(int(backend_port_input.text))
 	GlobalManager.GlobalConfig.set_server_port(int(server_port.text))
 	GlobalManager.GlobalConfig.set_server_validation_key(server_validation_token.text)
 	# Now proceed to establish the backend connection using the updated global config values
@@ -174,8 +174,6 @@ func _on_server_client_network_started():
 # This function will be called when the ServerInit signals that all managers are ready
 func _on_server_initialized():
 	GlobalManager.DebugPrint.debug_info("Server initialized. Proceeding to connect server console.", self)
-
-	GlobalManager.GlobalServerConsolePrint.connect("log_server_console_message", Callable(self, "_on_log_message_server_client"))
 	user_session_manager.connect("user_data_changed", Callable(self, "_on_user_data_changed"))
 	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connected"))
 	network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_authentication_complete"))
@@ -187,17 +185,14 @@ func _on_server_initialized():
 func _update_backend_status(status: BackendStatus):
 	match status:
 		BackendStatus.DISCONNECTED:
-			GlobalManager.GlobalServerConsolePrint.print_to_console("Server disconnected from backend.")
-			backend_status_label.text = "Backend: Status Disconnected"
+			server_console_ui_load_handler.load_on_discconnected()
 		BackendStatus.CONNECTING:
-			GlobalManager.GlobalServerConsolePrint.print_to_console("Server connecting to backend.")
-			backend_status_label.text = "Backend: Status Connecting..."
+			server_console_ui_load_handler.load_on_connecting()
 		BackendStatus.AUTHENTICATED:
-			GlobalManager.GlobalServerConsolePrint.print_to_console("Server authentication in backend completed successfully.")
-			backend_status_label.text = "Backend: Status Authenticated"
+			server_console_ui_load_handler.load_on_server_authentication_successful()
 		BackendStatus.AUTHENTICATION_FAILED:
-			GlobalManager.GlobalServerConsolePrint.print_to_console("Server authentication in backend failed.")
-			backend_status_label.text = "Backend: Status Authentication Failed"
+			server_console_ui_load_handler.load_on_server_authentication_failed()
+
 			
 # Handle log messages
 func _on_log_message_server_client(message: String):
@@ -225,4 +220,25 @@ func _on_authentication_complete(success: bool):
 	else:
 		_update_backend_status(BackendStatus.AUTHENTICATION_FAILED)
 
+func _on_server_auto_start_checkbutton_toggled(button_pressed: bool):
+	if auto_start_server_enabled != button_pressed:
+		auto_start_server_enabled = button_pressed
+		server_console_settings_handler.save_auto_start(auto_start_server_enabled)
+		# Wenn Auto-Start aktiviert ist, den Server starten
+		if auto_start_server_enabled:
+			_on_start_server_button_pressed()
+			
+func _on_preset_selected(index: int):
+	server_console_settings_handler.save_preset(index)
 
+func _on_server_port_changed(new_port: String):
+	server_console_settings_handler.save_network_settings(backend_ip_input.text, backend_port_input.text.to_int(), new_port.to_int())
+
+func _on_backend_ip_input_text_changed(new_ip: String):
+	server_console_settings_handler.save_network_settings(new_ip, backend_port_input.text.to_int(), server_port.text.to_int())
+
+func _on_backend_port_input_text_changed(new_port: String):
+	print("CHDSUHADHIUSAHUIDUHIASDUHIAUHIS")
+	server_console_settings_handler.save_network_settings(backend_ip_input.text, new_port.to_int(), server_port.text.to_int())
+	
+	

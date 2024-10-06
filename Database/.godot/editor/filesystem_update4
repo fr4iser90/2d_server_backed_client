@@ -1,1 +1,3 @@
 res://database.tscn
+res://src/websocket_server/manager/WebSocketServer.gd
+res://src/console/settings_container/DatabaseInitSettings.gd

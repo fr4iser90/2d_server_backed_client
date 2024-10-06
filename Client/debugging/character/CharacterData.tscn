@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cxe020ab42pgb"]
+
+[node name="CharacterData" type="Control"]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 234.0
+offset_bottom = -138.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="CharacterContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterName" type="Label" parent="Panel/CharacterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="CharacterMainClass" type="Label" parent="Panel/CharacterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="CharacterLevel" type="Label" parent="Panel/CharacterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="CharacterPosition" type="Label" parent="Panel/CharacterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="CharacterAttributes" type="Label" parent="Panel/CharacterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
