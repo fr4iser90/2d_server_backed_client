@@ -17,9 +17,9 @@ func initialize():
 
 # Handle incoming packet from the client
 func handle_packet(client_data: Dictionary, peer_id: int):
-	if client_data.has("session_token") and client_data.has("name"):
+	if client_data.has("session_token") and client_data.has("character_class"):
 		var server_session_token = client_data["session_token"]
-		var name = client_data["name"]
+		var character_class = client_data["character_class"]
 
 		# Validate session token
 		if not GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager").validate_user_server_session_token(peer_id, server_session_token):
@@ -28,9 +28,9 @@ func handle_packet(client_data: Dictionary, peer_id: int):
 
 		# Forward request to backend handler
 		print("client_data: ", client_data)
-		database_handler.process_character_selection(peer_id, name)
+		database_handler.process_character_selection(peer_id, character_class)
 	else:
-		_on_character_selection_failed("Missing session_token or name")
+		_on_character_selection_failed("Missing session_token or character_class")
 
 # Handle successful character selection and send the data to the client
 func _on_character_selected_success(peer_id: int, character_data: Dictionary):

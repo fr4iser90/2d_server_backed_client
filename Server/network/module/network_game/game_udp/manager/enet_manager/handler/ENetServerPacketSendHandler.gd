@@ -1,9 +1,7 @@
 # PacketSendHandler.gd
 extends Node
 
-@onready var enet_server_manager = $"../.."
-
-
+var enet_server_manager
 var packet_manager
 var channel_manager
 var is_initialized = false
@@ -12,6 +10,7 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
 	is_initialized = true

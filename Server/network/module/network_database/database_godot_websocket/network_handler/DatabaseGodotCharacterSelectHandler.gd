@@ -7,7 +7,7 @@ signal character_selection_failed(reason: String)
 var user_session_manager
 var character_manager
 var instance_manager
-var character_class
+var character_name
 var is_initialized = false
 
 func initialize():
@@ -19,20 +19,18 @@ func initialize():
 	is_initialized = true
 
 # Process character selection and return result to the client handler
-func process_character_selection(peer_id: int, character_class: String):
-	print("character_class", character_class)
-	var character_data = user_session_manager.get_character_data_by_class(peer_id, character_class)
+func process_character_selection(peer_id: int, character_name: String):
+	print("character_name : ", character_name)
+	var character_data = character_manager.select_character_for_peer(peer_id, character_name)
 
+	print("CHAR SELECT DATA: ", character_data)
 	if character_data.size() == 0:
-		GlobalManager.DebugPrint.debug_error("Character data not found for class: " + str(character_class), self)
-		emit_signal("character_selection_failed", "Character data not found for class")
+		GlobalManager.DebugPrint.debug_error("Character data not found for name: " + str(character_name), self)
+		emit_signal("character_selection_failed", "Character data not found for name")
 		return
 
 	# Clean the character data (removing any sensitive or unnecessary fields)
 	var cleaned_character_data = clean_character_data(character_data)
-
-	# Add character to manager (optional step based on your architecture)
-	character_manager.add_character_to_manager(peer_id, cleaned_character_data)
 
 	# Handle instance assignment for the selected character
 	var instance_key = instance_manager.handle_player_character_selected(peer_id, cleaned_character_data)

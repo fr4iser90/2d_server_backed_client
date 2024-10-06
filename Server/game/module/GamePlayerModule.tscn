@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bdvnonr6b4wvb"]
+[gd_scene load_steps=15 format=3 uid="uid://bdvnonr6b4wvb"]
 
 [ext_resource type="Script" path="res://game/module/player_manager/player_manager/PlayerManager.gd" id="1_5n2tl"]
 [ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/PlayerMovementManager.gd" id="2_y5qrp"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://game/module/player_manager/player_state_manager/PlayerStateManager.gd" id="6_u8usa"]
 [ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovementStateHandler.gd" id="8_n3i13"]
 [ext_resource type="Script" path="res://game/module/player_manager/player_movement_manager/handler/PlayerMovmementProcessHandler.gd" id="9_gdrxg"]
+[ext_resource type="Script" path="res://game/module/player_manager/character_manager/handler/CharacterUtilityHandler.gd" id="13_e0dpu"]
 
 [node name="GamePlayerModule" type="Node"]
 
@@ -65,6 +66,17 @@ script = ExtResource("4_3fa8d")
 script = ExtResource("5_yi34c")
 
 [node name="Handler" type="Node" parent="Manager/CharacterManager"]
+
+[node name="CharacterUtilityHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+script = ExtResource("13_e0dpu")
+
+[node name="CharacterAddHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+
+[node name="CharacterSelectionHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+
+[node name="CharacterUpdateHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+
+[node name="CharacterRemoveHandler" type="Node" parent="Manager/CharacterManager/Handler"]
 
 [node name="PlayerStateManager" type="Node" parent="Manager"]
 script = ExtResource("6_u8usa")

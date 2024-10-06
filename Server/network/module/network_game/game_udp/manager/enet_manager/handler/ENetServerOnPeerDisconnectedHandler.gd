@@ -21,7 +21,7 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 		initialize()
 	GlobalManager.DebugPrint.debug_info("Peer disconnected with ID: " + str(peer_id), self)
 	var database_character_update_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_update_handler")
-	var character_data = character_manager.get_character_data(peer_id)
+	var character_data = character_manager.get_selected_character_data(peer_id)
 	
 	print("character_data will update : ", character_data)
 #	var character_id = character_data["character_id"]

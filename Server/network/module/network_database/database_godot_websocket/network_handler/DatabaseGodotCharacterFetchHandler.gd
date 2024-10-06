@@ -6,6 +6,7 @@ signal backend_characters_fetched(peer_id, processed_characters)
 var websocket_multiplayer_manager
 var network_endpoint_manager = null
 var user_session_manager = null
+var character_manager
 var stored_peer_id 
 var is_initialized = false
 
@@ -15,11 +16,14 @@ func initialize():
 		return
 	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
 	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
 	is_initialized = true
 
 # This function processes the character fetch and returns the result back to the client handler
 func process_fetch_characters(peer_id: int):
+	if not is_initialized:
+		initialize()
 	stored_peer_id = peer_id  # Store the ENet peer_id for later use
 	var websocket_peer = websocket_multiplayer_manager.get_websocket_peer()
 	var user_id = user_session_manager.get_user_id(peer_id)
@@ -35,63 +39,25 @@ func process_fetch_characters(peer_id: int):
 	else:
 		print("WebSocket is not connected, unable to send CharacterFetch  data")
 
-
+# Handle the raw character data received from the backend and forward it to the CharacterManager
 func handle_all_character_for_user(packet: Dictionary):
 	var characters = packet.get("characters", [])
 	if characters.size() > 0:
-		# Clean character data and emit signal
-		var cleaned_characters = []
+		print("characters received: ", characters)
+		
+		# 1. Add all characters to CharacterManager (full data and lightweight data)
+		character_manager.add_all_characters_data(stored_peer_id, characters)
+		
+		# 2. Extract sensitive data and store it internally
 		for character in characters:
-			cleaned_characters.append(clean_character_data(character))
-		# Save the cleaned characters in the session for the peer
-		save_characters_in_session(stored_peer_id, characters)
-		# Emit the signal to send the cleaned characters back to the client
-		emit_signal("backend_characters_fetched", stored_peer_id, cleaned_characters)
+			var sensitive_data = character_manager.get_sensitive_data(character)
+			character_manager.store_sensitive_data(stored_peer_id, sensitive_data)  # Store sensitive data for each character
+		
+		# 3. Fetch the lightweight character data from CharacterManager
+		var lightweight_characters_data = character_manager.lightweight_characters_data.get(stored_peer_id, [])
+		
+		# 4. Emit signal to notify that backend characters are fetched
+		emit_signal("backend_characters_fetched", stored_peer_id, lightweight_characters_data)
 	else:
 		print("No characters found for user in packet.")
 
-
-func save_characters_in_session(peer_id: int, characters: Array):
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	var existing_characters = user_session_manager.get_characters_for_peer(peer_id)
-
-	if existing_characters != null:
-		for character in characters:
-			var session_character_data = clean_character_user_session_manager_data(character)
-			var found = false
-
-			for i in range(len(existing_characters)):
-				if existing_characters[i].get("character_class") == session_character_data.get("character_class"):
-					existing_characters[i] = session_character_data
-					found = true
-					break
-
-			if not found:
-				existing_characters.append(session_character_data)
-
-		user_session_manager.store_characters_for_peer(peer_id, existing_characters)
-	else:
-		var new_characters = []
-		for character in characters:
-			var session_character_data = clean_character_user_session_manager_data(character)
-			new_characters.append(session_character_data)
-		user_session_manager.store_characters_for_peer(peer_id, new_characters)
-
-# Clean character data for UserSessionManager
-func clean_character_user_session_manager_data(character_data: Dictionary) -> Dictionary:
-	var cleaned_data = character_data.duplicate(true)
-	cleaned_data.erase("inventory")
-	cleaned_data.erase("equipment")
-	return cleaned_data
-
-# Clean character data before sending to the client
-func clean_character_data(character_data: Dictionary) -> Dictionary:
-	var cleaned_data = character_data.duplicate(true)
-	cleaned_data.erase("user")
-	cleaned_data.erase("id")
-	cleaned_data.erase("_id")
-	return cleaned_data
-
-func get_stored_database_session_token_for_peer(peer_id: int) -> String:
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	return user_session_manager.get_database_session_token_for_peer(peer_id)

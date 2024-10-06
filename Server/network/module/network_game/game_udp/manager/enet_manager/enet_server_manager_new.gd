@@ -2,24 +2,18 @@ extends Node
 
 var channel_manager = null
 var packet_manager = null
-var enet_server_manager
+var enet_server_manager: ENetMultiplayerPeer
 var connected_peers = {}  # Dictionary to track connected peers
-
-var max_connections: int = 1000
-var connection_timeout: int = 5000  # in milliseconds
-var debug_enabled: bool = true
-
-var total_connections: int = 0
-var total_disconnections: int = 0
-var total_packets_sent: int = 0
-var total_packets_received: int = 0
 
 signal enet_server_ready
 signal enet_server_started
 
+@onready var enet_server_start_handler = $Handler/ENetServerStartHandler
+@onready var enet_server_stop_handler = $Handler/ENetServerStopHandler
 @onready var enet_server_on_peer_connected_handler = $Handler/ENetServerOnPeerConnectedHandler
 @onready var enet_server_on_peer_disconnected_handler = $Handler/ENetServerOnPeerDisconnectedHandler
-
+@onready var enet_server_process_handler = $Handler/ENetServerProcessHandler
+@onready var enet_server_packet_send_handler = $Handler/ENetServerPacketSendHandler
 
 var is_initialized = false
 
@@ -35,22 +29,14 @@ func initialize():
 	GlobalManager.DebugPrint.debug_info("ENetServerManager initialized.", self)
 	emit_signal("enet_server_ready")
 
+# Outsourced Start Server function but with peer management in the manager
 func start_server(port: int):
 	if not is_initialized:
 		initialize()
+	print("creating ENetMultiplayerPeer")
 	enet_server_manager = ENetMultiplayerPeer.new()
-	var err = enet_server_manager.create_server(port, max_connections)
-	if err == OK:
-		var server_peer_id = enet_server_manager.get_unique_id()
-		GlobalManager.DebugPrint.debug_info("Server listening on port " + str(port) + " | Server Peer ID: " + str(server_peer_id), self)
-		enet_server_manager.connect("peer_connected", Callable(self, "_on_peer_connected"))
-		enet_server_manager.connect("peer_disconnected", Callable(self, "_on_peer_disconnected"))
-		set_process(true)  # Ensure _process is called every frame
-		is_initialized = true
-		emit_signal("enet_server_started")
-	else:
-		GlobalManager.DebugPrint.debug_error("Failed to start server: " + str(err), self)
-		set_process(false)
+	# Start the server via the handler
+	enet_server_start_handler.start_server(port, enet_server_manager)
 
 # Handle peer connection event
 func _on_peer_connected(peer_id: int):

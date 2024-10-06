@@ -60,19 +60,19 @@ func _populate_buttons():
 
 	# Enable and update buttons based on the fetched character data
 	for character in character_data:
-		var button = button_map.get(character.name, null)
+		var button = button_map.get(character.character_class, null)
 		if button:
 			_update_button(button, character)
 
 # Update individual buttons with character info
 func _update_button(button, character):
 	if character:
-		button.text = character.name + " (Level " + str(character.level) + ")"
+		button.text = character.character_class + " (Level " + str(character.level) + ")"
 		button.disabled = false
 		button.show()
 		# Bind the character class instead of character ID
 		if not button.is_connected("pressed", Callable(self, "_on_character_button_pressed")):
-			button.connect("pressed", Callable(self, "_on_character_button_pressed").bind(character.name))
+			button.connect("pressed", Callable(self, "_on_character_button_pressed").bind(character.character_class))
 	else:
 		button.text = "Empty"
 		button.disabled = true
@@ -93,17 +93,17 @@ func _disable_buttons():
 	archer_button.hide()
 
 # Handle character button press by sending the character class instead of ID
-func _on_character_button_pressed(name: String):
-	print("Character selected with class: ", name)
-	_send_character_selection(name)
+func _on_character_button_pressed(character_class: String):
+	print("Character selected with class: ", character_class)
+	_send_character_selection(character_class)
 
 # Send character selection to the server
-func _send_character_selection(name: String):
+func _send_character_selection(character_class: String):
 	print("Sending character selection to the server")
 	
 	var request_data = {
 		"session_token": user_session_manager.get_session_token(),  # Use the session token
-		"name": name  # Send name instead of character_id
+		"character_class": character_class  # Send character_class instead of character_id
 	}
 	char_select_handler.select_character(request_data)
 
@@ -111,8 +111,8 @@ func _send_character_selection(name: String):
 func _on_character_selected_success(characters: Dictionary, instance_key: String):
 	print("Character selected successfully: ", characters)
 	var character_data = characters
-	var name = character_data.get("name")
-	var character_scene_path = GlobalManager.SceneManager.scene_config.get_scene_path(name)
+	var character_class = character_data.get("character_class")
+	var character_scene_path = GlobalManager.SceneManager.scene_config.get_scene_path(character_class)
 	var player_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_manager")
 	var character_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_manager")
 	var enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
