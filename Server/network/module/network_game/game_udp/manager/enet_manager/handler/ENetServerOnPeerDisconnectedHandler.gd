@@ -6,7 +6,7 @@ signal peer_disconnected(peer_id: int)
 @onready var network_enet_server_manager = $"../.."
 
 var character_manager
-
+var player_movement_manager
 var is_initialized = false
 
 
@@ -14,6 +14,7 @@ func initialize():
 	if is_initialized:
 		return
 	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
 	is_initialized = true
 
 func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
@@ -22,7 +23,8 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	GlobalManager.DebugPrint.debug_info("Peer disconnected with ID: " + str(peer_id), self)
 	var database_character_update_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_update_handler")
 	var updated_data = character_manager.get_selected_character_data(peer_id)
-	
+	var new_position = player_movement_manager.get_player_position(peer_id)
+	updated_data["current_position"] = new_position
 	print("character_data will update : ", updated_data)
 	
 	# Make sure the updated_data has the "id" key before accessing
