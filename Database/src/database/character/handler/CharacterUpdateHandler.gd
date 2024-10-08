@@ -1,4 +1,7 @@
+# CharacterUpdateHandler
 extends Node
+
+@onready var database_list = $"../../../../../Control/MainVBoxContainer/MainHBoxContainer/ListContainer/DatabasePanel/DatabaseList"
 
 # Update the character's position, level, experience, and area.
 func update_character_data(user_id: String, character_id: String, updated_data: Dictionary):
@@ -47,6 +50,7 @@ func update_character_data(user_id: String, character_id: String, updated_data: 
 					file.store_string(json_string)
 					file.close()
 					print("Character data updated and saved successfully.")
+					database_list._update_database_list()
 				else:
 					print("Failed to open character file for writing.")
 			else:

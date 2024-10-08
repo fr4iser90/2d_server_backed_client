@@ -31,23 +31,27 @@ func remove_user_from_list(user_id: String) -> void:
 	# Update the UI to reflect the changes
 	request_update()
 	
-# Fetch user and character data, updating the ItemList if needed
+# Fetch user and character data, always updating the ItemList for character changes
 func _update_database_list():
 	var users = user_fetch_handler.fetch_all_users()  # Fetch all users
-	if _has_data_changed(users):
-		clear()  # Clear the list if data has changed
+	# Clear the list every time to ensure character data is always refreshed
+	clear()
 
-		# Update UI with user and character details
-		for user in users:
-			var username = user.get("username", "Unknown User")
-			var user_id = user.get("user_id", "Unknown ID")
-			var character_ids = user.get("character_ids", [])
+	# Update UI with user and character details
+	for user in users:
+		var username = user.get("username", "Unknown User")
+		var user_id = user.get("user_id", "Unknown ID")
+		var character_ids = user.get("character_ids", [])
 
-			add_item("User: " + username + "| Characters: " + str(character_ids.size()) + " | ID: " + user_id)
-			_add_characters_to_list(user_id, character_ids)
+		# Add user to the ItemList
+		add_item("User: " + username + " | Characters: " + str(character_ids.size()) + " | ID: " + user_id)
+		
+		# Add characters for this user
+		_add_characters_to_list(user_id, character_ids)
 
-		# Cache the updated users
-		cached_users = users.duplicate(true)
+	# Cache the updated users to track changes
+	cached_users = users.duplicate(true)
+
 
 # Helper to add characters to the list by fetching their data using IDs
 func _add_characters_to_list(user_id: String, character_ids: Array):
