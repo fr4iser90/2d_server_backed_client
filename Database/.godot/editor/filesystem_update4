@@ -1,4 +1,3 @@
 res://database.tscn
-res://src/websocket_server/manager/WebSocketServer.gd
-res://src/console/settings_container/DatabaseInitSettings.gd
-res://src/websocket_server/manager/packet_manager/manager/CharacterPacketManager.gd
+res://src/console/database/DatabasePanelList.gd
+res://src/database/character/handler/CharacterUpdateHandler.gd

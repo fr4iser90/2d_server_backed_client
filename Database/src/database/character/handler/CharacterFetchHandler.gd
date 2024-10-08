@@ -11,12 +11,12 @@ func fetch_all_characters(user_id: String) -> Array:
 	var user_data = user_manager.load_user_data(user_id)
 	print("user_data fetch_all_characters", user_data)
 	var characters = []
-	
-	if user_data.has("characters"):
-		for character in user_data["characters"]:
-			# Add the character_id directly from the user data
-			character["data"]["id"] = character["id"]
-			characters.append(character["data"])
+
+	if user_data.has("character_ids"):
+		for character_id in user_data["character_ids"]:
+			var character_data = load_character_data(user_id, character_id)
+			if character_data.size() > 0:
+				characters.append(character_data)
 		return characters
 	else:
 		print("No characters found for user: ", user_id)
@@ -32,15 +32,15 @@ func fetch_user_characters(user_data: Dictionary) -> Array:
 	for character_entry in character_ids:
 		var character_id = character_entry.get("id", "")
 		if character_id != "":
-			var character_data = load_character_data(user_data["username"], character_id)
+			var character_data = load_character_data(user_data["user_id"], character_id)
 			if character_data.size() > 0:
 				characters.append(character_data)
 	
 	return characters
 
 # Lädt die Charakterdaten aus einer Datei basierend auf der Charakter-ID
-func load_character_data(username: String, character_id: String) -> Dictionary:
-	var file_path = users_data_dir + username + "/characters/" + character_id + ".json"
+func load_character_data(user_id: String, character_id: String) -> Dictionary:
+	var file_path = users_data_dir + user_id + "/characters/" + character_id + ".json"
 	if FileAccess.file_exists(file_path):
 		var file = FileAccess.open(file_path, FileAccess.READ)
 		var json = JSON.new()

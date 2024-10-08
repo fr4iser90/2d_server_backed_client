@@ -20,3 +20,11 @@ script = ExtResource("2_het6b")
 [node name="AudioManager" type="Node" parent="."]
 
 [node name="Utils" type="Node" parent="."]
+
+[node name="DebugManager" type="Node" parent="."]
+
+[node name="GlobalConfig" type="Node" parent="."]
+
+[node name="NodeManager" type="Node" parent="."]
+
+[node name="SceneManager" type="Node" parent="."]

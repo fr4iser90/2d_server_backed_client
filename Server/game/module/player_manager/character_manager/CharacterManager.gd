@@ -30,10 +30,31 @@ func initialize():
 
 # Add all characters for a peer
 func add_all_characters_data(peer_id: int, characters: Array):
-	all_characters_data[peer_id] = characters  # Store full character data for each peer
-	var lightweight_data = character_utility_handler.clean_lightweight_characters_data(characters)
+	print("characterscharacters  : ", characters)
+	# Create a list to hold the reformatted character data
+	var reformatted_characters = []
+	for character in characters:
+		var character_data = {}
+		# Always access the 'data' field and merge it with the character data directly
+		if character.has("data"):
+			character_data = character["data"].duplicate()
+			# Include the character's 'id' in the data if it exists
+			character_data["id"] = character.get("id", "Unknown ID")
+		else:
+			character_data = character  # Handle cases where data might already be at the top level
+		
+		reformatted_characters.append(character_data)
+	# Store the full character data for each peer directly without nesting under 'data'
+	all_characters_data[peer_id] = reformatted_characters
+	print("all_characters_data :" , all_characters_data[peer_id] )
+	# Create a lightweight version of the character data
+	var lightweight_data = []
+	for character_data in reformatted_characters:
+		lightweight_data.append(character_utility_handler.clean_lightweight_character_data(character_data))
+	
 	lightweight_characters_data[peer_id] = lightweight_data  # Store lightweight versions for fast access
 	print("All character data and lightweight data added for peer_id:", peer_id)
+
 
 # Select a character for a peer and store it in selected_character_data
 func select_character_for_peer(peer_id: int, character_name: String):
@@ -69,6 +90,7 @@ func get_character_data_by_name(peer_id: int, character_name: String) -> Diction
 			return character  # Return full character data if the name matches
 	return {}  # Return empty dictionary if no match
 
+			
 # Retrieve the selected character data for a peer
 func get_selected_character_data(peer_id: int) -> Dictionary:
 	print("Retrieving selected character data for peer_id:", peer_id)

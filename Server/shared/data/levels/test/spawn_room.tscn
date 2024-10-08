@@ -205,7 +205,7 @@ format = 2
 position = Vector2(35, 203)
 
 [node name="default_spawn_point" type="Marker2D" parent="SpawnPoint/PlayerSpawnPoint"]
-position = Vector2(66, 240)
+position = Vector2(-477, 202)
 
 [node name="MobSpawnPoint" type="Node2D" parent="SpawnPoint"]
 

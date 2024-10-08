@@ -62,22 +62,6 @@ script = ExtResource("4_3fa8d")
 
 [node name="Handler" type="Node" parent="Manager/PlayerVisualMonitor"]
 
-[node name="CharacterManager" type="Node" parent="Manager"]
-script = ExtResource("5_yi34c")
-
-[node name="Handler" type="Node" parent="Manager/CharacterManager"]
-
-[node name="CharacterUtilityHandler" type="Node" parent="Manager/CharacterManager/Handler"]
-script = ExtResource("13_e0dpu")
-
-[node name="CharacterAddHandler" type="Node" parent="Manager/CharacterManager/Handler"]
-
-[node name="CharacterSelectionHandler" type="Node" parent="Manager/CharacterManager/Handler"]
-
-[node name="CharacterUpdateHandler" type="Node" parent="Manager/CharacterManager/Handler"]
-
-[node name="CharacterRemoveHandler" type="Node" parent="Manager/CharacterManager/Handler"]
-
 [node name="PlayerStateManager" type="Node" parent="Manager"]
 script = ExtResource("6_u8usa")
 
@@ -152,3 +136,19 @@ script = ExtResource("6_u8usa")
 [node name="PlayerEncumberedStateHandler" type="Node" parent="Manager/PlayerStateManager"]
 
 [node name="PlayerFrozenStateHandler" type="Node" parent="Manager/PlayerStateManager"]
+
+[node name="CharacterManager" type="Node" parent="Manager"]
+script = ExtResource("5_yi34c")
+
+[node name="Handler" type="Node" parent="Manager/CharacterManager"]
+
+[node name="CharacterUtilityHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+script = ExtResource("13_e0dpu")
+
+[node name="CharacterAddHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+
+[node name="CharacterSelectionHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+
+[node name="CharacterUpdateHandler" type="Node" parent="Manager/CharacterManager/Handler"]
+
+[node name="CharacterRemoveHandler" type="Node" parent="Manager/CharacterManager/Handler"]

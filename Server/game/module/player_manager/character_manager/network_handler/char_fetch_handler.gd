@@ -31,6 +31,7 @@ func handle_packet(client_data: Dictionary, peer_id: int):
 
 # Receive the processed character data from the backend handler and send it to the client
 func _on_backend_characters_fetched(peer_id: int, processed_characters: Array):
+	print("processed_characters :", processed_characters)
 	var characters_data = character_manager.clean_characters_data(processed_characters)
 	var err = enet_server_manager.send_packet(peer_id, handler_name, {"characters": characters_data})
 	if err != OK:

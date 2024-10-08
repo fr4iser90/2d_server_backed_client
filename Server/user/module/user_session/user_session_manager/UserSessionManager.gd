@@ -8,6 +8,7 @@ var session_lock_type_handler = null
 var timeout_handler = null
 
 var users_data: Dictionary = {}  # Holds all active user data (user-specific info)
+var user_roles: Dictionary = {}  # Holds the roles or permissions for each user
 
 var character_manager = null
 var instance_manager = null
@@ -234,3 +235,14 @@ func is_user_logged_in(username: String) -> bool:
 		if user_data.has("username") and user_data["username"] == username:
 			return true
 	return false
+
+
+func set_user_role(peer_id: int, role: String):
+	if users_data.has(peer_id):
+		users_data[peer_id]["role"] = role
+		GlobalManager.DebugPrint.debug_info("Role set for peer_id: " + str(peer_id) + " as " + role, self)
+
+func get_user_role(peer_id: int) -> String:
+	if users_data.has(peer_id) and users_data[peer_id].has("role"):
+		return users_data[peer_id]["role"]
+	return "guest"  # Default role if not set

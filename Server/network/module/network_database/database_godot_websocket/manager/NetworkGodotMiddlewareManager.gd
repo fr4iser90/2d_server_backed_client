@@ -1,4 +1,9 @@
+# Websocket
 extends Node
+
+var reconnection_attempts = 0
+var max_reconnection_attempts = 5
+var reconnection_delay = 3.0
 
 var ip = ""
 var port = ""
@@ -23,7 +28,6 @@ func connect_to_server(ip_input: String, port_input: String, token: String):
 	database_character_fetch_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_fetch_handler")
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var url = "ws://" + ip + ":" + str(port_input)
-	print("URL: ", url)
 	var err = websocket_multiplayer_peer.create_client(url)
 
 	if err != OK:
@@ -31,13 +35,18 @@ func connect_to_server(ip_input: String, port_input: String, token: String):
 		return
 	else:
 		print("Attempting to connect to WebSocket server: " + url)
+
 	var status_timer = Timer.new()
 	status_timer.wait_time = 2.0
 	status_timer.autostart = true
 	status_timer.one_shot = false
+	status_timer.name = "status_timer"
 	status_timer.connect("timeout", Callable(self, "_check_connection_status"))
 	add_child(status_timer)
-
+	status_timer.start()
+	print("status_timer :", status_timer)
+	
+	
 func _process(delta):
 	if websocket_multiplayer_peer:
 		websocket_multiplayer_peer.poll()
@@ -61,11 +70,30 @@ func _check_connection_status():
 				if not is_connected:
 					print("Connection established")
 					is_connected = true
+					reconnection_attempts = 0
 					_on_connection_established()
 			3:
 				print("Error - Failed to Connect")
 				is_connected = false
+				_attempt_reconnection()
+				
+func _attempt_reconnection():
+	if reconnection_attempts < max_reconnection_attempts:
+		reconnection_attempts += 1
+		print("Attempting to reconnect... (Attempt " + str(reconnection_attempts) + "/" + str(max_reconnection_attempts) + ")")
+		
+		var reconnection_timer = Timer.new()
+		reconnection_timer.wait_time = reconnection_delay
+		reconnection_timer.one_shot = true
+		reconnection_timer.connect("timeout", Callable(self, "_reconnect_to_server"))
+		add_child(reconnection_timer)
+		reconnection_timer.start()
+	else:
+		print("Max reconnection attempts reached. Giving up.")
 
+func _reconnect_to_server():
+	print("Reconnecting to WebSocket server...")
+	connect_to_server(ip, port, "")  # Reuse the last known IP and port
 			
 func _on_connection_established():
 	print("Connected to WebSocket server at " + ip + ":" + str(port))

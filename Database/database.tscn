@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://src/database/user/handler/UserFetchHandler.gd" id="2_dnkms"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserLoginHandler.gd" id="2_of7dy"]
 [ext_resource type="Script" path="res://src/database/server/handler/ServerTokenHandler.gd" id="2_qvjmg"]
-[ext_resource type="Script" path="res://src/database/user/handler/UserRegisterHandler.gd" id="3_8587c"]
+[ext_resource type="Script" path="res://src/database/user/handler/UserCreateHandler.gd" id="3_8587c"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserUpdateHandler.gd" id="4_74j4r"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserUtilityHandler.gd" id="5_m2580"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserTokenHandler.gd" id="5_ojkqw"]
 [ext_resource type="Script" path="res://src/database/user/handler/UserDeleteHandler.gd" id="6_hh3vy"]
-[ext_resource type="Script" path="res://src/database/character/handler/CharacterCreationHandler.gd" id="7_sw6du"]
+[ext_resource type="Script" path="res://src/database/character/handler/CharacterCreateHandler.gd" id="7_sw6du"]
 [ext_resource type="Script" path="res://src/database/character/CharacterManager.gd" id="9_iy1lg"]
 [ext_resource type="Script" path="res://src/database/character/handler/CharacterFetchHandler.gd" id="10_cave0"]
 [ext_resource type="Script" path="res://src/websocket_server/manager/packet_manager/PacketManager.gd" id="10_poc24"]
@@ -265,6 +265,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 10
 script = ExtResource("15_31mhg")
 
 [node name="ControlContainer" type="VBoxContainer" parent="Control/MainVBoxContainer/MainHBoxContainer"]

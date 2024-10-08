@@ -110,7 +110,7 @@ func _deferred_spawn_player(character_data: Dictionary, instance_key: String):
 		call_deferred("_deferred_spawn_player", character_data, instance_key)
 		return
 
-	print("Scene is ready. Spawning player.")
+	print("Scene is ready. Spawning player.", character_data)
 	spawn_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "spawn_manager")
 	spawn_manager.spawn_local_player(character_data)
 

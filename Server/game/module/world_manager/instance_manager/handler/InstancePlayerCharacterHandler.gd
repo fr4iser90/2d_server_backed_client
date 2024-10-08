@@ -18,7 +18,7 @@ func initialize():
 func handle_player_character_selected(peer_id: int, character_data: Dictionary) -> String:
 	if not is_initialized:
 		initialize()
-	print("Handling character selection for peer_id: ", peer_id)
+	print("Handling character selection for peer_id: ", peer_id, " |  With following CharacterData : ", character_data)
 	
 	# Assign player to an instance
 	var instance_key = instance_assignment_handler.assign_player_to_instance(peer_id, character_data)
@@ -30,13 +30,18 @@ func handle_player_character_selected(peer_id: int, character_data: Dictionary) 
 		var spawn_points = GlobalManager.SceneManager.get_spawn_points_for_scene(instance_key.split(":")[0])  # Szene aus dem Instanzschlüssel
 		
 		print("spawn_points: ", spawn_points)
+		print("character_data: ", character_data)
+		var current_position = character_data["current_position"]
 		# Register spawn points in SpawnManager
 		spawn_point_manager.register_spawn_points(instance_key, spawn_points)
 		
 		# Get a specific spawn point for this player
 		var spawn_point = spawn_point_manager.get_spawn_point_position(instance_key, "default_spawn_point")  # Beispiel-Spawnpunktname
 		# Add player to the PlayerMovementManager and place at spawn point
+		print("spawn_point :", spawn_point)
+		print("current_position :", current_position)
 		if player_movement_manager:
+			#player_movement_manager.add_player(peer_id, character_data, current_position)
 			player_movement_manager.add_player(peer_id, character_data, spawn_point)
 			print("Player added to Movement Manager at spawn point: ", spawn_point)
 		else:

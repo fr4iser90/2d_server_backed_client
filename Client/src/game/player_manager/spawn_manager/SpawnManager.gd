@@ -13,8 +13,9 @@ func initialize():
 
 # Spawn the local player at a specific point or last known position
 func spawn_local_player(character_data: Dictionary) -> Node:
-	var position_string = character_data.get("position", "")
-	var position = Vector2(0, 0)
+	print("spawn_local_player_character_data    :", character_data)
+	var position_string = character_data.get("current_position", "")
+	var position = Vector2(500, 500)
 
 	# Umwandlung des String-Wertes in ein Vector2
 	if position_string != "":
@@ -26,7 +27,7 @@ func spawn_local_player(character_data: Dictionary) -> Node:
 		return player_node  # Return the existing player node
 		
 	# Falls keine Position übergeben wird, verwende eine Standardposition
-	if position != Vector2(0, 0):
+	if position != Vector2(220,220):
 		player_node = _spawn_at_position(position, character_data)
 	else:
 		#player_node = _spawn_at_default_point(character_data)
@@ -72,6 +73,7 @@ func _add_player_node_to_scene(player_scene: PackedScene, position: Vector2) -> 
 func _get_player_scene(character_class: String) -> PackedScene:
 	# Fetch scene path from the GlobalManager SceneManager
 	var scene_path = GlobalManager.SceneManager.get_scene_path(character_class)
+	print("Attempting to load scene at path: ", scene_path, "  from character  :", character_class)  # Debug print for scene path
 	if scene_path == "":
 		print("Error: No scene path found for character class: ", character_class)
 		return null

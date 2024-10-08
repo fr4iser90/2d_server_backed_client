@@ -1,3 +1,4 @@
+# DebugPrint
 extends Node
 
 signal log_message_emitted(message: String, level: int, caller: Object)
@@ -12,6 +13,9 @@ var show_caller_node_path = false  # Toggle to show node path
 var show_info_level = false  # Toggle to show info level
 var timestamp_enabled = false  # Timestamp is disabled by default
 
+var log_format = "[timestamp] [tag] [level]: message"
+
+var custom_debug_levels = {}  # Dictionary to store custom levels with their associated color codes
 enum DebugLevel { OFF, ERROR, WARNING, INFO, DEBUG, SYSTEM }
 # Dictionary to store per-script debug levels
 var script_debug_levels = {}
@@ -24,6 +28,10 @@ var COLOR_GREEN = "color=#00FF00" 	# INFO level
 var COLOR_BLUE = "color=#0000FF"  	# DEBUG level
 var COLOR_GOLD = "color=#FFD700"  	# SYSTEM level
 
+var log_to_file = false
+var log_file_path = "user://debug_log.txt"
+
+			
 var is_initialized = false
 # Initialization
 func initialize():
@@ -31,6 +39,7 @@ func initialize():
 		return
 	is_initialized = true
 	print("DebugPrint initialized.")
+
 
 # Set global debug level (fallback)
 func set_global_debug_level(level: int):
@@ -61,6 +70,9 @@ func get_effective_debug_level(script_name: String) -> int:
 	else:
 		return global_debug_level
 
+func set_log_format(format: String):
+	log_format = format
+	
 # Main debug function with level and caller
 func debug(message: String, level: int = DebugLevel.INFO, caller: Object = null, tag: String = ""):
 	if not is_debug_enabled:
@@ -156,3 +168,8 @@ func get_bbcode_colored_message(level: int, message: String, tag: String = "") -
 			return "[" + COLOR_GOLD + "]" + timestamp + tag_info + level_info + message + "[/color]"
 		_:
 			return message  # Fallback to plain message
+
+func add_custom_debug_level(level_name: String, color_code: String):
+	custom_debug_levels[level_name] = color_code
+
+

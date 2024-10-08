@@ -1,6 +1,7 @@
 extends ItemList
 
 @onready var user_list_handler = $"../../../../../../Source/Database/User/UserManager/UserListHandler"
+@onready var character_fetch_handler = $"../../../../../../Source/Database/Character/CharacterManager/CharacterFetchHandler"
 
 @onready var user_fetch_handler = $"../../../../../../Source/Database/User/UserManager/UserFetchHandler"
 var cached_users = []  # Cache to store the last state of users and characters
@@ -40,21 +41,27 @@ func _update_database_list():
 		for user in users:
 			var username = user.get("username", "Unknown User")
 			var user_id = user.get("user_id", "Unknown ID")
-			var characters = user.get("characters", [])
+			var character_ids = user.get("character_ids", [])
 
-			add_item("ID: " + user_id + " | User: " + username + " (Characters: " + str(characters.size()) + ")")
-			_add_characters_to_list(characters)
+			add_item("User: " + username + "| Characters: " + str(character_ids.size()) + " | ID: " + user_id)
+			_add_characters_to_list(user_id, character_ids)
 
 		# Cache the updated users
 		cached_users = users.duplicate(true)
 
-# Helper to add characters to the list
-func _add_characters_to_list(characters: Array):
-	for character in characters:
-		var character_name = character.get("name", "Unknown Character")
-		var level = character.get("level", 1)
-		var character_class = character.get("character_class", "Unknown Class")
-		add_item("    Character: " + character_name + " (Class: " + character_class + ", Level: " + str(level) + ")")
+# Helper to add characters to the list by fetching their data using IDs
+func _add_characters_to_list(user_id: String, character_ids: Array):
+	for character_id in character_ids:
+		var characters = character_fetch_handler.load_character_data(user_id, character_id)
+		var character_data = characters.get("data", {})
+		if character_data.size() > 0:  # Only proceed if character data was successfully fetched
+			var character_name = character_data.get("name", "Unknown Character")
+			var character_level = character_data.get("level", 1)
+			var character_area = character_data.get("current_area", "Unknown Area")
+			var character_class = character_data.get("character_class", "Unknown Class")
+			var character_position = character_data.get("current_position", "Unknown Position")
+			
+			add_item("         Character: " + character_name + "| Class: " + character_class + "| Level: " + str(character_level) + "| Area: " + character_area + "| Position: " + character_position)
 
 # Helper to check if user or character data has changed
 func _has_data_changed(new_users: Array) -> bool:

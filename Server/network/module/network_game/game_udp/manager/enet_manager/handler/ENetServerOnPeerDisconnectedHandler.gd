@@ -24,8 +24,11 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	var database_character_update_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_update_handler")
 	var updated_data = character_manager.get_selected_character_data(peer_id)
 	var new_position = player_movement_manager.get_player_position(peer_id)
+	#var updated_data = old_data["data"]
+	#print("old_dataupdated_data  ", updated_data)
 	updated_data["current_position"] = new_position
-	print("character_data will update : ", updated_data)
+	
+	print("character_data will update : ", updated_data, " with new Postion : ", new_position)
 	
 	# Make sure the updated_data has the "id" key before accessing
 	if updated_data.has("id"):
