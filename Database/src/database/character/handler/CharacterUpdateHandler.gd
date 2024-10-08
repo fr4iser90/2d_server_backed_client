@@ -19,21 +19,20 @@ func update_character_data(user_id: String, character_id: String, updated_data: 
 
 			if error == OK:
 				var character_data = json.get_data()
-				var character = character_data["data"]
-				print("Character data parsed successfully:", character)
+				print("Character data parsed successfully:", character_data)
 
 				# Update the fields with the new data
 				if updated_data.has("current_position"):
-					character["current_position"] = updated_data["current_position"]
+					character_data["current_position"] = updated_data["current_position"]
 				
 				if updated_data.has("level"):
-					character["level"] = updated_data["level"]
+					character_data["level"] = updated_data["level"]
 
 				if updated_data.has("experience"):
-					character["experience"] = updated_data["experience"]
+					character_data["experience"] = updated_data["experience"]
 
 				if updated_data.has("current_area"):
-					character["current_area"] = updated_data["current_area"]
+					character_data["current_area"] = updated_data["current_area"]
 
 				# Close the file opened for reading before writing the new data
 				file.close()
@@ -42,7 +41,7 @@ func update_character_data(user_id: String, character_id: String, updated_data: 
 				file = FileAccess.open(character_file_path, FileAccess.WRITE)
 				if file:
 					# Debug print to confirm what data is being saved
-					var json_string = JSON.stringify(character, "\t") # Pretty print for easier debugging
+					var json_string = JSON.stringify(character_data, "\t") # Pretty print for easier debugging
 					print("Updated character data to be saved:", json_string)
 
 					file.store_string(json_string)

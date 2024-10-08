@@ -34,7 +34,9 @@ func handle_packet(client_data: Dictionary, peer_id: int):
 
 # Handle successful character selection and send the data to the client
 func _on_character_selected_success(peer_id: int, character_data: Dictionary):
-	var err = enet_server_manager.send_packet(peer_id, handler_name, character_data)
+	var cleaned_character_data = clean_character_data(character_data)
+	
+	var err = enet_server_manager.send_packet(peer_id, handler_name, cleaned_character_data)
 	if err != OK:
 		GlobalManager.DebugPrint.debug_error("Failed to send character selection packet to peer_id: " + str(peer_id), self)
 	else:
@@ -44,3 +46,10 @@ func _on_character_selected_success(peer_id: int, character_data: Dictionary):
 func _on_character_selection_failed(reason: String):
 	GlobalManager.DebugPrint.debug_error("Character selection failed: " + reason, self)
 	# You can add additional logic to notify the client of the failure
+
+func clean_character_data(character_data: Dictionary) -> Dictionary:
+	var cleaned_data = character_data.duplicate(true)
+	cleaned_data.erase("user")
+	cleaned_data.erase("id")
+	cleaned_data.erase("_id")
+	return cleaned_data

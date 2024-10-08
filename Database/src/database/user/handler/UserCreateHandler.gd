@@ -53,7 +53,7 @@ func create_user(username: String, password: String) -> Dictionary:
 	var character_ids = []
 
 	for character in characters:
-		var character_id = character.get("id")
+		var character_id = character.get("character_id")
 		var character_file_path = character_dir + character_id + ".json"
 		var character_file = FileAccess.open(character_file_path, FileAccess.WRITE)
 		

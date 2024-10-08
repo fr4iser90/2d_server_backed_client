@@ -1,6 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1728413444
-database.tscn::PackedScene::8747330982858814566::1728412516::0::1::::<><>::res://src/database/server/handler/ServerAuthHandler.gd<>res://src/websocket_server/manager/WebSocketServer.gd<>res://src/database/user/UserManager.gd<>res://src/database/server/ServerAuthManager.gd<>res://src/database/user/handler/UserFetchHandler.gd<>res://src/database/user/handler/UserLoginHandler.gd<>res://src/database/server/handler/ServerTokenHandler.gd<>res://src/database/user/handler/UserCreateHandler.gd<>res://src/database/user/handler/UserUpdateHandler.gd<>res://src/database/user/handler/UserUtilityHandler.gd<>res://src/database/user/handler/UserTokenHandler.gd<>res://src/database/user/handler/UserDeleteHandler.gd<>res://src/database/character/handler/CharacterCreateHandler.gd<>res://src/database/character/CharacterManager.gd<>res://src/database/character/handler/CharacterFetchHandler.gd<>res://src/websocket_server/manager/packet_manager/PacketManager.gd<>res://src/database/utility/RemoveHandler.gd<>res://src/database/character/handler/CharacterUpdateHandler.gd<>res://src/database/utility/FetchHandler.gd<>res://src/console/database/DatabasePanelList.gd<>res://src/websocket_server/manager/packet_manager/manager/ServerPacketManager.gd<>res://src/websocket_server/manager/packet_manager/manager/UserPacketManager.gd<>res://src/websocket_server/manager/packet_manager/manager/CharacterPacketManager.gd<>res://src/websocket_server/manager/packet_manager/manager/ResponsePacketManage.gd<>res://src/console/settings_container/DatabaseInitSettings.gd
+::res://::1728415889
+database.tscn::PackedScene::8747330982858814566::1728415889::0::1::::<><>::res://src/database/server/handler/ServerAuthHandler.gd<>res://src/websocket_server/manager/WebSocketServer.gd<>res://src/database/user/UserManager.gd<>res://src/database/server/ServerAuthManager.gd<>res://src/database/user/handler/UserFetchHandler.gd<>res://src/database/user/handler/UserLoginHandler.gd<>res://src/database/server/handler/ServerTokenHandler.gd<>res://src/database/user/handler/UserCreateHandler.gd<>res://src/database/user/handler/UserUpdateHandler.gd<>res://src/database/user/handler/UserUtilityHandler.gd<>res://src/database/user/handler/UserTokenHandler.gd<>res://src/database/user/handler/UserDeleteHandler.gd<>res://src/database/character/handler/CharacterCreateHandler.gd<>res://src/database/character/CharacterManager.gd<>res://src/database/character/handler/CharacterFetchHandler.gd<>res://src/websocket_server/manager/packet_manager/PacketManager.gd<>res://src/database/utility/RemoveHandler.gd<>res://src/database/character/handler/CharacterUpdateHandler.gd<>res://src/database/utility/FetchHandler.gd<>res://src/console/database/DatabasePanelList.gd<>res://src/websocket_server/manager/packet_manager/manager/ServerPacketManager.gd<>res://src/websocket_server/manager/packet_manager/manager/UserPacketManager.gd<>res://src/websocket_server/manager/packet_manager/manager/CharacterPacketManager.gd<>res://src/websocket_server/manager/packet_manager/manager/ResponsePacketManage.gd<>res://src/console/settings_container/DatabaseInitSettings.gd
 export_presets.cfg::TextFile::-1::1726999905::0::1::::<><>::
 icon.svg::CompressedTexture2D::5743805246031376035::1726997159::1726997163::1::::<><>::
 ::res://data/::1726998431
@@ -13,8 +13,8 @@ UserModel.gd::GDScript::-1::1727815517::0::1::::UserModel<>Node<>::
 ::res://src/console/::1728240072
 UIManager.gd::GDScript::-1::1727757359::0::1::::<>Node<>::
 ::res://src/console/control_container/::1728240033
-::res://src/console/database/::1728374520
-DatabasePanelList.gd::GDScript::-1::1728374520::0::1::::<>ItemList<>::
+::res://src/console/database/::1728415708
+DatabasePanelList.gd::GDScript::-1::1728415708::0::1::::<>ItemList<>::
 ::res://src/console/peer_connection/::1727819783
 ::res://src/console/settings_container/::1728241772
 DatabaseInitSettings.gd::GDScript::-1::1728241772::0::1::::<>Node<>::
@@ -22,11 +22,11 @@ database_settings.cfg::TextFile::-1::1728413398::0::1::::<><>::
 ::res://src/database/::1728373555
 ::res://src/database/character/::1728162829
 CharacterManager.gd::GDScript::-1::1728162829::0::1::::<>Node<>::
-::res://src/database/character/handler/::1728374073
+::res://src/database/character/handler/::1728414936
 CharacterCreateHandler.gd::GDScript::-1::1728162813::0::1::::<>Node<>::
 CharacterDataHandler.gd::GDScript::-1::1727956905::0::1::::<>Node<>::
 CharacterFetchHandler.gd::GDScript::-1::1728374073::0::1::::<>Node<>::
-CharacterUpdateHandler.gd::GDScript::-1::1728339883::0::1::::<>Node<>::
+CharacterUpdateHandler.gd::GDScript::-1::1728414936::0::1::::<>Node<>::
 CharacterUpdateHandler_old.gd::GDScript::-1::1728336584::0::1::::<>Node<>::
 ::res://src/database/server/::1727946441
 ServerAuthManager.gd::GDScript::-1::1727946441::0::1::::<>Node<>::

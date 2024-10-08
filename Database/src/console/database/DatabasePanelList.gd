@@ -53,7 +53,7 @@ func _update_database_list():
 func _add_characters_to_list(user_id: String, character_ids: Array):
 	for character_id in character_ids:
 		var characters = character_fetch_handler.load_character_data(user_id, character_id)
-		var character_data = characters.get("data", {})
+		var character_data = characters
 		if character_data.size() > 0:  # Only proceed if character data was successfully fetched
 			var character_name = character_data.get("name", "Unknown Character")
 			var character_level = character_data.get("level", 1)

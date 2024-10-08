@@ -27,13 +27,11 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	#var updated_data = old_data["data"]
 	#print("old_dataupdated_data  ", updated_data)
 	updated_data["current_position"] = new_position
-	
+	var character_id = updated_data["character_id"]
 	print("character_data will update : ", updated_data, " with new Postion : ", new_position)
 	
 	# Make sure the updated_data has the "id" key before accessing
-	if updated_data.has("id"):
-		var character_id = updated_data["id"]
-		updated_data.erase("id")
+	if updated_data.has("character_id"):
 		database_character_update_handler.process_character_update(peer_id, character_id, updated_data)
 	else:
 		print("Character ID not found for peer_id:", peer_id)

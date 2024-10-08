@@ -90,32 +90,8 @@ func create_characters_for_user(user_id: String) -> Array:
 
 		# Add the character data to the list (serialize for JSON)
 		character_list.append({
-			"character_id": character_id,
-			"name": character.name,
-			"character_class": character.character_class,
-			"subclass": character.subclass,
-			"race": character.race,
-			"gender": character.gender,
-			"current_position": character.current_position,
-			"current_area": character.current_area,
-			"level": character.level,
-			"experience": character.experience,
-			"attributes": character.attributes,
-			"passive_tree": character.passive_tree,
-			"skills": character.skills,
-			"active_skills": character.active_skills,
-			"equipment": character.equipment,
-			"inventory": character.inventory,
-			"currencies": character.currencies,
-			"professions": character.professions,
-			"companions": character.companions,
-			"achievements": character.achievements,
-			"titles": character.titles,
-			"collections": character.collections,
-			"guild": character.guild,
-			"guild_rank": character.guild_rank,
-			"active_quests": character.active_quests,
-			"completed_quests": character.completed_quests
+			"id": character_id,
+			"data": character_data  # Add serialized data instead of resource reference
 		})
 
 	return character_list

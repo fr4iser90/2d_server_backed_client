@@ -49,7 +49,7 @@ func expose_characters_data(characters: Array) -> Array:
 func get_sensitive_data(character_data: Dictionary) -> Dictionary:
 	return {
 		"user_id": character_data.get("user_id", ""),
-		"character_id": character_data.get("id", "")
+		"character_id": character_data.get("character_id", "")
 	}
 
 # Retrieve character data by peer_id
