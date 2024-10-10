@@ -13,7 +13,7 @@ func initialize():
 		return
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
 	backend_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_fetch_handler")
 	
 	# Connect signal from backend handler to process character fetch response

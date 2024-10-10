@@ -1,27 +1,68 @@
-[gd_scene format=3 uid="uid://b3gu5grxk4s2m"]
+[gd_scene load_steps=6 format=3 uid="uid://b3gu5grxk4s2m"]
 
-[node name="GameNpcModule" type="Node"]
+[ext_resource type="Script" path="res://game/module/npc_module/npc_spawning_manager/NPCSpawningManager.gd" id="1_mdc88"]
+[ext_resource type="Script" path="res://game/module/npc_module/npc_spawning_manager/handler/NPCSpawningHandler.gd" id="2_axup8"]
+[ext_resource type="Script" path="res://game/module/npc_module/npc_spawning_manager/handler/NPCStateHandler.gd" id="3_p4u54"]
+[ext_resource type="Script" path="res://game/module/npc_module/npc_spawning_manager/handler/NPCMovementHandler.gd" id="4_i0fn3"]
+[ext_resource type="Script" path="res://game/module/npc_module/npc_spawning_manager/handler/NPCHealthHandler.gd" id="5_gs3cs"]
+
+[node name="GameEntityModule" type="Node"]
 
 [node name="Manager" type="Node" parent="."]
 
-[node name="NPCSpawningManager" type="Node" parent="Manager"]
+[node name="NPCManager" type="Node" parent="Manager"]
+script = ExtResource("1_mdc88")
 
-[node name="NPCStateManager" type="Node" parent="Manager"]
+[node name="Handler" type="Node" parent="Manager/NPCManager"]
 
-[node name="NPCMovementManager" type="Node" parent="Manager"]
+[node name="NPCSpawningHandler" type="Node" parent="Manager/NPCManager/Handler"]
+script = ExtResource("2_axup8")
 
-[node name="NPCHealthManager" type="Node" parent="Manager"]
+[node name="NPCStateHandler" type="Node" parent="Manager/NPCManager/Handler"]
+script = ExtResource("3_p4u54")
 
-[node name="NPCUpdateManager" type="Node" parent="Manager"]
+[node name="NPCMovementHandler" type="Node" parent="Manager/NPCManager/Handler"]
+script = ExtResource("4_i0fn3")
 
-[node name="NPCEventManager" type="Node" parent="Manager"]
+[node name="NPCHealthHandler" type="Node" parent="Manager/NPCManager/Handler"]
+script = ExtResource("5_gs3cs")
 
-[node name="NPCAggroManager" type="Node" parent="Manager"]
+[node name="NPCUpdateHandler" type="Node" parent="Manager/NPCManager/Handler"]
 
-[node name="NPCLootManager" type="Node" parent="Manager"]
+[node name="NPCEventHandler" type="Node" parent="Manager/NPCManager/Handler"]
 
-[node name="NPCPathfindingManager" type="Node" parent="Manager"]
+[node name="NPCAggroHandler" type="Node" parent="Manager/NPCManager/Handler"]
 
-[node name="NPCMemoryManager" type="Node" parent="Manager"]
+[node name="NPCLootHandler" type="Node" parent="Manager/NPCManager/Handler"]
 
-[node name="NPCAnimationManager" type="Node" parent="Manager"]
+[node name="NPCPathfindingHandler" type="Node" parent="Manager/NPCManager/Handler"]
+
+[node name="NPCMemoryHandler" type="Node" parent="Manager/NPCManager/Handler"]
+
+[node name="NPCAnimationHandler" type="Node" parent="Manager/NPCManager/Handler"]
+
+[node name="MobManager" type="Node" parent="Manager"]
+
+[node name="Handler" type="Node" parent="Manager/MobManager"]
+
+[node name="MobSpawningHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobStateHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobMovementHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobHealthHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobUpdateHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobEventHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobAggroHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobLootHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobPathfindingHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobMemoryHandler" type="Node" parent="Manager/MobManager/Handler"]
+
+[node name="MobAnimationHandler" type="Node" parent="Manager/MobManager/Handler"]

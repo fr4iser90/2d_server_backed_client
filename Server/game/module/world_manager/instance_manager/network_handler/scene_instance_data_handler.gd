@@ -11,7 +11,7 @@ func initialize():
 	if is_initialized:
 		return
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")  # Hole den Instance Manager
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")  # Hole den Instance Manager
 	instance_manager.connect("instance_created", Callable(self, "_on_instance_created"))
 	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
 	is_initialized = true
@@ -91,7 +91,7 @@ func send_instance_data_to_client(peer_id: int):
 					"peer_id": player["peer_id"],
 					"name": player["character_data"]["name"],                # Send only character name
 					"character_class": player["character_data"]["character_class"],  # Class of character
-					"position": player["character_data"]["position"]         # Position in the game world
+					"position": player["character_data"]["current_position"]         # Position in the game world
 				})
 
 			# Construct the packet

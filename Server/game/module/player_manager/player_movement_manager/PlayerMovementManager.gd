@@ -29,10 +29,10 @@ func initialize():
 		print("PlayerMovement already initialized. Skipping.")
 		return
 	is_initialized = true
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-	chunk_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "chunk_manager")
-	navigation_mesh_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "navigation_mesh_manager")
-	trigger_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "trigger_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	chunk_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "chunk_manager")
+	navigation_mesh_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "navigation_mesh_manager")
+	trigger_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "trigger_manager")
 	
 	# Initialize all handlers
 	player_movement_validation_handler.initialize(self)

@@ -13,10 +13,10 @@ func initialize():
 	if is_initialized:
 		print("PlayerMovementHandler already initialized. Skipping.")
 		return
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_manager", "player_movement_manager")
 	movement_player_sync_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "movement_player_sync_handler")
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_server_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
 	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_converter_handler")  # Importing the converter
 	is_initialized = true
 

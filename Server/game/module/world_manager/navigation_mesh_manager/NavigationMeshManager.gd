@@ -19,8 +19,16 @@ var loaded_navmeshes = {}  # Stores loaded navigation meshes
 var max_loaded_navmeshes = 50  # Max number of loaded navigation meshes at once
 var preload_distance = 2  # Distance around player for preloading meshes
 
+var instance_manager
+var player_movement_manager
+var is_initialized = false
+
 # Initialize NavigationMeshManager
 func initialize():
+	if is_initialized:
+		return
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
 	print("Initializing NavigationMeshManager with preloading distance: ", preload_distance)
 	navigation_mesh_pathfinding_handler.initialize(self)
 	navigation_mesh_obstacle_handler.initialize(self)
@@ -32,7 +40,8 @@ func initialize():
 	navigation_mesh_loading_handler.initialize(self)
 	navigation_mesh_boundary_handler.initialize(self)
 	navigation_mesh_sync_handler.initialize(self)
-
+	is_initialized = true
+	
 ## Load a navigation mesh for the specific area
 #func load_navmesh(area_id: String): # Load the navigation mesh by its area ID.
 	#return navmesh_loading_handler.load_navmesh(area_id)

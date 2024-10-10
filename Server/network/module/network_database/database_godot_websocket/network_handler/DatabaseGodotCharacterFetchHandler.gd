@@ -16,7 +16,7 @@ func initialize():
 		return
 	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
 	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
 	is_initialized = true
 

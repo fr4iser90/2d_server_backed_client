@@ -293,37 +293,37 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "Start"
+text = "Start(Placeholder)"
 
 [node name="Button2" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "Stop"
+text = "Stop(Placeholder)"
 
 [node name="Button3" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "KickServer"
+text = "KickServer(Placeholder)"
 
 [node name="Button4" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "BanServerKey"
+text = "BanServerKey(Placeholder)"
 
 [node name="Button5" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "RegisterServerKey"
+text = "RegisterServerKey(Placeholder)"
 
 [node name="Button6" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/PeerControlPanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "Button"
+text = "Button(Placeholder)"
 
 [node name="DatabasePanelLabel" type="Label" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer"]
 layout_mode = 2
@@ -359,25 +359,25 @@ text = "DELETEDATABASE"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "test"
+text = "Button(Placeholder)"
 
 [node name="Button4" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "Button"
+text = "Button(Placeholder)"
 
 [node name="Button5" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "Button"
+text = "Button(Placeholder)"
 
 [node name="Button6" type="Button" parent="Control/MainVBoxContainer/MainHBoxContainer/ControlContainer/DatabasePanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
-text = "Button"
+text = "Button(Placeholder)"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Control"]
 layout_mode = 1

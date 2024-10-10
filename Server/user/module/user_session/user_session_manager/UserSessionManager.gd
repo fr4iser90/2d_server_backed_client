@@ -20,8 +20,8 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
 	character_manager.connect("character_selected", Callable(self, "_on_character_selected"))
 	
 	# Initialize session handlers

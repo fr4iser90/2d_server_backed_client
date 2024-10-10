@@ -6,7 +6,6 @@ var NodeManager = null
 var SceneManager = null
 var SignalManager = null
 var DebugPrint = null
-var GlobalServerConsolePrint = null
 var node_manager_ready = false
 var scene_manager_ready = false
 

@@ -26,7 +26,6 @@ var node_manager = {
 	"node_temporary_manager": {"name": "NodeTemporaryManager", "path_file": "res://autoload/node_manager/TemporaryNodeManager.gd", "path_tree": "/root/GlobalManager/NodeManager/NodeTemporaryManager", "cache": true},
 	"node_scanner": {"name": "NodeScanner", "path_file": "res://autoload/node_manager/NodeScanner.gd", "path_tree": "/root/GlobalManager/NodeManager/NodeScanner", "cache": true},
 	"node_categorization_manager": {"name": "NodeCategorizationManager", "path_file": "res://autoload/node_manager/NodeCategorizationManager.gd", "path_tree": "/root/GlobalManager/NodeManager/NodeCategorizationManager", "cache": true},
-	
 }
 
 func get_data() -> Dictionary:

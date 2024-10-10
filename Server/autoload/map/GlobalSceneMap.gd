@@ -10,11 +10,8 @@ var scene_levels = {
 }
 
 var misc_scenes = {
-	"Mage": "res://shared/data/characters/players/Mage.tscn",
-	"Archer": "res://shared/data/characters/players/Archer.tscn",
-	"Knight": "res://shared/data/characters/players/Knight.tscn",
-	"npc_test": "res://shared/data/characters/NPC/npc_test.tscn",
-	"enemy_test": "res://shared/data/characters/Enemies/enemy_test.tscn",
+	"enemy_test": "res://shared/data/characters/mob/enemy_test.tscn",
+	"npc_test": "res://shared/data/characters/npc/npc_test.tscn",
 	"NetworkGameUDPENetPeerModule": "res:///network/module/network_game/game_udp/NetworkGameUDPENetPeerModule.tscn",
 	"NetworkDatabaseMongoDBRESTModule": "res:///network/module/network_database/database_mongodb_rest/NetworkDatabaseMongoDBRESTModule.tscn",
 	"NetworkDatabaseGodotWebsocketModule": "res:///network/module/network_database/database_godot_websocket/NetworkDatabaseGodotWebsocketModule.tscn",
@@ -29,12 +26,20 @@ var misc_scenes = {
 	"CoreTree": "res:///server/CoreTree.tscn",
 }
 
+var scene_players = {
+	"Mage": "res://shared/data/characters/player/mage/Mage.tscn",
+	"Archer": "res://shared/data/characters/player/archer/Archer.tscn",
+	"Knight": "res://shared/data/characters/player/knight/Knight.tscn",
+}
+
 func get_scene_path(scene_name: String) -> String:
 	scene_name = scene_name
 	if scene_levels.has(scene_name):
 		return scene_levels[scene_name]
 	if misc_scenes.has(scene_name):
 		return misc_scenes[scene_name]
+	if scene_players.has(scene_name):
+		return scene_players[scene_name]
 	else:
 		print("Error: Scene name not found in config:", scene_name)
 		return ""

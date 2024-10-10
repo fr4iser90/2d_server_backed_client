@@ -13,8 +13,8 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "character_manager")
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
 	is_initialized = true
 
 func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
@@ -41,10 +41,10 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	
 	# Liste von Managern, die die Peer-ID löschen müssen
 	var manager_list = [
-		{"manager": "world_manager", "node": "instance_manager", "remove_function": "remove_player_from_instance"},
-		{"manager": "game_manager", "node": "player_movement_manager", "remove_function": "remove_player"},
+		{"manager": "game_world_module", "node": "instance_manager", "remove_function": "remove_player_from_instance"},
+		{"manager": "game_player_module", "node": "player_movement_manager", "remove_function": "remove_player"},
+		{"manager": "game_player_module", "node": "character_manager", "remove_function": "remove_character"},
 		{"manager": "user_manager", "node": "user_session_manager", "remove_function": "remove_user"},
-		{"manager": "game_manager", "node": "character_manager", "remove_function": "remove_character"}
 	]
 
 	# Iteriere durch die Liste und entferne die Peer-ID dynamisch

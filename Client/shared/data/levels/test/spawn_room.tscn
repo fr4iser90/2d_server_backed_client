@@ -203,18 +203,6 @@ format = 2
 [node name="AudioSoundLayer" type="TileMap" parent="TileMap/AudioLayers"]
 format = 2
 
-[node name="SpawnPoint" type="Node2D" parent="."]
-
-[node name="NPCSpawnPoint" type="Node2D" parent="SpawnPoint"]
-
-[node name="PlayerSpawnPoint" type="Node2D" parent="SpawnPoint"]
-position = Vector2(35, 203)
-
-[node name="default_spawn_point" type="Marker2D" parent="SpawnPoint/PlayerSpawnPoint"]
-position = Vector2(66, 240)
-
-[node name="MobSpawnPoint" type="Node2D" parent="SpawnPoint"]
-
 [node name="Interactable" type="Node2D" parent="."]
 
 [node name="InteractableTrap" type="Node2D" parent="Interactable"]

@@ -18,7 +18,7 @@ func initialize():
 	if is_initialized:
 		return
 	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user", "user_session_manager")
 	is_initialized = true
 
@@ -148,7 +148,7 @@ func _on_peer_disconnected(peer_id: int):
 	##if is_initialized:
 		##return
 	##enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	##instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	##instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
 	##is_initialized = true
 #
 ## Handle incoming movement packets and forward them for processing
@@ -158,7 +158,7 @@ func _on_peer_disconnected(peer_id: int):
 		#return
 #
 	## Forward the movement data to the process handler for validation and syncing
-	#var player_movement_process_handler = GlobalManager.NodeManager.get_cached_node("game_manager", "player_movement_process_handler")
+	#var player_movement_process_handler = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_process_handler")
 	#player_movement_process_handler.process_received_data(peer_id, movement_data)
 #
 ## Send the movement data to a specific peer

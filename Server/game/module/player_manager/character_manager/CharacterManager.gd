@@ -25,12 +25,11 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
 	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
 
 # Add all characters for a peer
 func add_all_characters_data(peer_id: int, characters: Array):
-	print("characterscharacters  : ", characters)
 	# Create a list to hold the reformatted character data
 	var reformatted_characters = []
 	for character in characters:
@@ -46,7 +45,6 @@ func add_all_characters_data(peer_id: int, characters: Array):
 		reformatted_characters.append(character_data)
 	# Store the full character data for each peer directly without nesting under 'data'
 	all_characters_data[peer_id] = reformatted_characters
-	print("all_characters_data :" , all_characters_data[peer_id] )
 	# Create a lightweight version of the character data
 	var lightweight_data = []
 	for character_data in reformatted_characters:
@@ -59,8 +57,7 @@ func add_all_characters_data(peer_id: int, characters: Array):
 # Select a character for a peer and store it in selected_character_data
 func select_character_for_peer(peer_id: int, character_name: String):
 	var characters = all_characters_data.get(peer_id, [])
-	print("SELECTION characters for peer_id:", peer_id, ":", characters)
-	
+
 	# Convert character_name to lowercase for a simple comparison
 	var search_name = character_name.to_lower()
 

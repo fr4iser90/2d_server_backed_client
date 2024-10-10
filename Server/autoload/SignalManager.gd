@@ -1,4 +1,4 @@
-# res://src/core/autoload/SignalManager.gd
+# SignalManager
 extends Node
 
 var manager_status = {

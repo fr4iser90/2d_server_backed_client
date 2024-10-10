@@ -1,5 +1,1 @@
 res://database.tscn
-res://src/console/database/DatabasePanelList.gd
-res://src/database/character/handler/CharacterUpdateHandler.gd
-res://src/database/character/handler/CharacterCreateHandler.gd
-res://src/database/user/handler/UserCreateHandler.gd

@@ -1,7 +1,3 @@
-# res://src/core/network/backend/backend_handlers/backend_logout_manager.gd (Server)
-extends Node
-
-
 # DatabaseAuthLoginHandler
 extends Node
 

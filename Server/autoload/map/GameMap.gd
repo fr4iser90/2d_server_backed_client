@@ -1,14 +1,14 @@
 # res://src/core/autoload/map/GameMap.gd
 extends Node
 
-
-var game_manager = {
+var game_player_module = {
 	"player_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerManager", "cache": true},
 	"character_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager", "cache": true},
 	"player_movement_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager", "cache": true},
+	"player_state_manager": {"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager", "cache": true},
 }
 
-var world_manager = {
+var game_world_module = {
 	"instance_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager", "cache": true},
 	"trigger_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager", "cache": true},
 	"chunk_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager", "cache": true},
@@ -18,13 +18,12 @@ var world_manager = {
 	"navigation_mesh_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager", "cache": true},
 }
 
-var inventory_manager = {
-	
+var game_entity_module  = {
+	"npc_manager": {"path_tree": "/root/Game/GameEntityModule/Manager/NPCManager", "cache": true},
+	"mod_manager": {"path_tree": "/root/Game/GameEntityModule/Manager/MobManager", "cache": true},
 }
 
-var quest_manager = {
-	
-}
+
 
 func get_data() -> Dictionary:
 	var all_data = {}

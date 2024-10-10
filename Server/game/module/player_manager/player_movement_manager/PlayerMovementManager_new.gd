@@ -25,8 +25,8 @@ func initialize():
 	is_initialized = true
 #	connect("player_entered_trigger", Callable($"../TriggerManager", "_on_trigger_activated"))
 #	connect("player_exited_trigger", Callable($"../TriggerManager", "_on_trigger_deactivated"))
-	trigger_manager = GlobalManager.NodeManager.get_cached_node("game_manager", "trigger_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
+	trigger_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "trigger_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
 # Add a player to the manager
 func add_player(peer_id: int, player_data: Dictionary, spawn_point: Vector2):
 	print("Player added to Movement Manager player_data: ", player_data)
