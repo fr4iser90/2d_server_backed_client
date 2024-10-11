@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxarqnogejmud"]
 
 [ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/manager/NetworkGodotMiddlewareManager.gd" id="1_6je7j"]
-[ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/NetworkDatabaseGodotWebsocketModule.gd" id="1_gu5l2"]
+[ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/manager/NetworkServerDatabaseManager.gd" id="1_fjpu8"]
 [ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/manager/NetworkGodotEndpointManager.gd" id="2_xg8ge"]
 [ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotServerAuthHandler.gd" id="3_0snkw"]
 [ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotUserLoginHandler.gd" id="4_ket4y"]
@@ -11,9 +11,11 @@
 [ext_resource type="Script" path="res://network/module/network_database/database_godot_websocket/network_handler/DatabaseGodotCharacterUpdateHandler.gd" id="8_juiio"]
 
 [node name="NetworkDatabaseModule" type="Node"]
-script = ExtResource("1_gu5l2")
 
 [node name="Manager" type="Node" parent="."]
+
+[node name="NetworkServerDatabaseManager" type="Node" parent="Manager"]
+script = ExtResource("1_fjpu8")
 
 [node name="NetworkMiddlewareManager" type="Node" parent="Manager"]
 script = ExtResource("1_6je7j")
@@ -52,3 +54,23 @@ script = ExtResource("8_juiio")
 [node name="Config" type="Node" parent="."]
 
 [node name="Map" type="Node" parent="."]
+
+[node name="Service" type="Node" parent="."]
+
+[node name="DatabaseServer" type="Node" parent="Service"]
+
+[node name="DatabaseServerAuthService" type="Node" parent="Service/DatabaseServer"]
+
+[node name="DatabaseUser" type="Node" parent="Service"]
+
+[node name="DatabaseUserLoginService" type="Node" parent="Service/DatabaseUser"]
+
+[node name="DatabaseUserTokenService" type="Node" parent="Service/DatabaseUser"]
+
+[node name="DatabaseCharacter" type="Node" parent="Service"]
+
+[node name="DatabaseCharacterFetchService" type="Node" parent="Service/DatabaseCharacter"]
+
+[node name="DatabaseCharacterSelectService" type="Node" parent="Service/DatabaseCharacter"]
+
+[node name="DatabaseCharacterUpdateService" type="Node" parent="Service/DatabaseCharacter"]

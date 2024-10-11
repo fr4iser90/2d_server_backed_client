@@ -1,54 +1,7 @@
 extends Node
 
 var runtime_node_map = {}
-var output_file_runtime_node_map = "res://src/core/autoload/map/RuntimeNodeMap.gd"
-var base_directory = "res://src"
-
-# Szenen scannen und Nodes erfassen
-func scan_scenes():
-	var scenes = get_scene_paths(base_directory)
-	for scene_name in scenes.keys():
-		var scene_path = scenes[scene_name]
-		print("Scanning scene:", scene_name)
-		_find_nodes_in_scene(scene_name, scene_path)
-
-# Szenenpfade abrufen
-func get_scene_paths(directory: String) -> Dictionary:
-	var dir = DirAccess.open(directory)
-	var scenes = {}
-	if dir != null:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir() and file_name != "." and file_name != "..":
-				var sub_scenes = get_scene_paths(directory + "/" + file_name)
-				for key in sub_scenes.keys():
-					scenes[key] = sub_scenes[key]
-			elif file_name.ends_with(".tscn"):
-				var scene_name = file_name.replace(".tscn", "")
-				scenes[scene_name] = directory + "/" + file_name
-			file_name = dir.get_next()
-		dir.list_dir_end()
-	else:
-		print("Fehler beim Öffnen des Verzeichnisses:", directory)
-	return scenes
-
-# Nodes in Szene finden
-func _find_nodes_in_scene(scene_name: String, scene_path: String):
-	var packed_scene = load(scene_path)
-	if packed_scene is PackedScene:
-		var scene_instance = packed_scene.instantiate()
-		_find_nodes_recursive(scene_instance, scene_name, scene_instance, runtime_node_map)
-
-# Rekursives Finden der Nodes
-func _find_nodes_recursive(node: Node, scene_name: String, root_node: Node, node_map: Dictionary):
-	for child in node.get_children():
-		if child is Node:
-			if not node_map.has(scene_name):
-				node_map[scene_name] = {}
-			var path = root_node.get_path_to(child)
-			node_map[scene_name][child.name] = {"path_tree": path, "type": child.get_class()}
-		_find_nodes_recursive(child, scene_name, root_node, node_map)
+var output_file_runtime_node_map = "res://autoload/map/RuntimeNodeMap.gd"
 
 # Laufzeit-Node-Map scannen und speichern
 func scan_runtime_node_map():
@@ -72,7 +25,6 @@ func _build_node_hierarchy(node: Node) -> Dictionary:
 	if children.size() > 0:
 		node_map["children"] = children
 	return node_map
-
 
 # Speichern der Node-Daten in Datei (nur speichern, wenn sich die Daten geändert haben)
 func save_runtime_sorted_node_data_to_file(node_data: Dictionary, file_path: String):

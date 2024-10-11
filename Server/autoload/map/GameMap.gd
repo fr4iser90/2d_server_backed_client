@@ -23,7 +23,18 @@ var game_entity_module  = {
 	"mod_manager": {"path_tree": "/root/Game/GameEntityModule/Manager/MobManager", "cache": true},
 }
 
-
+var instance_manager_handler = {
+	"instance_lifecycle_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceLifecycleHandler", "cache": true},
+	"instance_cache_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceCacheHandler", "cache": true},
+	"instance_assignment_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceAssignmentHandler", "cache": true},
+	"instance_entity_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceEntityManager", "cache": true},
+	"instance_scene_manager": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceSceneManager", "cache": true},
+	"instance_player_character_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstancePlayerCharacterHandler", "cache": true},
+	"instance_npc_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceNPCHandler", "cache": true},
+	"instance_mob_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceMobHandler", "cache": true},
+	"instance_state_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceStateHandler", "cache": true},
+	"instance_event_handler": {"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceEventHandler", "cache": true},
+}
 
 func get_data() -> Dictionary:
 	var all_data = {}

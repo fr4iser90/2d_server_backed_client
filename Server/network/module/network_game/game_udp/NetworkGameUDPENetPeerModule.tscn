@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=3 uid="uid://cudxxv1ij0nt2"]
 
-[ext_resource type="Script" path="res://network/module/network_game/game_udp/NetworkGameModule.gd" id="1_d0lfc"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/enet_server_manager.gd" id="2_0eset"]
+[ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/server_client_manager/NetworkServerClientManager.gd" id="2_igohy"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/channel_manager/channel_manager.gd" id="3_n2k4d"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/enet_manager/handler/ENetServerStartHandler.gd" id="3_yk8g8"]
 [ext_resource type="Script" path="res://network/module/network_game/game_udp/manager/channel_manager/ChannelMap.gd" id="4_7df81"]
@@ -35,9 +35,11 @@
 [ext_resource type="Script" path="res://network/module/network_database/database_mongodb_rest/network_handler/DatabaseMongoDBUserTokenHandler.gd" id="25_mysvb"]
 
 [node name="NetworkGameModule" type="Node"]
-script = ExtResource("1_d0lfc")
 
 [node name="Manager" type="Node" parent="."]
+
+[node name="NetworkServerClientManager" type="Node" parent="Manager"]
+script = ExtResource("2_igohy")
 
 [node name="NetworkENetServerManager" type="Node" parent="Manager"]
 script = ExtResource("2_0eset")

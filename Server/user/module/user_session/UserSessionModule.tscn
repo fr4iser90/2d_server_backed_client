@@ -20,5 +20,3 @@ script = ExtResource("2_illlv")
 script = ExtResource("3_0ffqh")
 
 [node name="SessionLockTypeHandler" type="Node" parent="Manager/UserSessionManager/Handler"]
-
-[node name="Handler" type="Node" parent="."]

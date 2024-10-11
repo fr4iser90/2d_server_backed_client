@@ -3,7 +3,7 @@ extends Node
 
 
 var network_database_module = {
-	"network_database_module": {"path_tree": "/root/Network/NetworkDatabaseModule", "cache": true},
+	"network_server_database_manager": {"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkServerDatabaseManager", "cache": true},
 	"network_middleware_manager": {"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkMiddlewareManager", "cache": true},
 	"network_endpoint_manager": {"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkEndpointManager", "cache": true},
 }

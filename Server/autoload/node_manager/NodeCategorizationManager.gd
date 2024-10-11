@@ -1,110 +1,124 @@
 extends Node
 
-# Preload the runtime node map script
-var runtime_node_map_script = preload("res://autoload/map/RuntimeNodeMap.gd")
-var output_file_categorized_runtime_node_map = "res://autoload/map/CategorizedRuntimeNodeMap.gd"
+var categorized_map = {}
+var output_file_runtime_node_map = "res://autoload/map/FlattenedRuntimeNodeMap.gd"
 
-# Initialize the categorized map
-var categorized_runtime_node_map = {}
-
-# Collects all manager maps and saves them
-func process_and_save_categorized_node_data():
-	var instance = runtime_node_map_script.new()  # Create an instance
-	var runtime_node_map = instance.get_data()  # Get data from the instance
-
-	# Process the root node
-	if "root" in runtime_node_map["runtime_node_map"]:
-		var root_info = runtime_node_map["runtime_node_map"]["root"]
-		if "children" in root_info:
-			for module_name in root_info["children"].keys():
-				var module_info = root_info["children"][module_name]
-				print("Module found:", module_name)
-				
-				# Initialize module map
-				categorized_runtime_node_map[module_name] = {}
-				
-				# Process the module's children recursively
-				process_node_hierarchy(module_info, categorized_runtime_node_map[module_name])
-
-	save_categorized_node_map()  # Save the map
-
-# Recursive function to process node hierarchy (managers, children, grandchildren, etc.)
-func process_node_hierarchy(node_info: Dictionary, result_map: Dictionary):
-	if "children" in node_info:
-		for child_name in node_info["children"].keys():
-			var child_info = node_info["children"][child_name]
-			print("Node found:", child_name)
-
-			# Ensure the child is a dictionary and add its path_tree
-			if typeof(child_info) == TYPE_DICTIONARY:
-				result_map[child_name] = {
-					"path_tree": child_info.get("path_tree", ""),
-					"children": {}  # Prepare for further nesting
-				}
-
-				# Recursively process the node's children (grandchildren, etc.)
-				process_node_hierarchy(child_info, result_map[child_name]["children"])
-
-# Function to save the categorized node map
-func save_categorized_node_map():
-	var file = FileAccess.open(output_file_categorized_runtime_node_map, FileAccess.WRITE)
-	if file:
-		# Save each module as a separate variable
-		for module_name in categorized_runtime_node_map.keys():
-			file.store_line("var " + module_name + " = {")
-			var manager_map = categorized_runtime_node_map[module_name]
-			save_node_hierarchy(manager_map, file, "    ")
-			file.store_line("}")
-			file.store_line("")  # Separate each module with an empty line for readability
-		append_get_data_function(file)
-		file.close()
-		print("Categorized node data saved to file:", output_file_categorized_runtime_node_map)
+# Scans the runtime node tree and creates a structured list of modules, managers, handlers, and services
+func scan_runtime_node_map():
+	var root_node = get_tree().root
+	if root_node:
+		_build_categorized_map(root_node, categorized_map)
+		save_categorized_map_to_file(categorized_map, output_file_runtime_node_map)
 	else:
-		print("Error opening file for writing:", output_file_categorized_runtime_node_map)
+		print("No root node found.")
 
-# Recursive function to save node hierarchy into the file
-func save_node_hierarchy(node_map: Dictionary, file: FileAccess, indent: String):
-	for node_name in node_map.keys():
-		file.store_line(indent + '"' + node_name + '": {')
-		file.store_line(indent + '    "path_tree": "' + node_map[node_name]["path_tree"] + '",')
-
-		# Save children recursively if they exist
-		if "children" in node_map[node_name] and node_map[node_name]["children"].keys().size() > 0:
-			file.store_line(indent + '    "children": {')
-			save_node_hierarchy(node_map[node_name]["children"], file, indent + '        ')
-			file.store_line(indent + '    }')
-
-		file.store_line(indent + '},')
-
-func append_get_data_function(file: FileAccess):
-	# Define the get_data() utility function content
-	var function_content = """
-func get_data() -> Dictionary:
-	var all_data = {}
-	var properties = get_property_list()
-		
-	for property in properties:
-		var property_name = property.name
-		var property_value = get(property_name)
-			
-		if typeof(property_value) == TYPE_DICTIONARY:
-			all_data[property_name] = flatten_nested_map(property_value)
-		
-	return all_data
-
-func flatten_nested_map(nested_map: Dictionary) -> Dictionary:
-	var flat_map = {}
-		
-	for key in nested_map.keys():
-		var value = nested_map[key]
-		
-		if typeof(value) == TYPE_DICTIONARY and value.has('children'):
-			flat_map[key] = value
-			flat_map[key]['children'] = flatten_nested_map(value['children'])
+func _build_categorized_map(node: Node, categorized_map: Dictionary):
+	for child in node.get_children():
+		if _is_module(child.name):
+			var module_name = child.name
+			_process_module_nodes(child, categorized_map, module_name)
 		else:
-			flat_map[key] = value
+			_build_categorized_map(child, categorized_map)
+
+# Processes the nodes within the module and creates entries only for non-empty categories
+func _process_module_nodes(module_node: Node, categorized_map: Dictionary, module_name: String):
+	var manager_nodes = []
+	var service_nodes = []
+	var handler_nodes = []
+
+	for child in module_node.get_children():
+		if _is_manager(child.name):
+			manager_nodes.append(child)
+		elif _is_service(child.name):
+			service_nodes.append(child)
+		elif _is_handler(child.name):
+			handler_nodes.append(child)
+
+	if not manager_nodes.is_empty():
+		categorized_map[module_name + "Manager"] = {}
+		for manager in manager_nodes:
+			_add_children_to_category(manager, categorized_map[module_name + "Manager"])
+			_process_manager(manager, categorized_map)
+	if not service_nodes.is_empty():
+		categorized_map[module_name + "Service"] = {}
+		for service_group in service_nodes:
+			_add_grandchildren_to_category(service_group, categorized_map[module_name + "Service"])
+
+	if not handler_nodes.is_empty():
+		categorized_map[module_name + "Handler"] = {}
+		for handler in handler_nodes:
+			_add_children_to_category(handler, categorized_map[module_name + "Handler"])
+
+func _process_manager(manager_node: Node, categorized_map: Dictionary):
+	var handler_nodes = {}
 	
-	return flat_map
-"""
-	# Append the function content to the file
-	file.store_line(function_content)
+	for manager in manager_node.get_children():
+		var manager_name = manager.name
+		print("manager found: ", manager_name)
+		handler_nodes[manager_name] = []
+		
+		for child in manager.get_children():
+			if _is_handler(child.name):
+				print("handler found: ", child.name)
+				handler_nodes[manager_name].append(child)
+
+	for manager_name in handler_nodes:
+		var handlers = handler_nodes[manager_name]
+		if not handlers.is_empty():
+			categorized_map[manager_name + "Handler"] = {}
+			for handler in handlers:
+				_add_children_to_category(handler, categorized_map[manager_name + "Handler"])
+
+
+# Adds children to the corresponding category
+func _add_children_to_category(parent: Node, category: Dictionary):
+	for child in parent.get_children():
+		category[child.name] = {
+			"path_tree": str(child.get_path()),
+			"cache": true
+		}
+
+# Adds grandchildren to the corresponding category
+func _add_grandchildren_to_category(service_group: Node, category: Dictionary):
+	for service_subgroup in service_group.get_children():
+		for service in service_subgroup.get_children():
+			category[service.name] = {
+				"path_tree": str(service.get_path()),
+				"cache": true
+			}
+
+# Checks if a node is a module
+func _is_module(node_name: String) -> bool:
+	return node_name.ends_with("Module")
+
+# Checks if a node is a manager
+func _is_manager(node_name: String) -> bool:
+	return node_name.ends_with("Manager")
+
+# Checks if a node is a handler
+func _is_handler(node_name: String) -> bool:
+	return node_name.ends_with("Handler")
+
+# Checks if a node is a service
+func _is_service(node_name: String) -> bool:
+	return node_name.ends_with("Service")
+
+# Saves the categorized structure to a file, with clearly separated groups for managers, handlers, and services
+func save_categorized_map_to_file(categorized_map: Dictionary, file_path: String):
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file != null:
+		file.store_line("extends Node\n")
+
+		for group_name in categorized_map.keys():
+			file.store_line("var " + group_name + " = {")
+			for entry_name in categorized_map[group_name].keys():
+				var entry = categorized_map[group_name][entry_name]
+				file.store_line('    "' + entry_name + '": {')
+				file.store_line('        "path_tree": "' + entry["path_tree"] + '",')
+				file.store_line('        "cache": ' + str(entry["cache"]))
+				file.store_line('    },')
+			file.store_line("}\n")
+		file.close()
+		print("Categorized node structure successfully saved to file:", file_path)
+	else:
+		print("Error opening file for writing:", file_path)

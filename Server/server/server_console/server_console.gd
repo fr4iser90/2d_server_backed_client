@@ -58,8 +58,8 @@ func _populate_preset_list():
 
 func _get_manager():
 	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_database_module")
-	network_server_client_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_game_module")
+	network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_server_database_manager")
+	network_server_client_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_server_client_manager")
 	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
 	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
 	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connecting"))
@@ -156,7 +156,6 @@ func _on_backend_authenticated(success: bool):
 	if success:
 		GlobalManager.DebugPrint.debug_info("Backend authenticated successfully. Starting client network manager...", self)
 		if network_server_client_manager:
-			GlobalManager.SceneManager.print_tree_structure()
 			network_server_client_manager.connect("network_server_client_network_started", Callable(self, "_on_server_client_network_started"))
 			network_server_client_manager.start_server_client_network()
 		else:
@@ -168,6 +167,9 @@ func _on_backend_authenticated(success: bool):
 # Callback when the client network starts
 func _on_server_client_network_started():
 	GlobalManager.DebugPrint.debug_system("Client network started. Server is fully operational.", self)
+	GlobalManager.NodeManager.scan_runtime_node_map()
+	#GlobalManager.SceneManager.scan_runtime_node_map()
+	GlobalManager.SceneManager.print_tree_structure()
 	if user_session_manager:
 		user_session_manager.connect("user_data_changed", Callable(player_list_manager, "update_player_list"))
 
@@ -214,7 +216,6 @@ func _on_backend_connecting():
 # Handle authentication completion
 func _on_authentication_complete(success: bool):
 	if success:
-		GlobalManager.SceneManager.print_tree_structure()
 		packet_manager.cache_channel_map()
 		_update_backend_status(BackendStatus.AUTHENTICATED)
 	else:
@@ -238,7 +239,6 @@ func _on_backend_ip_input_text_changed(new_ip: String):
 	server_console_settings_handler.save_network_settings(new_ip, backend_port_input.text.to_int(), server_port.text.to_int())
 
 func _on_backend_port_input_text_changed(new_port: String):
-	print("CHDSUHADHIUSAHUIDUHIASDUHIAUHIS")
 	server_console_settings_handler.save_network_settings(backend_ip_input.text, new_port.to_int(), server_port.text.to_int())
 	
 	

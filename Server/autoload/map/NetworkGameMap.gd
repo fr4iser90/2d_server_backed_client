@@ -2,7 +2,7 @@
 extends Node
 
 var network_game_module = {
-	"network_game_module": {"path_tree": "/root/Network/NetworkGameModule", "cache": true},
+	"network_server_client_manager": {"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkServerClientManager", "cache": true},
 	"network_enet_server_manager": {"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager", "cache": true},
 	"network_packet_manager": {"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager", "cache": true},
 	"network_channel_manager": {"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkChannelManager", "cache": true},

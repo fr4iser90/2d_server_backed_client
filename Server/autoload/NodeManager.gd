@@ -97,32 +97,35 @@ func get_all_node_managers() -> Dictionary:
 	return managers
 
 func categorize_and_save_runtime_node_map():
-		return node_categorization_manager.process_and_save_categorized_node_data()
+	return node_categorization_manager.process_and_save_categorized_node_data()
 		
-# NodeCacheManager
-func get_node_info(node_type: String, node_name: String) -> Dictionary:
-		return node_map_manager.get_node_info(node_type, node_name)
-		
-func cache_node(node_type: String, node_name: String):
-		return node_cache_manager.cache_node(node_type, node_name)
-		
-func get_cached_node(node_type: String, node_name: String) -> Node:
-		return node_cache_manager.get_cached_node(node_type, node_name)
-		
-func init_and_cache_node(node_type: String, node_name: String) -> Node:
-		return node_cache_manager.init_and_cache_node(node_type, node_name)
-
-func get_node_from_config(node_type: String, node_name: String, auto_initialize := true) -> Node:
-	return node_cache_manager.get_node_from_config(node_type, node_name, auto_initialize)
-
-func get_node_info_from_map(map_name: String, node_type: String , node_name: String) -> Node:
-	return node_map_manager.get_node_from_map(map_name, node_type, node_name)
-
-func get_node_from_combined_maps(node_type: String, node_name: String) -> Node:
-	return node_map_manager.get_node_from_combined_maps(node_type, node_name)
+func scan_runtime_node_map():
+	return node_categorization_manager.scan_runtime_node_map()
 	
-func reference_map_entry(map_name: String, node_type: String, target: Dictionary):
-	return node_map_manager.reference_map_entry(map_name, node_type, target)
+# NodeCacheManager
+func get_node_info(node_category: String, node_name: String) -> Dictionary:
+	return node_map_manager.get_node_info(node_category, node_name)
+		
+func cache_node(node_category: String, node_name: String):
+	return node_cache_manager.cache_node(node_category, node_name)
+		
+func get_cached_node(node_category: String, node_name: String) -> Node:
+	return node_cache_manager.get_cached_node(node_category, node_name)
+		
+func init_and_cache_node(node_category: String, node_name: String) -> Node:
+	return node_cache_manager.init_and_cache_node(node_category, node_name)
+
+func get_node_from_config(node_category: String, node_name: String, auto_initialize := true) -> Node:
+	return node_cache_manager.get_node_from_config(node_category, node_name, auto_initialize)
+
+func get_node_info_from_map(map_name: String, node_category: String , node_name: String) -> Node:
+	return node_map_manager.get_node_from_map(map_name, node_category, node_name)
+
+func get_node_from_combined_maps(node_category: String, node_name: String) -> Node:
+	return node_map_manager.get_node_from_combined_maps(node_category, node_name)
+	
+func reference_map_entry(map_name: String, node_category: String, target: Dictionary):
+	return node_map_manager.reference_map_entry(map_name, node_category, target)
 	
 # NodeStateManager
 func mark_node_ready(node_name: String):
@@ -138,13 +141,13 @@ func mark_all_nodes_ready():
 		return node_state_manager.mark_all_nodes_ready()
 		
 # NodeTemporaryNodeManager
-func use_temporary_node(node_type: String, node_name: String, auto_initialize := true) -> Node:
-		return node_temporary_manager.use_temporary_node(node_type, node_name, auto_initialize)
+func use_temporary_node(node_category: String, node_name: String, auto_initialize := true) -> Node:
+		return node_temporary_manager.use_temporary_node(node_category, node_name, auto_initialize)
 		
 # NodeLifecycleManager
-func initialize_node(node_type: String, node_name: String) -> Node:
-	return node_life_cycle_manager.initialize_node(node_type, node_name)
-# res://src/core/autoload/global_node_manager.gd
+func initialize_node(node_category: String, node_name: String) -> Node:
+	return node_life_cycle_manager.initialize_node(node_category, node_name)
+
 func activate_node(node_name: String):
 	return node_life_cycle_manager.activate_node(node_name)
 
@@ -154,8 +157,8 @@ func deactivate_node(node_name: String):
 func free_node(node_name: String):
 	return node_life_cycle_manager.free_node(node_name)
 		
-func reference_node_group(node_type: String, paths: Dictionary, target: Dictionary):
-	return node_life_cycle_manager.reference_node_group(node_type, paths, target)
+func reference_node_group(node_category: String, paths: Dictionary, target: Dictionary):
+	return node_life_cycle_manager.reference_node_group(node_category, paths, target)
 	
 #NodeScanner
 func scan_node_tree(node: Node) -> void:

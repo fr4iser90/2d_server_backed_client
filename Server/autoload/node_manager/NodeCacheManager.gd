@@ -24,16 +24,16 @@ func _ready():
 	node_map_manager = get_node("/root/GlobalManager/NodeManager/NodeMapManager")
 
 # Retrieve a cached node or cache it if necessary
-func get_cached_node(node_type: String, node_name: String) -> Node:
-	var node_info = node_map_manager.get_node_from_combined_maps(node_type, node_name)
-	GlobalManager.DebugPrint.debug_info("Requesting node: " + node_name + " of type: " + node_type, self)
+func get_cached_node(node_category: String, node_name: String) -> Node:
+	var node_info = node_map_manager.get_node_from_combined_maps(node_category, node_name)
+	GlobalManager.DebugPrint.debug_info("Requesting node: " + node_name + " of type: " + node_category, self)
 		
 	if node_cache.has(node_name):
 		GlobalManager.DebugPrint.debug_info("Node found in cache: " + node_name, self)
 		return ensure_node_initialized(node_name)
 
 	GlobalManager.DebugPrint.debug_info("Node not in cache, caching: " + node_name, self)
-	cache_node(node_type, node_name)
+	cache_node(node_category, node_name)
 	return ensure_node_initialized(node_name)
 
 func ensure_node_initialized(node_name: String) -> Node:
@@ -58,7 +58,7 @@ func ensure_node_initialized(node_name: String) -> Node:
 		return node
 	return null
 
-func cache_node(node_type: String, node_name: String):
+func cache_node(node_category: String, node_name: String):
 	var node_info = node_map_manager.get_combined_map_data(node_name)
 	if not node_info:
 		GlobalManager.DebugPrint.debug_warning("Error: Invalid node name " + node_name, self)

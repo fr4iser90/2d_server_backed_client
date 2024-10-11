@@ -5,9 +5,9 @@ var node_cache_manager = preload("res://autoload/node_manager/NodeCacheManager.g
 var node_state_manager = preload("res://autoload/node_manager/NodeStateManager.gd").new()
 
 # Initialize a node and set it to "ready"
-func initialize_node(node_type: String, node_name: String) -> Node:
-	GlobalManager.DebugPrint.debug_info("Initializing node: " + node_name + " of type: " + node_type, self)
-	var node = node_cache_manager.get_cached_node(node_type, node_name)
+func initialize_node(node_category: String, node_name: String) -> Node:
+	GlobalManager.DebugPrint.debug_info("Initializing node: " + node_name + " of category: " + node_category, self)
+	var node = node_cache_manager.get_cached_node(node_category, node_name)
 	if node == null:
 		GlobalManager.DebugPrint.debug_error("Error: Could not find or cache node: " + node_name, self)
 		return null
@@ -62,10 +62,10 @@ func reset_node_state(node_name: String):
 	GlobalManager.DebugPrint.debug_info("Node state reset for: " + node_name, self)
 
 # Reference node group
-func reference_node_group(node_type: String, paths: Dictionary, target: Dictionary):
-	GlobalManager.DebugPrint.debug_info("Referencing node group of type: " + node_type, self)
+func reference_node_group(node_category: String, paths: Dictionary, target: Dictionary):
+	GlobalManager.DebugPrint.debug_info("Referencing node group of category: " + node_category, self)
 	for key in paths.keys():
-		var node = node_cache_manager.get_node_from_config(node_type, key)
+		var node = node_cache_manager.get_node_from_config(node_category, key)
 		if node:
 			target[key] = node
 			GlobalManager.DebugPrint.debug_info("Referenced node: " + key, self)
