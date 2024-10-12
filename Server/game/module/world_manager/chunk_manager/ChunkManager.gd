@@ -23,7 +23,7 @@ var player_movement_manager
 # Initialize the ChunkManager
 func initialize(): # Set up ChunkManager with all the handlers and instance manager.
 	print("Initializing ChunkManager with chunk size: ", chunk_size)
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	chunk_creation_handler.initialize(self)
 	chunk_cache_handler.initialize(self)
 	chunk_assignment_handler.initialize(self)

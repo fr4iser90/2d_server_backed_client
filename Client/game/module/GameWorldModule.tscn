@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://k6lykemokl"]
+
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/InstanceManager.gd" id="1_xonuv"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceEntityNodeManager.gd" id="2_gclch"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstancePlayerMovementHandler.gd" id="3_3srte"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceNPCMovementHandler.gd" id="4_e5uqy"]
+[ext_resource type="Script" path="res://src/game/world_manager/instance_manager/handler/InstanceMobMovementHandler.gd" id="5_24s5n"]
+
+[node name="GameWorldModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="InstanceManager" type="Node" parent="Manager"]
+script = ExtResource("1_xonuv")
+
+[node name="Handler" type="Node" parent="Manager/InstanceManager"]
+
+[node name="InstanceEntityNodeManager" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("2_gclch")
+
+[node name="InstancePlayerMovementHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("3_3srte")
+
+[node name="InstanceNPCMovementHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("4_e5uqy")
+
+[node name="InstanceMobMovementHandler" type="Node" parent="Manager/InstanceManager/Handler"]
+script = ExtResource("5_24s5n")
+
+[node name="SceneTransitionManager" type="Node" parent="Manager"]
+
+[node name="Handler" type="Node" parent="Manager/SceneTransitionManager"]
+
+[node name="Handler3" type="Node" parent="Manager/SceneTransitionManager/Handler"]

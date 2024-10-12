@@ -14,10 +14,10 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
-	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkMiddlewareManager")
 	is_initialized = true
 
 

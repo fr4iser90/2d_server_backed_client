@@ -20,13 +20,13 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	character_manager.connect("character_selected", Callable(self, "_on_character_selected"))
 	
 	# Initialize session handlers
-	session_lock_handler = GlobalManager.NodeManager.get_cached_node("user_session_manager", "session_lock_handler")
-	timeout_handler = GlobalManager.NodeManager.get_cached_node("user_session_manager", "timeout_handler")
+	session_lock_handler = GlobalManager.NodeManager.get_cached_node("UserSessionManager", "SessionLockHandler")
+	timeout_handler = GlobalManager.NodeManager.get_cached_node("UserSessionManager", "TimeoutHandler")
 
 	GlobalManager.DebugPrint.debug_info("UserSessionManager initialized.", self)
 

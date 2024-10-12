@@ -6,18 +6,18 @@ var player_movement_manager
 var movement_player_sync_handler
 var instance_manager
 var packet_converter_handler  # Reference to the PacketConverterHandler
-var handler_name = "movement_player_handler"
+var handler_name = "MovementPlayerService"
 var is_initialized = false
 
 func initialize():
 	if is_initialized:
 		print("PlayerMovementHandler already initialized. Skipping.")
 		return
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_manager", "player_movement_manager")
-	movement_player_sync_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "movement_player_sync_handler")
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_server_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
-	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_converter_handler")  # Importing the converter
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
+	movement_player_sync_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "MovementPlayerSyncService")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketConverterHandler")  # Importing the converter
 	is_initialized = true
 
 # Handle incoming packets for player movement

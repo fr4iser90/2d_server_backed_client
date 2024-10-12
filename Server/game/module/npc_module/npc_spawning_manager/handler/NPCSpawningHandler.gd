@@ -9,7 +9,7 @@ var instance_manager
 
 func initialize(manager: Node):
 	npc_manager = manager  # Store the reference to the NPCManager
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	
 	print("NPCSpawningHandler initialized.")
 

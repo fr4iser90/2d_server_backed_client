@@ -18,8 +18,8 @@ func initialize():
 		return
 	GlobalManager.DebugPrint.debug_info("Initializing ChannelManager...", self)
 
-	channel_map = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_map")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
+	channel_map = GlobalManager.NodeManager.get_cached_node("NetworkChannelManager", "ChannelMap")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
 	
 	GlobalManager.DebugPrint.debug_info("ChannelManager initialized.", self)
 	is_initialized = true
@@ -28,7 +28,7 @@ func initialize():
 func register_channel_map():
 	if not is_initialized:
 		initialize()
-	var channel_map = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_map")
+	var channel_map = GlobalManager.NodeManager.get_cached_node("NetworkChannelManager", "ChannelMap")
 	if channel_map:
 		auto_register_handlers(channel_map.CHANNEL_MAP)
 	else:
@@ -40,7 +40,7 @@ func auto_register_handlers(channel_map_dic: Dictionary):
 		initialize()
 	for channel in channel_map_dic.keys():
 		var handler_name = channel_map_dic[channel]
-		var handler = GlobalManager.NodeManager.get_cached_node("network_game_handler", handler_name)
+		var handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", handler_name)
 		if handler != null:
 			register_handler(channel, handler)
 		else:

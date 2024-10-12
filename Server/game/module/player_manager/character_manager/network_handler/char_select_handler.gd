@@ -3,14 +3,14 @@ extends Node
 
 var enet_server_manager
 var database_handler
-var handler_name = "character_select_handler"
+var handler_name = "CharacterSelectService"
 var is_initialized = false
 
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	database_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_select_handler")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	database_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseCharacterSelectService")
 	database_handler.connect("character_selected_success", Callable(self, "_on_character_selected_success"))
 	database_handler.connect("character_selection_failed", Callable(self, "_on_character_selection_failed"))
 	is_initialized = true
@@ -22,7 +22,7 @@ func handle_packet(client_data: Dictionary, peer_id: int):
 		var name = client_data["name"]
 
 		# Validate session token
-		if not GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager").validate_user_server_session_token(peer_id, server_session_token):
+		if not GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager").validate_user_server_session_token(peer_id, server_session_token):
 			_on_character_selection_failed("Invalid session token")
 			return
 

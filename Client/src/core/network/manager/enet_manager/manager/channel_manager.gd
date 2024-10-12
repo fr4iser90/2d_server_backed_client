@@ -13,8 +13,8 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	channel_map = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_map")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
+	channel_map = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "ChannelMap")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
 	
 # Funktion zur Registrierung der globalen Kanalzuordnung 
 func register_channel_map():

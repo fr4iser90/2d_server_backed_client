@@ -1,0 +1,130 @@
+[gd_scene load_steps=27 format=3 uid="uid://d1p05jjgkfwh5"]
+
+[ext_resource type="Script" path="res://src/core/network/manager/ClientServerManager.gd" id="1_qe287"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/enet_client_manager.gd" id="2_45gak"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/channel_manager.gd" id="3_61rf3"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/ChannelMap.gd" id="4_a43io"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/packet_manager.gd" id="5_hn838"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketDispatchHandler.gd" id="6_f3i8d"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketProcessingHandler.gd" id="7_705h3"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketCreationHandler.gd" id="8_g41g4"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketCacheHandler.gd" id="9_5tov7"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketConverterHandler.gd" id="10_04t70"]
+[ext_resource type="Script" path="res://src/core/network/manager/enet_manager/manager/packet_manager/handler/PacketValidationHandler.gd" id="11_dxi85"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_heartbeat_handler.gd" id="12_drbvc"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_connection_handler.gd" id="13_j0lh5"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/core_disconnection_handler.gd" id="14_sl3j6"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/movement_data_handler.gd" id="15_tpmyj"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/chat_messages_handler.gd" id="16_lhbbe"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/player_status_update_handler.gd" id="17_awsqp"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/event_triggered_handler.gd" id="18_tqybk"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/special_action_handler.gd" id="19_jsbc2"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/self_test_channels.gd" id="20_n3a0q"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/auth_login_handler.gd" id="21_gg8e3"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_fetch_handler.gd" id="22_854vt"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/network_handler/char_select_handler.gd" id="23_y7skl"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/MovementPlayerHandler.gd" id="24_0m5nc"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_movement_manager/network_handler/MovementPlayerSyncHandler.gd" id="25_usnwt"]
+[ext_resource type="Script" path="res://src/core/network/handler/backend_rest/scene_instance_data_handler.gd" id="26_hnrud"]
+
+[node name="NetworkGameModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="NetworkClientServerManager" type="Node" parent="Manager"]
+script = ExtResource("1_qe287")
+
+[node name="NetworkENetClientManager" type="Node" parent="Manager"]
+script = ExtResource("2_45gak")
+
+[node name="NetworkChannelManager" type="Node" parent="Manager"]
+script = ExtResource("3_61rf3")
+
+[node name="Handler" type="Node" parent="Manager/NetworkChannelManager"]
+
+[node name="ChannelMap" type="Node" parent="Manager/NetworkChannelManager/Handler"]
+script = ExtResource("4_a43io")
+
+[node name="NetworkPacketManager" type="Node" parent="Manager"]
+script = ExtResource("5_hn838")
+
+[node name="Handler" type="Node" parent="Manager/NetworkPacketManager"]
+
+[node name="PacketDispatchHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+script = ExtResource("6_f3i8d")
+
+[node name="PacketProcessingHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+script = ExtResource("7_705h3")
+
+[node name="PacketCreationHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+script = ExtResource("8_g41g4")
+
+[node name="PacketHashHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+
+[node name="PacketCacheHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+script = ExtResource("9_5tov7")
+
+[node name="PacketConverterHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+script = ExtResource("10_04t70")
+
+[node name="PacketValidationHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+script = ExtResource("11_dxi85")
+
+[node name="PacketProcessingUtil" type="Node" parent="Manager/NetworkPacketManager/Handler"]
+
+[node name="Service" type="Node" parent="."]
+
+[node name="Core" type="Node" parent="Service"]
+
+[node name="CoreHeartbeatService" type="Node" parent="Service/Core"]
+script = ExtResource("12_drbvc")
+
+[node name="CoreConnectionService" type="Node" parent="Service/Core"]
+script = ExtResource("13_j0lh5")
+
+[node name="CoreDisconnectionService" type="Node" parent="Service/Core"]
+script = ExtResource("14_sl3j6")
+
+[node name="DataService" type="Node" parent="Service/Core"]
+script = ExtResource("15_tpmyj")
+
+[node name="ChatMessageService" type="Node" parent="Service/Core"]
+script = ExtResource("16_lhbbe")
+
+[node name="PlayerStatusUpdateService" type="Node" parent="Service/Core"]
+script = ExtResource("17_awsqp")
+
+[node name="EventTriggeredService" type="Node" parent="Service/Core"]
+script = ExtResource("18_tqybk")
+
+[node name="SpecialActionService" type="Node" parent="Service/Core"]
+script = ExtResource("19_jsbc2")
+
+[node name="SelfTestChannelsService" type="Node" parent="Service/Core"]
+script = ExtResource("20_n3a0q")
+
+[node name="User" type="Node" parent="Service"]
+
+[node name="UserLoginService" type="Node" parent="Service/User"]
+script = ExtResource("21_gg8e3")
+
+[node name="Character" type="Node" parent="Service"]
+
+[node name="CharacterFetchService" type="Node" parent="Service/Character"]
+script = ExtResource("22_854vt")
+
+[node name="CharacterSelectService" type="Node" parent="Service/Character"]
+script = ExtResource("23_y7skl")
+
+[node name="Movement" type="Node" parent="Service"]
+
+[node name="MovementPlayerService" type="Node" parent="Service/Movement"]
+script = ExtResource("24_0m5nc")
+
+[node name="MovementPlayerSyncService" type="Node" parent="Service/Movement"]
+script = ExtResource("25_usnwt")
+
+[node name="Scene" type="Node" parent="Service"]
+
+[node name="SceneInstanceDataService" type="Node" parent="Service/Scene"]
+script = ExtResource("26_hnrud")

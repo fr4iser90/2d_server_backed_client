@@ -30,7 +30,7 @@ func _set_network_module_reference():
 	var network_module = get_node("/root/Core/Network")
 	#network_module = GlobalManager.SceneManager.load_scene("NetworkTree")
 	if network_module:
-		handle_backend_login = GlobalManager.NodeManager.get_cached_node("network_handler", "auth_login_handler")
+		handle_backend_login = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "UserLoginService")
 		if handle_backend_login:
 			handle_backend_login.connect("login_success", Callable(self, "_on_user_logged_in_successfully"))
 			handle_backend_login.connect("login_failed", Callable(self, "_on_login_failed"))

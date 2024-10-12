@@ -13,7 +13,7 @@ var network_middleware_manager = null  # Reference to the middleware manager
 func _ready():
 	GlobalManager.DebugPrint.debug_info("WebSocketServerAuthHandler initialized.", self)
 	# Fetch the NetworkMiddlewareManager directly
-	network_middleware_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
+	network_middleware_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkMiddlewareManager")
 
 # Check the WebSocket connection status
 func _check_connection_status():

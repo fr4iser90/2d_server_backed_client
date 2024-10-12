@@ -14,7 +14,7 @@ func initialize():
 		return
 	GlobalManager.DebugPrint.debug_info("Initializing auth_token_manager...", self)
 	
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_server_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
 	if not enet_server_manager:
 		GlobalManager.DebugPrint.debug_error("ENetServerManager not found!", self)
 	is_initialized = true

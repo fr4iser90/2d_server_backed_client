@@ -8,8 +8,8 @@ var core_connection_handler
 
 func _ready():
 	#network_module = get_node("/root/Core/Network")
-	network_module = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_module")
-	core_connection_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "core_connection_handler")
+	network_module = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
+	core_connection_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService",  "CoreConnectionService")
 	if network_module:
 		_connect_signals()
 		

@@ -22,8 +22,8 @@ func enter_state(player_node: CharacterBody2D, peer_id: int):
 		print("Warning: player node is null when entering movement state.")
 	
 	# Get the movement player handler and connect signals
-	movement_player_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "movement_player_handler")
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
+	movement_player_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "MovementPlayerService")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
 	if movement_player_handler and enet_client_manager.get_peer_id() == player_peer_id:
 		print("Connecting to movement_player_handler for local player")
 		movement_player_handler.connect("position_received", Callable(self, "update_other_player_position"))

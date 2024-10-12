@@ -12,10 +12,10 @@ func initialize():
 	if is_initialized:
 		print("handle_backend_login already initialized. Skipping.")
 		return
-	network_module = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "network_module")
-	enet_client_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.GlobalNodeManager.get_cached_node("network_meta_manager", "packet_manager")
+	network_module = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
 	is_initialized = true
 
 func handle_chat_message(peer_id: int, packet: PackedByteArray):

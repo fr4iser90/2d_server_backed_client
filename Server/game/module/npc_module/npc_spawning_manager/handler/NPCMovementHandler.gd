@@ -4,7 +4,7 @@ extends Node
 var navigation_mesh_manager
 
 func initialize():
-	navigation_mesh_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "navigation_mesh_manager")
+	navigation_mesh_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "NavigationMeshManager")
 	print("NPCMovementManager initialized.")
 
 # Move NPC towards a target position

@@ -23,8 +23,8 @@ func initialize():
 	is_initialized = true
 	GlobalManager.DebugPrint.debug_info("Initializing NetworkGodotDatabaseModule...", self)
 	_reference_nodes()
-	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
-	network_middleware_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
+	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkEndpointManager")
+	network_middleware_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkMiddlewareManager")
 	emit_signal("network_server_backend_manager_initialized")
 
 func connect_to_backend(ip: String, port: String, token: String):
@@ -44,7 +44,7 @@ func _authenticate_backend():
 		GlobalManager.DebugPrint.debug_info("Backend is already authenticated.", self)
 		return
 	GlobalManager.DebugPrint.debug_info("Authenticating backend...", self)
-	var database_server_auth_handler = handlers.get("database_server_auth_handler")
+	var database_server_auth_handler = handlers.get("DatabaseServerAuthService")
 	if database_server_auth_handler:
 		database_server_auth_handler.connect("authentication_complete", Callable(self, "_on_backend_authenticated"))
 	else:
@@ -54,7 +54,7 @@ func _on_backend_authenticated(success: bool):
 	if success:
 		is_authenticated = true
 		GlobalManager.DebugPrint.debug_info("Backend authentication successful. Fetching routes...", self)
-		var network_endpoint_manager = managers.get("network_endpoint_manager")
+		var network_endpoint_manager = managers.get("NetworkEndpointManager")
 #		if network_endpoint_manager:
 #			network_endpoint_manager.fetch_routes()
 		emit_signal("network_server_backend_authentication_success", true)
@@ -67,8 +67,8 @@ func _on_backend_authenticated(success: bool):
 # Reference backend managers and handlers
 func _reference_nodes():
 	GlobalManager.DebugPrint.debug_info("Referencing backend managers and handlers...", self)
-	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_module", managers)
-	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_handler", handlers)
+	GlobalManager.NodeManager.reference_map_entry("GlobalNodeMap", "NetworkDatabaseModule", managers)
+	GlobalManager.NodeManager.reference_map_entry("GlobalNodeMap", "NetworkDatabaseModuleService", handlers)
 	
 	nodes_referenced = true
 

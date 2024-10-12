@@ -1,248 +1,741 @@
 extends Node
 
-var global_node_map = {
-	"NetworkGameUDPENetPeerModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"NetworkENetServerManager": {"path_tree": "Manager/NetworkENetServerManager", "type": "Node"},
-		"NetworkChannelManager": {"path_tree": "Manager/NetworkChannelManager", "type": "Node"},
-		"Map": {"path_tree": "Map", "type": "Node"},
-		"ChannelMap": {"path_tree": "Manager/NetworkChannelManager/Map/ChannelMap", "type": "Node"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"NetworkPacketManager": {"path_tree": "Manager/NetworkPacketManager", "type": "Node"},
-		"PacketDispatchHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketDispatchHandler", "type": "Node"},
-		"PacketProcessingHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketProcessingHandler", "type": "Node"},
-		"PacketCreationHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketCreationHandler", "type": "Node"},
-		"PacketHashHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketHashHandler", "type": "Node"},
-		"PacketCacheHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketCacheHandler", "type": "Node"},
-		"PacketConverterHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketConverterHandler", "type": "Node"},
-		"PacketValidationHandler": {"path_tree": "Manager/NetworkPacketManager/Handler/PacketValidationHandler", "type": "Node"},
-		"NetworkHandler": {"path_tree": "NetworkHandler", "type": "Node"},
-		"GameCore": {"path_tree": "NetworkHandler/GameCore", "type": "Node"},
-		"CoreHeartbeatHandler": {"path_tree": "NetworkHandler/GameCore/CoreHeartbeatHandler", "type": "Node"},
-		"CoreConnectionHandler": {"path_tree": "NetworkHandler/GameCore/CoreConnectionHandler", "type": "Node"},
-		"CoreDisconnectionHandler": {"path_tree": "NetworkHandler/GameCore/CoreDisconnectionHandler", "type": "Node"},
-		"CorePingHandler": {"path_tree": "NetworkHandler/GameCore/CorePingHandler", "type": "Node"},
-		"CoreServerStatusHandler": {"path_tree": "NetworkHandler/GameCore/CoreServerStatusHandler", "type": "Node"},
-		"CoreErrorHandler": {"path_tree": "NetworkHandler/GameCore/CoreErrorHandler", "type": "Node"},
-		"GameMovement": {"path_tree": "NetworkHandler/GameMovement", "type": "Node"},
-		"MovementPlayerHandler": {"path_tree": "NetworkHandler/GameMovement/MovementPlayerHandler", "type": "Node"},
-		"MovementPlayerSyncHandler": {"path_tree": "NetworkHandler/GameMovement/MovementPlayerSyncHandler", "type": "Node"},
-		"GameInstance": {"path_tree": "NetworkHandler/GameInstance", "type": "Node"},
-		"SceneInstanceDataHandler": {"path_tree": "NetworkHandler/GameInstance/SceneInstanceDataHandler", "type": "Node"},
-		"GameTrigger": {"path_tree": "NetworkHandler/GameTrigger", "type": "Node"},
-		"TriggerEntryHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerEntryHandler", "type": "Node"},
-		"TriggerExitHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerExitHandler", "type": "Node"},
-		"TriggerInstanceChangeHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerInstanceChangeHandler", "type": "Node"},
-		"TriggerZoneChangeHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerZoneChangeHandler", "type": "Node"},
-		"TriggerRoomChangeHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerRoomChangeHandler", "type": "Node"},
-		"TriggerEventHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerEventHandler", "type": "Node"},
-		"TriggerTrapHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerTrapHandler", "type": "Node"},
-		"TriggerObjectiveHandler": {"path_tree": "NetworkHandler/GameTrigger/TriggerObjectiveHandler", "type": "Node"},
-		"GameUser": {"path_tree": "NetworkHandler/GameUser", "type": "Node"},
-		"UserLoginHandler": {"path_tree": "NetworkHandler/GameUser/UserLoginHandler", "type": "Node"},
-		"UserTokenHandler": {"path_tree": "NetworkHandler/GameUser/UserTokenHandler", "type": "Node"},
-		"GameCharacter": {"path_tree": "NetworkHandler/GameCharacter", "type": "Node"},
-		"CharacterFetchHandler": {"path_tree": "NetworkHandler/GameCharacter/CharacterFetchHandler", "type": "Node"},
-		"CharacterSelectHandler": {"path_tree": "NetworkHandler/GameCharacter/CharacterSelectHandler", "type": "Node"},
-		"CharacterUpdateHandler": {"path_tree": "NetworkHandler/GameCharacter/CharacterUpdateHandler", "type": "Node"},
-		"Config": {"path_tree": "Config", "type": "Node"},
-	},
-	"NetworkDatabaseMongoDBRESTModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"NetworkMiddlewareManager": {"path_tree": "Manager/NetworkMiddlewareManager", "type": "Node"},
-		"NetworkEndpointManager": {"path_tree": "Manager/NetworkEndpointManager", "type": "Node"},
-		"NetworkHandler": {"path_tree": "NetworkHandler", "type": "Node"},
-		"DatabaseServer": {"path_tree": "NetworkHandler/DatabaseServer", "type": "Node"},
-		"DatabaseServerAuthHandler": {"path_tree": "NetworkHandler/DatabaseServer/DatabaseServerAuthHandler", "type": "Node"},
-		"DatabaseUser": {"path_tree": "NetworkHandler/DatabaseUser", "type": "Node"},
-		"DatabaseUserLoginHandler": {"path_tree": "NetworkHandler/DatabaseUser/DatabaseUserLoginHandler", "type": "Node"},
-		"DatabaseUserTokenHandler": {"path_tree": "NetworkHandler/DatabaseUser/DatabaseUserTokenHandler", "type": "Node"},
-		"DatabaseCharacter": {"path_tree": "NetworkHandler/DatabaseCharacter", "type": "Node"},
-		"DatabaseCharacterFetchHandler": {"path_tree": "NetworkHandler/DatabaseCharacter/DatabaseCharacterFetchHandler", "type": "Node"},
-		"DatabaseCharacterSelectHandler": {"path_tree": "NetworkHandler/DatabaseCharacter/DatabaseCharacterSelectHandler", "type": "Node"},
-		"DatabaseCharacterUpdateHandler": {"path_tree": "NetworkHandler/DatabaseCharacter/DatabaseCharacterUpdateHandler", "type": "Node"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"Config": {"path_tree": "Config", "type": "Node"},
-		"Map": {"path_tree": "Map", "type": "Node"},
-	},
-	"NetworkDatabaseGodotWebsocketModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"NetworkMiddlewareManager": {"path_tree": "Manager/NetworkMiddlewareManager", "type": "Node"},
-		"NetworkEndpointManager": {"path_tree": "Manager/NetworkEndpointManager", "type": "Node"},
-		"NetworkHandler": {"path_tree": "NetworkHandler", "type": "Node"},
-		"DatabaseServer": {"path_tree": "NetworkHandler/DatabaseServer", "type": "Node"},
-		"DatabaseServerAuthHandler": {"path_tree": "NetworkHandler/DatabaseServer/DatabaseServerAuthHandler", "type": "Node"},
-		"DatabaseUser": {"path_tree": "NetworkHandler/DatabaseUser", "type": "Node"},
-		"DatabaseUserLoginHandler": {"path_tree": "NetworkHandler/DatabaseUser/DatabaseUserLoginHandler", "type": "Node"},
-		"DatabaseUserTokenHandler": {"path_tree": "NetworkHandler/DatabaseUser/DatabaseUserTokenHandler", "type": "Node"},
-		"DatabaseCharacter": {"path_tree": "NetworkHandler/DatabaseCharacter", "type": "Node"},
-		"DatabaseCharacterFetchHandler": {"path_tree": "NetworkHandler/DatabaseCharacter/DatabaseCharacterFetchHandler", "type": "Node"},
-		"DatabaseCharacterSelectHandler": {"path_tree": "NetworkHandler/DatabaseCharacter/DatabaseCharacterSelectHandler", "type": "Node"},
-		"DatabaseCharacterUpdateHandler": {"path_tree": "NetworkHandler/DatabaseCharacter/DatabaseCharacterUpdateHandler", "type": "Node"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"Config": {"path_tree": "Config", "type": "Node"},
-		"Map": {"path_tree": "Map", "type": "Node"},
-	},
-	"ServerConsole": {
-		"ServerConsoleContainer": {"path_tree": "ServerConsoleContainer", "type": "VBoxContainer"},
-		"PlaceHolderTop": {"path_tree": "ServerConsoleContainer/PlaceHolderTop/PlaceHolderTop", "type": "Label"},
-		"TopStartServer": {"path_tree": "ServerConsoleContainer/TopStartServer", "type": "HBoxContainer"},
-		"ServerLabel": {"path_tree": "ServerConsoleContainer/TopStartServer/ServerLabel", "type": "Label"},
-		"ServerPresetList": {"path_tree": "ServerConsoleContainer/TopStartServer/ServerPresetList", "type": "ItemList"},
-		"StartServerButton": {"path_tree": "ServerConsoleContainer/TopStartServer/StartServerButton", "type": "Button"},
-		"StopServerButton": {"path_tree": "ServerConsoleContainer/TopStartServer/StopServerButton", "type": "Button"},
-		"ServerPortLabel": {"path_tree": "ServerConsoleContainer/TopStartServer/ServerPortLabel", "type": "Label"},
-		"ServerPortInput": {"path_tree": "ServerConsoleContainer/TopStartServer/ServerPortInput", "type": "LineEdit"},
-		"ServerAutoStartCheckButton": {"path_tree": "ServerConsoleContainer/TopStartServer/ServerAutoStartCheckButton", "type": "CheckButton"},
-		"UseDatabaseLabel": {"path_tree": "ServerConsoleContainer/TopStartServer/UseDatabaseLabel", "type": "Label"},
-		"UseDatabaseTypeLabel": {"path_tree": "ServerConsoleContainer/TopStartServer/UseDatabaseTypeLabel", "type": "Label"},
-		"TopBackend": {"path_tree": "ServerConsoleContainer/TopBackend", "type": "HBoxContainer"},
-		"BackendIP": {"path_tree": "ServerConsoleContainer/TopBackend/BackendIP", "type": "Label"},
-		"BackendIPInput": {"path_tree": "ServerConsoleContainer/TopBackend/BackendIPInput", "type": "LineEdit"},
-		"BackendPortLabel": {"path_tree": "ServerConsoleContainer/TopBackend/BackendPortLabel", "type": "Label"},
-		"BackendPortInput": {"path_tree": "ServerConsoleContainer/TopBackend/BackendPortInput", "type": "LineEdit"},
-		"ServerValidationToken": {"path_tree": "ServerConsoleContainer/TopBackend/ServerValidationToken", "type": "Label"},
-		"ServerValidationTokenInput": {"path_tree": "ServerConsoleContainer/TopBackend/ServerValidationTokenInput", "type": "LineEdit"},
-		"ConnectToBackend": {"path_tree": "ServerConsoleContainer/TopBackend/ConnectToBackend", "type": "Button"},
-		"DisconnectFromBackend": {"path_tree": "ServerConsoleContainer/TopBackend/DisconnectFromBackend", "type": "Button"},
-		"Mid": {"path_tree": "ServerConsoleContainer/Mid", "type": "HBoxContainer"},
-		"SideContainer": {"path_tree": "ServerConsoleContainer/Mid/SideContainer", "type": "VBoxContainer"},
-		"PlayerListLabel": {"path_tree": "ServerConsoleContainer/Mid/SideContainer/PlayerListLabel", "type": "Label"},
-		"PlayerContainer": {"path_tree": "ServerConsoleContainer/Mid/SideContainer/PlayerContainer", "type": "VBoxContainer"},
-		"PlayerContainerPanel": {"path_tree": "ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel", "type": "Panel"},
-		"PlayerListManager": {"path_tree": "ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerContainerPanel/PlayerListManager", "type": "ItemList"},
-		"PlayerVisualMonitorPanel": {"path_tree": "ServerConsoleContainer/Mid/SideContainer/PlayerContainer/PlayerVisualMonitorPanel", "type": "Panel"},
-		"ControlContainer": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer", "type": "VBoxContainer"},
-		"ServerControlPanelLabel": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanelLabel", "type": "Label"},
-		"ServerControlPanel": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel", "type": "Panel"},
-		"ServerControlGridContainer": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer", "type": "GridContainer"},
-		"NetworkContainer": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer", "type": "GridContainer"},
-		"Network": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/NetworkContainer/Network", "type": "Label"},
-		"PlayerControlsButton": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton", "type": "GridContainer"},
-		"Player": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Player", "type": "Label"},
-		"Kick": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Kick", "type": "Button"},
-		"Ban": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Ban", "type": "Button"},
-		"Watch": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/PlayerControlsButton/Watch", "type": "Button"},
-		"Container3": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container3", "type": "GridContainer"},
-		"Label": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container4/Label", "type": "Label"},
-		"Button": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3/Button", "type": "Button"},
-		"Button2": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/ServerControlPanel/ServerControlGridContainer/Container3/Button2", "type": "Button"},
-		"Button3": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/Button3", "type": "Button"},
-		"Button4": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/Button4", "type": "Button"},
-		"Button5": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/Button5", "type": "Button"},
-		"Button6": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/Button6", "type": "Button"},
-		"Container4": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container4", "type": "GridContainer"},
-		"FeaturesList": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container4/FeaturesList", "type": "ItemList"},
-		"BackendButtonPanelLabel": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanelLabel", "type": "Label"},
-		"BackendButtonPanel": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel", "type": "Panel"},
-		"GridContainer": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer", "type": "GridContainer"},
-		"Container1": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/Container1", "type": "GridContainer"},
-		"LevelControlPanel": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/LevelControlPanel", "type": "Label"},
-		"GenerateButton": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/GenerateButton", "type": "Button"},
-		"ViewLevelButton": {"path_tree": "ServerConsoleContainer/Mid/ControlContainer/BackendButtonPanel/GridContainer/LevelControlPanel/ViewLevelButton", "type": "Button"},
-		"ConsoleContainer": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer", "type": "VBoxContainer"},
-		"ServerClientPanelLabel": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanelLabel", "type": "Label"},
-		"ServerClientPanel": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel", "type": "Panel"},
-		"ServerLog": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer/ServerClientPanel/ServerLog", "type": "RichTextLabel"},
-		"ServerBackendPanelLabel": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanelLabel", "type": "Label"},
-		"ServerBackendPanel": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanel", "type": "Panel"},
-		"ServerBackendLog": {"path_tree": "ServerConsoleContainer/Mid/ConsoleContainer/ServerBackendPanel/ServerBackendLog", "type": "RichTextLabel"},
-		"Bottom": {"path_tree": "ServerConsoleContainer/Bottom", "type": "HBoxContainer"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"ServerConsoleLifeCycleHandler": {"path_tree": "Handler/ServerConsoleLifeCycleHandler", "type": "Node"},
-		"ServerConsolePresetHandler": {"path_tree": "Handler/ServerConsolePresetHandler", "type": "Node"},
-		"ServerConsoleSettingsHandler": {"path_tree": "Handler/ServerConsoleSettingsHandler", "type": "Node"},
-		"ServerConsoleUILoadHandler": {"path_tree": "Handler/ServerConsoleUILoadHandler", "type": "Node"},
-	},
-	"UserSessionModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"UserSessionManager": {"path_tree": "Manager/UserSessionManager", "type": "Node"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"SessionLockHandler": {"path_tree": "Manager/UserSessionManager/Handler/SessionLockHandler", "type": "Node"},
-		"TimeoutHandler": {"path_tree": "Manager/UserSessionManager/Handler/TimeoutHandler", "type": "Node"},
-		"SessionLockTypeHandler": {"path_tree": "Manager/UserSessionManager/Handler/SessionLockTypeHandler", "type": "Node"},
-	},
-	"builder": {
-		"VBoxContainer": {"path_tree": "VBoxContainer", "type": "VBoxContainer"},
-	},
-	"CoreTree": {
-		"ServerManager": {"path_tree": "ServerManager", "type": "Node"},
-		"PlayerMovementData": {"path_tree": "ServerManager/PlayerMovementData", "type": "Node"},
-		"Handler": {"path_tree": "ServerManager/PlayerVisualMonitor/Handler", "type": "Node"},
-		"PlayerVisualMonitor": {"path_tree": "ServerManager/PlayerVisualMonitor", "type": "Node"},
-		"AudioManager": {"path_tree": "AudioManager", "type": "Node"},
-		"Utils": {"path_tree": "Utils", "type": "Node"},
-	},
-	"LoadingScene": {
-		"Panel": {"path_tree": "Panel", "type": "Panel"},
-		"VBoxContainer": {"path_tree": "Panel/VBoxContainer/HBoxContainer5/VBoxContainer", "type": "VBoxContainer"},
-		"HBoxContainer": {"path_tree": "Panel/VBoxContainer/HBoxContainer", "type": "HBoxContainer"},
-		"Label": {"path_tree": "Panel/VBoxContainer/HBoxContainer5/VBoxContainer3/Label", "type": "Label"},
-		"HBoxContainer2": {"path_tree": "Panel/VBoxContainer/HBoxContainer2", "type": "HBoxContainer"},
-		"VBoxContainer2": {"path_tree": "Panel/VBoxContainer/HBoxContainer5/VBoxContainer2", "type": "VBoxContainer"},
-		"Label2": {"path_tree": "Panel/VBoxContainer/HBoxContainer2/VBoxContainer3/Label2", "type": "Label"},
-		"VBoxContainer3": {"path_tree": "Panel/VBoxContainer/HBoxContainer5/VBoxContainer3", "type": "VBoxContainer"},
-		"HBoxContainer3": {"path_tree": "Panel/VBoxContainer/HBoxContainer3", "type": "HBoxContainer"},
-		"TextureRect": {"path_tree": "Panel/VBoxContainer/HBoxContainer3/TextureRect", "type": "TextureRect"},
-		"HBoxContainer4": {"path_tree": "Panel/VBoxContainer/HBoxContainer4", "type": "HBoxContainer"},
-		"ProgressBar": {"path_tree": "Panel/VBoxContainer/HBoxContainer4/ProgressBar", "type": "ProgressBar"},
-		"HBoxContainer5": {"path_tree": "Panel/VBoxContainer/HBoxContainer5", "type": "HBoxContainer"},
-		"NetworkHandler": {"path_tree": "NetworkHandler", "type": "Node"},
-		"InstanceDataHandler": {"path_tree": "NetworkHandler/InstanceDataHandler", "type": "Node"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"PlaceHolderHandler": {"path_tree": "Handler/PlaceHolderHandler", "type": "Node"},
-		"PlaceHolderHandler2": {"path_tree": "Handler/PlaceHolderHandler2", "type": "Node"},
-		"InputHandler": {"path_tree": "Handler/InputHandler", "type": "Node"},
-	},
-	"GameWorldModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"InstanceManager": {"path_tree": "Manager/InstanceManager", "type": "Node"},
-		"Handler": {"path_tree": "Manager/TriggerManager/Handler", "type": "Node"},
-		"InstanceLifecycleHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceLifecycleHandler", "type": "Node"},
-		"InstanceSceneManager": {"path_tree": "Manager/InstanceManager/Handler/InstanceSceneManager", "type": "Node"},
-		"InstanceCreationHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceCreationHandler", "type": "Node"},
-		"InstanceCacheHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceCacheHandler", "type": "Node"},
-		"InstanceAssignmentHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceAssignmentHandler", "type": "Node"},
-		"InstanceDestructionHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceDestructionHandler", "type": "Node"},
-		"InstanceBoundaryHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceBoundaryHandler", "type": "Node"},
-		"InstanceLoaderHandler": {"path_tree": "Manager/InstanceManager/Handler/InstanceLoaderHandler", "type": "Node"},
-		"InstancePlayerCharacterHandler": {"path_tree": "Manager/InstanceManager/Handler/InstancePlayerCharacterHandler", "type": "Node"},
-		"ChunkManager": {"path_tree": "Manager/ChunkManager", "type": "Node"},
-		"ChunkLifecycleHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkLifecycleHandler", "type": "Node"},
-		"ChunkSceneManager": {"path_tree": "Manager/ChunkManager/Handler/ChunkSceneManager", "type": "Node"},
-		"ChunkCreationHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkCreationHandler", "type": "Node"},
-		"ChunkCacheHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkCacheHandler", "type": "Node"},
-		"ChunkAssignmentHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkAssignmentHandler", "type": "Node"},
-		"ChunkDestructionHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkDestructionHandler", "type": "Node"},
-		"ChunkBoundaryHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkBoundaryHandler", "type": "Node"},
-		"ChunkEventHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkEventHandler", "type": "Node"},
-		"ChunkLoaderHandler": {"path_tree": "Manager/ChunkManager/Handler/ChunkLoaderHandler", "type": "Node"},
-		"TriggerManager": {"path_tree": "Manager/TriggerManager", "type": "Node"},
-		"TriggerInstanceChangeHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerInstanceChangeHandler", "type": "Node"},
-		"TriggerZoneChangeHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerZoneChangeHandler", "type": "Node"},
-		"TriggerRoomChangeHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerRoomChangeHandler", "type": "Node"},
-		"TriggerEventHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerEventHandler", "type": "Node"},
-		"TriggerTrapHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerTrapHandler", "type": "Node"},
-		"TriggerObjectiveHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerObjectiveHandler", "type": "Node"},
-		"TriggerArea2DCalculationHandler": {"path_tree": "Manager/TriggerManager/Handler/TriggerArea2DCalculationHandler", "type": "Node"},
-		"SpawnPointManager": {"path_tree": "Manager/SpawnPointManager", "type": "Node"},
-	},
-	"GameLevelModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"LevelManager": {"path_tree": "Manager/LevelManager", "type": "Node"},
-		"Handler": {"path_tree": "Manager/LevelManager/Handler", "type": "Node"},
-		"LevelCreationHandler": {"path_tree": "Manager/LevelManager/Handler/LevelCreationHandler", "type": "Node"},
-		"LevelSaveHandler": {"path_tree": "Manager/LevelManager/Handler/LevelSaveHandler", "type": "Node"},
-		"LevelMapGenerator": {"path_tree": "Manager/LevelManager/Handler/LevelMapGenerator", "type": "Node"},
-	},
-	"GamePlayerModule": {
-		"Manager": {"path_tree": "Manager", "type": "Node"},
-		"PlayerManager": {"path_tree": "Manager/PlayerManager", "type": "Node"},
-		"Handler": {"path_tree": "Handler", "type": "Node"},
-		"PlayerSpawnHandler": {"path_tree": "Manager/PlayerManager/Handler/PlayerSpawnHandler", "type": "Node"},
-		"PlayerMovementManager": {"path_tree": "Manager/PlayerMovementManager", "type": "Node"},
-		"PlayerMovementData": {"path_tree": "Manager/PlayerMovementData", "type": "Node"},
-		"PlayerVisualMonitor": {"path_tree": "Manager/PlayerVisualMonitor", "type": "Node"},
-		"CharacterManager": {"path_tree": "Manager/CharacterManager", "type": "Node"},
+var UserSessionModule = {
+	"UserSessionManager": {
+		"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager",
+		"cache": true
 	},
 }
+
+var UserSessionManager = {
+	"SessionLockHandler": {
+		"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager/Handler/SessionLockHandler",
+		"cache": true
+	},
+	"TimeoutHandler": {
+		"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager/Handler/TimeoutHandler",
+		"cache": true
+	},
+	"SessionLockTypeHandler": {
+		"path_tree": "/root/User/UserSessionModule/Manager/UserSessionManager/Handler/SessionLockTypeHandler",
+		"cache": true
+	},
+}
+
+var GamePlayerModule = {
+	"PlayerManager": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerManager",
+		"cache": true
+	},
+	"PlayerMovementManager": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager",
+		"cache": true
+	},
+	"PlayerMovementData": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementData",
+		"cache": true
+	},
+	"PlayerVisualMonitor": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerVisualMonitor",
+		"cache": true
+	},
+	"PlayerStateManager": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager",
+		"cache": true
+	},
+	"CharacterManager": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager",
+		"cache": true
+	},
+}
+
+var PlayerManager = {
+	"PlayerSpawnHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerManager/Handler/PlayerSpawnHandler",
+		"cache": true
+	},
+}
+
+var PlayerMovementManager = {
+	"PlayerMovementValidationHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovementValidationHandler",
+		"cache": true
+	},
+	"PlayerMovementPositionSyncHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovementPositionSyncHandler",
+		"cache": true
+	},
+	"PlayerMovementObstacleDetectionHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovementObstacleDetectionHandler",
+		"cache": true
+	},
+	"PlayerMovementTriggerHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovementTriggerHandler",
+		"cache": true
+	},
+	"PlayerMovementUpdateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovementUpdateHandler",
+		"cache": true
+	},
+	"PlayerMovementStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovementStateHandler",
+		"cache": true
+	},
+	"PlayerMovmementProcessHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerMovementManager/Handler/PlayerMovmementProcessHandler",
+		"cache": true
+	},
+}
+
+var PlayerMovementData = {
+}
+
+var PlayerVisualMonitor = {
+}
+
+var PlayerStateManager = {
+	"PlayerIdleStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerIdleStateHandler",
+		"cache": true
+	},
+	"PlayerMovingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerMovingStateHandler",
+		"cache": true
+	},
+	"PlayerAttackingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerAttackingStateHandler",
+		"cache": true
+	},
+	"PlayerCastingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerCastingStateHandler",
+		"cache": true
+	},
+	"PlayerSwimmingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerSwimmingStateHandler",
+		"cache": true
+	},
+	"PlayerClimbingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerClimbingStateHandler",
+		"cache": true
+	},
+	"PlayerJumpingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerJumpingStateHandler",
+		"cache": true
+	},
+	"PlayerDashingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerDashingStateHandler",
+		"cache": true
+	},
+	"PlayerDodgingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerDodgingStateHandler",
+		"cache": true
+	},
+	"PlayerStunnedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerStunnedStateHandler",
+		"cache": true
+	},
+	"PlayerDeadStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerDeadStateHandler",
+		"cache": true
+	},
+	"PlayerInteractingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerInteractingStateHandler",
+		"cache": true
+	},
+	"PlayerBlockingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerBlockingStateHandler",
+		"cache": true
+	},
+	"PlayerRidingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerRidingStateHandler",
+		"cache": true
+	},
+	"PlayerStealthStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerStealthStateHandler",
+		"cache": true
+	},
+	"PlayerHealingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerHealingStateHandler",
+		"cache": true
+	},
+	"PlayerFallingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerFallingStateHandler",
+		"cache": true
+	},
+	"PlayerFlyingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerFlyingStateHandler",
+		"cache": true
+	},
+	"PlayerKnockedDownStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerKnockedDownStateHandler",
+		"cache": true
+	},
+	"PlayerClimbingLadderStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerClimbingLadderStateHandler",
+		"cache": true
+	},
+	"PlayerSlidingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerSlidingStateHandler",
+		"cache": true
+	},
+	"PlayerCrouchingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerCrouchingStateHandler",
+		"cache": true
+	},
+	"PlayerTradingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerTradingStateHandler",
+		"cache": true
+	},
+	"PlayerUsingItemStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerUsingItemStateHandler",
+		"cache": true
+	},
+	"PlayerAimingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerAimingStateHandler",
+		"cache": true
+	},
+	"PlayerRespawningStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerRespawningStateHandler",
+		"cache": true
+	},
+	"PlayerMountedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerMountedStateHandler",
+		"cache": true
+	},
+	"PlayerTeleportingStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerTeleportingStateHandler",
+		"cache": true
+	},
+	"PlayerDisarmedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerDisarmedStateHandler",
+		"cache": true
+	},
+	"PlayerParalyzedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerParalyzedStateHandler",
+		"cache": true
+	},
+	"PlayerKnockingBackStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerKnockingBackStateHandler",
+		"cache": true
+	},
+	"PlayerDebuffedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerDebuffedStateHandler",
+		"cache": true
+	},
+	"PlayerBuffedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerBuffedStateHandler",
+		"cache": true
+	},
+	"PlayerInCombatStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerInCombatStateHandler",
+		"cache": true
+	},
+	"PlayerEncumberedStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerEncumberedStateHandler",
+		"cache": true
+	},
+	"PlayerFrozenStateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/PlayerStateManager/Handler/PlayerFrozenStateHandler",
+		"cache": true
+	},
+}
+
+var CharacterManager = {
+	"CharacterUtilityHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager/Handler/CharacterUtilityHandler",
+		"cache": true
+	},
+	"CharacterAddHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager/Handler/CharacterAddHandler",
+		"cache": true
+	},
+	"CharacterSelectionHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager/Handler/CharacterSelectionHandler",
+		"cache": true
+	},
+	"CharacterUpdateHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager/Handler/CharacterUpdateHandler",
+		"cache": true
+	},
+	"CharacterRemoveHandler": {
+		"path_tree": "/root/Game/GamePlayerModule/Manager/CharacterManager/Handler/CharacterRemoveHandler",
+		"cache": true
+	},
+}
+
+var GameWorldModule = {
+	"InstanceManager": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager",
+		"cache": true
+	},
+	"ChunkManager": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager",
+		"cache": true
+	},
+	"TriggerManager": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager",
+		"cache": true
+	},
+	"SpawnPointManager": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/SpawnPointManager",
+		"cache": true
+	},
+	"NavigationMeshManager": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager",
+		"cache": true
+	},
+}
+
+var InstanceManager = {
+	"InstanceLifecycleHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceLifecycleHandler",
+		"cache": true
+	},
+	"InstanceSceneManager": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceSceneManager",
+		"cache": true
+	},
+	"InstanceCreationHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceCreationHandler",
+		"cache": true
+	},
+	"InstanceCacheHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceCacheHandler",
+		"cache": true
+	},
+	"InstanceAssignmentHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceAssignmentHandler",
+		"cache": true
+	},
+	"InstanceDestructionHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceDestructionHandler",
+		"cache": true
+	},
+	"InstanceBoundaryHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceBoundaryHandler",
+		"cache": true
+	},
+	"InstanceLoaderHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceLoaderHandler",
+		"cache": true
+	},
+	"InstancePlayerCharacterHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstancePlayerCharacterHandler",
+		"cache": true
+	},
+	"InstanceUpdateHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceUpdateHandler",
+		"cache": true
+	},
+	"InstanceCalculationHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceCalculationHandler",
+		"cache": true
+	},
+	"InstanceNPCHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceNPCHandler",
+		"cache": true
+	},
+	"InstanceMobHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceMobHandler",
+		"cache": true
+	},
+	"InstanceStateHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceStateHandler",
+		"cache": true
+	},
+	"InstanceEventHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/InstanceManager/Handler/InstanceEventHandler",
+		"cache": true
+	},
+}
+
+var ChunkManager = {
+	"ChunkCreationHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkCreationHandler",
+		"cache": true
+	},
+	"ChunkCacheHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkCacheHandler",
+		"cache": true
+	},
+	"ChunkAssignmentHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkAssignmentHandler",
+		"cache": true
+	},
+	"ChunkDestructionHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkDestructionHandler",
+		"cache": true
+	},
+	"ChunkBoundaryHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkBoundaryHandler",
+		"cache": true
+	},
+	"ChunkEventHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkEventHandler",
+		"cache": true
+	},
+	"ChunkUpdateHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkUpdateHandler",
+		"cache": true
+	},
+	"ChunkCalculationHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkCalculationHandler",
+		"cache": true
+	},
+	"ChunkTransitionHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkTransitionHandler",
+		"cache": true
+	},
+	"ChunkStateHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/ChunkManager/Handler/ChunkStateHandler",
+		"cache": true
+	},
+}
+
+var TriggerManager = {
+	"TriggerInstanceChangeHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerInstanceChangeHandler",
+		"cache": true
+	},
+	"TriggerZoneChangeHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerZoneChangeHandler",
+		"cache": true
+	},
+	"TriggerRoomChangeHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerRoomChangeHandler",
+		"cache": true
+	},
+	"TriggerEventHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerEventHandler",
+		"cache": true
+	},
+	"TriggerTrapHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerTrapHandler",
+		"cache": true
+	},
+	"TriggerObjectiveHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerObjectiveHandler",
+		"cache": true
+	},
+	"TriggerArea2DCalculationHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/TriggerManager/Handler/TriggerArea2DCalculationHandler",
+		"cache": true
+	},
+}
+
+var NavigationMeshManager = {
+	"NavigationMeshPathfindingHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshPathfindingHandler",
+		"cache": true
+	},
+	"NavigationMeshObstacleHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshObstacleHandler",
+		"cache": true
+	},
+	"NavigationMeshInstanceHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshInstanceHandler",
+		"cache": true
+	},
+	"NavigationMeshUpdateHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshUpdateHandler",
+		"cache": true
+	},
+	"NavigationMeshMobHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshMobHandler",
+		"cache": true
+	},
+	"NavigationMeshNPCHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshNPCHandler",
+		"cache": true
+	},
+	"NavigationMeshBakingHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshBakingHandler",
+		"cache": true
+	},
+	"NavigationMeshLoadingHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshLoadingHandler",
+		"cache": true
+	},
+	"NavigationMeshBoundaryHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshBoundaryHandler",
+		"cache": true
+	},
+	"NavigationMeshSyncHandler": {
+		"path_tree": "/root/Game/GameWorldModule/Manager/NavigationMeshManager/Handler/NavigationMeshSyncHandler",
+		"cache": true
+	},
+}
+
+var GameLevelModule = {
+	"LevelManager": {
+		"path_tree": "/root/Game/GameLevelModule/Manager/LevelManager",
+		"cache": true
+	},
+}
+
+var LevelManager = {
+	"LevelCreationHandler": {
+		"path_tree": "/root/Game/GameLevelModule/Manager/LevelManager/Handler/LevelCreationHandler",
+		"cache": true
+	},
+	"LevelSaveHandler": {
+		"path_tree": "/root/Game/GameLevelModule/Manager/LevelManager/Handler/LevelSaveHandler",
+		"cache": true
+	},
+	"LevelMapGenerator": {
+		"path_tree": "/root/Game/GameLevelModule/Manager/LevelManager/Handler/LevelMapGenerator",
+		"cache": true
+	},
+}
+
+var NetworkGameModule = {
+	"NetworkServerClientManager": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkServerClientManager",
+		"cache": true
+	},
+	"NetworkENetServerManager": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager",
+		"cache": true
+	},
+	"NetworkChannelManager": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkChannelManager",
+		"cache": true
+	},
+	"NetworkPacketManager": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager",
+		"cache": true
+	},
+}
+
+var NetworkENetServerManager = {
+	"ENetServerStartHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager/Handler/ENetServerStartHandler",
+		"cache": true
+	},
+	"ENetServerStopHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager/Handler/ENetServerStopHandler",
+		"cache": true
+	},
+	"ENetServerOnPeerConnectedHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager/Handler/ENetServerOnPeerConnectedHandler",
+		"cache": true
+	},
+	"ENetServerOnPeerDisconnectedHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager/Handler/ENetServerOnPeerDisconnectedHandler",
+		"cache": true
+	},
+	"ENetServerProcessHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager/Handler/ENetServerProcessHandler",
+		"cache": true
+	},
+	"ENetServerPacketSendHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkENetServerManager/Handler/ENetServerPacketSendHandler",
+		"cache": true
+	},
+}
+
+var NetworkChannelManager = {
+	"ChannelMap": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkChannelManager/Handler/ChannelMap",
+		"cache": true
+	},
+}
+
+var NetworkPacketManager = {
+	"PacketDispatchHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketDispatchHandler",
+		"cache": true
+	},
+	"PacketProcessingHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketProcessingHandler",
+		"cache": true
+	},
+	"PacketCreationHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketCreationHandler",
+		"cache": true
+	},
+	"PacketHashHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketHashHandler",
+		"cache": true
+	},
+	"PacketCacheHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketCacheHandler",
+		"cache": true
+	},
+	"PacketConverterHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketConverterHandler",
+		"cache": true
+	},
+	"PacketValidationHandler": {
+		"path_tree": "/root/Network/NetworkGameModule/Manager/NetworkPacketManager/Handler/PacketValidationHandler",
+		"cache": true
+	},
+}
+
+var NetworkGameModuleService = {
+	"CoreHeartbeatService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCore/CoreHeartbeatService",
+		"cache": true
+	},
+	"CoreConnectionService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCore/CoreConnectionService",
+		"cache": true
+	},
+	"CoreDisconnectionService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCore/CoreDisconnectionService",
+		"cache": true
+	},
+	"CorePingService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCore/CorePingService",
+		"cache": true
+	},
+	"CoreServerStatusService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCore/CoreServerStatusService",
+		"cache": true
+	},
+	"CoreErrorService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCore/CoreErrorService",
+		"cache": true
+	},
+	"MovementPlayerService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameMovement/MovementPlayerService",
+		"cache": true
+	},
+	"MovementPlayerSyncService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameMovement/MovementPlayerSyncService",
+		"cache": true
+	},
+	"SceneInstanceDataService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameInstance/SceneInstanceDataService",
+		"cache": true
+	},
+	"TriggerEntryService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerEntryService",
+		"cache": true
+	},
+	"TriggerExitService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerExitService",
+		"cache": true
+	},
+	"TriggerInstanceChangeService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerInstanceChangeService",
+		"cache": true
+	},
+	"TriggerZoneChangeService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerZoneChangeService",
+		"cache": true
+	},
+	"TriggerRoomChangeService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerRoomChangeService",
+		"cache": true
+	},
+	"TriggerEventService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerEventService",
+		"cache": true
+	},
+	"TriggerTrapService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerTrapService",
+		"cache": true
+	},
+	"TriggerObjectiveService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameTrigger/TriggerObjectiveService",
+		"cache": true
+	},
+	"UserLoginService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameUser/UserLoginService",
+		"cache": true
+	},
+	"UserTokenService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameUser/UserTokenService",
+		"cache": true
+	},
+	"CharacterFetchService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCharacter/CharacterFetchService",
+		"cache": true
+	},
+	"CharacterSelectService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCharacter/CharacterSelectService",
+		"cache": true
+	},
+	"CharacterUpdateService": {
+		"path_tree": "/root/Network/NetworkGameModule/Service/GameCharacter/CharacterUpdateService",
+		"cache": true
+	},
+}
+
+var NetworkDatabaseModule = {
+	"NetworkServerDatabaseManager": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkServerDatabaseManager",
+		"cache": true
+	},
+	"NetworkMiddlewareManager": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkMiddlewareManager",
+		"cache": true
+	},
+	"NetworkEndpointManager": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Manager/NetworkEndpointManager",
+		"cache": true
+	},
+}
+
+var NetworkDatabaseModuleService = {
+	"DatabaseServerAuthService": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Service/DatabaseServer/DatabaseServerAuthService",
+		"cache": true
+	},
+	"DatabaseUserLoginService": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Service/DatabaseUser/DatabaseUserLoginService",
+		"cache": true
+	},
+	"DatabaseUserTokenService": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Service/DatabaseUser/DatabaseUserTokenService",
+		"cache": true
+	},
+	"DatabaseCharacterFetchService": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Service/DatabaseCharacter/DatabaseCharacterFetchService",
+		"cache": true
+	},
+	"DatabaseCharacterSelectService": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Service/DatabaseCharacter/DatabaseCharacterSelectService",
+		"cache": true
+	},
+	"DatabaseCharacterUpdateService": {
+		"path_tree": "/root/Network/NetworkDatabaseModule/Service/DatabaseCharacter/DatabaseCharacterUpdateService",
+		"cache": true
+	},
+}
+
+
+func get_all_data() -> Dictionary:
+	var all_data = {}
+	for node in get_tree().get_nodes_in_group("data_nodes"):
+		all_data[node.name] = node.get_data()
+	return all_data
+
+func get_data() -> Dictionary:
+	var all_data = {}
+	var properties = get_property_list()
+		
+	for property in properties:
+		var property_name = property.name
+		var property_value = get(property_name)
+			
+		if typeof(property_value) == TYPE_DICTIONARY:
+			all_data[property_name] = flatten_nested_map(property_value)
+		
+	return all_data
+
+func flatten_nested_map(nested_map: Dictionary) -> Dictionary:
+	var flat_map = {}
+		
+	for key in nested_map.keys():
+		var value = nested_map[key]
+		
+		if typeof(value) == TYPE_DICTIONARY and value.has('children'):
+			flat_map[key] = value
+			flat_map[key]['children'] = flatten_nested_map(value['children'])
+		else:
+			flat_map[key] = value
+	
+	return flat_map
+

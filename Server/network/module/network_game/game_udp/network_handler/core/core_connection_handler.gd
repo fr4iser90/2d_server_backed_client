@@ -4,7 +4,7 @@ extends Node
 var enet_server_manager
 var channel_manager
 var packet_manager
-var handler_name = "core_connection_handler"
+var handler_name = "CoreConnectionService"
 var is_initialized = false
 
 # Initialize the connection handler
@@ -12,9 +12,9 @@ func initialize():
 	if is_initialized:
 		print("CoreConnectionHandler already initialized. Skipping.")
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
 	is_initialized = true
 
 # Handle connection requests

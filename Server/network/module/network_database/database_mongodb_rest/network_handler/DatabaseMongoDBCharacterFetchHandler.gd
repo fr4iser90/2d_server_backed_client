@@ -10,8 +10,8 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	network_endpoint_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkEndpointManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	is_initialized = true
 
 # This function processes the character fetch and returns the result back to the client handler
@@ -58,7 +58,7 @@ func _on_backend_characters_response(result: int, response_code: int, headers: A
 		GlobalManager.DebugPrint.debug_error("Backend character fetch failed with response code: " + str(response_code), self)
 
 func save_characters_in_session(peer_id: int, characters: Array):
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	var user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	var existing_characters = user_session_manager.get_characters_for_peer(peer_id)
 
 	if existing_characters != null:
@@ -99,5 +99,5 @@ func clean_character_data(character_data: Dictionary) -> Dictionary:
 	return cleaned_data
 
 func get_stored_database_session_token_for_peer(peer_id: int) -> String:
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	var user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	return user_session_manager.get_database_session_token_for_peer(peer_id)

@@ -13,10 +13,10 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_endpoint_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkEndpointManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	is_initialized = true
 
 # Process character selection, fetch data from backend, and return result to the client handler

@@ -11,158 +11,157 @@ func initialize():
 # Global Channel Map with Logical Groupings and Prefixes for Consistency
 const CHANNEL_MAP = {
 	# --- 0-999: Core Network Management ---
-	0: "core_heartbeat_handler",          # Keep the connection alive and track client-server health
-	1: "core_connection_handler",         # Handle when a client joins the server
-	2: "core_disconnection_handler",      # Handle when a client leaves the server
-	3: "core_ping_handler",               # Handle ping/pong messages to check latency
-	4: "core_server_status_handler",      # Handle requests for the server's current status
-	5: "core_error_handler",              # Handle general network errors
-	6: "core_server_restart_handler",     # Handle server restart requests or notices
-	7: "core_server_shutdown_handler",    # Handle server shutdown requests or notices
-	8: "core_version_check_handler",      # Handle version checks between client and server
-	9: "core_config_sync_handler",        # Handle synchronization of server configurations to clients
-	10: "core_maintenance_mode_handler",  # Handle notices or events during server maintenance mode
-	11: "core_network_diagnostics_handler", # Handle network diagnostics and troubleshooting
-	12: "core_bandwidth_usage_handler",   # Track and report bandwidth usage per client or server-wide
-	13: "core_sync_time_handler",         # Handle synchronization of time between clients and server
+	0: "CoreHeartbeatService",
+	1: "CoreConnectionService",
+	2: "CoreDisconnectionService",
+	3: "CorePingService",
+	4: "CoreServerStatusService",
+	5: "CoreErrorService",
+	6: "CoreServerRestartService",
+	7: "CoreServerShutdownService",
+	8: "CoreVersionCheckService",
+	9: "CoreConfigSyncService",
+	10: "CoreMaintenanceModeService",
+	11: "CoreNetworkDiagnosticsService",
+	12: "CoreBandwidthUsageService",
+	13: "CoreSyncTimeService",
 
 	# --- 1000-1999: Authentication and User Management ---
-	1000: "user_login_handler",            # Handle login requests (credentials, tokens)
-	1001: "user_logout_handler",           # Handle logout requests
-	1002: "user_register_handler",         # Handle user registration
-	1003: "user_password_reset_handler",   # Handle password reset requests
-	1004: "user_token_refresh_handler",    # Handle refreshing authentication tokens
-	1005: "user_account_verification_handler", # Handle account verification (e.g., email or phone)
-	1006: "user_session_timeout_handler",  # Handle session timeout notifications
-	1007: "user_multifactor_auth_handler", # Handle multi-factor authentication (e.g., OTP, app-based)
-	1008: "user_revoke_token_handler",     # Handle revocation of authentication tokens
-	1009: "user_login_attempt_handler",    # Track login attempts and lockout
-	1010: "user_privacy_settings_handler", # Handle user privacy settings updates
-	1011: "user_ban_account_handler",      # Handle managing account bans and restrictions
-	1012: "user_profile_fetch_handler",    # Fetch basic user profile data
-	1013: "user_profile_update_handler",   # Handle updating user profile data (e.g., avatar, bio)
-	1014: "user_account_recovery_handler", # Handle the account recovery process
-	1015: "user_device_management_handler",# Handle managing devices in user sessions (e.g., logout from specific devices)
-
+	1000: "UserLoginService",
+	1001: "UserLogoutService",
+	1002: "UserRegisterService",
+	1003: "UserPasswordResetService",
+	1004: "UserTokenRefreshService",
+	1005: "UserAccountVerificationService",
+	1006: "UserSessionTimeoutService",
+	1007: "UserMultifactorAuthService",
+	1008: "UserRevokeTokenService",
+	1009: "UserLoginAttemptService",
+	1010: "UserPrivacySettingsService",
+	1011: "UserBanAccountService",
+	1012: "UserProfileFetchService",
+	1013: "UserProfileUpdateService",
+	1014: "UserAccountRecoveryService",
+	1015: "UserDeviceManagementService",
 
 	# --- 2000-2999: Character Management ---
-	2000: "character_fetch_handler",         # Fetch the list of characters
-	2001: "character_create_handler",        # Handle character creation
-	2002: "character_delete_handler",        # Handle character deletion
-	2003: "character_update_handler",        # Update character information (stats, inventory, etc.)
-	2004: "character_select_handler",        # Handle character selection and loading
-	2005: "character_customization_handler", # Handle character customization (appearance changes)
-	2006: "character_attribute_update_handler", # Update character attributes (strength, agility, etc.)
-	2007: "character_class_change_handler",  # Handle character class change requests
+	2000: "CharacterFetchService",
+	2001: "CharacterCreateService",
+	2002: "CharacterDeleteService",
+	2003: "CharacterUpdateService",
+	2004: "CharacterSelectService",
+	2005: "CharacterCustomizationService",
+	2006: "CharacterAttributeUpdateService",
+	2007: "CharacterClassChangeService",
 
 	# --- 3000-3999: Scene and Interaction Data Management ---
-	3000: "scene_instance_data_handler",         # Handle scene loading, instance creation, and spawn points
-	3002: "scene_spawn_handler",        # Handle player spawns at specific points or last known positions
-	3003: "scene_instance_transition_handler", # Handle transitions between instances
-	3004: "scene_object_interaction_handler",  # General object interaction (doors, chests, etc.)
-	3005: "scene_door_handler",               # Handle standard doors
-	3006: "scene_trap_door_handler",          # Handle trap doors
-	3007: "scene_special_door_handler",       # Handle special doors (e.g., requiring keys or magic)
-	3008: "scene_lever_handler",              # Handle levers or switches that affect other objects
-	3009: "scene_button_handler",             # Handle button presses (for doors or other interactions)
+	3000: "SceneInstanceDataService",
+	3002: "SceneSpawnService",
+	3003: "SceneInstanceTransitionService",
+	3004: "SceneObjectInteractionService",
+	3005: "SceneDoorService",
+	3006: "SceneTrapDoorService",
+	3007: "SceneSpecialDoorService",
+	3008: "SceneLeverService",
+	3009: "SceneButtonService",
 	
 	# --- 4000-4999: Player and NPC Movement ---
-	4000: "movement_player_handler",    # Handle player movement updates (e.g., walking, running)
-	4001: "movement_player_sync_handler", # Synchronize player movement within an instance
-	4002: "movement_npc_handler",       # Handle NPC movement updates (e.g., patrols, following)
-	4003: "movement_enemy_handler",     # Handle enemy movement and pathfinding (e.g., chasing players)
-	4004: "movement_flying_handler",    # Handle flying entities or flight abilities
-	4005: "movement_teleport_handler",  # Handle teleportation of players/NPCs to different locations
+	4000: "MovementPlayerService",
+	4001: "MovementPlayerSyncService",
+	4002: "MovementNpcService",
+	4003: "MovementEnemyService",
+	4004: "MovementFlyingService",
+	4005: "MovementTeleportService",
 
 	# --- 5000-5999: Combat and Abilities ---
-	5000: "combat_action_handler",      # Handle combat actions (e.g., dealing damage)
-	5001: "combat_special_ability_handler", # Handle special abilities (e.g., spells, skills)
-	5002: "combat_ranged_attack_handler",# Handle ranged attacks (e.g., arrows, spells)
-	5003: "combat_melee_attack_handler", # Handle melee combat actions (e.g., sword strikes)
-	5004: "combat_damage_handler",       # Handle damage taken and applied to entities
-	5005: "combat_healing_handler",      # Handle healing abilities
-	5006: "combat_status_effect_handler",# Handle status effects applied in combat (e.g., stuns, poisons)
+	5000: "CombatActionService",
+	5001: "CombatSpecialAbilityService",
+	5002: "CombatRangedAttackService",
+	5003: "CombatMeleeAttackService",
+	5004: "CombatDamageService",
+	5005: "CombatHealingService",
+	5006: "CombatStatusEffectService",
 
 	# --- 6000-6999: Chat and Communication ---
-	6000: "chat_message_handler",       # Handle general chat messages between players
-	6001: "chat_guild_handler",         # Handle guild-specific communication
-	6002: "chat_party_handler",         # Handle party-specific communication
-	6003: "chat_whisper_handler",       # Handle direct messages between players (whispers)
-	6004: "chat_global_handler",        # Handle global chat messages (available to all players)
-	6005: "chat_system_handler",        # Handle system announcements or warnings
+	6000: "ChatMessageService",
+	6001: "ChatGuildService",
+	6002: "ChatPartyService",
+	6003: "ChatWhisperService",
+	6004: "ChatGlobalService",
+	6005: "ChatSystemService",
 
 	# --- 7000-7999: Item and Inventory Management ---
-	7000: "inventory_update_handler",   # Handle inventory updates (e.g., items picked up, used)
-	7001: "inventory_drop_handler",     # Handle when items are dropped from inventory
-	7002: "inventory_equip_handler",    # Handle equipping and unequipping items
-	7003: "inventory_stack_handler",    # Handle stacking items in the inventory
-	7004: "inventory_split_handler",    # Handle splitting item stacks
-	7005: "stash_update_handler",       # Handle stash updates (e.g., items moved into or out of stash)
-	7006: "equipment_change_handler",   # Handle when a player equips or unequips items
+	7000: "InventoryUpdateService",
+	7001: "InventoryDropService",
+	7002: "InventoryEquipService",
+	7003: "InventoryStackService",
+	7004: "InventorySplitService",
+	7005: "StashUpdateService",
+	7006: "EquipmentChangeService",
 
 	# --- 8000-8999: Quest and Objectives ---
-	8000: "quest_data_handler",         # Handle quest updates (e.g., progress, completion)
-	8001: "quest_status_handler",       # Report quest status changes (e.g., completed objectives)
-	8002: "quest_accept_handler",       # Handle accepting new quests
-	8003: "quest_decline_handler",      # Handle declining or abandoning quests
-	8004: "quest_reward_handler",       # Handle giving rewards to players for quest completion
-	8005: "quest_objective_update_handler", # Handle updates to quest objectives (e.g., kill X enemies)
+	8000: "QuestDataService",
+	8001: "QuestStatusService",
+	8002: "QuestAcceptService",
+	8003: "QuestDeclineService",
+	8004: "QuestRewardService",
+	8005: "QuestObjectiveUpdateService",
 
 	# --- 9000-9999: Status and Buffs/Debuffs ---
-	9000: "status_update_handler",      # Handle status updates (e.g., health, mana, experience)
-	9001: "status_effect_handler",      # Apply status effects (e.g., poisoned, stunned)
-	9002: "buff_apply_handler",         # Handle applying buffs to players/NPCs
-	9003: "debuff_apply_handler",       # Handle applying debuffs to players/NPCs
-	9004: "buff_remove_handler",        # Handle removal of buffs
-	9005: "debuff_remove_handler",      # Handle removal of debuffs
+	9000: "StatusUpdateService",
+	9001: "StatusEffectService",
+	9002: "BuffApplyService",
+	9003: "DebuffApplyService",
+	9004: "BuffRemoveService",
+	9005: "DebuffRemoveService",
 
 	# --- 10000-10999: Party and Guild Management ---
-	10000: "party_create_handler",      # Handle creating a party
-	10001: "party_invite_handler",      # Handle party invites
-	10002: "party_update_handler",      # Handle party updates (e.g., invites, member status)
-	10003: "party_disband_handler",     # Handle disbanding a party
-	10004: "guild_create_handler",      # Handle creating a guild
-	10005: "guild_invite_handler",      # Handle guild invites
-	10006: "guild_update_handler",      # Handle guild updates (e.g., invites, member status)
-	10007: "guild_disband_handler",     # Handle disbanding a guild
+	10000: "PartyCreateService",
+	10001: "PartyInviteService",
+	10002: "PartyUpdateService",
+	10003: "PartyDisbandService",
+	10004: "GuildCreateService",
+	10005: "GuildInviteService",
+	10006: "GuildUpdateService",
+	10007: "GuildDisbandService",
 
 	# --- 11000-11999: World Events and Interactions ---
-	11000: "event_trigger_handler",     # Handle world or player-triggered events (e.g., opening a chest)
-	11001: "npc_interaction_handler",   # Handle interactions with NPCs (e.g., buying, selling, talking)
-	11002: "world_event_handler",       # Handle world events (e.g., server-wide events, invasions)
-	11003: "environment_interaction_handler", # Handle interactions with the environment (e.g., mining, chopping trees)
+	11000: "EventTriggerService",
+	11001: "NpcInteractionService",
+	11002: "WorldEventService",
+	11003: "EnvironmentInteractionService",
 
 	# --- 12000-12999: Trade and Economy ---
-	12000: "trade_request_handler",     # Handle trade requests between players
-	12001: "trade_update_handler",      # Update trade status or confirm a trade
-	12002: "market_update_handler",     # Handle marketplace interactions (e.g., posting items for sale)
-	12003: "market_purchase_handler",   # Handle purchases from the marketplace
-	12004: "auction_place_bid_handler", # Handle placing bids in auctions
-	12005: "auction_win_handler",       # Handle auction win notifications
+	12000: "TradeRequestService",
+	12001: "TradeUpdateService",
+	12002: "MarketUpdateService",
+	12003: "MarketPurchaseService",
+	12004: "AuctionPlaceBidService",
+	12005: "AuctionWinService",
 
 	# --- 13000-13999: Miscellaneous or Special Actions ---
-	13000: "misc_special_action_handler", # Handle special actions not covered by other channels
-	13001: "misc_teleport_handler",     # Handle player teleportation (e.g., fast travel)
-	13002: "misc_resource_sync_handler",# Sync world resources like ores, herbs, etc.
-	13003: "misc_emote_handler",        # Handle player emotes (e.g., waving, dancing)
+	13000: "MiscSpecialActionService",
+	13001: "MiscTeleportService",
+	13002: "MiscResourceSyncService",
+	13003: "MiscEmoteService",
 
 	# --- 14000-14999: Trigger Management ---
-	14000: "trigger_entry_handler",        # Handle when a player enters a trigger zone
-	14001: "trigger_exit_handler",         # Handle when a player exits a trigger zone
-	14002: "trigger_instance_change_handler", # Handle instance change triggers
-	14003: "trigger_room_change_handler",  # Handle room change triggers
-	14004: "trigger_event_handler",        # Handle event triggers (e.g., scripted events, boss fights)
-	14005: "trigger_trap_handler",         # Handle trap triggers (e.g., stepping on a trap)
-	14006: "trigger_objective_handler",    # Handle objective triggers (e.g., completing objectives)
+	14000: "TriggerEntryService",
+	14001: "TriggerExitService",
+	14002: "TriggerInstanceChangeService",
+	14003: "TriggerRoomChangeService",
+	14004: "TriggerEventService",
+	14005: "TriggerTrapService",
+	14006: "TriggerObjectiveService",
 
 	# --- 90000-99999: Admin and Backend ---
-	90000: "admin_login_handler",       # Handle backend login (user authentication)
-	90001: "admin_logout_handler",      # Handle backend logout
-	90002: "admin_register_handler",    # Handle backend user registration
-	90010: "admin_server_status_handler", # Fetch backend server status (e.g., uptime, resource usage)
-	90011: "admin_action_handler",      # Handle admin-specific actions (e.g., banning players)
-	90012: "admin_broadcast_message_handler", # Broadcast messages to all players
-	90013: "admin_log_fetch_handler",   # Fetch logs from the server
+	90000: "AdminLoginService",
+	90001: "AdminLogoutService",
+	90002: "AdminRegisterService",
+	90010: "AdminServerStatusService",
+	90011: "AdminActionService",
+	90012: "AdminBroadcastMessageService",
+	90013: "AdminLogFetchService",
 }
 
 # Function to get handler name from a channel

@@ -13,15 +13,15 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
 	is_initialized = true
 
 func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	if not is_initialized:
 		initialize()
 	GlobalManager.DebugPrint.debug_info("Peer disconnected with ID: " + str(peer_id), self)
-	var database_character_update_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_update_handler")
+	var database_character_update_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseCharacterUpdateService")
 	var updated_data = character_manager.get_selected_character_data(peer_id)
 	var new_position = player_movement_manager.get_player_position(peer_id)
 	#var updated_data = old_data["data"]
@@ -41,10 +41,10 @@ func handle_peer_disconnected(peer_id: int,  connected_peers: Dictionary):
 	
 	# Liste von Managern, die die Peer-ID löschen müssen
 	var manager_list = [
-		{"manager": "game_world_module", "node": "instance_manager", "remove_function": "remove_player_from_instance"},
-		{"manager": "game_player_module", "node": "player_movement_manager", "remove_function": "remove_player"},
-		{"manager": "game_player_module", "node": "character_manager", "remove_function": "remove_character"},
-		{"manager": "user_manager", "node": "user_session_manager", "remove_function": "remove_user"},
+		{"manager": "GameWorldModule", "node": "InstanceManager", "remove_function": "remove_player_from_instance"},
+		{"manager": "GamePlayerModule", "node": "PlayerMovementManager", "remove_function": "remove_player"},
+		{"manager": "GamePlayerModule", "node": "CharacterManager", "remove_function": "remove_character"},
+		{"manager": "UserSessionModule", "node": "UserSessionManager", "remove_function": "remove_user"},
 	]
 
 	# Iteriere durch die Liste und entferne die Peer-ID dynamisch

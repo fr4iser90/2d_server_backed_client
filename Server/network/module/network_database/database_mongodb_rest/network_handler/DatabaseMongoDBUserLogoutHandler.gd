@@ -19,11 +19,11 @@ func initialize():
 	
 	GlobalManager.DebugPrint.set_debug_enabled(debug_enabled)
 #	GlobalManager.DebugPrint.set_debug_level(GlobalManager.DebugPrint.DebugLevel.WARNING)
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("backend_manager", "backend_routes_manager")
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_manager", "enet_server_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	backend_routes_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkEndpointManager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	is_initialized = true
 	GlobalManager.DebugPrint.debug_info("auth_login_handler initialized.", self)
 

@@ -100,7 +100,7 @@ func _get_spawn_point_position(spawn_point_name: String) -> Vector2:
 
 # Initialize the player's state machine after spawning
 func _initialize_player_state_machine(player_node: Node):
-	player_state_machine_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_state_machine_manager")
+	player_state_machine_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerStateMachineManager")
 	if player_state_machine_manager:
 		player_state_machine_manager.set_player(player_node, true)  # 'true' for local player
 		player_state_machine_manager.initialize_state("movement")

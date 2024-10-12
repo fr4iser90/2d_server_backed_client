@@ -13,12 +13,12 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	packet_creation_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_creation_handler")
-	packet_processing_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_processing_handler")
-	packet_dispatch_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_dispatch_handler")
-	packet_cache_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_cache_handler")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	channel_map = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_map")
+	packet_creation_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketCreationHandler")
+	packet_processing_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketProcessingHandler")
+	packet_dispatch_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketDispatchHandler")
+	packet_cache_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketCacheHandler")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	channel_map = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "ChannelMap")
 	is_initialized = true
 
 # Create packet for handler

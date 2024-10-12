@@ -2,7 +2,7 @@
 extends ItemList
 
 
-
+var user_session_manager
 var player_visual_monitor
 var selected_player_index = -1
 var is_initialized = false
@@ -11,16 +11,17 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	player_visual_monitor  = GlobalManager.NodeManager.get_cached_node("server_manager", "player_visual_monitor")
+	player_visual_monitor  = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerVisualMonitor")
 	# Connect to the user_data_changed signal from UserSessionManager
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	if user_session_manager:
-		user_session_manager.connect("user_data_changed", self, "update_player_list")
+		user_session_manager.connect("user_data_changed", Callable(self, "update_player_list"))
 	connect("item_activated", Callable(self, "_on_item_activated"))
 
 func update_player_list(changed_peer_id: int, user_data: Dictionary):
+	if not is_initialized:
+		initialize()
 	clear()  # Clear existing items
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
 	for id in user_session_manager.users_data.keys():
 		var user = user_session_manager.users_data[id]
 		var username = user.get("username", "Unknown")
@@ -51,7 +52,6 @@ func construct_tooltip_text(user: Dictionary, id: int) -> String:
 
 # Handle double-click event
 func _on_item_activated(index):
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
 	if user_session_manager:
 		var user = user_session_manager.users_data.values()[index]  # Retrieve the user data based on selected index
 		var instance_key = user.get("current_instance", "")
@@ -86,8 +86,6 @@ func _on_watch_pressed():
 
 # Watch the selected player
 func _watch_selected_player(index):
-	var player_visual_monitor = GlobalManager.NodeManager.get_cached_node("server_manager", "player_visual_monitor")
-	var user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
 	if user_session_manager:
 		var user = user_session_manager.users_data.values()[index]  # Retrieve the user data based on selected index
 		var instance_key = user.get("current_instance", "")

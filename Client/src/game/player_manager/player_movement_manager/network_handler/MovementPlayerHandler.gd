@@ -6,7 +6,7 @@ var channel_manager = null
 var packet_manager = null
 var packet_converter_handler = null
 var packet_validation_handler = null
-var handler_name = "movement_player_handler"
+var handler_name = "MovementPlayerService"
 var is_initialized = false
 
 # Initialize the handler and manager nodes
@@ -15,11 +15,11 @@ func initialize():
 		print("player_movement_handler already initialized. Skipping.")
 		return
 
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_converter_handler")
-	packet_validation_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_validation_handler")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketConverterHandler")
+	packet_validation_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketValidationHandler")
 	is_initialized = true
 
 # Processes incoming movement data from the server

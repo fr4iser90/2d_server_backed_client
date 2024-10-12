@@ -10,15 +10,16 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
 	is_initialized = true
 
 	
 func send_packet(peer_id: int, handler_name: String, data: Dictionary) -> int:
+	if not is_initialized:
+		initialize()
 	if is_instance_valid(enet_server_manager):
-		packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
 		var packet = packet_manager.create_packet_for_handler(handler_name, data)
 
 		if packet.size() == 0:

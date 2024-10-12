@@ -16,7 +16,7 @@ func initialize():
 	is_initialized = true
 	
 func _ready():
-	character_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_manager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
 	if character_manager:
 		character_manager.connect("character_data_changed", Callable(self, "_on_character_data_changed"))
 

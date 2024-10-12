@@ -13,7 +13,7 @@ var is_initialized = false
 # Initialize instance manager
 func initialize():
 	if not instance_entity_node_manager:
-		instance_entity_node_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_entity_node_manager")
+		instance_entity_node_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceEntityNodeManager")
 	print("GameInstanceManager initialized.")
 
 # Handle movement updates for players

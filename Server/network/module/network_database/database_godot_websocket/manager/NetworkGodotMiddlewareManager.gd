@@ -23,9 +23,9 @@ func connect_to_server(ip_input: String, port_input: String, token: String):
 	if ip.begins_with("http://") or ip.begins_with("https://"):
 		ip = ip.substr(ip.find("/") + 2)  # Remove the protocol
 	port = port_input
-	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_server_auth_handler")
-	database_user_login_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_user_login_handler")
-	database_character_fetch_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_fetch_handler")
+	database_server_auth_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseServerAuthService")
+	database_user_login_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseUserLoginService")
+	database_character_fetch_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseCharacterFetchService")
 	websocket_multiplayer_peer = WebSocketMultiplayerPeer.new()
 	var url = "ws://" + ip + ":" + str(port_input)
 	var err = websocket_multiplayer_peer.create_client(url)

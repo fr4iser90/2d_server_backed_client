@@ -16,10 +16,10 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_converter_handler")
-	packet_validation_handler = GlobalManager.NodeManager.get_cached_node("packet_handler", "packet_validation_handler")
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	packet_converter_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketConverterHandler")
+	packet_validation_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketValidationHandler")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
 	print("MovementPlayerSyncHandler initialized.")
 
 # Client-side: handle_packet in movement_player_sync_handler.gd

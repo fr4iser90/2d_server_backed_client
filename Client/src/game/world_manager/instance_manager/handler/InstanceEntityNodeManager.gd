@@ -26,7 +26,7 @@ func _on_entity_received(entity_type: String, entity_data: Dictionary):
 		
 # Create an entity node (generalized for players, mobs, and NPCs)
 func create_entity_node(entity_type: String, entity_id: int, entity_data: Dictionary):
-	if entity_id == GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager").get_peer_id():
+	if entity_id == GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager").get_peer_id():
 		print("Skipping entity creation for local player to avoid duplicate spawn.")
 		return
 	if entity_nodes.has(entity_id):

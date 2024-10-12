@@ -10,8 +10,8 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	channel_map = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_map")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	channel_map = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "ChannelMap")
 	is_initialized = true
 	
 # Ready function to initialize
@@ -28,7 +28,7 @@ func cache_channel_map():
 	for channel in channel_map.CHANNEL_MAP.keys():
 		var handler_name = channel_map.CHANNEL_MAP[channel]
 		#var handler = GlobalManager.NodeManager.reference_map_entry("NetworkHandlerMap", "network_handler", handler_name)
-		var handler = GlobalManager.NodeManager.get_cached_node("network_handler", handler_name)
+		var handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", handler_name)
 		#var handler = GlobalManager.NodeManager.get_cached_node("handlers", handler_name)
 		if handler:
 			handler_channel_cache[channel] = handler

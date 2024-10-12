@@ -35,10 +35,10 @@ func initialize():
 	is_initialized = true
 
 	# Initialize global managers
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
-	chunk_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "chunk_manager")
-	navigation_mesh_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "navigation_mesh_manager")
-	trigger_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "trigger_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	chunk_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "ChunkManager")
+	navigation_mesh_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "NavigationMeshManager")
+	trigger_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "TriggerManager")
 
 	# Initialize all NPC handlers
 	npc_spawning_handler.initialize(self)  # Pass the manager to the handler

@@ -35,7 +35,7 @@ func start_server_client_network():
 	_connect_signals()
 
 	# Start the ENet server (this connects the signal to notify when it's ready)
-	var enet_server_manager = managers.get("network_enet_server_manager")
+	var enet_server_manager = managers.get("NetworkENetServerManager")
 	if enet_server_manager:
 		enet_server_manager.connect("enet_server_started", Callable(self, "_on_enet_server_started"))
 		enet_server_manager.start_server(GlobalManager.GlobalConfig.get_server_port())
@@ -44,8 +44,8 @@ func start_server_client_network():
 
 func _on_enet_server_started():
 	GlobalManager.DebugPrint.debug_system("ENet server is fully started and listening for connections", self)
-	var channel_manager = managers.get("network_channel_manager")
-	var packet_manager = managers.get("network_packet_manager")
+	var channel_manager = managers.get("NetworkChannelManager")
+	var packet_manager = managers.get("NetworkPacketManager")
 	
 	if channel_manager:
 		channel_manager.register_channel_map()
@@ -62,14 +62,14 @@ func _reference_nodes():
 		return  # Avoid double-referencing
 
 	GlobalManager.DebugPrint.debug_info("Referencing client-side managers and handlers", self)
-	GlobalManager.NodeManager.reference_map_entry("NetworkGameMap", "network_game_module", managers)
-	GlobalManager.NodeManager.reference_map_entry("NetworkGameMap", "network_game_handler", handlers)
+	GlobalManager.NodeManager.reference_map_entry("GlobalNodeMap", "NetworkGameModule", managers)
+	GlobalManager.NodeManager.reference_map_entry("GlobalNodeMap", "NetworkGameModuleService", handlers)
 	nodes_referenced = true
 
 # Connect signals for client-side events
 func _connect_signals():
 	GlobalManager.DebugPrint.debug_info("Connecting client-side signals", self)
-	var enet_server_manager = managers.get("network_enet_server_manager")
+	var enet_server_manager = managers.get("NetworkENetServerManager")
 	if enet_server_manager:
 		enet_server_manager.connect("peer_connected", Callable(self, "_on_peer_connected"))
 		enet_server_manager.connect("peer_disconnected", Callable(self, "_on_peer_disconnected"))

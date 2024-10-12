@@ -29,7 +29,7 @@ func _reference_entities(node_type: String, paths: Dictionary, target: Dictionar
 func _reference_nodes():
 	GlobalManager.DebugPrint.debug_info("Referencing database managers and handlers...", self)
 	_reference_entities("backend_manager", GlobalManager.NodeManager.node_map_manager.backend_manager, managers)
-	_reference_entities("network_handler", GlobalManager.NodeManager.node_map_manager.network_handler, handlers)
+	_reference_entities("NetworkGameModuleService", GlobalManager.NodeManager.node_map_manager.network_handler, handlers)
 
 # Register the route handlers with the appropriate routes
 func register_route_handlers():

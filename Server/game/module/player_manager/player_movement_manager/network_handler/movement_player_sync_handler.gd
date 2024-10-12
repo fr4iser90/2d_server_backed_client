@@ -4,7 +4,7 @@ extends Node
 var enet_server_manager
 var instance_manager
 var user_session_manager
-var handler_name = "movement_player_sync_handler"
+var handler_name = "MovementPlayerSyncService"
 
 var last_sync_time = {}
 var sync_interval = 0.01  # 50ms, for a 20 ticks per second update rate
@@ -17,9 +17,9 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user", "user_session_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	is_initialized = true
 
 # Main function to sync movement with clients in the same instance
@@ -147,8 +147,8 @@ func _on_peer_disconnected(peer_id: int):
 ##func initialize():
 	##if is_initialized:
 		##return
-	##enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	##instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	##enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	##instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	##is_initialized = true
 #
 ## Handle incoming movement packets and forward them for processing
@@ -158,7 +158,7 @@ func _on_peer_disconnected(peer_id: int):
 		#return
 #
 	## Forward the movement data to the process handler for validation and syncing
-	#var player_movement_process_handler = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_process_handler")
+	#var player_movement_process_handler = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
 	#player_movement_process_handler.process_received_data(peer_id, movement_data)
 #
 ## Send the movement data to a specific peer

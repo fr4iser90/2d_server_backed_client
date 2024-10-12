@@ -10,7 +10,7 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	player_visual_monitor = GlobalManager.NodeManager.get_cached_node("server_manager", "player_visual_monitor")
+	player_visual_monitor = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerVisualMonitor")
 
 # Function to trigger scene monitoring for a specific instance_key
 func monitor_instance(instance_key: String):

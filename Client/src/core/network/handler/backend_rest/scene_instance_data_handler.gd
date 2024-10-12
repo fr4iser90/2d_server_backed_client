@@ -9,7 +9,7 @@ var packet_manager = null
 
 @onready var instance_entity_node_manager = $"../../Handler/InstanceEntityNodeManager"
 
-var handler_name = "scene_instance_data_handler"
+var handler_name = "SceneInstanceDataService"
 var is_initialized = false
 var request_timer: Timer  # Timer, um regelmäßig Daten vom Server anzufordern
 
@@ -19,9 +19,9 @@ func initialize():
 		print("scene_instance_data_handler already initialized.")
 		return
 	
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
 	connect("entity_received", Callable(instance_entity_node_manager, "_on_entity_received"))
 	
 	# Timer initialisieren

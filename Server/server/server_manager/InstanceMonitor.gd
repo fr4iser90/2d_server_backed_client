@@ -8,8 +8,8 @@ var focused_player_peer_id: int = -1  # Store the focused player's peer_id
 
 # Function to start monitoring a scene based on instance_key and focus on a player
 func show_scene_instance_window(instance_key: String, peer_id: int):
-	var instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
-	var player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
+	var instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	var player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
 	var instance_data = instance_manager.instances.get(instance_key, null)  # Fetch instance data
 	print("instance_data: ", instance_data)
 

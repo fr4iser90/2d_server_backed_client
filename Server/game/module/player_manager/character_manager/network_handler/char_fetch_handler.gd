@@ -5,16 +5,16 @@ var enet_server_manager
 var user_session_manager
 var character_manager
 var backend_handler 
-var handler_name = "character_fetch_handler"
+var handler_name = "CharacterFetchService"
 var is_initialized = false
 
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	character_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "character_manager")
-	backend_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_character_fetch_handler")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	backend_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseCharacterFetchService")
 	
 	# Connect signal from backend handler to process character fetch response
 	backend_handler.connect("backend_characters_fetched", Callable(self, "_on_backend_characters_fetched"))

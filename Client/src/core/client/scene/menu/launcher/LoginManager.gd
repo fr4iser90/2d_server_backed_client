@@ -36,7 +36,7 @@ func _on_login_button_pressed():
 		return
 
 	# Request login if the backend login handler is available
-	handle_backend_login = GlobalManager.NodeManager.get_cached_node("network_handler", "user_login_handler")
+	handle_backend_login = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "UserLoginService")
 
 	if handle_backend_login:
 		handle_backend_login.login(username, password)

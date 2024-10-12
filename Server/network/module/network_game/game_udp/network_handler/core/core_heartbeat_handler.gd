@@ -1,7 +1,7 @@
 # res://src/core/network/packet_handlers/handle_heartbeat.gd (Server)
 extends Node
 
-var handler_name = "core_heartbeat_handler"
+var handler_name = "CoreHeartbeatService"
 
 
 func initialize():

@@ -36,30 +36,30 @@ func _ready():
 	
 # Function to initialize all necessary managers
 func _initialize_managers():
-	network_module = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_module")
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "user_session_manager")
+	network_module = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "UserSessionManager")
 	
-	player_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_manager")
-	character_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_manager")
-	spawn_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "spawn_manager")
-	movement_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "movement_manager")
-	player_state_machine_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_state_machine_manager")
+	player_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerManager")
+	character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	spawn_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "SpawnManager")
+	movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
+	player_state_machine_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerStateMachineManager")
 		
-	instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-	core_heartbeat_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "core_heartbeat_handler")
-	connection_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "connection_handler")
-	disconnection_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "disconnection_handler")
-	data_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "data_handler")
-	chat_messages_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "chat_messages_handler")
-	player_status_update_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "player_status_update_handler")
-	event_triggered_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "event_triggered_handler")
-	special_action_handler = GlobalManager.NodeManager.get_cached_node("basic_handler", "special_action_handler")
-	auth_login_handler = GlobalManager.NodeManager.get_cached_node("backend_handler", "auth_login_handler")
-	char_fetch_handler = GlobalManager.NodeManager.get_cached_node("backend_handler", "char_fetch_handler")
-	char_select_handler = GlobalManager.NodeManager.get_cached_node("backend_handler", "char_select_handler")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	core_heartbeat_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "CoreHeartbeatService")
+	connection_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "CoreConnectionService")
+	disconnection_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "CoreDisconnectionService")
+	data_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "DataService")
+	chat_messages_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "ChatMessageService")
+	player_status_update_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "PlayerStatusUpdateService")
+	event_triggered_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "EventTriggeredService")
+	special_action_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "SpecialActionService")
+	auth_login_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "UserLoginService")
+	char_fetch_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "CharacterFetchService")
+	char_select_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "CharacterSelectService")
 
 # Initialize player and scene with provided character data and instance key
 func initialize_player_and_scene(character_data: Dictionary, instance_key: String, peer_id: int):
@@ -68,9 +68,7 @@ func initialize_player_and_scene(character_data: Dictionary, instance_key: Strin
 	character_data["peer_id"] = peer_id
 	# Load the scene and defer player spawning
 	load_scene_from_server(character_data.current_area, character_data, instance_key)
-	# Notify the instance manager to handle players and the scene for the instance
-#	var instance_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "instance_manager")
-#	instance_manager.handle_join_instance(instance_key, character_data)
+
 	
 func load_scene_from_server(current_area: String, character_data: Dictionary, instance_key: String):
 	print("Loading scene from server: ", current_area)
@@ -111,6 +109,6 @@ func _deferred_spawn_player(character_data: Dictionary, instance_key: String):
 		return
 
 	print("Scene is ready. Spawning player.", character_data)
-	spawn_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "spawn_manager")
+	spawn_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "SpawnManager")
 	spawn_manager.spawn_local_player(character_data)
 

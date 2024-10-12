@@ -25,7 +25,7 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
 
 # Add all characters for a peer

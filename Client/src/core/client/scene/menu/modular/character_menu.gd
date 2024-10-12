@@ -43,10 +43,10 @@ func fetch_characters():
 		print("Character fetch handler is not available")
 
 func _set_network_manager_reference():
-	network_manager = GlobalManager.GlobalSceneManager.load_scene("network_manager")
+	network_manager = GlobalManager.SceneManager.load_scene("network_manager")
 	if network_manager:
-		handle_backend_characters = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "backend_character_handler")
-		handle_backend_character_select = GlobalManager.GlobalNodeManager.get_cached_node("backend_handler", "backend_character_select_handler")
+		handle_backend_characters = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "CharacterFetchService")
+		handle_backend_character_select = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "CharacterSelectService")
 		if handle_backend_characters:
 			handle_backend_characters.connect("characters_fetched", Callable(self, "_on_characters_fetched"))
 			handle_backend_characters.connect("characters_fetch_failed", Callable(self, "_on_characters_fetch_failed"))
@@ -136,8 +136,8 @@ func _on_character_selected_success(data):
 
 	# Extract essential data from the response
 	var character_data = data.character
-	var character_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "character_manager")
-	var character_information_manager = GlobalManager.GlobalNodeManager.get_cached_node("player_manager", "character_information_manager")
+	var character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	var character_information_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "character_information_manager")
 	
 	GlobalManager.GlobalConfig.set_selected_character_id(character_data._id)
 
@@ -154,13 +154,13 @@ func _on_character_selected_success(data):
 
 	# Switch to the client_main scene
 	_free_current_scene()
-	GlobalManager.GlobalSceneManager.switch_scene("ClientMain")
+	GlobalManager.SceneManager.switch_scene("ClientMain")
 
 func _on_character_selection_failed(reason: String):
 	print("Character selection failed: ", reason)
 
 func _on_back_button_pressed():
-	GlobalManager.GlobalSceneManager.switch_scene("login_menu")
+	GlobalManager.SceneManager.switch_scene("login_menu")
 
 	_free_current_scene()
 	GlobalManager.SceneManager.put_scene_at_node("login_menu", "Menu")

@@ -8,7 +8,7 @@ extends Control
 @onready var status_label = $ConnectionMenuContainer/StatusLabel
 
 # Globale Referenzen
-var network_module = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_module")
+var network_module = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
 
 var menu_tree
 
@@ -22,7 +22,7 @@ func _ready():
 
 	# Verwende den GlobalSceneManager, um den NetworkManager zu laden
 	
-	#network_module = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_module")
+	#network_module = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
 	var network_module = get_node("/root/Core/Network")
 	if network_module:
 		print("Network module found: ", network_module)

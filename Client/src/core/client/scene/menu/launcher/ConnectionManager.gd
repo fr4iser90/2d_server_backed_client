@@ -6,15 +6,16 @@ extends Control
 @onready var disconnect_button = $DisconnectButton
 @onready var auto_connect_check_box = $AutoConnectCheckBox
 
-var network_module
+var client_server_manager
 var data_manager
 var user_session_manager
 
 func _ready():
 	# Load and set auto-connect settings
-	
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	client_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
 	data_manager = get_node("/root/Menu/Launcher/DataManager")
-	user_session_manager = get_node("/root/User/Manager/UserSessionManager")
 	# Hide the disconnect button initially
 	_load_settings()
 	disconnect_button.hide()
@@ -46,20 +47,19 @@ func _on_connect_button_pressed():
 	var ip_port = address.split(":")
 	var ip = ip_port[0]
 	var port = int(ip_port[1])
-
-	network_module = get_node("/root/Core/Network")
+	GlobalManager.NodeManager.scan_runtime_node_map()
 	data_manager.save_last_server_address(ip, port)
 	user_session_manager.set_server_ip(ip)
 	user_session_manager.set_server_port(port)
-	if network_module:
-		network_module.connect_to_server()
+	if client_server_manager:
+		client_server_manager.connect_to_server()
 		connect_button.hide()
 		disconnect_button.show()
 
 # When the disconnect button is pressed
 func _on_disconnect_button_pressed():
 	print("Disconnecting from server...")
-	if network_module:
-		network_module.disconnect_from_server()
+	if client_server_manager:
+		client_server_manager.disconnect_from_server()
 		connect_button.show()
 		disconnect_button.hide()

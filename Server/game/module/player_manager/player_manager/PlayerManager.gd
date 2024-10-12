@@ -13,8 +13,8 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	spawn_point_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "spawn_point_manager")
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
+	spawn_point_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "SpawnPointManager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
 	is_initialized = true
 
 # Add player entity to the manager

@@ -22,9 +22,9 @@ func initialize():
 var is_initialized = false
 
 func reference_network_managers():
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	
 func create_client_peer():
 	reference_network_managers()

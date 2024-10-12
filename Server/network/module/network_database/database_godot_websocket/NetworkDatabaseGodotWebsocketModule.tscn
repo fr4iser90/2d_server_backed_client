@@ -23,54 +23,28 @@ script = ExtResource("1_6je7j")
 [node name="NetworkEndpointManager" type="Node" parent="Manager"]
 script = ExtResource("2_xg8ge")
 
-[node name="NetworkHandler" type="Node" parent="."]
-
-[node name="DatabaseServer" type="Node" parent="NetworkHandler"]
-
-[node name="DatabaseServerAuthHandler" type="Node" parent="NetworkHandler/DatabaseServer"]
-script = ExtResource("3_0snkw")
-
-[node name="DatabaseUser" type="Node" parent="NetworkHandler"]
-
-[node name="DatabaseUserLoginHandler" type="Node" parent="NetworkHandler/DatabaseUser"]
-script = ExtResource("4_ket4y")
-
-[node name="DatabaseUserTokenHandler" type="Node" parent="NetworkHandler/DatabaseUser"]
-script = ExtResource("5_7jxo2")
-
-[node name="DatabaseCharacter" type="Node" parent="NetworkHandler"]
-
-[node name="DatabaseCharacterFetchHandler" type="Node" parent="NetworkHandler/DatabaseCharacter"]
-script = ExtResource("6_8jwu0")
-
-[node name="DatabaseCharacterSelectHandler" type="Node" parent="NetworkHandler/DatabaseCharacter"]
-script = ExtResource("7_riixv")
-
-[node name="DatabaseCharacterUpdateHandler" type="Node" parent="NetworkHandler/DatabaseCharacter"]
-script = ExtResource("8_juiio")
-
-[node name="Handler" type="Node" parent="."]
-
-[node name="Config" type="Node" parent="."]
-
-[node name="Map" type="Node" parent="."]
-
 [node name="Service" type="Node" parent="."]
 
 [node name="DatabaseServer" type="Node" parent="Service"]
 
 [node name="DatabaseServerAuthService" type="Node" parent="Service/DatabaseServer"]
+script = ExtResource("3_0snkw")
 
 [node name="DatabaseUser" type="Node" parent="Service"]
 
 [node name="DatabaseUserLoginService" type="Node" parent="Service/DatabaseUser"]
+script = ExtResource("4_ket4y")
 
 [node name="DatabaseUserTokenService" type="Node" parent="Service/DatabaseUser"]
+script = ExtResource("5_7jxo2")
 
 [node name="DatabaseCharacter" type="Node" parent="Service"]
 
 [node name="DatabaseCharacterFetchService" type="Node" parent="Service/DatabaseCharacter"]
+script = ExtResource("6_8jwu0")
 
 [node name="DatabaseCharacterSelectService" type="Node" parent="Service/DatabaseCharacter"]
+script = ExtResource("7_riixv")
 
 [node name="DatabaseCharacterUpdateService" type="Node" parent="Service/DatabaseCharacter"]
+script = ExtResource("8_juiio")

@@ -17,9 +17,9 @@ func _ready():
 # Connect signals for character selection and logout
 func _connect_signals():
 	logout_button.connect("pressed", Callable(self, "_on_logout_pressed"))
-	char_fetch_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "char_fetch_handler")
-	char_select_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "char_select_handler")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	char_fetch_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "CharFetchService")
+	char_select_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "CharSelectService")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 
 	# Connect signals for character fetching and selection
 	if char_fetch_handler:
@@ -113,9 +113,9 @@ func _on_character_selected_success(characters: Dictionary, instance_key: String
 	var character_data = characters
 	var character_class = character_data.get("character_class")
 	var character_scene_path = GlobalManager.SceneManager.scene_config.get_scene_path(character_class)
-	var player_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_manager")
-	var character_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "character_manager")
-	var enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
+	var player_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerManager")
+	var character_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "CharacterManager")
+	var enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
 	var peer_id = enet_client_manager.get_peer_id()  # Assuming this method returns the peer ID
 
 	# Call character manager to handle the selection logic

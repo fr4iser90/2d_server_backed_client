@@ -4,15 +4,15 @@ extends Node
 var enet_server_manager 
 var backend_handler 
 var user_session_manager
-var handler_name = "user_login_handler"
+var handler_name = "UserLoginService"
 var is_initialized = false
 
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	backend_handler = GlobalManager.NodeManager.get_cached_node("network_database_handler", "database_user_login_handler")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	backend_handler = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModuleService", "DatabaseUserLoginService")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	# Connect signal from backend handler to process login response
 	backend_handler.connect("backend_login_processed", Callable(self, "_on_backend_login_processed"))
 	is_initialized = true

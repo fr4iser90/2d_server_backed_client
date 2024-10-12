@@ -27,8 +27,8 @@ var is_initialized = false
 func initialize():
 	if is_initialized:
 		return
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
 	print("Initializing NavigationMeshManager with preloading distance: ", preload_distance)
 	navigation_mesh_pathfinding_handler.initialize(self)
 	navigation_mesh_obstacle_handler.initialize(self)

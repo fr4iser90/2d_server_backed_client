@@ -8,7 +8,7 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
 
 
 
@@ -16,7 +16,6 @@ func initialize():
 func start_server(port: int, enet_multiplayer_peer: ENetMultiplayerPeer) -> void:
 	if not is_initialized:
 		initialize()
-	print("CREATING")
 	var err = enet_multiplayer_peer.create_server(port, 32)
 	if err == OK:
 		var server_peer_id = enet_multiplayer_peer.get_unique_id()

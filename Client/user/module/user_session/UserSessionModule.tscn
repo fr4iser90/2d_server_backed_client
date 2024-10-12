@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://nqeeedvwm530"]
+
+[ext_resource type="Script" path="res://user/module/user_session/user_session_manager/UserSessionManager.gd" id="1_p3ren"]
+
+[node name="UserSessionModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="UserSessionManager" type="Node" parent="Manager"]
+script = ExtResource("1_p3ren")
+
+[node name="Handler" type="Node" parent="Manager/UserSessionManager"]
+
+[node name="SessionLockHandler" type="Node" parent="Manager/UserSessionManager/Handler"]
+
+[node name="TimeoutHandler" type="Node" parent="Manager/UserSessionManager/Handler"]
+
+[node name="SessionLockTypeHandler" type="Node" parent="Manager/UserSessionManager/Handler"]

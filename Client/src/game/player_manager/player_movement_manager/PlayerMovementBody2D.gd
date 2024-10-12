@@ -9,7 +9,7 @@ var local_player = true  # Assuming this is always true for local players
 
 func _ready():
 	# Get the movement manager
-	movement_player_handler = GlobalManager.NodeManager.get_cached_node("network_handler", "movement_player_handler")
+	movement_player_handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", "MovementPlayerService")
 	last_position = global_position
 
 	# Connect to position updates for other players

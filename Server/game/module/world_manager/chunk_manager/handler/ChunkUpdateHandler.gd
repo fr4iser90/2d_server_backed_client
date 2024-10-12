@@ -10,7 +10,7 @@ var instance_manager
 # Initialize with ChunkManager reference
 func initialize(manager: Node):
 	chunk_manager = manager
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 
 # Update chunk loading based on player movement
 func update_chunks_for_player(peer_id: int, position: Vector2):

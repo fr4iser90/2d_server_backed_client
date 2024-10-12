@@ -27,6 +27,7 @@ extends Control
 
 
 
+
 enum BackendStatus {
 	DISCONNECTED,
 	CONNECTING,
@@ -57,11 +58,11 @@ func _populate_preset_list():
 	server_preset_list.select(0)  # Default selection
 
 func _get_manager():
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_server_database_manager")
-	network_server_client_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_server_client_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	network_server_backend_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkServerDatabaseManager")
+	network_server_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkServerClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
 	network_server_backend_manager.connect("network_server_backend_connection_established", Callable(self, "_on_backend_connecting"))
 	network_server_backend_manager.connect("network_server_backend_authentication_success", Callable(self, "_on_authentication_complete"))
 
@@ -168,8 +169,7 @@ func _on_backend_authenticated(success: bool):
 func _on_server_client_network_started():
 	GlobalManager.DebugPrint.debug_system("Client network started. Server is fully operational.", self)
 	GlobalManager.NodeManager.scan_runtime_node_map()
-	#GlobalManager.SceneManager.scan_runtime_node_map()
-	GlobalManager.SceneManager.print_tree_structure()
+	#GlobalManager.SceneManager.print_tree_structure()
 	if user_session_manager:
 		user_session_manager.connect("user_data_changed", Callable(player_list_manager, "update_player_list"))
 

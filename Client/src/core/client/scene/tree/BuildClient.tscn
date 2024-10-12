@@ -2,7 +2,5 @@
 
 [ext_resource type="Script" path="res://src/core/client/BuildClient.gd" id="1_ogu30"]
 
-[node name="BuildClient" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="BuildClient" type="Node"]
 script = ExtResource("1_ogu30")

@@ -12,8 +12,8 @@ var stored_peer_id  # Variable to store the ENet peer_id
 func initialize():
 	if is_initialized:
 		return
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
-	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("network_database_module", "network_middleware_manager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
+	websocket_multiplayer_manager = GlobalManager.NodeManager.get_cached_node("NetworkDatabaseModule", "NetworkMiddlewareManager")
 	is_initialized = true
 	
 # This function sends the login data to the server over WebSocket

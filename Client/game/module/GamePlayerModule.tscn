@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bs6ci74rjyn47"]
+
+[ext_resource type="Script" path="res://src/game/player_manager/player_manager/PlayerManager.gd" id="1_6l2jj"]
+[ext_resource type="Script" path="res://src/game/player_manager/character_manager/CharacterManager.gd" id="2_5qjvf"]
+[ext_resource type="Script" path="res://src/game/player_manager/spawn_manager/SpawnManager.gd" id="3_41n2k"]
+[ext_resource type="Script" path="res://src/game/player_manager/player_state_machine_manger/PlayerStateMachineManager.gd" id="4_nosam"]
+
+[node name="GamePlayerModule" type="Node"]
+
+[node name="Manager" type="Node" parent="."]
+
+[node name="PlayerManager" type="Node" parent="Manager"]
+script = ExtResource("1_6l2jj")
+
+[node name="Handler" type="Node" parent="Manager/PlayerManager"]
+
+[node name="CharacterManager" type="Node" parent="Manager"]
+script = ExtResource("2_5qjvf")
+
+[node name="Handler" type="Node" parent="Manager/CharacterManager"]
+
+[node name="PlayerMovementManager" type="Node" parent="Manager"]
+
+[node name="Handler" type="Node" parent="Manager/PlayerMovementManager"]
+
+[node name="SpawnManager" type="Node" parent="Manager"]
+script = ExtResource("3_41n2k")
+
+[node name="PlayerStateMachineManager" type="Node" parent="Manager"]
+script = ExtResource("4_nosam")
+
+[node name="Handler" type="Node" parent="Manager/PlayerStateMachineManager"]

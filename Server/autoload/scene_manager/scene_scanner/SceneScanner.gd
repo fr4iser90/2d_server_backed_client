@@ -124,7 +124,12 @@ func get_scene_paths(directory: String, base_category: String = "") -> Dictionar
 			elif file_name.ends_with(".tscn"):
 				var scene_name = file_name.replace(".tscn", "")
 				var category_name = base_category if base_category != "" else "misc_scenes"
-				scenes[category_name + "/" + scene_name] = directory + "/" + file_name
+				
+				# Hier die Ersetzung erzwingen, um sicherzustellen, dass keine doppelten Schrägstriche vorhanden sind
+				var scene_path = directory + "/" + file_name
+				scene_path = scene_path.replace("res:///", "res://")  # Ersetze fehlerhafte Pfade
+
+				scenes[category_name + "/" + scene_name] = scene_path
 			file_name = dir.get_next()
 
 		dir.list_dir_end()

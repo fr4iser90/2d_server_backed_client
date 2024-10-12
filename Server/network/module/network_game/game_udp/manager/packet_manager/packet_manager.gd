@@ -17,12 +17,12 @@ func initialize():
 		GlobalManager.DebugPrint.debug_info("PacketManager already initialized. Skipping.", self)
 		return
 	
-	packet_creation_handler = GlobalManager.NodeManager.get_cached_node("packet_manager_handler", "packet_creation_handler")
-	packet_processing_handler = GlobalManager.NodeManager.get_cached_node("packet_manager_handler", "packet_processing_handler")
-	packet_dispatch_handler = GlobalManager.NodeManager.get_cached_node("packet_manager_handler", "packet_dispatch_handler")
-	packet_cache_handler = GlobalManager.NodeManager.get_cached_node("packet_manager_handler", "packet_cache_handler")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
-	channel_map = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_map")
+	packet_creation_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketCreationHandler")
+	packet_processing_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketProcessingHandler")
+	packet_dispatch_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketDispatchHandler")
+	packet_cache_handler = GlobalManager.NodeManager.get_cached_node("NetworkPacketManager", "PacketCacheHandler")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	channel_map = GlobalManager.NodeManager.get_cached_node("NetworkChannelManager", "ChannelMap")
 	is_initialized = true
 
 # Create a packet for the specified handler

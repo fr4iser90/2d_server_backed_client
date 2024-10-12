@@ -9,7 +9,7 @@ var enet_client_manager = null
 var channel_manager = null
 var packet_manager = null
 var player_movement_manager
-var handler_name = "char_select_handler"
+var handler_name = "CharacterSelectService"
 var is_initialized = false
 
 
@@ -17,10 +17,10 @@ func initialize():
 	if is_initialized:
 		return
 
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("player_manager", "player_movement_manager")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
 	is_initialized = true
 
 # Handle packet received from the server with character and instance data

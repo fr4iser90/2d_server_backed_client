@@ -7,7 +7,7 @@ var is_initialized = false
 # Initialize the handler
 func initialize():
 	if not is_initialized:
-		entity_node_manager = GlobalManager.NodeManager.get_cached_node("world_manager", "entity_node_manager")
+		entity_node_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceEntityNodeManager")
 		is_initialized = true
 		print("MobMovementHandler initialized.")
 

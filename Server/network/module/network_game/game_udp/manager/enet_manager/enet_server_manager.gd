@@ -29,8 +29,8 @@ func initialize():
 		GlobalManager.DebugPrint.debug_info("ENetServerManager already initialized. Skipping.", self)
 		return
 	GlobalManager.DebugPrint.debug_info("Initializing ENetServerManager...", self)
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_channel_manager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
 	is_initialized = true
 	GlobalManager.DebugPrint.debug_info("ENetServerManager initialized.", self)
 	emit_signal("enet_server_ready")
@@ -76,8 +76,9 @@ func _process(delta):
 
 # Modified send_packet function without the need to pass the handler name explicitly
 func send_packet(peer_id: int, handler_name: String, data: Dictionary) -> int:
+	if not is_initialized:
+		initialize()
 	if is_instance_valid(enet_server_manager):
-		packet_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_packet_manager")
 		var packet = packet_manager.create_packet_for_handler(handler_name, data)
 
 		if packet.size() == 0:

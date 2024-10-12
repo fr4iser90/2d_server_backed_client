@@ -20,7 +20,7 @@ func cache_channel_map(channel_map: Dictionary):
 	clear_cache()
 	for channel in channel_map.keys():
 		var handler_name = channel_map[channel]
-		var handler = GlobalManager.NodeManager.get_cached_node("network_game_handler", handler_name)
+		var handler = GlobalManager.NodeManager.get_cached_node("NetworkGameModuleService", handler_name)
 		if handler:
 			cache_handler(channel, handler)
 			print("Handler cached for channel: ", channel, " Handler: ", handler)

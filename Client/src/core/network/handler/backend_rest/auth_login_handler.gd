@@ -8,7 +8,7 @@ signal login_failed(reason: String)
 var is_logged_in = false
 var logged_in_user = ""
 var user_session_token =""
-var handler_name = "user_login_handler"
+var handler_name = "UserLoginService"
 var network_module = null
 var enet_client_manager = null
 var channel_manager = null
@@ -21,11 +21,11 @@ func initialize():
 	if is_initialized:
 		print("handle_backend_login already initialized. Skipping.")
 		return
-	network_module = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "network_module")
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
-	channel_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "channel_manager")
-	packet_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "packet_manager")
-	user_session_manager = GlobalManager.NodeManager.get_cached_node("user_manager", "user_session_manager")
+	network_module = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkClientServerManager")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
+	channel_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkChannelManager")
+	packet_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkPacketManager")
+	user_session_manager = GlobalManager.NodeManager.get_cached_node("UserSessionModule", "UserSessionManager")
 	is_initialized = true
 
 # Diese Funktion wird aufgerufen, wenn ein Paket über Kanal 20 empfangen wird

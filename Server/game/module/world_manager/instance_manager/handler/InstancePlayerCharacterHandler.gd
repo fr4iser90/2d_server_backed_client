@@ -11,8 +11,8 @@ func initialize():
 	if is_initialized:
 		return
 	is_initialized = true
-	player_movement_manager = GlobalManager.NodeManager.get_cached_node("game_player_module", "player_movement_manager")
-	spawn_point_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "spawn_point_manager")
+	player_movement_manager = GlobalManager.NodeManager.get_cached_node("GamePlayerModule", "PlayerMovementManager")
+	spawn_point_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "SpawnPointManager")
 
 # Handles player selection and assigns them to an instance
 func handle_player_character_selected(peer_id: int, character_data: Dictionary) -> String:

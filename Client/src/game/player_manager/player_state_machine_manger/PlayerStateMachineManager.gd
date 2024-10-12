@@ -11,7 +11,7 @@ func initialize():
 		return
 	is_initialized = true
 	print("_ready called, process enabled")
-	enet_client_manager = GlobalManager.NodeManager.get_cached_node("network_meta_manager", "enet_client_manager")
+	enet_client_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetClientManager")
 	player_peer_id = enet_client_manager.get_peer_id()
 	set_process(true)  # Ensure that _process runs every frame
 

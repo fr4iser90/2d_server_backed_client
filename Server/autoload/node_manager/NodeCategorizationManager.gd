@@ -1,10 +1,13 @@
 extends Node
 
+var enabled = false
 var categorized_map = {}
-var output_file_runtime_node_map = "res://autoload/map/FlattenedRuntimeNodeMap.gd"
+var output_file_runtime_node_map = "res://autoload/map/GlobalNodeMap.gd"
 
 # Scans the runtime node tree and creates a structured list of modules, managers, handlers, and services
 func scan_runtime_node_map():
+	if not enabled:
+		return
 	var root_node = get_tree().root
 	if root_node:
 		_build_categorized_map(root_node, categorized_map)
@@ -35,19 +38,14 @@ func _process_module_nodes(module_node: Node, categorized_map: Dictionary, modul
 			handler_nodes.append(child)
 
 	if not manager_nodes.is_empty():
-		categorized_map[module_name + "Manager"] = {}
+		categorized_map[module_name] = {}
 		for manager in manager_nodes:
-			_add_children_to_category(manager, categorized_map[module_name + "Manager"])
+			_add_children_to_category(manager, categorized_map[module_name])
 			_process_manager(manager, categorized_map)
 	if not service_nodes.is_empty():
 		categorized_map[module_name + "Service"] = {}
 		for service_group in service_nodes:
 			_add_grandchildren_to_category(service_group, categorized_map[module_name + "Service"])
-
-	if not handler_nodes.is_empty():
-		categorized_map[module_name + "Handler"] = {}
-		for handler in handler_nodes:
-			_add_children_to_category(handler, categorized_map[module_name + "Handler"])
 
 func _process_manager(manager_node: Node, categorized_map: Dictionary):
 	var handler_nodes = {}
@@ -65,9 +63,9 @@ func _process_manager(manager_node: Node, categorized_map: Dictionary):
 	for manager_name in handler_nodes:
 		var handlers = handler_nodes[manager_name]
 		if not handlers.is_empty():
-			categorized_map[manager_name + "Handler"] = {}
+			categorized_map[manager_name] = {}
 			for handler in handlers:
-				_add_children_to_category(handler, categorized_map[manager_name + "Handler"])
+				_add_children_to_category(handler, categorized_map[manager_name])
 
 
 # Adds children to the corresponding category
@@ -118,7 +116,47 @@ func save_categorized_map_to_file(categorized_map: Dictionary, file_path: String
 				file.store_line('        "cache": ' + str(entry["cache"]))
 				file.store_line('    },')
 			file.store_line("}\n")
+		append_get_data_function(file)
 		file.close()
 		print("Categorized node structure successfully saved to file:", file_path)
 	else:
 		print("Error opening file for writing:", file_path)
+
+func append_get_data_function(file: FileAccess):
+	# Define the get_data() utility function content
+	var function_content = """
+func get_all_data() -> Dictionary:
+	var all_data = {}
+	for node in get_tree().get_nodes_in_group("data_nodes"):
+		all_data[node.name] = node.get_data()
+	return all_data
+
+func get_data() -> Dictionary:
+	var all_data = {}
+	var properties = get_property_list()
+		
+	for property in properties:
+		var property_name = property.name
+		var property_value = get(property_name)
+			
+		if typeof(property_value) == TYPE_DICTIONARY:
+			all_data[property_name] = flatten_nested_map(property_value)
+		
+	return all_data
+
+func flatten_nested_map(nested_map: Dictionary) -> Dictionary:
+	var flat_map = {}
+		
+	for key in nested_map.keys():
+		var value = nested_map[key]
+		
+		if typeof(value) == TYPE_DICTIONARY and value.has('children'):
+			flat_map[key] = value
+			flat_map[key]['children'] = flatten_nested_map(value['children'])
+		else:
+			flat_map[key] = value
+	
+	return flat_map
+"""
+	# Append the function content to the file
+	file.store_line(function_content)

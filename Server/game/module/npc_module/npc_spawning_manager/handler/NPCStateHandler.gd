@@ -7,7 +7,7 @@ var instance_manager
 @onready var npc_spawning_handler = $"../NPCSpawningHandler"
 
 func initialize():
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")
 	print("NPCStateManager initialized.")
 
 # Update NPC states based on their current state and AI logic

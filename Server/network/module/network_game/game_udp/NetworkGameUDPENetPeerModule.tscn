@@ -67,12 +67,10 @@ script = ExtResource("8_hpljq")
 [node name="NetworkChannelManager" type="Node" parent="Manager"]
 script = ExtResource("3_n2k4d")
 
-[node name="Map" type="Node" parent="Manager/NetworkChannelManager"]
-
-[node name="ChannelMap" type="Node" parent="Manager/NetworkChannelManager/Map"]
-script = ExtResource("4_7df81")
-
 [node name="Handler" type="Node" parent="Manager/NetworkChannelManager"]
+
+[node name="ChannelMap" type="Node" parent="Manager/NetworkChannelManager/Handler"]
+script = ExtResource("4_7df81")
 
 [node name="NetworkPacketManager" type="Node" parent="Manager"]
 script = ExtResource("5_23jpr")
@@ -99,82 +97,76 @@ script = ExtResource("10_13fup")
 [node name="PacketValidationHandler" type="Node" parent="Manager/NetworkPacketManager/Handler"]
 script = ExtResource("11_icdrw")
 
-[node name="NetworkHandler" type="Node" parent="."]
+[node name="Service" type="Node" parent="."]
 
-[node name="GameCore" type="Node" parent="NetworkHandler"]
+[node name="GameCore" type="Node" parent="Service"]
 
-[node name="CoreHeartbeatHandler" type="Node" parent="NetworkHandler/GameCore"]
+[node name="CoreHeartbeatService" type="Node" parent="Service/GameCore"]
 script = ExtResource("12_ino61")
 
-[node name="CoreConnectionHandler" type="Node" parent="NetworkHandler/GameCore"]
+[node name="CoreConnectionService" type="Node" parent="Service/GameCore"]
 script = ExtResource("13_47jjv")
 
-[node name="CoreDisconnectionHandler" type="Node" parent="NetworkHandler/GameCore"]
+[node name="CoreDisconnectionService" type="Node" parent="Service/GameCore"]
 script = ExtResource("14_wvvyj")
 
-[node name="CorePingHandler" type="Node" parent="NetworkHandler/GameCore"]
+[node name="CorePingService" type="Node" parent="Service/GameCore"]
 
-[node name="CoreServerStatusHandler" type="Node" parent="NetworkHandler/GameCore"]
+[node name="CoreServerStatusService" type="Node" parent="Service/GameCore"]
 
-[node name="CoreErrorHandler" type="Node" parent="NetworkHandler/GameCore"]
+[node name="CoreErrorService" type="Node" parent="Service/GameCore"]
 
-[node name="GameMovement" type="Node" parent="NetworkHandler"]
+[node name="GameMovement" type="Node" parent="Service"]
 
-[node name="MovementPlayerHandler" type="Node" parent="NetworkHandler/GameMovement"]
+[node name="MovementPlayerService" type="Node" parent="Service/GameMovement"]
 script = ExtResource("17_xnihq")
 
-[node name="MovementPlayerSyncHandler" type="Node" parent="NetworkHandler/GameMovement"]
+[node name="MovementPlayerSyncService" type="Node" parent="Service/GameMovement"]
 script = ExtResource("18_atgia")
 
-[node name="GameInstance" type="Node" parent="NetworkHandler"]
+[node name="GameInstance" type="Node" parent="Service"]
 
-[node name="SceneInstanceDataHandler" type="Node" parent="NetworkHandler/GameInstance"]
+[node name="SceneInstanceDataService" type="Node" parent="Service/GameInstance"]
 script = ExtResource("19_xc5h5")
 
-[node name="GameTrigger" type="Node" parent="NetworkHandler"]
+[node name="GameTrigger" type="Node" parent="Service"]
 
-[node name="TriggerEntryHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerEntryService" type="Node" parent="Service/GameTrigger"]
 
-[node name="TriggerExitHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerExitService" type="Node" parent="Service/GameTrigger"]
 
-[node name="TriggerInstanceChangeHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerInstanceChangeService" type="Node" parent="Service/GameTrigger"]
 script = ExtResource("20_5spt7")
 
-[node name="TriggerZoneChangeHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerZoneChangeService" type="Node" parent="Service/GameTrigger"]
 script = ExtResource("21_fren4")
 
-[node name="TriggerRoomChangeHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerRoomChangeService" type="Node" parent="Service/GameTrigger"]
 script = ExtResource("22_4yyqk")
 
-[node name="TriggerEventHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerEventService" type="Node" parent="Service/GameTrigger"]
 script = ExtResource("23_j3ufk")
 
-[node name="TriggerTrapHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerTrapService" type="Node" parent="Service/GameTrigger"]
 script = ExtResource("24_h33fm")
 
-[node name="TriggerObjectiveHandler" type="Node" parent="NetworkHandler/GameTrigger"]
+[node name="TriggerObjectiveService" type="Node" parent="Service/GameTrigger"]
 script = ExtResource("25_fj5cl")
 
-[node name="GameUser" type="Node" parent="NetworkHandler"]
+[node name="GameUser" type="Node" parent="Service"]
 
-[node name="UserLoginHandler" type="Node" parent="NetworkHandler/GameUser"]
+[node name="UserLoginService" type="Node" parent="Service/GameUser"]
 script = ExtResource("24_5047v")
 
-[node name="UserTokenHandler" type="Node" parent="NetworkHandler/GameUser"]
+[node name="UserTokenService" type="Node" parent="Service/GameUser"]
 script = ExtResource("25_mysvb")
 
-[node name="GameCharacter" type="Node" parent="NetworkHandler"]
+[node name="GameCharacter" type="Node" parent="Service"]
 
-[node name="CharacterFetchHandler" type="Node" parent="NetworkHandler/GameCharacter"]
+[node name="CharacterFetchService" type="Node" parent="Service/GameCharacter"]
 script = ExtResource("15_4b8tu")
 
-[node name="CharacterSelectHandler" type="Node" parent="NetworkHandler/GameCharacter"]
+[node name="CharacterSelectService" type="Node" parent="Service/GameCharacter"]
 script = ExtResource("16_5c2ti")
 
-[node name="CharacterUpdateHandler" type="Node" parent="NetworkHandler/GameCharacter"]
-
-[node name="Config" type="Node" parent="."]
-
-[node name="Map" type="Node" parent="."]
-
-[node name="Handler" type="Node" parent="."]
+[node name="CharacterUpdateService" type="Node" parent="Service/GameCharacter"]

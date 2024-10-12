@@ -57,7 +57,7 @@ func _on_backend_authenticated(success: bool):
 # Reference backend managers and handlers
 func _reference_nodes():
 	GlobalManager.DebugPrint.debug_info("Referencing backend managers and handlers...", self)
-	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_module", managers)
-	GlobalManager.NodeManager.reference_map_entry("NetworkDatabaseMap", "network_database_handler", handlers)
+	GlobalManager.NodeManager.reference_map_entry("GlobalNodeMap", "NetworkDatabaseModule", managers)
+	GlobalManager.NodeManager.reference_map_entry("GlobalNodeMap", "NetworkDatabaseModuleService", handlers)
 	print("NetworkDatabaseMap HANDLER:  ", handlers, "  MANAGER:  ", )
 	nodes_referenced = true

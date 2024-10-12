@@ -6,7 +6,7 @@ var user_session_module
 var game_player_module
 var game_world_module
 var game_level_module
-var server_initialized = false
+
 
 signal all_managers_initialized
 
@@ -16,11 +16,11 @@ func _ready():
 func _initialize():
 
 	# Initialisiere die Szenenbäume (Core, User, Game, Network)
-	core_tree = GlobalManager.SceneManager.load_scene("CoreTree")
+#	core_tree = GlobalManager.SceneManager.load_scene("CoreTree")
 	user_session_module = GlobalManager.SceneManager.put_scene_at_node("UserSessionModule", "User")
 	game_player_module = GlobalManager.SceneManager.put_scene_at_node("GamePlayerModule", "Game")
 	game_world_module = GlobalManager.SceneManager.put_scene_at_node("GameWorldModule", "Game")
 	game_level_module = GlobalManager.SceneManager.put_scene_at_node("GameLevelModule", "Game")
-	print("All SD ASDSA")
+
 
 	emit_signal("all_managers_initialized")

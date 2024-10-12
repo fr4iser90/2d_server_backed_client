@@ -3,15 +3,15 @@ extends Node
 
 var enet_server_manager
 var instance_manager
-var handler_name = "scene_instance_data_handler"
+var handler_name = "SceneInstanceDataService"
 var is_initialized = false
 
 # Initialisiere den Handler
 func initialize():
 	if is_initialized:
 		return
-	enet_server_manager = GlobalManager.NodeManager.get_cached_node("network_game_module", "network_enet_server_manager")
-	instance_manager = GlobalManager.NodeManager.get_cached_node("game_world_module", "instance_manager")  # Hole den Instance Manager
+	enet_server_manager = GlobalManager.NodeManager.get_cached_node("NetworkGameModule", "NetworkENetServerManager")
+	instance_manager = GlobalManager.NodeManager.get_cached_node("GameWorldModule", "InstanceManager")  # Hole den Instance Manager
 	instance_manager.connect("instance_created", Callable(self, "_on_instance_created"))
 	instance_manager.connect("instance_assigned", Callable(self, "_on_instance_assigned"))
 	is_initialized = true
@@ -75,6 +75,8 @@ func handle_packet(packet: Dictionary, peer_id: int):
 		
 # Sende die Szene- und Instanzdaten an einen Client
 func send_instance_data_to_client(peer_id: int):
+	if not is_initialized:
+		initialize()
 	var instance_key = instance_manager.get_instance_id_for_peer(peer_id)
 	
 	if instance_key != "":
